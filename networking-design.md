@@ -1,4 +1,19 @@
+---
+
+copyright:
+  years: 2025
+lastupdated: "2025-11-24"
+
+keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
+
+subcollection: virtualization-solutions
+
+---
+
+{{site.data.keyword.attribute-definition-list}}
+
 ## Network options for IBM ROKS
+{: #network-design-roks}
 
 IBM ROKS offers two styles of networking in IBM Cloud VPC.
 
@@ -19,6 +34,3 @@ IBM ROKS offers two styles of networking in IBM Cloud VPC.
 -   Future VPC options, including DRS will improve L2 network connectivity. Allowing Customers to have BGP as a service in their VPC.
 
 -   Stretch networking spanning two availability zones will be supported in a future release and will depend on DRS or a VPC hosted firewall / router that support cross zone high availability.
-
-
-
