@@ -1,0 +1,89 @@
+{
+  "version": 2,
+  "title": "<Solution name>",
+  "introduction": "This is a description of what the user will be able to find in the content for your solution.",
+  "product_page": "https://ibm.com/cloud/solution-page",
+  "deployment_url": "https://cloud.ibm.com/catalog/content/url/to/deploy",
+  "section_topics": {
+    "links": [
+      {
+        "title": "Topic title",
+        "href": "/docs/overview?topic=overview-get-started-checklist"
+      },
+      {
+        "title": "Topic title",
+        "href": "/docs/overview?topic=overview-get-started-checklist"
+      },
+      {
+        "title": "Topic title",
+        "href": "/docs/overview?topic=overview-get-started-checklist"
+      },
+      {
+        "title": "Topic title",
+        "href": "/docs/overview?topic=overview-get-started-checklist"
+      },
+      {
+        "title": "Topic title",
+        "href": "/docs/overview?topic=overview-get-started-checklist"
+      }
+    ]
+  },
+  "section_highlights": [
+    {
+      "title": "Resource title",
+      "description": "Short description of resource content.",
+      "href": "https://www.example.ibm.com/link/to/resource",
+      "type": "blog"
+    },
+    {
+      "title": "Db2 Optimization Techniques for SAP Database Migration to the Cloud",
+      "description": "This IBM Redbook provides in-depth recommendations for the source system database export.",
+      "href": "https://www.redbooks.ibm.com/abstracts/sg248531.html",
+      "type": "redbook",
+      "recommended": true
+    }
+  ],
+  "section_architectures": [
+    {
+      "title": "Acme Test on VPC",
+      "href": "/docs/acme-test?topic=acme-test-reference-architecture",
+      "deployable": true
+    },
+    {
+      "title": "Acme Test on Power Virtual Servers",
+      "href": "/docs/acme-test?topic=acme-test-reference-architecture",
+      "deployable": true
+    },
+    {
+      "title": "Acme Test on Power Virtual Servers",
+      "href": "/docs/acme-test?topic=acme-test-reference-architecture",
+      "deployable": true
+    },
+    {
+      "title": "Acme Test on Power Virtual Servers",
+      "href": "/docs/acme-test?topic=acme-test-reference-architecture",
+      "deployable": true
+    }
+  ],
+  "section_updates": {
+    "view_more": "/docs/overview?topic=overview-whatsnew",
+    "tiles": [
+      {
+        "date": "07 August 2025",
+        "title": "Experimental: Access resources from the Resources tab"
+      },
+      {
+        "date": "07 August 2025",
+        "title": "View counts for all resources in the resource summary widget"
+      },
+      {
+        "date": "17 June 2025",
+        "title": "Experimental: Using AI to answer your questions about IBM Cloud"
+      },
+      {
+        "date": "17 June 2025",
+        "title": "Changes to IBM Cloud projects API method to list all deployed resources"
+      }
+    ]
+  }
+}

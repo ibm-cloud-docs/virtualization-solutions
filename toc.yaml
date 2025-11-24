@@ -1,0 +1,47 @@
+toc:
+  properties:
+    subcollection: virtualization-solutions
+    href: /docs/virtualization-solutions
+    path: virtualization-solutions
+    audience: solution
+    category: solution_docs
+    content-type: solution
+    use-case: Virtualization
+    description: This documentation summarizes IBM Cloud Virtualization Solutions available.
+    label: Virtualization Solutions
+  entries:
+  - navgroup:
+      id: overview
+      topics:
+      - overview.md
+  - navgroup:
+      id: architecture
+      topics:
+      - topic: reference-architecture-vmware.md
+        navtitle: VMware Architecture
+      - topic: reference-architecture-ocpv.md
+        navtitle: OpenShift Virtualization Architecture
+      - topic: reference-architecture-vsi.md
+        navtitle: Virtual Servers Architecture
+  - navgroup:
+      id: plan
+      topics:
+      - topicgroup:
+          label: Design considerations
+          topics:
+          - topic: compute-design.md
+            navtitle: Compute
+          - topic: storage-design.md
+            navtitle: Storage
+          - topic: networking-design.md
+            navtitle: Networking
+          - topic: resiliency-design.md
+            navtitle: Resiliency
+          - topic: migration-design.md
+            navtitle: Migration
+          - topic: security-design.md
+            navtitle: Security
+  - navgroup:
+      id: help
+      topics:
+      - faqs.md
