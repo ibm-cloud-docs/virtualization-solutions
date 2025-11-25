@@ -26,30 +26,35 @@ The key network architecture elements are shown in the following diagram.
 
 ## IBM Cloud VPC
 {: #virt-sol-network-design-vpc-networking}
+
 [VPC VSI]{: tag-blue} [OpenShift Virtualization]{: tag-red}
 
 IBM Cloud VPC is a secure, isolated, and highly configurable networking environment that enables organizations to deploy and manage cloud resources with fine-grained control. It provides the foundation for modern workloads, including virtual servers, containers, and bare metal deployments, while ensuring network segmentation, security, and scalability.
 
 ### Default private networking with subnets
 {: #virt-sol-network-design-vpc-networking-subnets}
+
 [VPC VSI]{: tag-blue} [OpenShift Virtualization]{: tag-red}
 
 VPCs span a region and are divided into subnets spanning individual zones within that region. These subnets use a range of private IP addresses, with the option to bring your own public IP range. Subnets within a VPC are private by default and are able to talk to each other without setting up any routes. As a result, all resources within a VPC are able to communicate to one another. VSIs are attached to one or more subnets. See the architecture diagram in [About networking](https://cloud.ibm.com/docs/vpc?topic=vpc-about-networking-for-vpc) for a visual representation of the VPC networking concepts. For additional information and design considerations, see [Setting IP ranges](https://cloud.ibm.com/docs/vpc?group=ip-ranges).
 
 ### External connectivity
 {: #virt-sol-network-design-vpc-networking-external-connectivity}
+
 [VPC VSI]{: tag-blue} [OpenShift Virtualization]{: tag-red}
 
 External connectivity can be achieved with public gateways, floating IPs, and VPNs. Public gateways span an entire subnet and all VSIs attached to it and support initiating connections to the internet. Floating IPs span a single VSI and support initiating connections to and receiving connections from the internet. The IBM Cloud VPN for VPC service supports secure connectivity from a VPC to another private network. See [About site-to-site VPN gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn) for additional details on working with VPNs.
 
 ### Security
 {: #virt-sol-network-design-vpc-networking-security}
+
 [VPC VSI]{: tag-blue} [OpenShift Virtualization]{: tag-red}
 
 Networking security can be controlled with security groups and access control lists. Access control lists manage traffic at the subnet level, whereas security groups manage traffic at the VSI level. Access control lists therefore can gate external connectivity established via a public gateway on a subnet, while security groups can be used to gate external connectivity established via a floating IP on a VSI. See [Security in your VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-security-in-your-vpc) for additional details.
 
 ### Interconnectivity
 {: #virt-sol-network-design-vpc-networking-interconnectivity}
+
 [VPC VSI]{: tag-blue} [OpenShift Virtualization]{: tag-red}
 
 Interconnecting a VPC with an on-premises network can be done with IBM Cloud Direct Link or VPNaaS, while interconnecting VPCs to each other and various other resources can be done with IBM Cloud Transit Gateway. Connecting a VPC with IBM Cloud classic infrastructure can also be done with IBM Cloud Transit Gateway. [Getting started with IBM CLoud Transit Gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started)
@@ -61,10 +66,12 @@ IBM Cloud has two VPN services. VPN for VPC offers site-to-site gateways, which 
 
 ## Network Components for Red Hat OpenShift Virtualization
 {: #virt-sol-network-design-rove}
+
 [OpenShift Virtualization]{: tag-red}
 
 ## Open Virtual Networking (OVN)
 {: #virt-sol-network-design-ovn}
+
 [OpenShift Virtualization]{: tag-red}
 
 OpenShift Virtualization uses **Open Virtual Networking (OVN)** as the built-in SDN solution for the hosted workloads.
@@ -82,6 +89,9 @@ In OpenShift Container Platform with OVN, the following three networking topolog
 In IBM Cloud VPC, **OVN layer 2** and **OVN localnet** are the two key topologies with user-defined network (UDN) concept. **OVN layer 2** provides a similar overlay concept as NSX's overlay segments. It also uses Geneve encapsulation like in NSX. **Localnet** provides VLAN access to the underlying network. In IBM Cloud VPC, this means providing access to VPC subnets using a VNI VLAN attachment for each VM or POD using a **Localnet** topology. 
 
 ## OVN User Defined Networks
+{: #virt-sol-network-design-udn}
+
+[OpenShift Virtualization]{: tag-red}
 
 A **User Defined Network (UDN)** supports seamless integration between OpenShift's OVN-Kubernetes cluster network and existing external networks, and features targeted networking solutions that cross over that boundary. UDN improves the flexibility and segmentation capability of the default layer 3 Kubernetes pod network by enabling custom **layer 2**, **layer 3**, and **localnet** network segments that act as either primary or secondary networks for container pods and virtual machines. Using the default OpenShift OVN-Kubernetes networking, UDN provides a set of network semantics that network administrators and applications are already familiar with, but it also augments OpenShift’s existing Multus-enabled secondary CNI capability by providing a comparable experience and feature set to all network segments.
 

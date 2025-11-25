@@ -92,7 +92,7 @@ The following table outlines the products or services used in the architecture f
 | | IBM Cloud Key Protect | Provision and store encrypted keys used on ROKS Worker Nodes and Storage.|
 | **Compute** | Red Hat OpenShift Kubernetes Service, worker nodes | Worker nodes can be Bare metal or virtual servers. Bare metal is needed for OpenShift Virtualization. | 
 | | Bare Metal and Virtual Servers | Bare metal servers are need to host OpenShift Virtualization. \n Virtual servers can be use for Container based workloads.|
-| [**Networking and Interconnectivity**](/docs/virtualization-solutions?topic=virt-sol-network-design-overview) | Open Virtual Networking (OVN), OVN-Kubernetes| Software Defined Networking used by OpenShift|
+| [**Networking and Interconnectivity**](\/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-design-overview) | Open Virtual Networking (OVN), OVN-Kubernetes| Software Defined Networking used by OpenShift|
 | | Cluster (CUDN)/ User Defined Networks (UDN) | CUDNs creates a network across multiple namespaces, where as a UDN creates it within a namespace.|
 | | IBM Cloud Networking | VPC networking, Direct Link, Transit gateways and VPNs|
 | |Virtual Network Functions (VNFs)| Virtual Firewalls running on VPC Virtual Servers|
@@ -103,5 +103,3 @@ The following table outlines the products or services used in the architecture f
 {: #virt-sol-rove-next-steps}
 
 _Optional section._ Include links to your deployment guide or next steps to get started with the architecture.
-
-
