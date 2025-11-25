@@ -11,9 +11,24 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-## Network options for IBM ROKS
+# Network Design Components
+{: #network-design-overview}
 
-{: \#network-design-roks}
+Networking is the backbone of any cloud architecture and plays a critical role in enabling secure, reliable, and high-performance connectivity for workloads. In IBM Cloud, networking services provide the foundation for virtualization, container orchestration, and hybrid cloud integration, ensuring that applications and data can move seamlessly across environments.
+
+For workload migration, robust networking capabilities are essential to maintain application availability, security, and compliance during transition. IBM Cloud offers advanced networking features such as Virtual Private Cloud (VPC), subnets, security groups, load balancing, and Direct Link for private connectivity to on-premises environments. These services enable organizations to design architectures that support scalable deployments, multi-zone resilience, and secure interconnectivity across hybrid and multicloud landscapes.
+
+By leveraging IBM Cloud networking, businesses can confidently migrate workloads while maintaining performance and governance, paving the way for modernization and innovation.
+
+The key network architecture elements are shown in the following diagram.
+
+![Red Hat Virtualization on IBM Cloud Network](images/openshift-virtualization-high-level-network.svg "Red Hat Virtualization on IBM Cloud Network"){: caption="Red Hat Virtualization on IBM Cloud Network" caption-side="bottom"}
+
+
+
+
+## Network options for IBM ROKS
+{: #network-design-roks}
 
 IBM ROKS offers two styles of networking in IBM Cloud VPC.
 
@@ -36,31 +51,26 @@ IBM ROKS offers two styles of networking in IBM Cloud VPC.
 -   Stretch networking spanning two availability zones will be supported in a future release and will depend on DRS or a VPC hosted firewall / router that support cross zone high availability.
 
 ## IBM Cloud VPC
-
-{: \#vpc-networking}
+{: #vpc-networking}
 
 With IBM Cloud VPC, a private networking space can be created on IBM’s public cloud.
 
 ### Default private networking with subnets
-
-{: \#vpc-networking-subnets}
+{: #vpc-networking-subnets}
 
 VPCs span a region and are divided into subnets spanning individual zones within that region. These subnets use a range of private IP addresses, with the option to bring your own public IP range. Subnets within a VPC are private by default and are able to talk to each other without setting up any routes. As a result, all resources within a VPC are able to communicate to one another. VSIs are attached to one or more subnets. See the architecture diagram in [About networking](https://cloud.ibm.com/docs/vpc?topic=vpc-about-networking-for-vpc) for a visual representation of the VPC networking concepts. For additional information and design considerations, see [Setting IP ranges](https://cloud.ibm.com/docs/vpc?group=ip-ranges).
 
 ### External connectivity
-
-{: \#vpc-networking-external-connectivity}
+{: #vpc-networking-external-connectivity}
 
 External connectivity can be achieved with public gateways, floating IPs, and VPNs. Public gateways span an entire subnet and all VSIs attached to it and support initiating connections to the internet. Floating IPs span a single VSI and support initiating connections to and receiving connections from the internet. The IBM Cloud VPN for VPC service supports secure connectivity from a VPC to another private network. See [About site-to-site VPN gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn) for additional details on working with VPNs.
 
 ### Security
-
-{: \#vpc-networking-security}
+{: #vpc-networking-security}
 
 Networking security can be controlled with security groups and access control lists. Access control lists manage traffic at the subnet level, whereas security groups manage traffic at the VSI level. Access control lists therefore can gate external connectivity established via a public gateway on a subnet, while security groups can be used to gate external connectivity established via a floating IP on a VSI. See [Security in your VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-security-in-your-vpc) for additional details.
 
 ### Interconnectivity
-
-{: \#vpc-networking-interconnectivity}
+{: #vpc-networking-interconnectivity}
 
 Interconnecting a VPC with an on-premises network can be done with IBM Cloud Direct Link, while interconnecting VPCs to each other and various other resources can be done with IBM Cloud Transit Gateway. Connecting a VPC with IBM Cloud classic infrastructure can also be done with IBM Cloud Transit Gateway. To determine the appropriate IBM Cloud Direct Link offering for your workload and learn more about interconnectivity with IBM Cloud VPC, see [Interconnecting your VPC using IBM Cloud offerings](https://cloud.ibm.com/docs/vpc?topic=vpc-interconnectivity).

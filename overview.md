@@ -21,8 +21,8 @@ Virtualization on IBM Cloud provides enterprises with a scalable and secure foun
 
 IBM Cloud offers two primary virtualization options:
 
-1. **Virtual Servers for VPC** – Ideal for traditional workloads requiring isolated compute resources.
-2. **Red Hat OpenShift Virtualization** – Designed for hybrid environments where virtual machines and containers coexist seamlessly.
+1. **Virtual Servers for VPC** – Ideal for traditional workloads requiring isolated compute resources. [VPC VSI]{: tag-blue}
+2. **Red Hat OpenShift Virtualization** – Designed for hybrid environments where virtual machines and containers coexist seamlessly.[OpenShift Virtualization]{: tag-blue}
 
 
 ## Virtual Servers for VPC
