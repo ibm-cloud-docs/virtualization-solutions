@@ -19,7 +19,7 @@ toc:
       topics:
       - topic: reference-architecture-vmware.md
         navtitle: VMware Architecture
-      - topic: reference-architecture-ocpv.md
+      - topic: reference-architecture-rove.md
         navtitle: OpenShift Virtualization Architecture
       - topic: reference-architecture-vsi.md
         navtitle: Virtual Servers Architecture

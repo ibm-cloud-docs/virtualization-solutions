@@ -48,7 +48,7 @@ production: false
 
 
 # OpenShift Virtualization Architecture
-{: #openshift-virtualization-architecture}
+{: #virt-sol-rove-architecture}
 {: toc-content-type="reference-architecture"}
 {: toc-version="1.0"}
 
@@ -63,18 +63,18 @@ For multi-cluster and hybrid management, **Red Hat Advanced Cluster Management (
 
 
 ## Architecture diagram
-{: #architecture-diagram}
+{: #virt-sol-rove-architecture-diagram}
 
 The following diagram shows the high-level reference architecture for OpenShift Virtualization on IBM Cloud:
 
 ![Red Hat Virtualization on IBM Cloud Architecture](images/openshift-virtualization-high-level-arch.svg "Red Hat Virtualization on IBM Cloud Architecture"){: caption="Red Hat Virtualization on IBM Cloud Architecture" caption-side="bottom"}
 
 ## Components
-{: #components}
+{: #virt-sol-rove-components}
 
-The following table outlines the products or services used in the architecture for each aspect.
+The following table outlines the products or services used in the architecture for each components.
 
-| Aspects | Architecture components | How the component is used |
+| Component | Architecture components | How the component is used |
 | -------------- | -------------- | -------------- |
 | **Management and Observability** | Red Hat Advanced Cluster Management (RHACM) | Visibility and control over hybrid cloud from a single console|
 | | Red Hat OpenShift Observability| Insights to performance and health of OpenShift Cluster.|
@@ -92,7 +92,7 @@ The following table outlines the products or services used in the architecture f
 | | IBM Cloud Key Protect | Provision and store encrypted keys used on ROKS Worker Nodes and Storage.|
 | **Compute** | Red Hat OpenShift Kubernetes Service, worker nodes | Worker nodes can be Bare metal or virtual servers. Bare metal is needed for OpenShift Virtualization. | 
 | | Bare Metal and Virtual Servers | Bare metal servers are need to host OpenShift Virtualization. \n Virtual servers can be use for Container based workloads.|
-| **Networking and Interconnectivity** | Open Virtual Networking (OVN), OVN-Kubernetes| Software Definied Networking used by OpenShift|
+| [**Networking and Interconnectivity**](/docs/virtualization-solutions?topic=virt-sol-network-design-overview) | Open Virtual Networking (OVN), OVN-Kubernetes| Software Defined Networking used by OpenShift|
 | | Cluster (CUDN)/ User Defined Networks (UDN) | CUDNs creates a network across multiple namespaces, where as a UDN creates it within a namespace.|
 | | IBM Cloud Networking | VPC networking, Direct Link, Transit gateways and VPNs|
 | |Virtual Network Functions (VNFs)| Virtual Firewalls running on VPC Virtual Servers|
@@ -100,6 +100,8 @@ The following table outlines the products or services used in the architecture f
 
 
 ## Next steps
-{: #next-steps}
+{: #virt-sol-rove-next-steps}
 
 _Optional section._ Include links to your deployment guide or next steps to get started with the architecture.
+
+
