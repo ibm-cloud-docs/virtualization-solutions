@@ -5,7 +5,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-11-25"
+lastupdated: "2025-11-26"
 
 keywords: # Not typically populated
 
@@ -76,7 +76,7 @@ The following table outlines the products or services used in the architecture f
 
 | Component | Architecture components | How the component is used |
 | -------------- | -------------- | -------------- |
-| **Management and Observability** | Red Hat Advanced Cluster Management (RHACM) | Visibility and control over hybrid cloud from a single console|
+| [**Management and Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-observability-design-overview) | Red Hat Advanced Cluster Management (RHACM) | Visibility and control over hybrid cloud from a single console|
 | | Red Hat OpenShift Observability| Insights to performance and health of OpenShift Cluster.|
 | | IBM CLoud Security and Compliance Workload Protection |Agents deployed within Virtual Machine, providing vulnerability scanning, posture and compliance scans|
 | | IBM Cloud Monitoring and Logs | Agents deployed within Virtual Machine to send logs and monitoring to Cloud Service.|
@@ -84,13 +84,13 @@ The following table outlines the products or services used in the architecture f
 | | IBM Consulting / Expert Labs | Professional Services organizations that provide Red Hat OpenShift services|
 | | Customer Self Server / Migration Partners | Professional Services from migration partners eg. WanClouds / Primary IO|
 | | 3rd Party Backup Solutions | Self managed backup solutions with OPenShift Virtualization eg Veeam Kasten|
-| **Resilency, backup and disaster recovery** | Red Hat Advanced Cluster Management (RHACM) and ODF | Combining RHACM and ODF enabled to enable disaster recovery replication of persistent volumes and metadata.|
+| [**Resilency, backup and disaster recovery**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-backup-design-overview) | Red Hat Advanced Cluster Management (RHACM) and ODF | Combining RHACM and ODF enabled to enable disaster recovery replication of persistent volumes and metadata.|
 | | 3rd Party Backup Solutions | Self managed backup solutions with OpenShift Virtualization eg Veeam Kasten|
-| **Storage** | Red Hat OpenShift Data Foundation (ODF) | Software Defined Storage|
+| [**Storage**]((/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | Red Hat OpenShift Data Foundation (ODF) | Software Defined Storage|
 | | IBM Cloud Object Storage | Designed for unstructured data. It is ideal for workloads such as backup, archiving, big data analytics, and application data storage.|
 | | IBM Cloud File Storage | Persistent, fast, and flexible network-attached, NFS-based File Storage for VPC|
 | | IBM Cloud Key Protect | Provision and store encrypted keys used on ROKS Worker Nodes and Storage.|
-| **Compute** | Red Hat OpenShift Kubernetes Service, worker nodes | Worker nodes can be Bare metal or virtual servers. Bare metal is needed for OpenShift Virtualization. | 
+| [**Compute**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-compute-design-overview) | Red Hat OpenShift Kubernetes Service, worker nodes | Worker nodes can be Bare metal or virtual servers. Bare metal is needed for OpenShift Virtualization. | 
 | | Bare Metal and Virtual Servers | Bare metal servers are need to host OpenShift Virtualization. \n Virtual servers can be use for Container based workloads.|
 | [**Networking and Interconnectivity**](\/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-design-overview) | Open Virtual Networking (OVN), OVN-Kubernetes| Software Defined Networking used by OpenShift|
 | | Cluster (CUDN)/ User Defined Networks (UDN) | CUDNs creates a network across multiple namespaces, where as a UDN creates it within a namespace.|

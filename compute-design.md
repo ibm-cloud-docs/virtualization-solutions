@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-11-24"
+lastupdated: "2025-11-26"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -12,55 +12,58 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Compute options for IBM ROKS
-{: #compute-design-roks}
+# Compute Design Components
+{: #virt-sol-network-design-overview}
 
-Virtual Machine / Compute for ROKS. Currently only supported in VPC BareMetal Gen2 hosts.
+IBM Cloud provides a comprehensive portfolio of compute options designed to support diverse workloads, from traditional applications to modern cloud-native solutions. These offerings deliver flexibility, scalability, and enterprise-grade security, enabling organizations to deploy workloads across virtualized, containerized, and bare metal environments.
 
--   Supported on Gen 2 BareMetal profiles only Gen3 Support will be in a future release. Profile arability varies by location. See [Profile Availability](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors#us-south-physical-table) for details.
+Key IBM Cloud Compute Options:
 
--   Minimum of 3 similar hosts required per availability zone.
--   Hosts can operate at any VPC network speed 10Gb - 200Gb. For optimal results 50G or higher is recommended.
--   Host will use NVME drives for workload storage using Openshift ODF which is based on Ceph. Hosts need 4 or more NVME drives for ODF. Hosts with NFS storage for primary workloads are not supported currently. VPC block storage is not supported on baremetal hosts currently either.
--   Hosts will also only support a single VNIC / Server Network attachment. This will prevent the use of Public Address ranges, Vlan VNI and other newer VPC network features. VNI attachments will be supported in a future release. VNI support will allow for better segregation of workload and storage traffic, as well support for direct connection into a VPC subnet.
--   Clusters need to be dedicated to VM or Pod deployments. Mixed usage is not recommended by Redhat or IBM.
--   ~~IBM also recommends using IBM Fusion for cluster backups to S3, NFS or 3rd party systems. See [IBM Fusion](https://www.ibm.com/docs/en/storage-fusion/storage/2.6.0?topic=fusion-installing-storage-cloud) features for more information .~~
--   ROKS / Openshift Compute Supports many of the same features as VMWare vSphere as well as some new options. One of the new features for VM deployment is templates with predefined “T-Shirt” sizes (Small, Medium, Large, etc.). The sizes can be customized to fit user’s needs. IE Small + 200G of extra storage. VM sizes can also be arbitrary in size (6 cores, 10G ram, 5 disks, more than one network)
+1. Virtual Servers for VPC
+2. Bare Metal Servers
 
--   ROKS networks can also contain both POD and VM deployments as well as the reverse POD and VMS can attach to both L2 and Masquerade networks. When using OVN networking VMs can attach to more than one network.
+IBM Cloud Compute solutions empower businesses to choose the right infrastructure for their needs—whether optimizing cost, achieving high performance, or enabling hybrid and multicloud strategies.
 
--   VMs can have more than one drive attachment as well as access to shared storage. Drives can be resized on the fly, provided the VM’s Operating system supports it.
+The key compute architecture elements are shown in the following diagram.
 
--   ROKS fully support Redhat’s Forlift migration tool allowing for migrations from vSphere to ROKS. However, at this time Forklift does not support migrations from VMWare’s vCloud Director. However, for single tenant setups IBM can provide customers direct access to their vSphere setup. For multi-tenant users automated support will be available in a future release, MT users will need assistance from IBM for access.
+![Red Hat Virtualization on IBM Cloud Compute](images/openshift-virtualization-high-level-compute.svg "Red Hat Virtualization on IBM Cloud Compute"){: caption="Red Hat Virtualization on IBM Cloud Compute" caption-side="bottom"}
 
-## IBM Cloud VPC
-{: #vpc-compute}
 
-- Compute is offered via Virtual Servers Instances (VSIs).
-- Compute resources (CPU and RAM) of a VSI are specified in terms of profiles. 
-- A profile is a combination of instance attributes, such as the number of vCPUs, amount of RAM, network bandwidth, and default bandwidth allocation.
-- Profiles are available for both x86-64 (Intel or AMD) and s390x (IBM Z or LinuxONE) CPU architectures.
-- Profiles are grouped into families, with each family being optimized for a specific use case.
-- Available profiles differ depending on whether or not you are running on dedicated hosts.
-- See [x86-64 instance profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui) for the list of available x86-64 profiles.
-- See [s390x instance profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-vs-profiles&interface=ui) for the list of available s390x profiles.
-- See [x86-64 dedicated host profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-dh-profiles&interface=ui) for the list of available dedicated x86-64 profiles.
-- See [s390x dedicated host profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-s390x-dh-profiles&interface=ui) for the list of available dedicated s390x profiles.
-- Profile names encode information about the family, architecture, generation and compute and storage resources offered by the profile.
-- See [Understanding the naming rule of x86-64 profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui#profiles-naming-rule)
-- See [Understanding the naming rule of s390x profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-vs-profiles&interface=ui#vs-profiles-naming-rule)
-- See [Understanding dedicated x86-64 profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-dh-profiles&interface=ui#dh-profiles-naming-rule)
-- See [Understanding dedicated s390x profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-s390x-dh-profiles&interface=ui#s390x-dh-profiles-naming-rule)
-- You can specify optional user data as either a cloud-init config or a script to perform common configuration tasks when creating a new VSI.
-- See [User data](https://cloud.ibm.com/docs/vpc?topic=vpc-user-data&interface=ui)
-- You can start a VSI in secure boot mode to verify the digital signatures of all code in the boot process and sure that your server starts with trusted software.
-- See [Secure boot for Virtual Servers for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-confidential-computing-with-secure-boot-vpc&interface=ui)
-- Use confidential computing profiles to ensure that your VSIs and their data are confidential and protected from everyone including the Cloud Service Provider (CSP).
-- See [Confidential computing for x86 Virtual Servers for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-confidential-computing-vpc&interface=ui)
-- See [Confidential computing with LinuxONE](https://cloud.ibm.com/docs/vpc?topic=vpc-about-se&interface=ui)
-- Compute costs are accrued while your VSI is powered on. You can stop billing when you power off the instance.
-- See [Suspend billing for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-suspend-billing&interface=ui)
-- Compute costs can be lowered by reserving your resources in advance. You can choose a 1 or 3-year term, server quantity, specific profile, and provision those servers when needed.
-- See [About Reservations for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-reserved-virtual-servers-vpc&interface=ui)
-- Your VSI will be restarted automatically if the host its running on fails unexpectedly. Detection of a host issue occurs within 30 seconds of occurrence. The VSI will be automatically restarted on a healthy host. You can control whether or not to restart yor VSI on host failure.
-- See [Host failure recovery policies](https://cloud.ibm.com/docs/vpc?topic=vpc-host-failure-recovery-policies&interface=ui)
+## Red Hat OpenShift Worker Nodes
+{: #virt-sol-compute-design-rove-workers}
+
+[OpenShift Virtualization]{: tag-red}
+
+{{site.data.keyword.openshiftshort}} (ROKS) is a managed service in the IBM Cloud. 
+
+It allows you to create your own cluster of compute hosts where you can deploy and manage containerized apps on IBM Cloud. Combined with an intuitive user experience, built-in security and isolation, and advanced tools to secure, manage, and monitor your cluster workloads, you can rapidly deliver highly available and secure containerized apps in the public cloud
+
+A cluster consists of a master and one or more compute hosts that are called worker nodes. Worker nodes are organized into worker pools of the same flavor, or profile of CPU, memory, operating system, attached disks, and other properties. The worker nodes correspond to the Kubernetes Node resource, and are managed by a Kubernetes master that centrally controls and monitors all Kubernetes resources in the cluster. So when you deploy the resources for a containerized app, the Kubernetes master decides which worker node to deploy those resources on, accounting for the deployment requirements and available capacity in the cluster. Kubernetes resources include services, deployments, and pods.
+
+When you create a cluster, the worker nodes are provisioned in a worker pool. After cluster creation, you can add more worker nodes to a pool by resizing it or by adding more worker pools. By default, the worker pool exists in one zone. Clusters that have a worker pool in only one zone are called single zone clusters. 
+
+Bare Metal servers are required in the worker pool to install Red Hat OpenShift Virtualization. The nodes also should be provision with the local NVMe drives to create the OpenShift Data Foundation instance, providing the software defined storage cluster.
+
+For more information, refer to [IBM Cloud Docs](https://cloud.ibm.com/docs/openshift?topic=openshift-overview).
+
+
+
+## IBM Cloud Virtual Servers for VPC
+{: #virt-sol-compute-design-virtual-servers}
+
+[VPC VSI]{: tag-blue} [{{site.data.keyword.openshiftshort}}]{: tag-roks}
+
+Secure, isolated virtual machines deployed within a Virtual Private Cloud (VPC). Ideal for traditional workloads, development environments, and scalable applications. Offers customizable profiles, dedicated or shared instances, and integration with advanced networking and storage services.
+
+For more information on VSI profiles, see [IBM Cloud Docs](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
+
+## IBM Cloud Bare Metal Servers for VPC
+{: #virt-sol-compute-design-bare-metal-servers}
+
+[OpenShift Virtualization]{: tag-red}
+
+Provide single-tenant, physical servers physical servers dedicated to your workloads, delivering maximum performance, security, and control.
+
+For more information on Bare Metal profiles, see [IBM Cloud Docs](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
+
+OpenShift Virtualization supported the following profiles [Profile Availability](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors#us-south-physical-table).
