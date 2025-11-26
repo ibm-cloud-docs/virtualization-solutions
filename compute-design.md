@@ -13,7 +13,7 @@ subcollection: virtualization-solutions
 {{site.data.keyword.attribute-definition-list}}
 
 # Compute Design Components
-{: #virt-sol-network-design-overview}
+{: #virt-sol-compute-design-overview}
 
 IBM Cloud provides a comprehensive portfolio of compute options designed to support diverse workloads, from traditional applications to modern cloud-native solutions. These offerings deliver flexibility, scalability, and enterprise-grade security, enabling organizations to deploy workloads across virtualized, containerized, and bare metal environments.
 
