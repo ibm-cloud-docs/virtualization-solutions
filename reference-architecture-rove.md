@@ -84,7 +84,7 @@ The following table outlines the products or services used in the architecture f
 | | IBM Consulting / Expert Labs | Professional Services organizations that provide Red Hat OpenShift services|
 | | Customer Self Server / Migration Partners | Professional Services from migration partners eg. WanClouds / Primary IO|
 | | 3rd Party Backup Solutions | Self managed backup solutions with OPenShift Virtualization eg Veeam Kasten|
-| [**Resilency, backup and disaster recovery**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-backup-design-overview) | Red Hat Advanced Cluster Management (RHACM) and ODF | Combining RHACM and ODF enabled to enable disaster recovery replication of persistent volumes and metadata.|
+| [**Resilency, backup and disaster recovery**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-resiliency-design-overview) | Red Hat Advanced Cluster Management (RHACM) and ODF | Combining RHACM and ODF enabled to enable disaster recovery replication of persistent volumes and metadata.|
 | | 3rd Party Backup Solutions | Self managed backup solutions with OpenShift Virtualization eg Veeam Kasten|
 | [**Storage**]((/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | Red Hat OpenShift Data Foundation (ODF) | Software Defined Storage|
 | | IBM Cloud Object Storage | Designed for unstructured data. It is ideal for workloads such as backup, archiving, big data analytics, and application data storage.|

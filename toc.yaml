@@ -29,18 +29,18 @@ toc:
       - topicgroup:
           label: Design considerations
           topics:
-          - topic: compute-design.md
-            navtitle: Compute
-          - topic: storage-design.md
-            navtitle: Storage
-          - topic: networking-design.md
-            navtitle: Networking
-          - topic: resiliency-design.md
-            navtitle: Resiliency
+          - topic: observability-design.md
+            navtitle: Observability
           - topic: migration-design.md
             navtitle: Migration
-          - topic: security-design.md
-            navtitle: Security
+          - topic: resiliency-design.md
+            navtitle: Resiliency
+          - topic: storage-design.md
+            navtitle: Storage
+          - topic: compute-design.md
+            navtitle: Compute
+          - topic: networking-design.md
+            navtitle: Networking
   - navgroup:
       id: help
       topics:
