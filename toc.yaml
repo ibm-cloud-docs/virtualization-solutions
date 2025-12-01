@@ -17,46 +17,46 @@ toc:
   - navgroup:
       id: architecture
       topics:
-      - topic: reference-architectures/reference-architecture-vsi.md
-        navtitle: Virtual Servers Architecture
       - topic: reference-architectures/reference-architecture-openshift.md
         navtitle: OpenShift Virtualization Architecture
+      - topic: reference-architectures/reference-architecture-vsi.md
+        navtitle: Virtual Servers Architecture
   - navgroup:
       id: plan
       topics:
       - topicgroup:
-          label: Design considerations - VPC
-          topics:
-          - topic: planning/design-considerations-vpc/security-design.md
-            navtitle: Observability
-          - topic: planning/design-considerations-vpc/observability-design.md
-            navtitle: Observability
-          - topic: planning/design-considerations-vpc/migration-design.md
-            navtitle: Migration
-          - topic: planning/design-considerations-vpc/resiliency-design.md
-            navtitle: Resiliency
-          - topic: planning/design-considerations-vpc/storage-design.md
-            navtitle: Storage
-          - topic: planning/design-considerations-vpc/compute-design.md
-            navtitle: Compute
-          - topic: planning/design-considerations-vpc/networking-design.md
-            navtitle: Networking
-      - topicgroup:
           label: Design considerations - OpenShift
           topics:
           - topic: planning/design-considerations-openshift/security-design.md
-            navtitle: Observability
-          - topic: planning/design-considerations-openshift/observability-design.md
-            navtitle: Observability
+            navtitle: Security
           - topic: planning/design-considerations-openshift/migration-design.md
             navtitle: Migration
           - topic: planning/design-considerations-openshift/resiliency-design.md
             navtitle: Resiliency
+          - topic: planning/design-considerations-openshift/observability-design.md
+            navtitle: Observability
           - topic: planning/design-considerations-openshift/storage-design.md
             navtitle: Storage
           - topic: planning/design-considerations-openshift/compute-design.md
             navtitle: Compute
           - topic: planning/design-considerations-openshift/networking-design.md
+            navtitle: Networking
+      - topicgroup:
+          label: Design considerations - VPC
+          topics:
+          - topic: planning/design-considerations-vpc/security-design.md
+            navtitle: Security
+          - topic: planning/design-considerations-vpc/migration-design.md
+            navtitle: Migration
+          - topic: planning/design-considerations-vpc/resiliency-design.md
+            navtitle: Resiliency
+          - topic: planning/design-considerations-vpc/observability-design.md
+            navtitle: Observability
+          - topic: planning/design-considerations-vpc/storage-design.md
+            navtitle: Storage
+          - topic: planning/design-considerations-vpc/compute-design.md
+            navtitle: Compute
+          - topic: planning/design-considerations-vpc/networking-design.md
             navtitle: Networking
   - navgroup:
       id: help
