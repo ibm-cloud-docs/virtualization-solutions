@@ -1,88 +1,51 @@
 {
   "version": 2,
-  "title": "<Solution name>",
-  "introduction": "This is a description of what the user will be able to find in the content for your solution.",
-  "product_page": "https://ibm.com/cloud/solution-page",
+  "title": "Virtualization Solutions",
+  "introduction": "Virtualization on IBM Cloud\u00ae provides enterprises with a scalable and secure foundation for running their virtualized workloads in a public cloud environment. By abstracting physical resources into virtualized environments, organizations can optimize their infrastructure utilization, reduce operational complexity, and accelerate application delivery. ",
+  "product_page": "https://www.ibm.com/solutions/virtualization",
   "deployment_url": "https://cloud.ibm.com/catalog/content/url/to/deploy",
   "section_topics": {
     "links": [
       {
-        "title": "Topic title",
-        "href": "/docs/overview?topic=overview-get-started-checklist"
+        "title": "Getting started with Virtual Private Cloud (VPC)",
+        "href": "/docs/vpc?topic=vpc-getting-started"
       },
       {
-        "title": "Topic title",
-        "href": "/docs/overview?topic=overview-get-started-checklist"
+        "title": "Getting started with Red Hat OpenShift on IBM Cloud",
+        "href": "/docs/openshift?topic=openshift-getting-started"
       },
       {
-        "title": "Topic title",
-        "href": "/docs/overview?topic=overview-get-started-checklist"
-      },
-      {
-        "title": "Topic title",
-        "href": "/docs/overview?topic=overview-get-started-checklist"
-      },
-      {
-        "title": "Topic title",
-        "href": "/docs/overview?topic=overview-get-started-checklist"
+        "title": "Installing the OpenShift Virtualization Operator on Red Hat OpenShift on IBM Cloud clusters",
+        "href": "/docs/openshift?topic=openshift-oc-virtualization"
       }
     ]
   },
   "section_highlights": [
     {
-      "title": "Resource title",
-      "description": "Short description of resource content.",
-      "href": "https://www.example.ibm.com/link/to/resource",
+      "title": "Migrate VMware Workloads to IBM Cloud Red Hat OpenShift Virtualization",
+      "description": "Migrate enterprise production grade VMware workloads from on premises or hyperscaler VMware based environments to IBM Cloud Red Hat OpenShift Virtualization",
+      "href": "https://cloud.ibm.com/docs/pattern-migrate-os-virtualization?topic=pattern-migrate-os-virtualization-openshift-virt-arch",
       "type": "blog"
-    },
-    {
-      "title": "Db2 Optimization Techniques for SAP Database Migration to the Cloud",
-      "description": "This IBM Redbook provides in-depth recommendations for the source system database export.",
-      "href": "https://www.redbooks.ibm.com/abstracts/sg248531.html",
-      "type": "redbook",
-      "recommended": true
     }
   ],
   "section_architectures": [
     {
-      "title": "Acme Test on VPC",
-      "href": "/docs/acme-test?topic=acme-test-reference-architecture",
-      "deployable": true
+      "title": "OpenShift Virtualization Reference Architecture",
+      "href": "https://cloud.ibm.com/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture",
+      "deployable": false
     },
     {
-      "title": "Acme Test on Power Virtual Servers",
-      "href": "/docs/acme-test?topic=acme-test-reference-architecture",
-      "deployable": true
-    },
-    {
-      "title": "Acme Test on Power Virtual Servers",
-      "href": "/docs/acme-test?topic=acme-test-reference-architecture",
-      "deployable": true
-    },
-    {
-      "title": "Acme Test on Power Virtual Servers",
-      "href": "/docs/acme-test?topic=acme-test-reference-architecture",
-      "deployable": true
+      "title": "VPC VSI Reference Architecture",
+      "href": "https://cloud.ibm.com/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture",
+      "deployable": false
     }
   ],
   "section_updates": {
-    "view_more": "/docs/overview?topic=overview-whatsnew",
+    "view_more": "/docs/virtualization-solutions?topic=virtualization-solutions-overview",
     "tiles": [
       {
-        "date": "07 August 2025",
-        "title": "Experimental: Access resources from the Resources tab"
-      },
-      {
-        "date": "07 August 2025",
-        "title": "View counts for all resources in the resource summary widget"
-      },
-      {
-        "date": "17 June 2025",
-        "title": "Experimental: Using AI to answer your questions about IBM Cloud"
-      },
-      {
-        "date": "17 June 2025",
-        "title": "Changes to IBM Cloud projects API method to list all deployed resources"
+        "date": "01 December 2025",
+        "title": "Initial Release"
       }
     ]
   }
