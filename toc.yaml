@@ -25,7 +25,7 @@ toc:
       id: plan
       topics:
       - topicgroup:
-          label: Design considerations - OpenShift
+          label: Design considerations - OpenShift Virtualization
           topics:
           - topic: planning/design-considerations-openshift/security-design.md
             navtitle: Security
@@ -42,7 +42,7 @@ toc:
           - topic: planning/design-considerations-openshift/networking-design.md
             navtitle: Networking
       - topicgroup:
-          label: Design considerations - VPC
+          label: Design considerations - VPC VSI
           topics:
           - topic: planning/design-considerations-vpc/security-design.md
             navtitle: Security
