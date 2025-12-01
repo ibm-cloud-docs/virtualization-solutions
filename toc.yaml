@@ -13,7 +13,7 @@ toc:
   - navgroup:
       id: overview
       topics:
-      - /Overview/overview.md
+      - overview/overview.md
   - navgroup:
       id: architecture
       topics:
@@ -61,4 +61,4 @@ toc:
   - navgroup:
       id: help
       topics:
-      - faqs.md
+      - faq.md
