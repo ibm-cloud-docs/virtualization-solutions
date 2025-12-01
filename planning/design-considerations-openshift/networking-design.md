@@ -22,7 +22,7 @@ The network design in Red Hat OpenShift Virtualization on VPC has two distinct l
 
 The key network architecture elements are shown in the following diagram.
 
-![Red Hat OpenShift Virtualization on IBM Cloud Network](images/openshift/openshift-virtualization-high-level-network.svg "Red Hat OpenShift Virtualization on IBM Cloud Network"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Network" caption-side="bottom"}
+![Red Hat OpenShift Virtualization on IBM Cloud Network](../../images/openshift/openshift-virtualization-high-level-network.svg "Red Hat OpenShift Virtualization on IBM Cloud Network"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Network" caption-side="bottom"}
 
 ## IBM Cloud VPC Networking
 {: #virt-sol-openshift-network-design-vpc}
@@ -218,7 +218,7 @@ On IBM Cloud ROKS, the LoadBalancer service type automatically provisions a VPC 
 OpenShift Routes expose services to external traffic by mapping FQDNs to backend services, making applications accessible outside of the cluster. Key features:
 
 * Layer 7 routing - HTTP/HTTPS traffic with hostname-based routing
-* Automatic DNS - Routes use cluster subdomain: <route-name>-<namespace>.apps.<cluster-domain>
+* Automatic DNS - Routes use cluster subdomain: `<route-name>-<namespace>`.apps.`<cluster-domain>`
 * Unsecured Routes (HTTP)
 * TLS termination:
     * Edge-Terminated Routes (TLS at Router)

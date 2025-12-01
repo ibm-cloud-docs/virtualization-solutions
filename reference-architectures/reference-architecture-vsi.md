@@ -60,7 +60,7 @@ Virtual Servers for VPC integrate seamlessly with IBM Cloud VPC networking featu
 
 For enterprise management and governance, IBM Cloud services such as IBM Cloud Monitoring, IBM Cloud Logging, and IBM Cloud Security and Compliance Center provide visibility, audit trails, and compliance scanning across VPC infrastructure.
 
-### Architecture diagram
+## Architecture diagram
 {: #virt-sol-vpc-vsi-architecture-diagram}
 
 The following diagram shows the high-level reference architecture for Virtual Servers for VPC on IBM Cloud:
@@ -106,9 +106,9 @@ The following table outlines the products or services used in the architecture f
 | | Transit Gateway | Hub for connecting multiple VPCs and Classic infrastructure |
 | | Direct Link | Dedicated, low-latency connections to on-premises data centers |
 | | Virtual Network Functions (VNFs) | Virtual firewalls and network appliances running as VPC instances |
+{: caption VPC VSI Component Table}
 
 ## Next steps
 {: #next-steps}
 
 _Optional section._ Include links to your deployment guide or next steps to get started with the architecture.
-

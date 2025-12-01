@@ -19,7 +19,7 @@ See the [Resiliency in IBM Cloud](https://cloud.ibm.com/docs/resiliency?topic=re
 
 The key backup and restore architecture elements are shown in the following diagram.
 
-![Red Hat OpenShift Virtualization on IBM Cloud Backup and Restore](images/openshift/openshift-virtualization-high-level-backup.svg "Red Hat OpenShift Virtualization on IBM Cloud Backup and Restore"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Backup and Restore" caption-side="bottom"}
+![Red Hat OpenShift Virtualization on IBM Cloud Backup and Restore](../../images/openshift/openshift-virtualization-high-level-backup.svg "Red Hat OpenShift Virtualization on IBM Cloud Backup and Restore"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Backup and Restore" caption-side="bottom"}
 
 ## Regional Disaster Recovery
 {: #virt-sol-openshift-resiliency-design-rhacm}

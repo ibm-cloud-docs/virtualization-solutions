@@ -23,7 +23,7 @@ For Red Hat OpenShift environments, native observability capabilities through Re
 
 The key observability architecture elements are shown in the following diagram.
 
-![Red Hat OpenShift Virtualization on IBM Cloud Observability](images/openshift-virtualization-high-level-observability.svg "Red Hat OpenShift Virtualization on IBM Cloud Observability"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Observability" caption-side="bottom"}
+![Red Hat OpenShift Virtualization on IBM Cloud Observability](../../images/openshift/openshift-virtualization-high-level-observability.svg "Red Hat OpenShift Virtualization on IBM Cloud Observability"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Observability" caption-side="bottom"}
 
 ## Red Hat Advanced Cluster Management (RHACM)
 {: #virt-sol-openshift-observability-design-rhacm}

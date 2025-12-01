@@ -21,7 +21,8 @@ The key backup and restore architecture elements are shown in the following diag
 
 ![IBM Cloud VPC VSI Backup and Restore](images/vpc/vpc-vsi-high-level-backup.svg "IBM Cloud VPC VSI Backup and Restore"){: caption="IBM Cloud VPC VSI Backup and Restore" caption-side="bottom"}
 
-## IBM Cloud VPC Block Storage Snapshots
+
+## IBM Cloud VPC Block Storage Snapshots
 {: #virt-sol-vpc-vpc-resiliency-design-vpc-snap}
 
 [VPC VSI]{: tag-blue}
@@ -91,6 +92,7 @@ Use cases include the following:
 | **Volume targeting** | Direct volume selection | Tag-based automatic targeting |
 | **Use case** | Ad-hoc backups, golden images | Ongoing operational backups |
 | **Management** | Per-snapshot management | Policy-driven centralized management |
+{: caption "Comparison with Manual Snapshots} 
 
 Best practices:
 
@@ -329,6 +331,7 @@ RackWare provides flexible scheduling with options for hot and cold standby of r
 | **Cost** | Higher (running compute) | Lower (storage only) |
 | **Use Cases** | Mission-critical, RTO < 5 min | Important workloads, RTO < 30 min |
 | **Sync Impact** | Faster (VSI already running) | Must boot before final sync |
+{: caption "Rackware capabilities"} 
 
 
 See [Protect critical workloads across hybrid and multi-cloud environments](https://www.rackwareinc.com/rackware-platform/disaster-recovery), [RackWare and IBM Cloud](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm) and [RackWare RMM users Guide for IBM Cloud](https://rackware.attachments9.freshdesk.com/data/helpdesk/attachments/production/5193588906/original/Rackware%20RMM%20Users%20Guide%20for%20IBM%20Cloud%20v2.2.pdf?response-content-type=application%2Fpdf&Expires=1764355600&Signature=gLDEmBxGd1dCMuzHjAP1FT3cCOzV6J7PGG7AHJ7dTKpTyGCvsY2IkzwQKI7VcJu~vnXprXUmkR9IUUUm0yhyD3hFdHU9tYZd4-6NfrZ7Ix2wXNfY44D2-rFWDoNy-LfiFaD2huPCdY2m-~1kw0ZtPqHLF7h5194~VPrhNgRPIrj~sfgN8wF8M8TLzkgZ84-MxbU~nn98rQFcnRgrKIc2inkfD~VYuAGaScmepjhRRoc8Gkd5LRIbPfyU1rAKWEj0L8AhfhjvLLVMGiu6CbfTGD1gLawXa24zm4ZR8-80LKdKstsJJx4vqgHEAbIQAD--XZsvY7CQ5AupWhdtPVzySA__&Key-Pair-Id=APKAJ7JARUX3F6RQIXLA)

@@ -18,7 +18,7 @@ Security is a foundational component of any cloud architecture, encompassing ide
 
 The key security architecture elements are shown in the following diagram.
 
-![Red Hat OpenShift Virtualization on IBM Cloud Security](images/openshift/openshift-virtualization-high-level-security.svg "Red Hat OpenShift Virtualization on IBM Cloud Security"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Security" caption-side="bottom"}
+![Red Hat OpenShift Virtualization on IBM Cloud Security](../../images/openshift/openshift-virtualization-high-level-security.svg "Red Hat OpenShift Virtualization on IBM Cloud Security"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Security" caption-side="bottom"}
 
 For workload migration and deployment, robust security capabilities are essential to maintain confidentiality, integrity, and availability while meeting regulatory and compliance requirements. IBM Cloud's security services integrate with native platform capabilities to provide end-to-end protection for virtualization and container workloads.
 

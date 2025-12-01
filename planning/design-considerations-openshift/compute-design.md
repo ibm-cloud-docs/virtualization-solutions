@@ -26,7 +26,7 @@ IBM Cloud VPC compute solutions empower businesses to choose the right infrastru
 
 The key compute architecture elements are shown in the following diagram.
 
-![Red Hat OpenShift Virtualization on IBM Cloud Compute](images/openshift/openshift-virtualization-high-level-compute.svg "Red Hat OpenShift Virtualization on IBM Cloud Compute"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Compute" caption-side="bottom"}
+![Red Hat OpenShift Virtualization on IBM Cloud Compute](../../images/openshift/openshift-virtualization-high-level-compute.svg "Red Hat OpenShift Virtualization on IBM Cloud Compute"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Compute" caption-side="bottom"}
 
 ## Red Hat OpenShift Worker Nodes
 {: #virt-sol-openshift-compute-design-workers}
