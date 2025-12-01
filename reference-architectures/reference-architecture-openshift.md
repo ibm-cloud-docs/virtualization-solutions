@@ -74,15 +74,15 @@ The following table outlines the products or services used in the architecture f
 
 | Component | Architecture components | How the component is used |
 | -------------- | -------------- | -------------- |
-| [**Management and Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-observability-design-overview) | Red Hat Advanced Cluster Management (RHACM) | Visibility and control over hybrid cloud from a single console|
-| | Red Hat OpenShift Observability| Insights to performance and health of OpenShift Cluster.|
-| | IBM Cloud Security and Compliance Workload Protection |Agents deployed within Virtual Machine, providing vulnerability scanning, posture and compliance scans|
-| | IBM Cloud Monitoring and Logs | Agents deployed within Virtual Machines send logs and metrics to IBM Cloud Logging and Monitoring services.|
 | **Workload Migration** | Red Hat OpenShift Migration toolkit for Virtualization (MTV) | A suite of tooling to migrate virtual machines from providers eg. Red Hat OpenShift, VMware |
 | | IBM Consulting / Expert Labs | Professional Services organizations that provide Red Hat OpenShift services|
 | | Customer Self Server / Migration Partners | Professional Services from migration partners eg. WanClouds / Primary IO|
 | [**Resiliency, backup and disaster recovery**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-resiliency-design-overview) | Red Hat Advanced Cluster Management (RHACM), OADP and ODF | Combining RHACM, OADP and ODF enables disaster recovery replication of persistent volumes and required cluster resources|
 | | 3rd Party Backup Solutions | Self managed backup solutions with OpenShift Virtualization eg Veeam Kasten K10|
+| [**Management and Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-observability-design-overview) | Red Hat Advanced Cluster Management (RHACM) | Visibility and control over hybrid cloud from a single console|
+| | Red Hat OpenShift Observability| Insights to performance and health of OpenShift Cluster.|
+| | IBM Cloud Security and Compliance Workload Protection |Agents deployed within Virtual Machine, providing vulnerability scanning, posture and compliance scans|
+| | IBM Cloud Monitoring and Logs | Agents deployed within Virtual Machines send logs and metrics to IBM Cloud Logging and Monitoring services.|
 | [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | Red Hat OpenShift Data Foundation (ODF) | Software Defined Storage that provides block, file and object storage|
 | | IBM Cloud Object Storage | Designed for unstructured data. It is ideal for workloads such as backup, archiving, big data analytics, and application data storage.|
 | | IBM Cloud File Storage | Persistent, fast, and flexible network-attached, NFS-based File Storage for VPC|
@@ -93,7 +93,7 @@ The following table outlines the products or services used in the architecture f
 | | Cluster (CUDN)/ User Defined Networks (UDN) | CUDNs creates a network across multiple namespaces, where as a UDN creates it within a namespace.|
 | | IBM Cloud Networking | VPC networking, Direct Link, Transit gateways and VPNs|
 | |Virtual Network Functions (VNFs)| Virtual Firewalls running on VPC Virtual Servers|
-{: caption="Components" caption-side="bottom"}
+{: caption="Reference Architecture OpenShift Components" caption-side="bottom"}
 
 
 ## Next steps
