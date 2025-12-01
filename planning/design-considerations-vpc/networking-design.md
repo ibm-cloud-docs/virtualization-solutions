@@ -22,7 +22,7 @@ By leveraging IBM Cloud networking, businesses can confidently deploy and migrat
 
 The key network architecture elements are shown in the following diagram.
 
-![IBM Cloud VPC VSI Network](images/vpc/vpc-vsi-high-level-network.svg "IBM Cloud VPC VSI Network"){: caption="IBM Cloud VPC VSI Network" caption-side="bottom"}
+![IBM Cloud VPC VSI Network](../../images/vpcvsi/vpcvsi-high-level-network.svg "IBM Cloud VPC VSI Network"){: caption="IBM Cloud VPC VSI Network" caption-side="bottom"}
 
 ## IBM Cloud VPC Networking
 {: #virt-sol-network-design-vpc-networking}

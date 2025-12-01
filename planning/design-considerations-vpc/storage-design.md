@@ -20,7 +20,7 @@ IBM Cloud offers a range of storage solutions designed to meet diverse workload 
 
 The key compute architecture elements are shown in the following diagram.
 
-![Red Hat OpenShift Virtualization on IBM Cloud Storage](images/openshift-virtualization-high-level-storage.svg "Red Hat OpenShift Virtualization on IBM Cloud Storage"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Storage" caption-side="bottom"}
+![Red Hat OpenShift Virtualization on IBM Cloud Storage](../../images/vpcvsi/vpcvsi-high-level-storage.svg "Red Hat OpenShift Virtualization on IBM Cloud Storage"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Storage" caption-side="bottom"}
 
 
 

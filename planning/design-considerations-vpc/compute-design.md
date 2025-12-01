@@ -26,7 +26,7 @@ IBM Cloud VPC compute solutions empower businesses to choose the right infrastru
 
 The key compute architecture elements are shown in the following diagram.
 
-![IBM Cloud VPC VSI Compute](images/vsi/vsi-high-level-compute.svg "IBM Cloud VPC VSI Compute"){: caption="IBM Cloud VPC VSI Compute" caption-side="bottom"}
+![IBM Cloud VPC VSI Compute](../../images/vpcvsi/vpcvsi-high-level-compute.svg "IBM Cloud VPC VSI Compute"){: caption="IBM Cloud VPC VSI Compute" caption-side="bottom"}
 
 ## IBM Cloud Virtual Servers for VPC
 {: #virt-sol-vpc-compute-design-virtual-servers}
