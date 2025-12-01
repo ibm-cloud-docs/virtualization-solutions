@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-11-26"
+lastupdated: "2025-12-01"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -14,18 +14,18 @@ subcollection: virtualization-solutions
 
 # Storage Design
 {: #virt-sol-storage-design-overview}
-{: shortdesc}
 
 IBM Cloud offers a range of storage solutions designed to meet diverse workload requirements, from high-performance computing to long-term archival. These options provide flexibility, scalability, and enterprise-grade security for hybrid and multicloud environments.
+{: shortdesc}
 
 The key compute architecture elements are shown in the following diagram.
 
-![Red Hat Virtualization on IBM Cloud Storage](images/openshift-virtualization-high-level-storage.svg "Red Hat Virtualization on IBM Cloud Storage"){: caption="Red Hat Virtualization on IBM Cloud Storage" caption-side="bottom"}
+![Red Hat OpenShift Virtualization on IBM Cloud Storage](images/openshift-virtualization-high-level-storage.svg "Red Hat OpenShift Virtualization on IBM Cloud Storage"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Storage" caption-side="bottom"}
 
 
 
 ## Storage Options
-{: #virt-sol-storage--options}
+{: #virt-sol-storage-options}
 
 OpenShift Virtualization utilizes Kubernetes PersistentVolumes (PVs) and PersistentVolumeClaims (PVCs) to manage storage for virtual machines. It supports multiple storage backends, including block storage, file storage, and local storage.
 

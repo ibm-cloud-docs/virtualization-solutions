@@ -13,33 +13,50 @@ toc:
   - navgroup:
       id: overview
       topics:
-      - overview.md
+      - /Overview/overview.md
   - navgroup:
       id: architecture
       topics:
-      - topic: reference-architecture-vmware.md
-        navtitle: VMware Architecture
-      - topic: reference-architecture-rove.md
-        navtitle: OpenShift Virtualization Architecture
-      - topic: reference-architecture-vsi.md
+      - topic: reference-architectures/reference-architecture-vsi.md
         navtitle: Virtual Servers Architecture
+      - topic: reference-architectures/reference-architecture-openshift.md
+        navtitle: OpenShift Virtualization Architecture
   - navgroup:
       id: plan
       topics:
       - topicgroup:
-          label: Design considerations
+          label: Design considerations - VPC
           topics:
-          - topic: observability-design.md
+          - topic: planning/design-considerations-vpc/security-design.md
             navtitle: Observability
-          - topic: migration-design.md
+          - topic: planning/design-considerations-vpc/observability-design.md
+            navtitle: Observability
+          - topic: planning/design-considerations-vpc/migration-design.md
             navtitle: Migration
-          - topic: resiliency-design.md
+          - topic: planning/design-considerations-vpc/resiliency-design.md
             navtitle: Resiliency
-          - topic: storage-design.md
+          - topic: planning/design-considerations-vpc/storage-design.md
             navtitle: Storage
-          - topic: compute-design.md
+          - topic: planning/design-considerations-vpc/compute-design.md
             navtitle: Compute
-          - topic: networking-design.md
+          - topic: planning/design-considerations-vpc/networking-design.md
+            navtitle: Networking
+      - topicgroup:
+          label: Design considerations - OpenShift
+          topics:
+          - topic: planning/design-considerations-openshift/security-design.md
+            navtitle: Observability
+          - topic: planning/design-considerations-openshift/observability-design.md
+            navtitle: Observability
+          - topic: planning/design-considerations-openshift/migration-design.md
+            navtitle: Migration
+          - topic: planning/design-considerations-openshift/resiliency-design.md
+            navtitle: Resiliency
+          - topic: planning/design-considerations-openshift/storage-design.md
+            navtitle: Storage
+          - topic: planning/design-considerations-openshift/compute-design.md
+            navtitle: Compute
+          - topic: planning/design-considerations-openshift/networking-design.md
             navtitle: Networking
   - navgroup:
       id: help
