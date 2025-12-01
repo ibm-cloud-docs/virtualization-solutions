@@ -31,12 +31,12 @@
   "section_architectures": [
     {
       "title": "OpenShift Virtualization Reference Architecture",
-      "href": "https://cloud.ibm.com/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture",
+      "href": "docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture",
       "deployable": false
     },
     {
       "title": "VPC VSI Reference Architecture",
-      "href": "https://cloud.ibm.com/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture",
+      "href": "/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture",
       "deployable": false
     }
   ],
