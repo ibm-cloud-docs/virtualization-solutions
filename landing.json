@@ -3,7 +3,6 @@
   "title": "Virtualization Solutions",
   "introduction": "Virtualization on IBM Cloud\u00ae provides enterprises with a scalable and secure foundation for running their virtualized workloads in a public cloud environment. By abstracting physical resources into virtualized environments, organizations can optimize their infrastructure utilization, reduce operational complexity, and accelerate application delivery. ",
   "product_page": "https://www.ibm.com/solutions/virtualization",
-  "deployment_url": "https://cloud.ibm.com/catalog/content/url/to/deploy",
   "section_topics": {
     "links": [
       {

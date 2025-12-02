@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-02"
 
 keywords: ROKS, network, layer2, localnet
 
@@ -121,14 +121,14 @@ VPEs in ROKS environments are primarily used to enable **private connectivity be
 
 [OpenShift Virtualization]{: tag-red}
 
-See [External connectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-external).
+See [External connectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-external).
 
 ### Interconnectivity
 {: #virt-sol-openshift-network-design-vpc-interconnectivity}
 
 [OpenShift Virtualization]{: tag-red}
 
-See [Interconnectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-interconnectivity).
+See [Interconnectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-interconnectivity).
 
 ## Red Hat OpenShift Virtualization Networking
 {: #virt-sol-openshift-network-design-openshift}

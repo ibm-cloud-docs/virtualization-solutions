@@ -61,4 +61,4 @@ toc:
   - navgroup:
       id: help
       topics:
-      - faq.md
+      - faqs.md
