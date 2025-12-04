@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-04"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, ROVE, VSI, File Storage, 
 
@@ -47,7 +47,7 @@ IBM Cloud Virtual Servers for VPC provide compute instances within a logically i
 * IBM provided or bring-your-own-license (BYOL) support
 * Custom images, snapshots, and placement groups (for availability/spread)
 
-At a high-level, key responsibilities for IBM Cloud Virtual Servers for VPC are listed below, for a detailed list see [Understanding your responsibilities when using Virtual Private Cloud](https://cloud.ibm.com/docs/vpc?topic=vpc-responsibilities-vpc)
+At a high level, the key responsibilities for IBM Cloud Virtual Servers for VPC are outlined here. For a comprehensive list, refer to the detailed documentation. [Understanding your responsibilities when using Virtual Private Cloud](https://cloud.ibm.com/docs/vpc?topic=vpc-responsibilities-vpc)
 
 * Your responsibility:
     * Application deployment and management

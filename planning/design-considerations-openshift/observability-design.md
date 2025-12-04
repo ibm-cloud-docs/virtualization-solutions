@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-04"
 
 keywords: ROKS, RHACM, IBM Cloud Logs, IBM Cloud Monitoring, Workload Protection
 
@@ -73,7 +73,7 @@ Red Hat OpenShift Observability provides real-time visibility, monitoring, and a
 
 **Logging** - Enables collection, visualization, forwarding, and storage of log data to troubleshoot issues, identify performance bottlenecks, and detect security threats. The LokiStack deployment can be configured to produce customized alerts and recorded metrics, providing flexible log aggregation and query capabilities.
 
-**Distributed tracing** - Stores and visualizes large volumes of requests passing through distributed systems and microservices architectures. Use distributed tracing for monitoring transactions, gathering service insights, network profiling, performance optimization, root cause analysis, and troubleshooting component interactions in cloud-native applications.
+**Distributed tracing** - Collects and visualizes extensive request data flowing through distributed systems and microservices architectures. Distributed tracing supports transaction monitoring, service analysis, network profiling, performance optimization, root cause identification, and troubleshooting in cloud-native environments.
 
 **Red Hat build of OpenTelemetry** - Provides standardized instrumentation for generating, collecting, and exporting telemetry data including traces, metrics, and logs. OpenTelemetry supports integration with open-source backends like Tempo or Prometheus, as well as commercial observability platforms. It offers a vendor-neutral approach to application instrumentation with a single set of APIs and conventions.
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-04"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -62,7 +62,7 @@ IBM Cloud Object Storage is a fully managed IBM Cloud service, while object stor
 
 Customers can use File Storage for VPC, which is a network-attached storage with NFS support. 
 
-IBM Cloud File Storage for VPC is persistent, fast, and flexible network-attached, NFS-based File Storage for VPC that you can add to your apps by using persistent volumes claims (PVCs). You can choose between predefined storage classes that meet the GB sizes and IOPS that meet the requirements of your workloads. 
+IBM Cloud File Storage for VPC is persistent, fast, and flexible network-attached, NFS-based File Storage for VPC that you can add to your apps by using persistent volumes claims (PVCs). You can choose between predefined storage classes that provide the required capacity in GB and IOPS to meet your workload requirements.
 
 * All file shares are provisioned with zonal availability.
 * All classes support cross-zone mounting.
@@ -72,7 +72,7 @@ Data on a file share is encrypted at rest with IBM-managed encryption by default
 
 See [About File Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-vpc-about) for the details.
 
-For NFS based file share needs for your workloads, you can also use the NFS storage built in the ODF clusters. The key differences here is that File Storage for VPC is a fully managed IBM Cloud service, while NFS storage built in the ODF clusters is a self managed on ROKS managed worker nodes. Also the IOPS and size settings are independent of your clusters. Depending on the use case, there might be a use case for either, or even both of these. 
+For NFS based file share needs for your workloads, you can also use the NFS storage built in the ODF clusters. The key differences here is that File Storage for VPC is a fully managed IBM Cloud service, while NFS storage built in the ODF clusters is a self managed on ROKS managed worker nodes. The IOPS and GB settings are independent of your clusters. Depending on the use case, there might be a use case for either, or even both of these. 
 
 For OpenShift Virtualization workloads using VPC File storage, keep the following considerations in mind:
 

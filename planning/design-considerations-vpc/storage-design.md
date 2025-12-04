@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-04"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -20,7 +20,7 @@ IBM Cloud offers a range of storage solutions designed to meet diverse workload 
 
 The key compute architecture elements are shown in the following diagram.
 
-![Red Hat OpenShift Virtualization on IBM Cloud Storage](../../images/vpcvsi/vpcvsi-high-level-storage.svg "Red Hat OpenShift Virtualization on IBM Cloud Storage"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Storage" caption-side="bottom"}
+![Red Hat OpenShift Virtualization on IBM Cloud Storage](../../images/vpc-vsi/vpc-vsi-high-level-storage.svg "Red Hat OpenShift Virtualization on IBM Cloud Storage"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Storage" caption-side="bottom"}
 
 
 

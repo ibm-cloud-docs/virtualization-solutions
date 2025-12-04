@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-04"
 
 keywords:
 
@@ -18,7 +18,7 @@ Security is a foundational component of any cloud architecture, encompassing ide
 
 The key security architecture elements are shown in the following diagram.
 
-![IBM Cloud VPC VSI Security](../../images/vpcvsi/vpcvsi-high-level-security.svg "IBM Cloud VPC VSI Security"){: caption="IBM Cloud VPC VSI Security" caption-side="bottom"}
+![IBM Cloud VPC VSI Security](../../images/vpc-vsi/vpc-vsi-high-level-security.svg "IBM Cloud VPC VSI Security"){: caption="IBM Cloud VPC VSI Security" caption-side="bottom"}
 
 For workload migration and deployment, robust security capabilities are essential to maintain confidentiality, integrity, and availability while meeting regulatory and compliance requirements. IBM Cloud's security services integrate with native platform capabilities to provide end-to-end protection for virtualization and container workloads.
 

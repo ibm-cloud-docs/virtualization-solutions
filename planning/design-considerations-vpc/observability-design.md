@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-04"
 
 keywords: IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection
 
@@ -21,7 +21,7 @@ IBM Cloud observability solutions include IBM Cloud Monitoring and IBM Cloud Log
 
 The key observability architecture elements are shown in the following diagram.
 
-![IBM Cloud VPC VSI Observability](../../images/vpcvsi/vpcvsi-high-level-observability.svg "IBM Cloud VPC VSI Observability"){: caption="IBM Cloud VPC VSI Observability" caption-side="bottom"}
+![IBM Cloud VPC VSI Observability](../../images/vpc-vsi/vpc-vsi-high-level-observability.svg "IBM Cloud VPC VSI Observability"){: caption="IBM Cloud VPC VSI Observability" caption-side="bottom"}
 
 ## IBM Cloud Security and Compliance Center Workload Protection
 {: #virt-sol-vpc-observability-design-scc-wpp}

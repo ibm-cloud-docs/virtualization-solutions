@@ -5,7 +5,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-04"
 
 keywords: # Not typically populated
 
@@ -65,7 +65,8 @@ For enterprise management and governance, IBM Cloud services such as IBM Cloud M
 
 The following diagram shows the high-level reference architecture for Virtual Servers for VPC on IBM Cloud:
 
-[IBM Cloud Virtual Servers for VPC Architecture]
+![IBM Cloud Virtual Servers for VPC Architecture](../images/vpc-vsi/vpc-vsi-high-level-arch.svg "IBM Cloud Virtual Servers for VPC Architecture"){: caption="IBM Cloud Virtual Servers for VPC Architecture" caption-side="bottom"}
+
 
 ### Components
 {: #virt-sol-vpc-vsi-components}

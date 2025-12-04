@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-04"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -22,7 +22,7 @@ Key IBM Cloud VPC compute options:
 1. Virtual Servers for VPC
 2. Bare Metal Servers for VPC
 
-IBM Cloud VPC compute solutions empower businesses to choose the right infrastructure for their needs—whether optimizing cost, achieving high performance, or enabling hybrid and multicloud strategies.
+IBM Cloud VPC compute solutions empower businesses to select the optimal infrastructure for their needs—whether optimizing cost, achieving high performance, or enabling hybrid and multicloud strategies.
 
 The key compute architecture elements are shown in the following diagram.
 
@@ -72,7 +72,7 @@ IBM Cloud Bare Metal Servers for VPC provide single-tenant, dedicated physical s
 * **Large memory configurations:** Support for memory-intensive virtualization workloads
 * **Network performance:** High-bandwidth, low-latency networking for VM traffic
 
-Bare Metal worker nodes supported by ROKS varies by region and Availability Zone and can be checked at [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors). The table below shows the typical specification: 
+Bare Metal worker nodes supported by ROKS varies by region and Availability Zone and can be checked at [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors). The following table shows the typical specifications:
 
 * cx2.metal.96x192 - 48 cores 192GB memory
 * cx2d.metal.96x192 - 48 cores 192GB memory and 8x3.2TB SSD NVMe drives
