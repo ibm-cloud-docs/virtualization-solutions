@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-04"
+lastupdated: "2025-12-05"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -94,6 +94,6 @@ Block storage for VPC is only available for VSI worker nodes.
 This add-on provisions hypervisor-mounted, high-performance, block-level data storage for your VSI worker nodes by using Kubernetes persistent volume claims (PVCs). It enables you to store virtual machine disks on IBM Cloud Block Storage volumes.
 
 Data on a block volume is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys. 
-[About Block Storage for VPC > Securing your data](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-vpc-about&interface=ui#fs-data-security)
+[About Block Storage for VPC > Securing your data](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-about#bs-data-security)
 
 See [About Block Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-about) for details.

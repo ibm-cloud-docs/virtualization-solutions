@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-04"
+lastupdated: "2025-12-05"
 
 keywords: File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -19,7 +19,7 @@ See the [Resiliency in IBM Cloud](https://cloud.ibm.com/docs/resiliency?topic=re
 
 The key backup and restore architecture elements are shown in the following diagram.
 
-![IBM Cloud VPC VSI Backup and Restore](../../images/vpc-vsi/vpc-vsi-high-level-backup.svg "IBM Cloud VPC VSI Backup and Restore"){: caption="IBM Cloud VPC VSI Backup and Restore" caption-side="bottom"}
+![IBM Cloud VPC VSI Backup and Restore](../../images/vpc-vsi/vpc-vsi-high-level-resiliency.svg "IBM Cloud VPC VSI Backup and Restore"){: caption="IBM Cloud VPC VSI Backup and Restore" caption-side="bottom"}
 
 
 ## IBM Cloud VPC Block Storage Snapshots
