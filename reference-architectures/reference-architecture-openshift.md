@@ -11,25 +11,6 @@ keywords: # Not typically populated
 
 subcollection: virtualization-solutions # Use deployable-reference-architectures, or the subcollection value from your toc.yaml file if docs-only.
 
-authors:
-  - name: "Bryan Buckland"
-    url: "https://www.linkedin.com/in/bryan-buckland/"
-  - name: "name"
-    url: "linkedIn profile URL"
-
-# The release that the reference architecture describes
-version: 1.0
-
-related_links:
-  - title: 'Title'
-    url: 'https://url.com'
-    description: 'Description.'
-  - title: 'related or follow-on architectures'
-    url: 'https://url'
-    description: 'Description'
-
-
-
 content-type: reference-architecture
 
 
@@ -49,8 +30,6 @@ production: false
 
 # OpenShift Virtualization Architecture
 {: #virt-sol-rove-architecture}
-{: toc-content-type="reference-architecture"}
-{: toc-version="1.0"}
 
 Red Hat OpenShift Virtualization on {{site.data.keyword.cloud}} enables organizations to run virtual machine (VM) workloads alongside containerized applications within a unified Kubernetes environment. The virtualization solution, based on the KubeVirt Kubernetes operator available for Red Hat OpenShift, allows you to run and deploy both new and existing VM workloads on a single, managed platform on {{site.data.keyword.cloud_notm}}. It aims to ease VM migration, simplify your operations, accelerate time to value, add flexibility and optimize TCO.
 
