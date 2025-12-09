@@ -86,7 +86,7 @@ The following table outlines the products or services used in the architecture f
 | | Transit Gateway | Hub for connecting multiple VPCs and Classic infrastructure |
 | | Direct Link | Dedicated, low-latency connections to on-premises data centers |
 | | Virtual Network Functions (VNFs) | Virtual firewalls and network appliances running as VPC instances |
-{: caption VPC VSI Component Table}
+{: caption="VPC virtual server instance components" caption-side="bottom"}
 
 ## Next steps
 {: #next-steps}
