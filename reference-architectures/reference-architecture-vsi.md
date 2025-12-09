@@ -5,30 +5,11 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-04"
+lastupdated: "2025-12-09"
 
 keywords: # Not typically populated
 
 subcollection: virtualization-solutions # Use deployable-reference-architectures, or the subcollection value from your toc.yaml file if docs-only.
-
-authors:
-  - name: "Bryan Buckland"
-    url: "https://www.linkedin.com/in/bryan-buckland/"
-  - name: "name"
-    url: "linkedIn profile URL"
-
-# The release that the reference architecture describes
-version: 1.0
-
-related_links:
-  - title: 'Title'
-    url: 'https://url.com'
-    description: 'Description.'
-  - title: 'related or follow-on architectures'
-    url: 'https://url'
-    description: 'Description'
-
-
 
 content-type: reference-architecture
 
@@ -49,8 +30,6 @@ production: false
 
 # Virtual Servers for VPC Architecture
 {: #virt-sol-vpc-vsi-architecture}
-{: toc-content-type="reference-architecture"}
-{: toc-version="1.0"}
 
 IBM Cloud Virtual Servers for VPC provide compute instances within a logically isolated Virtual Private Cloud environment. This Infrastructure-as-a-Service (IaaS) solution delivers flexible, scalable compute resources with integrated networking, storage, and security capabilities for deploying traditional VM-based workloads on IBM Cloud.
 
