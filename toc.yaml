@@ -25,12 +25,12 @@ toc:
       id: plan
       topics:
       - topicgroup:
-          label: Design considerations - OpenShift Virtualization
+          label: OpenShift Virtualization
           topics:
           - topic: planning/design-considerations-openshift/security-design.md
             navtitle: Security
           - topic: planning/design-considerations-openshift/migration-design.md
-            navtitle: Migration
+            navtitle: Workload Migration
           - topic: planning/design-considerations-openshift/resiliency-design.md
             navtitle: Resiliency
           - topic: planning/design-considerations-openshift/observability-design.md
@@ -42,12 +42,12 @@ toc:
           - topic: planning/design-considerations-openshift/networking-design.md
             navtitle: Networking
       - topicgroup:
-          label: Design considerations - VPC VSI
+          label: VPC virtual servers
           topics:
           - topic: planning/design-considerations-vpc/security-design.md
             navtitle: Security
           - topic: planning/design-considerations-vpc/migration-design.md
-            navtitle: Migration
+            navtitle: Workload Migration
           - topic: planning/design-considerations-vpc/resiliency-design.md
             navtitle: Resiliency
           - topic: planning/design-considerations-vpc/observability-design.md

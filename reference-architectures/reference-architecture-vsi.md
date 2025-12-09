@@ -39,7 +39,7 @@ Virtual Servers for VPC integrate seamlessly with IBM Cloud VPC networking featu
 
 For enterprise management and governance, IBM Cloud services such as IBM Cloud Monitoring, IBM Cloud Logging, and IBM Cloud Security and Compliance Center provide visibility, audit trails, and compliance scanning across VPC infrastructure.
 
-## Architecture diagram
+## IBM Cloud Virtual Servers for VPC Architecture
 {: #virt-sol-vpc-vsi-architecture-diagram}
 
 The following diagram shows the high-level reference architecture for Virtual Servers for VPC on IBM Cloud:
@@ -54,28 +54,28 @@ The following table outlines the products or services used in the architecture f
 
 | Component | Architecture components | How the component is used |
 | -------------- | -------------- | -------------- |
-| **Management and Observability** | IBM Cloud Console / CLI / API | Web-based console, command-line interface, and REST APIs for managing VPC resources |
-| | IBM Cloud Monitoring | Agent-based monitoring for metrics collection from virtual server instances |
-| | IBM Cloud Logging | Agent-based log aggregation and analysis for virtual server instances |
-| | IBM Cloud Activity Tracker | Audit logging for VPC resource management activities |
-| | IBM Cloud Security and Compliance Center | Posture management and compliance scanning for VPC infrastructure |
-| **Workload Migration** |  IBM Consulting / Expert Labs | Professional services organizations providing migration and deployment services |
+| [**Workload Migration**](/docs/virtualization-solutions?topic=virtualization-solutions-migration-design) |  IBM Consulting / Expert Labs | Professional services organizations providing migration and deployment services |
 | | 3rd Party Migration Tools | Tools in the IBM Cloud Catalog such as RackWare RMM, Wanclouds |
 | | Customer Self-Service | Direct migration using image import, instance provisioning, and configuration management tools |
-| **Resiliency, backup and disaster recovery** | IBM Cloud Snapshots | Point-in-time copies of Block Storage volumes for backup and recovery |
+| [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design) | IBM Cloud Snapshots | Point-in-time copies of Block Storage volumes for backup and recovery |
 | | IBM Cloud VPC Backup | Scheduled point-in-time copies of Block Storage volumes for backup and recovery |
 | | IBM Cloud Backup and Recovery | Agent-based backup service for file-level and folder-level backup |
 | | 3rd Party Backup Solutions | Self-managed backup solutions such as Veeam, Commvault, or Rubrik |
 | | Multi-zone deployment | Distribution of instances across availability zones for high availability |
-| **Storage** | IBM Cloud Block Storage for VPC | High-performance block storage volumes with configurable IOPS for boot and data disks |
+| [**Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) | IBM Cloud Console / CLI / API | Web-based console, command-line interface, and REST APIs for managing VPC resources |
+| | IBM Cloud Monitoring | Agent-based monitoring for metrics collection from virtual server instances |
+| | IBM Cloud Logging | Agent-based log aggregation and analysis for virtual server instances |
+| | IBM Cloud Activity Tracker | Audit logging for VPC resource management activities |
+| | IBM Cloud Security and Compliance Center | Posture management and compliance scanning for VPC infrastructure |
+| [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | IBM Cloud Block Storage for VPC | High-performance block storage volumes with configurable IOPS for boot and data disks |
 | | IBM Cloud File Storage for VPC | Persistent, fast, and flexible network-attached, NFS-based file storage |
 | | IBM Cloud Object Storage | Designed for unstructured data. Ideal for workloads such as backup, archiving, big data analytics, and application data storage |
 | | IBM Cloud Key Protect | Provision and store encrypted keys used for volume encryption |
-| **Compute** | Virtual Server Instances | Virtual machines with customizable profiles running on shared tenancy infrastructure |
+| [**Compute**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-compute-design-overview) | Virtual Server Instances | Virtual machines with customizable profiles running on shared tenancy infrastructure |
 | | Dedicated Hosts | Optional single-tenant physical servers for compliance and licensing requirements |
 | | Instance Profiles | Balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations |
 | | Custom Images | User-provided OS images for specialized workload requirements |
-| **Networking and Interconnectivity** | Virtual Private Cloud (VPC) | Logically isolated network environment with user-defined IP address ranges |
+| [**Networking**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-design) | Virtual Private Cloud (VPC) | Logically isolated network environment with user-defined IP address ranges |
 | | Subnets | Network segments within availability zones with configurable routing |
 | | Security Groups | Stateful firewalls controlling inbound and outbound traffic at the instance level |
 | | Network ACLs | Stateless firewalls controlling traffic at the subnet level |
