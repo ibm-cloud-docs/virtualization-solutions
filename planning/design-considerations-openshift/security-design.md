@@ -119,8 +119,6 @@ OpenShift provides network policies and security context constraints (SCCs)
 ## Compliance and Governance
 {: #virt-sol-openshift-security-design-compliance}
 
-[OpenShift Virtualization]{: tag-red}
-
 {{site.data.keyword.cloud_notm}} provides comprehensive compliance capabilities and certifications to meet regulatory requirements across industries.
 
 ### IBM Cloud Compliance Certifications
