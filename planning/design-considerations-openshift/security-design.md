@@ -82,7 +82,7 @@ Table Idea One
 
 | Service | Description |
 | -------------- | -------------- |
-| VPC Block Storage Encryption | - Provider-managed encryption by default (IBM-managed keys). \n - Customer-managed encryption using IBM Key Protect or Hyper Protect Crypto Services \n. - AES-256 encryption standard \n Encryption of VSI boot volumes and data volumes |
+| VPC Block Storage Encryption | - Provider-managed encryption by default (IBM-managed keys). \n - Customer-managed encryption using IBM Key Protect or Hyper Protect Crypto Services \n - AES-256 encryption standard \n - Encryption of VSI boot volumes and data volumes |
 | OpenShift Cluster Encryption | - etcd data and worker disks encrypted by IBM-managed LUKS encryption keys \n - Integration with IBM Key Protect allows bringing your own root of trust encryption key that wraps the LUKS key used to encrypt etcd storage and worker disks \n - Kubernetes secrets encryption at rest \n - Persistent volume encryption through storage providers |
 | IBM Key Protect | - Bring-your-own-key (BYOK) model with keys protected by FIPS 140-2 Level 2 cloud HSM. \n - Centralized key lifecycle management. \n - Key rotation and versioning. \n - Audit logging for key operations. \n Integration with VPC and OpenShift services |
 | IBM Hyper Protect Crypto Services | - Keep-your-own-key (KYOK) model utilizing FIPS 140-2 Level 4 cloud HSM \n - Customer-controlled Hardware Security Module (HSM) \n - Exclusive customer control over encryption keys \n - Enhanced compliance for regulated industries |
