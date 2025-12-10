@@ -124,15 +124,13 @@ OpenShift provides network policies and security context constraints (SCCs)
 ### IBM Cloud Compliance Certifications
 {: #virt-sol-openshift-security-design-certifications}
 
-Red Hat OpenShift on {{site.data.keyword.cloud_notm}} includes automatic compliance with HIPAA, PCI, SOC2, and ISO standards.
-
-**Industry Certifications:**
-* ISO 27001, 27017, 27018 (Information Security Management)
-* SOC 1, SOC 2, SOC 3 (Service Organization Controls)
-* PCI DSS (Payment Card Industry Data Security Standard)
-* HIPAA (Health Insurance Portability and Accountability Act)
-* FedRAMP (Federal Risk and Authorization Management Program)
-* GDPR (General Data Protection Regulation) compliance support
+Red Hat OpenShift on {{site.data.keyword.cloud_notm}} includes automatic compliance with HIPAA, PCI, SOC2, and ISO standards, including the following industry certifications.
+   - ISO 27001, 27017, 27018 (Information Security Management)
+   - SOC 1, SOC 2, SOC 3 (Service Organization Controls)
+   - PCI DSS (Payment Card Industry Data Security Standard)
+   - HIPAA (Health Insurance Portability and Accountability Act)
+   - FedRAMP (Federal Risk and Authorization Management Program)
+   - GDPR (General Data Protection Regulation) compliance support
 
 ### IBM Cloud Security and Compliance Center Workload Protection
 {: #virt-sol-openshift-security-design-scc}
