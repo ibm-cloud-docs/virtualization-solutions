@@ -34,51 +34,39 @@ For workload migration and deployment, robust security capabilities are essentia
 
 {{site.data.keyword.cloud_notm}} Identity and Access Management (IAM) provides centralized access control for {{site.data.keyword.cloud_notm}} resources, enabling organizations to manage users, service IDs, access groups, and policies across the entire {{site.data.keyword.cloud_notm}} platform.
 
-* **Users and Service IDs:**
-    * IBMid authentication for human users
-    * Service IDs for applications and automation
-    * API keys for programmatic access
-    * Multi-factor authentication (MFA) support
-* **Access Groups:**
-    * Logical grouping of users and service IDs
-    * Centralized policy management
-    * Dynamic membership based on identity attributes
-    * Simplified access governance at scale
-* **IAM Policies:**
-    * Resource-level access control
-    * Platform roles for infrastructure management
-    * Service roles for workload operations
-    * Attribute-based access control (ABAC)
+For Red Hat OpenShift on {{site.data.keyword.cloud_notm}}, IAM integrates with Kubernetes Role-Based Access Control (RBAC).
 
-### OpenShift RBAC Integration
-{: #virt-sol-openshift-security-design-rbac}
+The follow table details the features of both IAM and RBAC.
 
-For Red Hat OpenShift on {{site.data.keyword.cloud_notm}}, IAM integrates with Kubernetes Role-Based Access Control (RBAC):
+| IAM features | Description |
+| -------------- | -------------- |
+| Users and Services IDs | - IBMid authentication for human users \n - Service IDs for applications and automation \n - API keys for programmatic access \n - Multi-factor authentication (MFA) support |
+| Access groups | - Logical grouping of users and service IDs  \n - Centralized policy management \n - Dynamic membership based on identity attributes \n - Simplified access governance at scale |
+| IAM policies | - Resource-level access control \n - Platform roles for infrastructure management \n - Service roles for workload operations \n - Attribute-based access control (ABAC) |
+{: caption="Identity and Access Management features" caption-side="bottom"}
+{: summary="This table provides all the features for Identity and Access Management."}
+{: #vpc-iam}
+{: tab-title="IBM Cloud IAM"}
+{: tab-group="Identity-Access-Management"}
 
-**Platform Access:**
-* IAM platform roles determine cluster infrastructure actions
-* Administrator, Editor, Operator, and Viewer roles
-* Cluster creation, deletion, and configuration management
-* Worker node and networking operations
 
-**Service Access:**
-* IAM service roles map to Kubernetes RBAC policies
-* Manager, Writer, and Reader roles
-* Namespace-level and cluster-level access
-* Custom role definitions for specific workloads
-
-**Identity Provider Integration:**
-* IBMid as the default identity provider
-* Integration with enterprise LDAP and SAML providers
-* OAuth authentication flow
-* Service account tokens for automation
+| OpenShift RBAC features | Description |
+| -------------- | -------------- |
+| Platform access | - IAM platform roles determine cluster infrastructure actions \n - Administrator, Editor, Operator, and Viewer roles \n - Cluster creation, deletion, and configuration management \n - Worker node and networking operations |
+| Service access | - IAM service roles map to Kubernetes RBAC policies \n - Manager, Writer, and Reader roles \n - Namespace-level and cluster-level access \n - Custom role definitions for specific workloads |
+| Identity provider integration | - IBMid as the default identity provider \n - Integration with enterprise LDAP and SAML providers \n - OAuth authentication flow \n - Service account tokens for automation |
+{: caption="RBAC integration with IAM" caption-side="bottom"}
+{: summary="This table provides details of the RBAC integration with IAM."}
+{: #openshift-rbac}
+{: tab-title="OpenShift RBAC Integration"}
+{: tab-group="Identity-Access-Management"}
 
 ## Data Encryption
 {: #virt-sol-openshift-security-design-encryption}
 
 {{site.data.keyword.cloud_notm}} provides comprehensive encryption capabilities to protect data at rest and in transit across VPC and OpenShift environments.
 
-Table Idea One
+The following table details each encryption service and the encryption capabilities available with that service.
 
 | Service | Description |
 | -------------- | -------------- |
@@ -86,45 +74,16 @@ Table Idea One
 | OpenShift Cluster Encryption | - etcd data and worker disks encrypted by IBM-managed LUKS encryption keys \n - Integration with IBM Key Protect allows bringing your own root of trust encryption key that wraps the LUKS key used to encrypt etcd storage and worker disks \n - Kubernetes secrets encryption at rest \n - Persistent volume encryption through storage providers |
 | IBM Key Protect | - Bring-your-own-key (BYOK) model with keys protected by FIPS 140-2 Level 2 cloud HSM. \n - Centralized key lifecycle management. \n - Key rotation and versioning. \n - Audit logging for key operations. \n Integration with VPC and OpenShift services |
 | IBM Hyper Protect Crypto Services | - Keep-your-own-key (KYOK) model utilizing FIPS 140-2 Level 4 cloud HSM \n - Customer-controlled Hardware Security Module (HSM) \n - Exclusive customer control over encryption keys \n - Enhanced compliance for regulated industries |
-{: caption="Encryption-at-rest encryption capabilities-1" caption-side="bottom"}
+{: caption="Encryption-at-rest encryption capabilities" caption-side="bottom"}
 {: summary="This table provides all the encryption-at-rest encryption capabilities."}
-{: #openshift-encryption-at-rest-1}
-{: tab-title="Encryption-at-rest-1"}
-{: tab-group="Encryption-1"}
+{: #vpc-encryption-at-rest}
+{: tab-title="Encryption-at-rest"}
+{: tab-group="Encryption"}
 
 | Service | Description |
 | -------------- | -------------- |
 | Network encryption | - End-to-end encryption is possible when using secure endpoints, such as HTTPS servers on port 443 or using TLS/SSL for application layer security. \n - VPN gateway encryption using IPsec. \n - Direct Link with MACsec encryption for private connectivity |
 | OpenShift network encryption | - TLS encryption for OpenShift API server communication  \n - Encrypted control plane to worker node communication |
-{: caption="Encryption-in-transit encryption capabilities-1" caption-side="bottom"}
-{: summary="This table provides all the encryption-in-transit encryption capabilities."}
-{: #openshift-encryption-in-transit-1}
-{: tab-title="Encryption-in-transit-1"}
-{: tab-group="Encryption-1"}
-
-
-
-
-Table Idea Two
-
-| VPC Block Storage Encryption | OpenShift Cluster Encryption | IBM Key Protect | IBM Hyper Protect Crypto Services |
-| -------------- | -------------- | -------------- | -------------- |
-| Provider-managed encryption by default (IBM-managed keys) | etcd data and worker disks encrypted by IBM-managed LUKS encryption keys | Bring-your-own-key (BYOK) model with keys protected by FIPS 140-2 Level 2 cloud HSM | Keep-your-own-key (KYOK) model utilizing FIPS 140-2 Level 4 cloud HSM |
-| Customer-managed encryption using IBM Key Protect or Hyper Protect Crypto Services | Integration with IBM Key Protect allows bringing your own root of trust encryption key that wraps the LUKS key used to encrypt etcd storage and worker disks | Centralized key lifecycle management | Customer-controlled Hardware Security Module (HSM) |
-| AES-256 encryption standard | Kubernetes secrets encryption at rest | Key rotation and versioning | Exclusive customer control over encryption keys |
-| Encryption of VSI boot volumes and data volumes | Persistent volume encryption through storage providers | Audit logging for key operations | Enhanced compliance for regulated industries |
-| - | - | Integration with VPC and OpenShift services| - |
-{: caption="Encryption-at-rest encryption capabilities" caption-side="bottom"}
-{: summary="This table provides all the encryption-at-rest encryption capabilities."}
-{: #openshift-encryption-at-rest}
-{: tab-title="Encryption-at-rest"}
-{: tab-group="Encryption"}
-
-| Network Encryption | OpenShift Network Encryption |
-| -------------- | -------------- |
-| End-to-end encryption is possible when using secure endpoints, such as HTTPS servers on port 443 or using TLS/SSL for application layer security | TLS encryption for OpenShift API server communication |
-| VPN gateway encryption using IPsec | Encrypted control plane to worker node communication |
-| Direct Link with MACsec encryption for private connectivity | - |
 {: caption="Encryption-in-transit encryption capabilities" caption-side="bottom"}
 {: summary="This table provides all the encryption-in-transit encryption capabilities."}
 {: #openshift-encryption-in-transit}
