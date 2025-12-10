@@ -49,7 +49,6 @@ The follow table details the features of both IAM and RBAC.
 {: tab-title="IBM Cloud IAM"}
 {: tab-group="Identity-Access-Management"}
 
-
 | OpenShift RBAC features | Description |
 | -------------- | -------------- |
 | Platform access | - IAM platform roles determine cluster infrastructure actions \n - Administrator, Editor, Operator, and Viewer roles \n - Cluster creation, deletion, and configuration management \n - Worker node and networking operations |
@@ -95,34 +94,11 @@ The following table details each encryption service and the encryption capabilit
 
 {{site.data.keyword.cloud_notm}} VPC provides multiple layers of network security controls to protect workloads and control traffic flow.
 
-### VPC Security Groups
-{: #virt-sol-openshift-security-design-security-groups}
-
-Security Groups are stateful firewall controls that protect virtual instances on {{site.data.keyword.cloud_notm}} VPC, with stateful rules where responses are automatically allowed when a request is permitted .
-
-**Key Characteristics:**
-* Instance-level (network interface) security
-* Stateful traffic filtering
-* Attached to bare metal servers, virtual server instance NICs or load balancers
-* Ingress (inbound) and egress (outbound) rules
-* Support for protocol, port, and source/destination specification
-
-### VPC Access Control Lists (ACLs)
-{: #virt-sol-openshift-security-design-acls}
-
-ACLs control traffic to and from subnets, acting as built-in virtual firewalls at the subnet level .
-
-**Key Characteristics:**
-* Subnet-level security
-* Stateless traffic filtering - if you want to permit traffic both ways on a target you must set up two rules
-* All resources in a subnet with an associated ACL follow ACL rules
-* Rules evaluated in numerical order (priority-based)
-* Allow and deny rules for granular control
-* Use ACLs for broad subnet-level controls
-* Combine ACLs with security groups for defense-in-depth
-* Implement explicit deny rules for known malicious traffic
-* Order rules efficiently (most specific first)
-* Document ACL rule purposes and maintenance procedures
+| VPC security control| Description | Key features |
+| -------------- | -------------- | -------------- |
+| Security Groups | Security Groups are stateful firewall controls that protect virtual instances on {{site.data.keyword.cloud_notm}} VPC, with stateful rules where responses are automatically allowed when a request is permitted. | - Instance-level (network interface) security \n - Stateful traffic filtering \ - Attached to bare metal servers, virtual server instance NICs or load balancers \n - Ingress (inbound) and egress (outbound) rules \n - Support for protocol, port, and source/destination specification |
+| Access control lists (ACLs) | ACLs control traffic to and from subnets, acting as built-in virtual firewalls at the subnet level. | - Subnet-level security  \n - Stateless traffic filtering - if you want to permit traffic both ways on a target you must set up two rules. \n - All resources in a subnet with an associated ACL follow ACL rules. \ - Rules evaluated in numerical order (priority-based). \n - Allow and deny rules for granular control. \n - Use ACLs for broad subnet-level controls. \n Combine ACLs with security groups for defense-in-depth. \n - Implement explicit deny rules for known malicious traffic. \n - Order rules efficiently (most specific first). \n - Document ACL rule purposes and maintenance procedures|
+{: caption="VPC network security controls" caption-side="bottom"}
 
 ### OpenShift Network Security
 {: #virt-sol-openshift-security-design-openshift-network}
