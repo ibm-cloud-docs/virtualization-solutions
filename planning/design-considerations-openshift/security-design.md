@@ -78,6 +78,29 @@ For Red Hat OpenShift on {{site.data.keyword.cloud_notm}}, IAM integrates with K
 
 {{site.data.keyword.cloud_notm}} provides comprehensive encryption capabilities to protect data at rest and in transit across VPC and OpenShift environments.
 
+| Service | Description |
+| -------------- | -------------- |
+| VPC Block Storage Encryption | Provider-managed encryption by default (IBM-managed keys). \n Customer-managed encryption using IBM Key Protect or Hyper Protect Crypto Services \n. AES-256 encryption standard \n Encryption of VSI boot volumes and data volumes |
+| OpenShift Cluster Encryption | etcd data and worker disks encrypted by IBM-managed LUKS encryption keys \n Integration with IBM Key Protect allows bringing your own root of trust encryption key that wraps the LUKS key used to encrypt etcd storage and worker disks \n Kubernetes secrets encryption at rest \n Persistent volume encryption through storage providers |
+| IBM Key Protect | Bring-your-own-key (BYOK) model with keys protected by FIPS 140-2 Level 2 cloud HSM. \n Centralized key lifecycle management. \n Key rotation and versioning. \n Audit logging for key operations. \n Integration with VPC and OpenShift services |
+| IBM Hyper Protect Crypto Services | Keep-your-own-key (KYOK) model utilizing FIPS 140-2 Level 4 cloud HSM \n Customer-controlled Hardware Security Module (HSM) \n Exclusive customer control over encryption keys \n Enhanced compliance for regulated industries |
+{: caption="Encryption-at-rest encryption capabilities-1" caption-side="bottom"}
+{: summary="This table provides all the encryption-at-rest encryption capabilities."}
+{: #openshift-encryption-at-rest-1}
+{: tab-title="Encryption-at-rest-1"}
+{: tab-group="Encryption-1"}
+
+| Service | Description |
+| -------------- | -------------- |
+| Network encryption | End-to-end encryption is possible when using secure endpoints, such as HTTPS servers on port 443 or using TLS/SSL for application layer security. \n VPN gateway encryption using IPsec. \n Direct Link with MACsec encryption for private connectivity |
+| OpenShift network encryption | TLS encryption for OpenShift API server communication  \n Encrypted control plane to worker node communication |
+{: caption="Encryption-in-transit encryption capabilities-1" caption-side="bottom"}
+{: summary="This table provides all the encryption-in-transit encryption capabilities."}
+{: #openshift-encryption-in-transit-1}
+{: tab-title="Encryption-in-transit-1"}
+{: tab-group="Encryption-1"}
+
+
 | VPC Block Storage Encryption | OpenShift Cluster Encryption | IBM Key Protect | IBM Hyper Protect Crypto Services |
 | -------------- | -------------- | -------------- | -------------- |
 | Provider-managed encryption by default (IBM-managed keys) | etcd data and worker disks encrypted by IBM-managed LUKS encryption keys | Bring-your-own-key (BYOK) model with keys protected by FIPS 140-2 Level 2 cloud HSM | Keep-your-own-key (KYOK) model utilizing FIPS 140-2 Level 4 cloud HSM |
