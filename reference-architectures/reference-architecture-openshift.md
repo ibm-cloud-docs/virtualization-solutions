@@ -5,7 +5,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-09"
+lastupdated: "2025-12-10"
 
 keywords: # Not typically populated
 
@@ -52,7 +52,7 @@ The following diagram shows the high-level reference architecture for OpenShift 
 
 The following table outlines the products or services used in the architecture for each components.
 
-| Component | Architecture components | How the component is used |
+| Component | Architecture components | Description |
 | -------------- | -------------- | -------------- |
 | [**Workload Migration**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design) | Red Hat OpenShift Migration toolkit for Virtualization (MTV) | A suite of tooling to migrate virtual machines from providers eg. Red Hat OpenShift, VMware |
 | | IBM Consulting / Expert Labs | Professional Services organizations that provide Red Hat OpenShift services|

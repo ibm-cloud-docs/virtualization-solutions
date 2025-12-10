@@ -5,7 +5,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-09"
+lastupdated: "2025-12-10"
 
 keywords: # Not typically populated
 
@@ -31,18 +31,18 @@ production: false
 # Virtual Servers for VPC Architecture
 {: #virt-sol-vpc-vsi-architecture}
 
-IBM Cloud Virtual Servers for VPC provide compute instances within a logically isolated Virtual Private Cloud environment. This Infrastructure-as-a-Service (IaaS) solution delivers flexible, scalable compute resources with integrated networking, storage, and security capabilities for deploying traditional VM-based workloads on IBM Cloud.
+{{site.data.keyword.cloud}} Virtual Servers for VPC provide compute instances within a logically isolated Virtual Private Cloud environment. This Infrastructure-as-a-Service (IaaS) solution delivers flexible, scalable compute resources with integrated networking, storage, and security capabilities for deploying traditional VM-based workloads on {{site.data.keyword.cloud_notm}}.
 
 The solution offers a wide range of compute profiles including balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations, running on shared tenancy infrastructure with optional dedicated host placement for compliance and licensing requirements.
 
-Virtual Servers for VPC integrate seamlessly with IBM Cloud VPC networking features including Security Groups, Network ACLs, VPN connectivity, and Load Balancers, providing comprehensive network isolation and security controls. Storage options include boot and data volumes using IBM Cloud Block Storage, with integration to IBM Cloud File Storage and Object Storage for additional data management capabilities.
+Virtual Servers for VPC integrate seamlessly with {{site.data.keyword.cloud_notm}} VPC networking features including Security Groups, Network ACLs, VPN connectivity, and Load Balancers, providing comprehensive network isolation and security controls. Storage options include boot and data volumes using {{site.data.keyword.cloud_notm}} Block Storage, with integration to {{site.data.keyword.cloud_notm}} File Storage and Object Storage for additional data management capabilities.
 
-For enterprise management and governance, IBM Cloud services such as IBM Cloud Monitoring, IBM Cloud Logging, and IBM Cloud Security and Compliance Center provide visibility, audit trails, and compliance scanning across VPC infrastructure.
+For enterprise management and governance, {{site.data.keyword.cloud_notm}} services such as {{site.data.keyword.cloud_notm}} Monitoring, {{site.data.keyword.cloud_notm}} Logging, and {{site.data.keyword.cloud_notm}} Security and Compliance Center provide visibility, audit trails, and compliance scanning across VPC infrastructure.
 
 ## IBM Cloud Virtual Servers for VPC Architecture
 {: #virt-sol-vpc-vsi-architecture-diagram}
 
-The following diagram shows the high-level reference architecture for Virtual Servers for VPC on IBM Cloud:
+The following diagram shows the high-level reference architecture for Virtual Servers for VPC on {{site.data.keyword.cloud_notm}}:
 
 ![IBM Cloud Virtual Servers for VPC Architecture](../images/vpc-vsi/vpc-vsi-high-level-arch.svg "IBM Cloud Virtual Servers for VPC Architecture"){: caption="IBM Cloud Virtual Servers for VPC Architecture" caption-side="bottom"}
 
@@ -55,22 +55,22 @@ The following table outlines the products or services used in the architecture f
 | Component | Architecture components | How the component is used |
 | -------------- | -------------- | -------------- |
 | [**Workload Migration**](/docs/virtualization-solutions?topic=virtualization-solutions-migration-design) |  IBM Consulting / Expert Labs | Professional services organizations providing migration and deployment services |
-| | 3rd Party Migration Tools | Tools in the IBM Cloud Catalog such as RackWare RMM, Wanclouds |
+| | 3rd Party Migration Tools | Tools in the {{site.data.keyword.cloud_notm}} Catalog such as RackWare RMM, Wanclouds |
 | | Customer Self-Service | Direct migration using image import, instance provisioning, and configuration management tools |
-| [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design) | IBM Cloud Snapshots | Point-in-time copies of Block Storage volumes for backup and recovery |
-| | IBM Cloud VPC Backup | Scheduled point-in-time copies of Block Storage volumes for backup and recovery |
-| | IBM Cloud Backup and Recovery | Agent-based backup service for file-level and folder-level backup |
+| [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design) | {{site.data.keyword.cloud_notm}} Snapshots | Point-in-time copies of Block Storage volumes for backup and recovery |
+| | {{site.data.keyword.cloud_notm}} VPC Backup | Scheduled point-in-time copies of Block Storage volumes for backup and recovery |
+| | {{site.data.keyword.cloud_notm}} Backup and Recovery | Agent-based backup service for file-level and folder-level backup |
 | | 3rd Party Backup Solutions | Self-managed backup solutions such as Veeam, Commvault, or Rubrik |
 | | Multi-zone deployment | Distribution of instances across availability zones for high availability |
-| [**Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) | IBM Cloud Console / CLI / API | Web-based console, command-line interface, and REST APIs for managing VPC resources |
-| | IBM Cloud Monitoring | Agent-based monitoring for metrics collection from virtual server instances |
-| | IBM Cloud Logging | Agent-based log aggregation and analysis for virtual server instances |
-| | IBM Cloud Activity Tracker | Audit logging for VPC resource management activities |
-| | IBM Cloud Security and Compliance Center | Posture management and compliance scanning for VPC infrastructure |
-| [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | IBM Cloud Block Storage for VPC | High-performance block storage volumes with configurable IOPS for boot and data disks |
-| | IBM Cloud File Storage for VPC | Persistent, fast, and flexible network-attached, NFS-based file storage |
-| | IBM Cloud Object Storage | Designed for unstructured data. Ideal for workloads such as backup, archiving, big data analytics, and application data storage |
-| | IBM Cloud Key Protect | Provision and store encrypted keys used for volume encryption |
+| [**Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) | {{site.data.keyword.cloud_notm}} Console / CLI / API | Web-based console, command-line interface, and REST APIs for managing VPC resources |
+| | {{site.data.keyword.cloud_notm}} Monitoring | Agent-based monitoring for metrics collection from virtual server instances |
+| | {{site.data.keyword.cloud_notm}} Logging | Agent-based log aggregation and analysis for virtual server instances |
+| | {{site.data.keyword.cloud_notm}} Activity Tracker | Audit logging for VPC resource management activities |
+| | {{site.data.keyword.cloud_notm}} Security and Compliance Center | Posture management and compliance scanning for VPC infrastructure |
+| [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | {{site.data.keyword.cloud_notm}} Block Storage for VPC | High-performance block storage volumes with configurable IOPS for boot and data disks |
+| | {{site.data.keyword.cloud_notm}} File Storage for VPC | Persistent, fast, and flexible network-attached, NFS-based file storage |
+| | {{site.data.keyword.cloud_notm}} Object Storage | Designed for unstructured data. Ideal for workloads such as backup, archiving, big data analytics, and application data storage |
+| | {{site.data.keyword.cloud_notm}} Key Protect | Provision and store encrypted keys used for volume encryption |
 | [**Compute**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-compute-design-overview) | Virtual Server Instances | Virtual machines with customizable profiles running on shared tenancy infrastructure |
 | | Dedicated Hosts | Optional single-tenant physical servers for compliance and licensing requirements |
 | | Instance Profiles | Balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations |
