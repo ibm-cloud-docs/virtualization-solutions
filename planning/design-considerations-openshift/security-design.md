@@ -94,26 +94,27 @@ The following table details each encryption service and the encryption capabilit
 
 {{site.data.keyword.cloud_notm}} VPC provides multiple layers of network security controls to protect workloads and control traffic flow.
 
+OpenShift provides network policies and security context constraints (SCCs)
+
 | VPC security control| Description | Key features |
 | -------------- | -------------- | -------------- |
 | Security Groups | Security Groups are stateful firewall controls that protect virtual instances on {{site.data.keyword.cloud_notm}} VPC, with stateful rules where responses are automatically allowed when a request is permitted. | - Instance-level (network interface) security \n - Stateful traffic filtering \ - Attached to bare metal servers, virtual server instance NICs or load balancers \n - Ingress (inbound) and egress (outbound) rules \n - Support for protocol, port, and source/destination specification |
 | Access control lists (ACLs) | ACLs control traffic to and from subnets, acting as built-in virtual firewalls at the subnet level. | - Subnet-level security  \n - Stateless traffic filtering - if you want to permit traffic both ways on a target you must set up two rules. \n - All resources in a subnet with an associated ACL follow ACL rules. \ - Rules evaluated in numerical order (priority-based). \n - Allow and deny rules for granular control. \n - Use ACLs for broad subnet-level controls. \n Combine ACLs with security groups for defense-in-depth. \n - Implement explicit deny rules for known malicious traffic. \n - Order rules efficiently (most specific first). \n - Document ACL rule purposes and maintenance procedures|
 {: caption="VPC network security controls" caption-side="bottom"}
+{: summary="This table provides tne list of all the VPC security controls."}
+{: #vpc-security-controls}
+{: tab-title="VPC security controls"}
+{: tab-group="network-security"}
 
-### OpenShift Network Security
-{: #virt-sol-openshift-security-design-openshift-network}
-
-**Network Policies:**
-* Kubernetes NetworkPolicy resources for pod-to-pod traffic control
-* Namespace isolation and segmentation
-* Application-level micro-segmentation
-* Ingress and egress rule definition
-
-**OpenShift Security Context Constraints (SCCs):**
-* Control pod security capabilities and permissions
-* Restrict privileged container execution
-* Define allowed volume types and host access
-* Enforce security best practices for workload deployment
+| OpenShift | Description |
+| -------------- | -------------- |
+| Network policies |  - Kubernetes NetworkPolicy resources for pod-to-pod traffic control  \n - Namespace isolation and segmentation. \n - Application-level micro-segmentation. \n - Ingress and egress rule definition |
+| Security contexts constraints (SCCs) | - Control pod security capabilities and permissions. \n - Restrict privileged container execution. \n - Define allowed volume types and host access. \n - Enforce security best practices for workload deployment |
+{: caption="OpenShift network security" caption-side="bottom"}
+{: summary="This table provides tne list of all the OpenShift security controls."}
+{: #openshift-security-controls}
+{: tab-title="OpenShift security controls"}
+{: tab-group="network-security"}
 
 ## Compliance and Governance
 {: #virt-sol-openshift-security-design-compliance}
