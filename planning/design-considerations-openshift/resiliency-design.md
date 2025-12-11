@@ -76,11 +76,6 @@ See [Red Hat OpenShift on VPC multiregion DR](https://cloud.ibm.com/docs/pattern
 
 **IBM Cloud Backup and Recovery** is a provider managed backup service for file, folder and database servers (MS SQL Server and SAP HANA) in VPC environments running on IBM Cloud. This service lets you define backup schedules to routinely protect data sources using a secure, agent-based, application-consistent backup service. Backup infrastructure is managed by IBM. The service is comprised of:
 
-* **IBM Cloud Backup and Recovery service** - Managed by IBM, once provisioned via the IBM Cloud catalog, you access via a web browser to manage your backup policies, download the agents and restore.
-* **VPE Gateway** - To improve performance it is recommended to use a VPE gateway to access the service instead of the native connection. To create one or more VPE gateways use the IBM Cloud catalog to order a VPC gateway and configure it to use the Backup and Recovery service.
-* **Data Source Connector** - Installed via the IBM Cloud Catalog which install a VSI in your VPC. Install one or more (at least two recommended for HA) data connectors and increase as need to increase backup throughput. Data source connectors are used to establish connectivity between your source VSI and the service. The data source connectors also interacts with the service's IBM Cloud Object Service bucket where the backups are located. This bucket is managed by the provider and is not contained within your account.
-* **Agent** - An agent is IBM Cloud Backup and Recovery software installed on the VSI that interacts locally with the operating system and source data being protected. The agent communicates with the Data Source Connector and Backup and Recovery instance during backup and recovery operations. Windows and Linux agents are currently available, with support for additional agent types planned for the future.
-
 Key capabilities:
 
 * Agent-based backup for virtual server instances
@@ -93,15 +88,26 @@ Key capabilities:
     * Security - Take advantage of granular role-based access control to stop unauthorized actors from modifying or deleting data
     * Application-consistent backup - Capture backups of your application data in a consistent state, allowing for clean restoration to a specific point in time without data corruption or loss.
 
-See [Getting started with Backup and Recovery](https://cloud.ibm.com/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery)
+### IBM Cloud Backup and Recovery Architecture Components
+{: #virt-sol-openshift-resiliency-ibm-cloud-architecture}
 
-The IBM Cloud Backup and Recovery service will soon be updated to include VMs hosted on Red Hat OpenShift on IBM Cloud VPC.
-{: note}
+The following table details the architecture components the solution.
+
+| Architecture Component | Description |
+| -------------- | -------------- |
+| IBM Cloud Backup and Recovery service | Managed by IBM, once provisioned via the IBM Cloud catalog, you access via a web browser to manage your backup policies, download the agents and restore. |
+| VPE Gateway | To improve performance it is recommended to use a VPE gateway to access the service instead of the native connection. To create one or more VPE gateways use the IBM Cloud catalog to order a VPC gateway and configure it to use the Backup and Recovery service. |
+| Data Source Connector | Installed via the IBM Cloud Catalog which install a VSI in your VPC. Install one or more (at least two recommended for HA) data connectors and increase as need to increase backup throughput. Data source connectors are used to establish connectivity between your source VSI and the service. The data source connectors also interacts with the service's IBM Cloud Object Service bucket where the backups are located. This bucket is managed by the provider and is not contained within your account.|
+| Agent | An agent is IBM Cloud Backup and Recovery software installed on the VSI that interacts locally with the operating system and source data being protected. The agent communicates with the Data Source Connector and Backup and Recovery instance during backup and recovery operations. Windows and Linux agents are currently available, with support for additional agent types planned for the future. |
+{: caption="Red Hat Advanced Cluster Management (RHACM) architecture components" caption-side="bottom"}
+
+
+For more information, see [Getting started with Backup and Recovery](https://cloud.ibm.com/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery)
+
+
 
 ## Veeam Kasten K10
 {: #virt-sol-openshift-resiliency-design-kasten}
-
-[OpenShift Virtualization]{: tag-red}
 
 Veeam Kasten K10 delivers secure, Kubernetes-native data protection and application mobility at scale across a wide range of distributions and platforms, including OpenShift environments. Kasten provides unified backup and recovery for virtual machines migrating to and running on OpenShift Virtualization, enabling consistent protection for VM data alongside containerized workloads through a single policy engine. Kasten K10 is available from the IBM Cloud catalog tile with a BYOL model. Key features:
 
