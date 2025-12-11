@@ -85,7 +85,7 @@ MTV creates and manages the following custom resources (CRs) and services. The f
 | Option | Description |
 | -------------- | -------------- |
 | `NetworkMapping` | Maps the networks of the source and target providers. |
-| * `StorageMapping` | Maps the storage of the source and target providers. |
+| `StorageMapping` | Maps the storage of the source and target providers. |
 | `Provider` | Stores attributes that enable MTV to connect to and interact with the source and target providers. (VMware or Red Hat) |
 | `Plan` | Contains a list of virtual machines with the same migration parameters and associated network and storage mappings. |
 | `Migration` | Executes a migration plan. |
