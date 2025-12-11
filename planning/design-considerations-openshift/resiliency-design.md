@@ -180,3 +180,5 @@ Various third-party backup solutions provide alternatives for OpenShift VM backu
 * **Veeam** - Enterprise backup and recovery with application-aware capabilities and ransomware protection
 
 These solutions may support both agent-based backup for virtual machines and Kubernetes-native backup for OpenShift workloads, providing flexibility based on organizational requirements and existing tool investments.
+
+<!--- Caution on the third party information - we don't include third party information in our content. This list is fine, but if you want to provide any further details, it must be a link to the third party documentation. If we don't support it, we don't document it. >
