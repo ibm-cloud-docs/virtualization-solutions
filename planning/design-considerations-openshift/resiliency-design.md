@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-01"
+lastupdated: "2025-12-11"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -24,8 +24,6 @@ The key backup and restore architecture elements are shown in the following diag
 ## Regional Disaster Recovery
 {: #virt-sol-openshift-resiliency-design-rhacm}
 
-[OpenShift Virtualization]{: tag-red}
-
 **Red Hat Advanced Cluster Management (RHACM)** enables disaster recovery solutions for OpenShift Data Foundation clusters. **ODF Regional Disaster Recovery** on Red Hat OpenShift provides asynchronous data replication capabilities between two ROKS clusters located in different IBM Cloud regions, ensuring business continuity during regional outages.
 
 ODF Regional DR combines Red Hat Advanced Cluster Management and OpenShift Data Foundation components to provide application and data mobility across Red Hat OpenShift Container Platform clusters.
@@ -35,44 +33,42 @@ ODF Regional DR combines Red Hat Advanced Cluster Management and OpenShift Data 
 
 **Red Hat Advanced Cluster Management (RHACM)** provides multi-cluster management and application lifecycle orchestration, serving as the control plane in a multi-cluster environment. RHACM consists of two parts:
 
-* **RHACM Hub** - Components running on the multi-cluster control plane
-* **Managed clusters** - Components running on the clusters being managed
+   * **RHACM Hub** - Components running on the multi-cluster control plane
+   * **Managed clusters** - Components running on the clusters being managed
 
 **OpenShift Data Foundation (ODF)** provides storage provisioning and management for stateful applications in OpenShift Container Platform clusters. ODF is backed by Ceph as the storage provider, with lifecycle management provided by Rook in the ODF component stack. Ceph-CSI handles provisioning and management of Persistent Volumes for stateful applications.
 
-OpenShift Data Foundation includes the following disaster recovery capabilities:
+   OpenShift Data Foundation includes the following disaster recovery capabilities:
 
-* Enable RBD block pools for mirroring across OpenShift Data Foundation instances
-* Mirror specific images within RBD block pools
-* Provide csi-addons to manage per Persistent Volume Claim (PVC) mirroring
+      * Enable RBD block pools for mirroring across OpenShift Data Foundation instances
+      * Mirror specific images within RBD block pools
+      * Provide csi-addons to manage per Persistent Volume Claim (PVC) mirroring
 
 **OpenShift DR** provides orchestrators to configure and manage stateful applications across peer OpenShift clusters managed by RHACM. It offers cloud-native interfaces to orchestrate the lifecycle of an application's state on Persistent Volumes, including:
 
-* Protecting an application and its state relationship across OpenShift clusters
-* Failing over an application and its state to a peer cluster
-* Relocating an application and its state to the previously deployed cluster
+   * Protecting an application and its state relationship across OpenShift clusters
+   * Failing over an application and its state to a peer cluster
+   * Relocating an application and its state to the previously deployed cluster
 
-OpenShift DR consists of three components:
+   OpenShift DR consists of three components:
 
-* **ODF Multicluster Orchestrator** - Installed on the multi-cluster control plane (RHACM Hub) to orchestrate configuration and peering of OpenShift Data Foundation clusters for Metro and Regional DR relationships
-* **OpenShift DR Hub Operator** - Automatically installed as part of ODF Multicluster Orchestrator to orchestrate failover or relocation of DR-enabled applications
-* **OpenShift DR Cluster Operator** - Automatically installed on each managed cluster in a Metro or Regional DR relationship to manage the lifecycle of all PVCs for an application
+      * **ODF Multicluster Orchestrator** - Installed on the multi-cluster control plane (RHACM Hub) to orchestrate configuration and peering of OpenShift Data Foundation clusters for Metro and Regional DR relationships
+      * **OpenShift DR Hub Operator** - Automatically installed as part of ODF Multicluster Orchestrator to orchestrate failover or relocation of DR-enabled applications
+      * **OpenShift DR Cluster Operator** - Automatically installed on each managed cluster in a Metro or Regional DR relationship to manage the lifecycle of all PVCs for an application
 
 **OpenShift API for Data Protection (OADP)** provides backup and restore capabilities for non-PVC cluster resources and application metadata. OADP is Red Hat's operator for Velero, the open-source Kubernetes backup tool, and handles the protection of:
 
-* Kubernetes objects and custom resources (deployments, services, routes, ConfigMaps, secrets)
-* Cluster-scoped resources and namespaced resources
-* Application metadata and configuration
-* Resource relationships and dependencies
+   * Kubernetes objects and custom resources (deployments, services, routes, ConfigMaps, secrets)
+   * Cluster-scoped resources and namespaced resources
+   * Application metadata and configuration
+   * Resource relationships and dependencies
 
-OADP works in conjunction with OpenShift DR to provide comprehensive data protection. While OpenShift DR handles PVC replication and application mobility between clusters, OADP ensures that all supporting Kubernetes resources and configurations are backed up and can be restored. OADP backs up data to S3-compatible object storage such as IBM Cloud Object Storage or NooBaa Multi-Cloud Gateway.  NooBaa Multi-Cloud Gateway is included with OpenShift Data Foundation, and can leverage ODF storage or external object storage, enabling both cluster-local recovery and cross-cluster disaster recovery scenarios.
+   OADP works in conjunction with OpenShift DR to provide comprehensive data protection. While OpenShift DR handles PVC replication and application mobility between clusters, OADP ensures that all supporting Kubernetes resources and configurations are backed up and can be restored. OADP backs up data to S3-compatible object storage such as IBM Cloud Object Storage or NooBaa Multi-Cloud Gateway.  NooBaa Multi-Cloud Gateway is included with OpenShift Data Foundation, and can leverage ODF storage or external object storage, enabling both cluster-local recovery and cross-cluster disaster recovery scenarios.
 
 See [Red Hat OpenShift on VPC multiregion DR](https://cloud.ibm.com/docs/pattern-openshift-vpc-dr-multiregion?topic=pattern-openshift-vpc-dr-multiregion-overview) deployment guide.
 
 ## IBM Cloud Backup and Recovery
 {: #virt-sol-openshift-resiliency-design-bar}
-
-[OpenShift Virtualization]{: tag-red}
 
 **IBM Cloud Backup and Recovery** is a provider managed backup service for file, folder and database servers (MS SQL Server and SAP HANA) in VPC environments running on IBM Cloud. This service lets you define backup schedules to routinely protect data sources using a secure, agent-based, application-consistent backup service. Backup infrastructure is managed by IBM. The service is comprised of:
 
@@ -123,8 +119,6 @@ Kasten K10 can be integrated with Veeam Backup and Replication (VBR), providing 
 ## Red Hat OpenShift API for Data Protection (OADP)
 {: #virt-sol-openshift-resiliency-design-oadp}
 
-[OpenShift Virtualization]{: tag-red}
-
 Red Hat OpenShift API for Data Protection (OADP) is an operator that provides backup and restore capabilities for OpenShift cluster resources and application data. OADP is based on the open-source Velero project and extends it with Red Hat support, additional features, and seamless integration with OpenShift environments.
 
 OADP enables comprehensive protection for OpenShift workloads, including containerized applications, virtual machines running on OpenShift Virtualization, and cluster configuration resources. It provides a unified backup solution for both application metadata and persistent data.
@@ -166,8 +160,6 @@ OADP provides comprehensive backup capabilities for OpenShift environments:
 
 ## Third-Party Backup Solutions
 {: #virt-sol-openshift-resiliency-design-3rd-party}
-
-[OpenShift Virtualization]{: tag-red}
 
 Various third-party backup solutions provide alternatives for OpenShift VM backup, available as self-managed with bring-your-own-license (BYOL) models. Additional third-party backup solutions that may be compatible with OpenShift Virtualization include:
 
