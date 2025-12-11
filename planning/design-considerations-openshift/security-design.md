@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-10"
+lastupdated: "2025-12-11"
 
 keywords: Security
 
@@ -132,7 +132,7 @@ Red Hat OpenShift on {{site.data.keyword.cloud_notm}} includes automatic complia
    - FedRAMP (Federal Risk and Authorization Management Program)
    - GDPR (General Data Protection Regulation) compliance support
 
-### IBM Cloud Security and Compliance Center Workload Protection
+### IBM Cloud Security and Compliance Center Workload Protection (SSC WP)
 {: #virt-sol-openshift-security-design-scc}
 
 | Feature | Description |
