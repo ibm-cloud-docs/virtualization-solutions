@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-02"
+lastupdated: "2025-12-11"
 
 keywords:
 
@@ -13,7 +13,7 @@ subcollection: virtualization-solutions
 {{site.data.keyword.attribute-definition-list}}
 
 
-# Migration Workloads to Red Hat OpenShift Virtualiztaion 
+# Migration Workloads to Red Hat OpenShift Virtualiztaion
 {: #virt-sol-openshift-migration-design}
 
 This is a short description that introduces the content in this topic.
@@ -30,88 +30,90 @@ The key compute architecture elements are shown in the following diagram.
 ## Red Hat OpenShift Migration Toolkit for Virtualization (MTV)
 {: #virt-sol-openshift-migration-design-mtv}
 
-[OpenShift Virtualization]{: tag-red}
+**The Migration Toolkit for Virtualization (MTV)** on OpenShift Container Platform helps migrate virtual machines from traditional hypervisors like VMware vSphere, Red Hat Virtualization, or OpenStack into OpenShift Virtualization, enabling consolidation of virtual machines and containers on a single Kubernetes-native platform.
 
-**The Migration Toolkit for Virtualization (MTV)** on OpenShift Container Platform helps migrate virtual machines from traditional hypervisors like VMware vSphere, Red Hat Virtualization, or OpenStack into OpenShift Virtualization, enabling consolidation of VMs and containers on a single Kubernetes-native platform.
+MTV provides a web UI and API for discovery, planning, and execution of migrations, leveraging persistent volume cloning or streaming for disk data, while maintaining virtual machine configuration and networking. It integrates with OpenShift Virtualization to run migrated virtual machines alongside containers, using Kubernetes-native storage and networking constructs.
 
-MTV provides a web UI and API for discovery, planning, and execution of migrations, leveraging persistent volume cloning or streaming for disk data, while maintaining VM configuration and networking. It integrates with OpenShift Virtualization to run migrated VMs alongside containers, using Kubernetes-native storage and networking constructs.
-
-For VMware migrations, the Migration Toolkit for Virtualization (MTV) integrates with vCenter to discover VMs and inventory data, map VMware resources (clusters, networks, datastores) to OpenShift equivalents, and automate bulk or selective migrations. It supports disk data transfer via warm or cold migration, preserves VM configuration (CPU, memory, NICs), and converts VMware constructs into Kubernetes-native resources for seamless execution in OpenShift Virtualization.
+For VMware migrations, the Migration Toolkit for Virtualization (MTV) integrates with vCenter to discover virtual machines and inventory data, map virtual machineware resources (clusters, networks, datastores) to OpenShift equivalents, and automate bulk or selective migrations. It supports disk data transfer via warm or cold migration, preserves virtual machine configuration (CPU, memory, NICs), and converts VMware constructs into Kubernetes-native resources for seamless execution in OpenShift Virtualization.
 
 ### Red Hat OpenShift Migration Types
 {: #virt-sol-openshift-migration-design-migration-type}
 
-[OpenShift Virtualization]{: tag-red}
+Migration Toolkit for Virtualization (MTV) supports two types of migration:
 
-Migration Toolkit for Virtualization (MTV) supports two types of migration, cold and warm. 
+   - **Cold migration** is the default migration type where the source’s virtual machines are shutdown while the data is copied.
+   - **Warm migration** copies most of the data during the precopy stage. Then the virtual machines are shut down and the remaining data is copied during the cutover stage.
 
-1. **Cold migration** is the default migration type where the source’s virtual machines are shutdown while the data is copied.
-2. **Warm migration** copies most of the data during the precopy stage. Then the VMs are shut down and the remaining data is copied during the cutover stage.
+Comparing the migration speeds of cold and warm migrations, you can observe single disk transfer and disk conversion are approximately the same for the warm and cold migrations. The benefit of warm migration is that the transfer of the snapshot happens in the background while the virtual machine is powered on. The default snapshot time is taken every 60 minutes. If virtual machines change substantially, more data needs to be transferred than in cold migration when the virtual machine is powered off. The cutover time, meaning the shutdown of the virtual machine and last snapshot transfer, depends on how much the virtual machine has changed since the last snapshot.
 
-Warm Migrations - **Precopy**
-- The VMs are not shut down during the precopy stage.
-- Create an initial snapshot of running VM disks.
-- Copy first snapshot to target (full disk transfer, largest amount of data copied- Takes More Time)
-- The VM disks are copied incrementally using changed block tracking (CBT) snapshots
-- Copy deltas - Changed data ( copying only data which has changed since last snapshot- Takes Less Time):
-    - Create a new snapshot
-    - Copy the delta between previous snapshot and the new snapshot
-    - Schedule the next snapshot (configurable, by default 1 hour after last snapshot finished)
-    - A VM can support up to 28 CBT snapshots. If that limit is exceeded, a warm import retry limit reached error message is displayed. If the VM has preexisting CBT snapshots, it will reach this limit sooner.
+#### Red Hat OpenShift warm migration precopy process
+{: #virt-sol-openshift-warm-precopy-migration}
 
-Warm Migrations - **Cutover**
-- The VMs are shut down during the cutover stage and the remaining data is migrated. Data stored in RAM is not migrated.
-- Scheduled time to finalize warm migration
-- You can start the cutover stage manually in the MTV console.
-- Continue in the same way as cold migration
-    - Guest conversion
-    - Optionally starting target VM
+The virtual machine is not shutdo during the precopy stage.
 
-Comparing the migration speeds of cold and warm migrations, you can observe single disk transfer and disk conversion are approximately the same for the warm and cold migrations. The benefit of warm migration is that the transfer of the snapshot happens in the background while the VM is powered on. The default snapshot time is taken every 60 minutes. If VMs change substantially, more data needs to be transferred than in cold migration when the VM is powered off. The cutover time, meaning the shutdown of the VM and last snapshot transfer, depends on how much the VM has changed since the last snapshot.
+1. Create an initial snapshot of running virtual machine disks.
+1. Copy first snapshot to target (full disk transfer, largest amount of data copied- Takes More Time)
+1. The virtual machine disks are copied incrementally using changed block tracking (CBT) snapshots
+1. Copy deltas - Changed data ( copying only data which has changed since last snapshot- Takes Less Time):
+      1. Create a new snapshot
+      1. Copy the delta between previous snapshot and the new snapshot
+      1. Schedule the next snapshot (configurable, by default 1 hour after last snapshot finished)
+
+A virtual machine can support up to 28 CBT snapshots. If that limit is exceeded, a warm import retry limit reached error message is displayed. If the virtual machine has preexisting CBT snapshots, it will reach this limit sooner.
+{: note}
+
+#### Red Hat OpenShift warm migration cutover process
+{: #virt-sol-openshift-warm-cutover-migration}
+
+The virtual machines are shut down during the cutover stage and the remaining data is migrated. Data stored in RAM is not migrated.
+
+1. Scheduled time to finalize warm migration
+1. You can start the cutover stage manually in the MTV console.
+1. Continue in the same way as cold migration
+   1. Guest conversion
+   1. Optionally starting target virtual machine
 
 ### Red Hat OpenShift Migration Workflow
 {: #virt-sol-openshift-migration-design-migration-workflow}
 
-[OpenShift Virtualization]{: tag-red}
-
-The Migration Toolkit for Virtualization (MTV) is provided as an Red Hat OpenShift Operator. 
+The Migration Toolkit for Virtualization (MTV) is provided as an Red Hat OpenShift Operator.
 
 ![Red Hat OpenShift Virtualization Migration Workflow](../../images/openshift/openshift-virtualization-migration-flow.svg "Red Hat OpenShift Virtualization Migration Workflow"){: caption="Red Hat OpenShift Virtualization Migration Workflow" caption-side="bottom"}
 
+MTV creates and manages the following custom resources (CRs) and services. The following table lists each MTV option with description.
 
-It creates and manages the following custom resources (CRs) and services.
+| Option | Description |
+| -------------- | -------------- |
+| `NetworkMapping` | Maps the networks of the source and target providers. |
+| * `StorageMapping` | Maps the storage of the source and target providers. |
+| `Provider` | Stores attributes that enable MTV to connect to and interact with the source and target providers. (VMware or Red Hat) |
+| `Plan` | Contains a list of virtual machines with the same migration parameters and associated network and storage mappings. |
+| `Migration` | Executes a migration plan. |
+{: caption="MTV options and descriptions" caption-side="bottom"}
 
-* `NetworkMapping` Maps the networks of the source and target providers.
-* `StorageMapping` Maps the storage of the source and target providers.
-* `Provider`  Stores attributes that enable MTV to connect to and interact with the source and target providers. (VMware or Red Hat)
-* `Plan` Contains a list of VMs with the same migration parameters and associated network and storage mappings.
-* `Migration` Executes a migration plan.
-
-
-It is important to understand, that MTV does not do network migration. It must be planned and designed separately. MTV assumes that networks and network attachment definitions (NAD) exist when the `migration` happens and when you configure the Network and Storage maps. 
+MTV does not do network migration. It must be planned and designed separately. MTV assumes that networks and network attachment definitions (NAD) exist when the `migration` happens and when you configure the Network and Storage maps.
+{: important}
 
 ### VMware Migration requirements
 {: #virt-sol-openshift-migration-design-migration-vmware}
 
-[OpenShift Virtualization]{: tag-red}
+If you migrate from a VMware environment to OpenShift, you must meet the following requirements before you migrate.
 
-#### VMware environment requirements
-{: #virt-sol-openshift-migration-design-migration-vmware-req}
+VMware environment requirements
 
 - VMware vSphere must be version 6.5 or later.
-- If you are migrating more than 10 VMs from an ESXi host in the same migration plan, you must increase the NFC service memory of the host.
+- If you are migrating more than 10 virtual machines from an ESXi host in the same migration plan, you must increase the NFC service memory of the host.
 
-#### Virtual machines
-{: #virt-sol-openshift-migration-design-migration-vmware-vm}
+Virtual machine requirements
 
 - VMware Tools is installed.
 - ISO/CDROM disks are unmounted.
 - Each NIC must contain no more than one IPv4 and/or one IPv6 address.
-- VM name contains only:
-    - lowercase letters (a-z), numbers (0-9), or hyphens (-), up to a maximum of 253 characters. 
-    - The first and last characters must be alphanumeric. 
+- virtual machine name contains only:
+    - lowercase letters (a-z), numbers (0-9), or hyphens (-), up to a maximum of 253 characters.
+    - The first and last characters must be alphanumeric.
     - The name must not contain uppercase letters, spaces, periods (.), or special characters.
-- VM name does not duplicate the name of a VM in the OpenShift Virtualization environment.
+- virtual machine name does not duplicate the name of a virtual machine in the OpenShift Virtualization environment.
 - Operating system is certified and supported.
 
 ## Migration partners
