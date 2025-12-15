@@ -5,28 +5,19 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-10"
+lastupdated: "2025-12-15"
 
 keywords: # Not typically populated
 
 subcollection: virtualization-solutions # Use deployable-reference-architectures, or the subcollection value from your toc.yaml file if docs-only.
-
-content-type: reference-architecture
-
-
-# For reference architectures in https://github.com/terraform-ibm-modules only.
-# All reference architectures stored in the /reference-architectures directory
-
-# Set production to true to publish the reference architecture to IBM Cloud docs.
+authors:
+- name: Bryan Buckland, Neil Taylor, Sami Kuronen
 
 production: false
 
 ---
 
-
 {{site.data.keyword.attribute-definition-list}}
-
-
 
 # OpenShift Virtualization Architecture
 {: #virt-sol-rove-architecture}
