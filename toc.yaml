@@ -59,6 +59,14 @@ toc:
           - topic: planning/design-considerations-vpc/networking-design.md
             navtitle: Networking
   - navgroup:
+      id: tutorial
+      topics:
+      - topicgroup:
+          label: OpenShift Virtualization
+          topics:
+          - topic: tutorial/openshift/migration-toolkit.md
+            navtitle: Migration Toolkit Tutorial
+  - navgroup:
       id: help
       topics:
       - faqs.md
