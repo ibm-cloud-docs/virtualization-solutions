@@ -40,7 +40,7 @@ OpenShift DR provides orchestrators to configure and manage stateful application
 
 OpenShift API for Data Protection (OADP) provides backup and restore capabilities for non-PVC cluster resources and application metadata. OADP is Red Hat's operator for Velero, the open-source Kubernetes backup tool.
 
-### Architecture Components
+### RHACM and ODF Architecture Components
 {: #virt-sol-openshift-resiliency-design-rhacm-components}
 
 The following table details the architecture components of each solution.
@@ -100,7 +100,6 @@ The following table details the architecture components the IBM Cloud Backup and
 | Data Source Connector | Installed via the IBM Cloud Catalog which install a VSI in your VPC. Install one or more (at least two recommended for HA) data connectors and increase as need to increase backup throughput. Data source connectors are used to establish connectivity between your source VSI and the service. The data source connectors also interacts with the service's IBM Cloud Object Service bucket where the backups are located. This bucket is managed by the provider and is not contained within your account.|
 | Agent | An agent is IBM Cloud Backup and Recovery software installed on the VSI that interacts locally with the operating system and source data being protected. The agent communicates with the Data Source Connector and Backup and Recovery instance during backup and recovery operations. Windows and Linux agents are currently available, with support for additional agent types planned for the future. |
 {: caption="IBM Cloud Backup and Recovery architecture components" caption-side="bottom"}
-
 
 For more information, see [Getting started with Backup and Recovery](https://cloud.ibm.com/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery)
 
