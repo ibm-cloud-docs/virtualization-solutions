@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-11"
+lastupdated: "2025-12-15"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -91,7 +91,7 @@ Key capabilities:
 ### IBM Cloud Backup and Recovery Architecture Components
 {: #virt-sol-openshift-resiliency-ibm-cloud-architecture}
 
-The following table details the architecture components the solution.
+The following table details the architecture components the IBM Cloud Backup and Recovery solution.
 
 | Architecture Component | Description |
 | -------------- | -------------- |
@@ -99,7 +99,7 @@ The following table details the architecture components the solution.
 | VPE Gateway | To improve performance it is recommended to use a VPE gateway to access the service instead of the native connection. To create one or more VPE gateways use the IBM Cloud catalog to order a VPC gateway and configure it to use the Backup and Recovery service. |
 | Data Source Connector | Installed via the IBM Cloud Catalog which install a VSI in your VPC. Install one or more (at least two recommended for HA) data connectors and increase as need to increase backup throughput. Data source connectors are used to establish connectivity between your source VSI and the service. The data source connectors also interacts with the service's IBM Cloud Object Service bucket where the backups are located. This bucket is managed by the provider and is not contained within your account.|
 | Agent | An agent is IBM Cloud Backup and Recovery software installed on the VSI that interacts locally with the operating system and source data being protected. The agent communicates with the Data Source Connector and Backup and Recovery instance during backup and recovery operations. Windows and Linux agents are currently available, with support for additional agent types planned for the future. |
-{: caption="Red Hat Advanced Cluster Management (RHACM) architecture components" caption-side="bottom"}
+{: caption="IBM Cloud Backup and Recovery architecture components" caption-side="bottom"}
 
 
 For more information, see [Getting started with Backup and Recovery](https://cloud.ibm.com/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery)
