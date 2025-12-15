@@ -76,7 +76,7 @@ See [Red Hat OpenShift on VPC multiregion DR](https://cloud.ibm.com/docs/pattern
 
 **IBM Cloud Backup and Recovery** is a provider managed backup service for file, folder and database servers (MS SQL Server and SAP HANA) in VPC environments running on IBM Cloud. This service lets you define backup schedules to routinely protect data sources using a secure, agent-based, application-consistent backup service. Backup infrastructure is managed by IBM. The service is comprised of:
 
-Key capabilities:
+The following are a list of the IBM Cloud Backup and Recovery key capabilities:
 
 * Agent-based backup for virtual server instances
 * Support for file-level and folder-level backups
@@ -109,7 +109,9 @@ For more information, see [Getting started with Backup and Recovery](https://clo
 ## Veeam Kasten K10
 {: #virt-sol-openshift-resiliency-design-kasten}
 
-Veeam Kasten K10 delivers secure, Kubernetes-native data protection and application mobility at scale across a wide range of distributions and platforms, including OpenShift environments. Kasten provides unified backup and recovery for virtual machines migrating to and running on OpenShift Virtualization, enabling consistent protection for VM data alongside containerized workloads through a single policy engine. Kasten K10 is available from the IBM Cloud catalog tile with a BYOL model. Key features:
+Veeam Kasten K10 delivers secure, Kubernetes-native data protection and application mobility at scale across a wide range of distributions and platforms, including OpenShift environments. Kasten provides unified backup and recovery for virtual machines migrating to and running on OpenShift Virtualization, enabling consistent protection for VM data alongside containerized workloads through a single policy engine. Kasten K10 is available from the IBM Cloud catalog tile with a BYOL model.
+
+The following are a list of Veeam Kasten K10 key capabilities:
 
 * **Policy-driven automation** - Scalable and consistent protection across environments
 * **Application-level consistency** - Deep database integrations for transactional consistency
@@ -133,40 +135,27 @@ Red Hat OpenShift API for Data Protection (OADP) is an operator that provides ba
 
 OADP enables comprehensive protection for OpenShift workloads, including containerized applications, virtual machines running on OpenShift Virtualization, and cluster configuration resources. It provides a unified backup solution for both application metadata and persistent data.
 
-OADP consists of the following:
+The following table details the architecture components the OADP solution.
 
-* **OADP Operator** - Manages the lifecycle of backup and restore operations within OpenShift clusters. The operator deploys and configures Velero and associated components.
-* **Velero** - The core backup engine that handles resource discovery, backup creation, and restore operations. Velero interacts with the Kubernetes API to capture cluster resources and coordinates with storage providers.
-* **Restic or Kopia** - File-level backup tools used for backing up persistent volume data. OADP supports both Restic (legacy) and Kopia (newer, more performant option) as data movers for PVC backup. Subsequent backups using Restic or Kopia only capture changed data, reducing storage consumption and backup time.
-* **Container Storage Interface (CSI) Snapshots** - OADP can leverage CSI snapshot capabilities for efficient, storage-native snapshots of persistent volumes when supported by the underlying storage provider.
-* **Object Storage Backend** - OADP requires S3-compatible object storage for storing backups. Supported backends include:
-    * IBM Cloud Object Storage
-    * NooBaa Multi-Cloud Gateway (included with OpenShift Data Foundation, which can use ODF's underlying Ceph storage or act as a gateway to external object storage)
+| Architecture Component | Description |
+| -------------- | -------------- |
+| OADP Operator | Manages the lifecycle of backup and restore operations within OpenShift clusters. The operator deploys and configures Velero and associated components. |
+| Velero | The core backup engine that handles resource discovery, backup creation, and restore operations. Velero interacts with the Kubernetes API to capture cluster resources and coordinates with storage providers. |
+| Restic or Kopia | File-level backup tools used for backing up persistent volume data. OADP supports both Restic (legacy) and Kopia (newer, more performant option) as data movers for PVC backup. Subsequent backups using Restic or Kopia only capture changed data, reducing storage consumption and backup time. |
+| Container Storage Interface (CSI) Snapshots | OADP can leverage CSI snapshot capabilities for efficient, storage-native snapshots of persistent volumes when supported by the underlying storage provider. |
+| Object Storage Backend | OADP requires S3-compatible object storage for storing backups. Supported backends include:  \n - IBM Cloud Object Storage. \n NooBaa Multi-Cloud Gateway (included with OpenShift Data Foundation, which can use ODF's underlying Ceph storage or act as a gateway to external object storage) |
+{: caption="Red Hat OpenShift for API Data Protection architecture components" caption-side="bottom"}
 
-OADP provides comprehensive backup capabilities for OpenShift environments:
 
-* **Cluster Resource Backup:**
-    * Kubernetes objects and custom resources (Deployments, Services, Routes, ConfigMaps, Secrets)
-    * OpenShift-specific resources (BuildConfigs, ImageStreams, DeploymentConfigs)
-    * Custom Resource Definitions (CRDs) and custom resources
-    * Role-Based Access Control (RBAC) configurations
-    * Network policies and security context constraints
-* **Persistent Volume Backup:**
-    * File-system based backup using Restic or Kopia
-    * CSI snapshot-based backup for supported storage providers
-    * Volume snapshots with incremental backup capabilities
-    * Support for ReadWriteOnce (RWO) and ReadWriteMany (RWX) volumes
-* **OpenShift Virtualization Support:**
-    * Virtual machine definitions (VirtualMachine, VirtualMachineInstance resources)
-    * VM disk data (DataVolumes, PVCs used by VMs)
-    * VM snapshots and configurations
-    * Network attachment definitions for VMs
-    * VM-specific ConfigMaps and Secrets
-* **Namespace and Application-Level Backups:**
-    * Backup entire namespaces with all contained resources
-    * Selective resource backup using label selectors
-    * Application-consistent backups with pre-backup and post-backup hooks
-    * Ordered backup of resources with dependencies
+The following table details the backup capababilities OADP provides for OpenShift environments:
+
+| Backup feature | Description |
+| -------------- | -------------- |
+| Cluster Resource Backup | - Kubernetes objects and custom resources (Deployments, Services, Routes, ConfigMaps, Secrets) \n - OpenShift-specific resources (BuildConfigs, ImageStreams, DeploymentConfigs) \n - Custom Resource Definitions (CRDs) and custom resources \n - Role-Based Access Control (RBAC) configurations \n Network policies and security context constraints |
+| Persistent Volume Backup | - File-system based backup using Restic or Kopia \n - CSI snapshot-based backup for supported storage providers \n - Volume snapshots with incremental backup capabilities \n - Support for ReadWriteOnce (RWO) and ReadWriteMany (RWX) volumes |
+| OpenShift Virtualization Support | - Virtual machine definitions (VirtualMachine, VirtualMachineInstance resources) \n - VM disk data (DataVolumes, PVCs used by VMs) \n VM snapshots and configurations \ Network attachment definitions for VMs \n - VM-specific ConfigMaps and Secrets
+| Namespace and Application-Level Backups | - Backup entire namespaces with all contained resources \n - Selective resource backup using label selectors \n Application-consistent backups with pre-backup and post-backup hooks. \n - Ordered backup of resources with dependencies|
+{: caption="OADP backup features for OpenShift" caption-side="bottom"}
 
 ## Third-Party Backup Solutions
 {: #virt-sol-openshift-resiliency-design-3rd-party}
