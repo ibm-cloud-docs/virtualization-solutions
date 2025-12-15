@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-04"
+lastupdated: "2025-12-15"
 
 keywords: ROKS, RHACM, IBM Cloud Logs, IBM Cloud Monitoring, Workload Protection
 
@@ -28,8 +28,6 @@ The key observability architecture elements are shown in the following diagram.
 ## Red Hat Advanced Cluster Management (RHACM)
 {: #virt-sol-openshift-observability-design-rhacm}
 
-[OpenShift Virtualization]{: tag-red}
-
 Red Hat Advanced Cluster Management (RHACM) is a centralized management platform that simplifies the lifecycle management of Red Hat OpenShift clusters and the workloads running on them, including virtual machines deployed through OpenShift Virtualization. RHACM provides a unified control plane for provisioning, monitoring, and managing clusters across hybrid and multicloud environments.
 
 Red Hat Advanced Cluster Management delivers end-to-end management visibility and control for OpenShift environments, enabling organizations to:
@@ -41,50 +39,50 @@ Red Hat Advanced Cluster Management delivers end-to-end management visibility an
 
 RHACM is particularly valuable for hybrid and multicloud OpenShift deployments and is a critical component for building disaster recovery solutions across OpenShift clusters.
 
-### Architecture Components
-{: #virt-sol-openshift-observability-design-rhacm-architecture}
+The following table details the RHACM architecture and core capabilities.
 
-**Hub cluster** - The central controller running Red Hat Advanced Cluster Management. The hub cluster hosts the management console, RHACM components, and APIs. From the hub cluster, you can search resources across all managed clusters, view topology, and execute management operations.
+| Architecture Component | Description |
+| -------------- | -------------- |
+| Hub cluster | The central controller running Red Hat Advanced Cluster Management. The hub cluster hosts the management console, RHACM components, and APIs. From the hub cluster, you can search resources across all managed clusters, view topology, and execute management operations. |
+| Managed cluster | Any OpenShift cluster managed by the hub cluster. The connection between hub and managed clusters is established through the klusterlet agent installed on each managed cluster. The managed cluster receives and applies requests from the hub cluster, enabling centralized management of cluster lifecycle, application lifecycle, governance, and observability. |
+{: caption="RHACM architecture components" caption-side="bottom"}
+{: summary="This table provides details the RHACM architecture components."}
+{: #architecture-rhacm}
+{: tab-title="RHACM architecture"}
+{: tab-group="RHACM"}
 
-**Managed cluster** - Any OpenShift cluster managed by the hub cluster. The connection between hub and managed clusters is established through the klusterlet agent installed on each managed cluster. The managed cluster receives and applies requests from the hub cluster, enabling centralized management of cluster lifecycle, application lifecycle, governance, and observability.
 
-### Core Capabilities
-{: #virt-sol-openshift-observability-design-rhacm-capabilities}
-
-**Cluster lifecycle management** - Defines the processes for creating, importing, managing, and decommissioning Kubernetes clusters across various infrastructure providers including public clouds, private clouds, and on-premises data centers. This functionality is provided by the multicluster engine for Kubernetes operator, which is installed automatically with RHACM.
-
-**Application lifecycle management** - Provides tools and processes to manage application resources across managed clusters, including deployment, updates, and configuration management using GitOps workflows.
-
-**Governance and risk management** - Enables definition and enforcement of security and compliance policies across all managed clusters. Using dynamic policy templates, you can manage policies and compliance requirements from a central interface, with automated remediation capabilities for policy violations.
-
-**Observability** - Collects and reports the status, health, and performance metrics of managed OpenShift clusters to the hub cluster. Data is visualized through integrated Grafana dashboards, and custom alerts can be configured to notify administrators of cluster issues or policy violations.
+| Core capabilities | Description |
+| -------------- | -------------- |
+| Cluster lifecycle management | Defines the processes for creating, importing, managing, and decommissioning Kubernetes clusters across various infrastructure providers including public clouds, private clouds, and on-premises data centers. This functionality is provided by the multicluster engine for Kubernetes operator, which is installed automatically with RHACM.|
+| Application lifecycle management | Provides tools and processes to manage application resources across managed clusters, including deployment, updates, and configuration management using GitOps workflows. |
+| Governance and risk management | Enables definition and enforcement of security and compliance policies across all managed clusters. Using dynamic policy templates, you can manage policies and compliance requirements from a central interface, with automated remediation capabilities for policy violations. |
+| Observability | Collects and reports the status, health, and performance metrics of managed OpenShift clusters to the hub cluster. Data is visualized through integrated Grafana dashboards, and custom alerts can be configured to notify administrators of cluster issues or policy violations. |
+{: caption="RHACM core capabilities" caption-side="bottom"}
+{: summary="This table provides details the RHACM core capabilities."}
+{: #core-rhacm}
+{: tab-title="RHACM core capabilities"}
+{: tab-group="RHACM"}
 
 ## Red Hat OpenShift Observability
 {: #virt-sol-openshift-observability-design-red-hat-observability}
 
-[OpenShift Virtualization]{: tag-red}
-
 Red Hat OpenShift Observability provides real-time visibility, monitoring, and analysis of system metrics, logs, traces, and events to help diagnose and troubleshoot issues before they impact applications. OpenShift Container Platform offers a comprehensive observability stack that combines open-source tools into a unified solution for collecting, storing, analyzing, and visualizing operational data.
 
-### Observability Components
-{: #virt-sol-openshift-observability-design-red-hat-observability-components}
+The following table details the Red Hat OpenShift Observability components.
 
-**Monitoring** - The monitoring stack is deployed by default in every OpenShift Container Platform installation and managed by the Cluster Monitoring Operator (CMO). Components include Prometheus for metrics collection and storage, Alertmanager for alert routing and notification, Thanos Querier for multi-cluster metric queries, and Grafana for visualization. The CMO also deploys the Telemeter Client, which sends telemetry data to Red Hat for Remote Health Monitoring.
-
-**Logging** - Enables collection, visualization, forwarding, and storage of log data to troubleshoot issues, identify performance bottlenecks, and detect security threats. The LokiStack deployment can be configured to produce customized alerts and recorded metrics, providing flexible log aggregation and query capabilities.
-
-**Distributed tracing** - Collects and visualizes extensive request data flowing through distributed systems and microservices architectures. Distributed tracing supports transaction monitoring, service analysis, network profiling, performance optimization, root cause identification, and troubleshooting in cloud-native environments.
-
-**Red Hat build of OpenTelemetry** - Provides standardized instrumentation for generating, collecting, and exporting telemetry data including traces, metrics, and logs. OpenTelemetry supports integration with open-source backends like Tempo or Prometheus, as well as commercial observability platforms. It offers a vendor-neutral approach to application instrumentation with a single set of APIs and conventions.
-
-**Network Observability** - Enables monitoring of network traffic within OpenShift Container Platform clusters by creating network flow records with the Network Observability Operator. View and analyze stored network flow information in the OpenShift console for troubleshooting connectivity issues, identifying traffic patterns, and optimizing network performance.
-
-**Power monitoring** - Monitors power consumption of workloads and identifies the most power-intensive namespaces running in a cluster. The Power Monitoring Operator provides key power consumption metrics measured at the container level, including CPU and DRAM power usage, enabling energy-efficient workload optimization and sustainability reporting.
+| Observability Component | Description |
+| -------------- | -------------- |
+|Monitoring | The monitoring stack is deployed by default in every OpenShift Container Platform installation and managed by the Cluster Monitoring Operator (CMO). Components include Prometheus for metrics collection and storage, Alertmanager for alert routing and notification, Thanos Querier for multi-cluster metric queries, and Grafana for visualization. The CMO also deploys the Telemeter Client, which sends telemetry data to Red Hat for Remote Health Monitoring. |
+| Logging | Enables collection, visualization, forwarding, and storage of log data to troubleshoot issues, identify performance bottlenecks, and detect security threats. The LokiStack deployment can be configured to produce customized alerts and recorded metrics, providing flexible log aggregation and query capabilities. |
+| Distributed tracing | Collects and visualizes extensive request data flowing through distributed systems and microservices architectures. Distributed tracing supports transaction monitoring, service analysis, network profiling, performance optimization, root cause identification, and troubleshooting in cloud-native environments. |
+| Red Hat build of OpenTelemetry | Provides standardized instrumentation for generating, collecting, and exporting telemetry data including traces, metrics, and logs. OpenTelemetry supports integration with open-source backends like Tempo or Prometheus, as well as commercial observability platforms. It offers a vendor-neutral approach to application instrumentation with a single set of APIs and conventions. |
+| Network Observability | Enables monitoring of network traffic within OpenShift Container Platform clusters by creating network flow records with the Network Observability Operator. View and analyze stored network flow information in the OpenShift console for troubleshooting connectivity issues, identifying traffic patterns, and optimizing network performance. |
+| Power monitoring | Monitors power consumption of workloads and identifies the most power-intensive namespaces running in a cluster. The Power Monitoring Operator provides key power consumption metrics measured at the container level, including CPU and DRAM power usage, enabling energy-efficient workload optimization and sustainability reporting. |
+{: caption="Red Hat OpenShift Observability components" caption-side="bottom"}
 
 ## IBM Cloud Security and Compliance Center Workload Protection
 {: #virt-sol-openshift-observability-design-scc-wpp}
-
-[OpenShift Virtualization]{: tag-red}
 
 IBM Cloud Security and Compliance Center Workload Protection provides comprehensive security monitoring and threat detection for workloads running on IBM Cloud, including virtual machines on VPC and OpenShift Virtualization environments.
 
@@ -116,8 +114,6 @@ See [Managing the Workload Protection agent in Red Hat OpenShift by using a HELM
 
 ## IBM Cloud Monitoring and Logs
 {: #virt-sol-openshift-observability-design-mon-and-logs}
-
-[OpenShift Virtualization]{: tag-red}
 
 IBM Cloud Monitoring and IBM Cloud Logs provide cloud-native observability for applications and infrastructure running on IBM Cloud, including virtual machines on VPC and OpenShift Virtualization.
 
