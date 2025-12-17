@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-05"
+lastupdated: "2025-12-17"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -12,7 +12,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Storage Design
+# Storage Design for OpenShift Virtualization
 {: #virt-sol-openshift-storage-design-overview}
 
 IBM Cloud offers a range of storage solutions designed to meet diverse workload requirements, from high-performance computing to long-term archival. These options provide flexibility, scalability, and enterprise-grade security for hybrid and multicloud environments.

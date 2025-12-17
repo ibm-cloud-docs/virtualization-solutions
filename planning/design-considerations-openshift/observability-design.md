@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-15"
+lastupdated: "2025-12-17"
 
 keywords: ROKS, RHACM, IBM Cloud Logs, IBM Cloud Monitoring, Workload Protection
 
@@ -12,7 +12,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Observability Design
+# Observability Design for OpenShift Virtualization
 {: #virt-sol-openshift-openshift-observability-design-overview}
 
 Observability in IBM Cloud provides the visibility and insights needed to monitor, troubleshoot, and optimize applications and infrastructure across hybrid and multicloud environments. It goes beyond traditional monitoring by offering end-to-end visibility into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
