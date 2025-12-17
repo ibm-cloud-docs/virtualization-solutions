@@ -117,41 +117,15 @@ See [Managing the Workload Protection agent in Red Hat OpenShift by using a HELM
 
 IBM Cloud Monitoring and IBM Cloud Logs provide cloud-native observability for applications and infrastructure running on IBM Cloud, including virtual machines on VPC and OpenShift Virtualization.
 
-### IBM Cloud Monitoring
-{: #virt-sol-openshift-observability-design-monitoring}
+| Service | Description | Agent deployment metrics collection | OpenShift virtualization integration |
+| -------------- | -------------- | -------------- | -------------- |
+| IBM Cloud Monitoring | IBM Cloud Monitoring is a cloud-native, container-intelligence management system that provides operational visibility into the performance and health of applications, services, and platforms. It offers administrators, DevOps teams, and developers full-stack telemetry with advanced features for monitoring, troubleshooting, alerting, and custom dashboard creation. | To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. No additional instrumentation is required to gain insights from automatically collected metrics. | In OpenShift Virtualization environments, deploy Monitoring agents within virtual machine operating systems to collect guest-level metrics. This provides deeper visibility into VM performance, resource utilization, and application behavior, complementing the cluster-level metrics collected by OpenShift Observability. |
+| IBM Cloud Logs | IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior. | IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior.  \n IBM Cloud Logs supports log collection from:  \n - IBM Cloud services and resources  \n - On-premises infrastructure  \n - Third-party cloud providers  \n - Security and audit logs generated in IBM Cloud  \n The Logging agent, based on the open-source Fluent Bit log processor, collects and sends infrastructure and application logs to IBM Cloud Logs instances. The agent supports multiple data sources and log formats, providing flexible log collection across diverse environments. | Deploy Logging agents within virtual machine operating systems to collect guest-level logs, including application logs, system logs, and security events. This provides comprehensive log visibility across both the OpenShift cluster infrastructure and the workloads running within virtual machines, enhancing troubleshooting and security monitoring capabilities. |
+{: caption="IBM Cloud Monitoring and IBM Cloud Logs details" caption-side="bottom"}
 
-IBM Cloud Monitoring is a cloud-native, container-intelligence management system that provides operational visibility into the performance and health of applications, services, and platforms. It offers administrators, DevOps teams, and developers full-stack telemetry with advanced features for monitoring, troubleshooting, alerting, and custom dashboard creation.
+For more information on IBM Cloud Monitoring, see [Getting started with IBM Cloud Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Red Hat OpenShift cluster](https://cloud.ibm.com/docs/monitoring?topic=monitoring-openshift_cluster), [Monitoring a Windows environment](https://cloud.ibm.com/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu).
 
-**Agent deployment and metrics collection:**
-
-To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. No additional instrumentation is required to gain insights from automatically collected metrics.
-
-**OpenShift Virtualization integration:**
-
-In OpenShift Virtualization environments, deploy Monitoring agents within virtual machine operating systems to collect guest-level metrics. This provides deeper visibility into VM performance, resource utilization, and application behavior, complementing the cluster-level metrics collected by OpenShift Observability.
-
-See [Getting started with IBM Cloud Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Red Hat OpenShift cluster](https://cloud.ibm.com/docs/monitoring?topic=monitoring-openshift_cluster), [Monitoring a Windows environment](https://cloud.ibm.com/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu).
-
-### IBM Cloud Logs
-{: #virt-sol-openshift-observability-design-logging}
-
-IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior.
-
-IBM Cloud Logs supports log collection from:
-* IBM Cloud services and resources
-* On-premises infrastructure
-* Third-party cloud providers
-* Security and audit logs generated in IBM Cloud
-
-**Logging agent deployment:**
-
-The Logging agent, based on the open-source Fluent Bit log processor, collects and sends infrastructure and application logs to IBM Cloud Logs instances. The agent supports multiple data sources and log formats, providing flexible log collection across diverse environments.
-
-**OpenShift Virtualization integration:**
-
-Deploy Logging agents within virtual machine operating systems to collect guest-level logs, including application logs, system logs, and security events. This provides comprehensive log visibility across both the OpenShift cluster infrastructure and the workloads running within virtual machines, enhancing troubleshooting and security monitoring capabilities.
-
-See [Getting started with IBM Cloud Logs](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-getting-started), [The Logging agent](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about), [Send IBM Cloud Kubernetes Service log data to IBM Cloud Logs](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-kube2logs), [Logging agent for orchestrated environments](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-orchestrated) and [Logging agent for non-orchestrated environments](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-std)
+For more informaiton on IBM Cloud Logs, see [Getting started with IBM Cloud Logs](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-getting-started), [The Logging agent](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about), [Send IBM Cloud Kubernetes Service log data to IBM Cloud Logs](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-kube2logs), [Logging agent for orchestrated environments](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-orchestrated) and [Logging agent for non-orchestrated environments](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-std)
 
 Be aware that for IBM Cloud OpenShift clusters, IBM Cloud Linux VSI and IBM Cloud Windows VSI	both Service ID API key and Trusted Profiles authentication methods are supported by the agent with the IBM Cloud Logs service.
 
