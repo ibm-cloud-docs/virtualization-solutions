@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2025-12-04"
+lastupdated: "2025-12-17"
 
 keywords: ROKS, VPC, subnets
 
@@ -11,7 +11,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Network Design
+# Network Design for VPC virtual servers
 {: #virt-sol-network-design}
 
 Networking is the backbone of any cloud architecture and plays a critical role in enabling secure, reliable, and high-performance connectivity for workloads. In IBM Cloud, networking services provide the foundation for virtualization, container orchestration, and hybrid cloud integration, ensuring that applications and data can move seamlessly across environments.
