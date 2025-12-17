@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-04"
+lastupdated: "2025-12-17"
 
 keywords:
 
@@ -10,7 +10,7 @@ subcollection: virtualization-solutions
 
 ---
 
-# Security Design
+# Security Design for VPC virtual servers
 {: #virt-sol-vpc-security-design-overview}
 
 Security is a foundational component of any cloud architecture, encompassing identity and access management, data protection, network security, and compliance. IBM Cloud provides a comprehensive security framework for both VPC Virtual Server Instances, implementing defense-in-depth strategies across multiple layers of the infrastructure stack.
