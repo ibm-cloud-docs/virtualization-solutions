@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-15"
+lastupdated: "2025-12-17"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -12,7 +12,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Resiliency Design
+# Resiliency Design for OpenShift Virtualization
 {: #virt-sol-openshift-resiliency-design}
 
 See the [Resiliency in IBM Cloud](https://cloud.ibm.com/docs/resiliency?topic=resiliency-resiliency-overview) Solution Guide which is general guide on resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. This guide focuses on specific information for Red Hat OpenShift on VPC.
