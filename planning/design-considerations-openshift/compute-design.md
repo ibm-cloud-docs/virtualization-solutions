@@ -46,29 +46,37 @@ For more information, refer to [IBM Cloud Docs - OpenShift Overview](https://clo
 
 [OpenShift Virtualization]{: tag-red}
 
-IBM Cloud Virtual Servers for VPC provide secure, isolated virtual machines deployed within a Virtual Private Cloud environment. These instances deliver enterprise-grade compute for production workloads, and development and test environments requiring flexible resource allocation and comprehensive infrastructure control. Key features include the following:
+IBM Cloud Virtual Servers for VPC provide secure, isolated virtual machines deployed within a Virtual Private Cloud environment. These instances deliver enterprise-grade compute for production workloads, and development and test environments requiring flexible resource allocation and comprehensive infrastructure control.
 
-* **Customizable profiles:** Balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations
-* **Flexible tenancy:** Shared tenancy infrastructure with optional dedicated host placement for compliance requirements
-* **Advanced networking:** Integration with VPC Security Groups, Network ACLs, Load Balancers, and VPN connectivity
-* **Persistent storage:** IBM Cloud Block Storage and File Storage for VPC with configurable IOPS and encryption
-* **Operating system flexibility:** IBM-provided stock images or bring-your-own custom images
-* **Scalability:** Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling
+The following tables lists the key features for IBM Cloud Virtual Servers for VPC.
+
+| Feature | Description |
+| -------------- | -------------- |
+| Customizable profiles | Balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations |
+| Flexible tenancy | Shared tenancy infrastructure with optional dedicated host placement for compliance requirements |
+| Advanced networking | Integration with VPC Security Groups, Network ACLs, Load Balancers, and VPN connectivity |
+| Persistent storage | IBM Cloud Block Storage and File Storage for VPC with configurable IOPS and encryption |
+| Operating system flexibility | IBM-provided stock images or bring-your-own custom images |
+| Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
+{: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
 
 For more information on VSI profiles supported by ROKS, see [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
 
 ## IBM Cloud Bare Metal Servers for VPC
 {: #virt-sol-openshift-compute-design-bms}
 
-[OpenShift Virtualization]{: tag-red}
+IBM Cloud Bare Metal Servers for VPC provide single-tenant, dedicated physical servers for your workloads, delivering maximum performance, security, and control. These servers are required for production deployments of Red Hat OpenShift Virtualization on IBM Cloud.
 
-IBM Cloud Bare Metal Servers for VPC provide single-tenant, dedicated physical servers for your workloads, delivering maximum performance, security, and control. These servers are required for production deployments of Red Hat OpenShift Virtualization on IBM Cloud. Key features include the following:
+The following tables lists the key features for IBM Cloud Bare Metal Servers for VPC.
 
-* **Single-tenant isolation:** Dedicated physical hardware with no resource sharing
-* **High-performance NVMe storage:** Local NVMe drives for OpenShift Data Foundation deployments
-* **Consistent performance:** Predictable, bare-metal performance without virtualization overhead
-* **Large memory configurations:** Support for memory-intensive virtualization workloads
-* **Network performance:** High-bandwidth, low-latency networking for VM traffic
+| Feature | Description |
+| -------------- | -------------- |
+| Single-tenant isolation | Dedicated physical hardware with no resource sharing |
+| High-performance NVMe storage | Local NVMe drives for OpenShift Data Foundation deployments |
+| Consistent performance | Predictable, bare-metal performance without virtualization overhead |
+| Large memory configurations | Support for memory-intensive virtualization workloads |
+| Network performance | High-bandwidth, low-latency networking for VM traffic |
+{: caption="IBM Cloud Bare Metal Servers for VPC key features" caption-side="bottom"}
 
 Bare Metal worker nodes supported by ROKS varies by region and Availability Zone and can be checked at [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
 
