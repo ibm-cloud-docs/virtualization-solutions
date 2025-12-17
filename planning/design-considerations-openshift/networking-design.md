@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2025-12-02"
+lastupdated: "2025-12-17"
 
 keywords: ROKS, network, layer2, localnet
 
@@ -11,7 +11,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Network Design
+# Network Design for OpenShift Virtualization
 {: #virt-sol-openshift-network-design}
 
 The network design in Red Hat OpenShift Virtualization on VPC has two distinct layers:
