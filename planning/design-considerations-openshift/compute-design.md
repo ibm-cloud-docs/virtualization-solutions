@@ -19,8 +19,8 @@ IBM Cloud VPC provides a comprehensive portfolio of compute options designed to 
 
 Key IBM Cloud VPC compute options:
 
-1. Virtual Servers for VPC
-2. Bare Metal Servers for VPC
+- Virtual Servers for VPC
+- Bare Metal Servers for VPC
 
 IBM Cloud VPC compute solutions empower businesses to select the optimal infrastructure for their needs—whether optimizing cost, achieving high performance, or enabling hybrid and multicloud strategies.
 
@@ -30,8 +30,6 @@ The key compute architecture elements are shown in the following diagram.
 
 ## Red Hat OpenShift Worker Nodes
 {: #virt-sol-openshift-compute-design-workers}
-
-[OpenShift Virtualization]{: tag-red}
 
 {{site.data.keyword.openshiftshort}} (ROKS) is a managed Kubernetes service on IBM Cloud that allows you to create OpenShift clusters where you can deploy and manage virtualized and containerized applications. Combined with an intuitive user experience, built-in security and isolation, and advanced tools to secure, manage, and monitor your cluster workloads, you can rapidly deliver highly available and secure containerized applications.
 
@@ -72,13 +70,18 @@ IBM Cloud Bare Metal Servers for VPC provide single-tenant, dedicated physical s
 * **Large memory configurations:** Support for memory-intensive virtualization workloads
 * **Network performance:** High-bandwidth, low-latency networking for VM traffic
 
-Bare Metal worker nodes supported by ROKS varies by region and Availability Zone and can be checked at [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors). The following table shows the typical specifications:
+Bare Metal worker nodes supported by ROKS varies by region and Availability Zone and can be checked at [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
 
-* cx2.metal.96x192 - 48 cores 192GB memory
-* cx2d.metal.96x192 - 48 cores 192GB memory and 8x3.2TB SSD NVMe drives
-* bx2.metal.96x384 - 48 cores 384GB memory
-* bx2d.metal.96x384 - 48 cores 384GB memory and 8x3.2TB SSD NVMe drives
-* mx2.metal.96x768 - 48 cores 768GB memory
-* mx2d.metal.96x768 - 48 cores 768GB memory and 8x3.2TB SSD NVMe drives
+The following table shows the typical specifications for a bare metal profile.
+
+| Instance profile | Cores | GiB RAM | Storage |
+| -------------- | -------------- | -------------- | -------------- |
+| cx2.metal.96x192 | 48 | 192 | - |
+| cx2d.metal.96x192 | 48 | 192 | 8x3.2TB SSD NVMe drives |
+| bx2.metal.96x384 | 48 | 384 | - |
+| bx2d.metal.96x384 | 48 | 384 | 8x3.2TB SSD NVMe drives |
+| mx2.metal.96x768 | 48 | 768 | - |
+| mx2d.metal.96x768 | 48 | 768 |  8x3.2TB SSD NVMe drives |
+{: caption="Typical bare metal profile specifications" caption-side="bottom"}
 
 All bare metal servers have 100Gbps bonded network speed, 960GB SSD boot disks in RAID 1, do not support GPUs and run Red Hat CoreOS.
