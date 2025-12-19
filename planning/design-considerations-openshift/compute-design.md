@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-17"
+lastupdated: "2025-12-19"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -43,8 +43,6 @@ For more information, refer to [IBM Cloud Docs - OpenShift Overview](https://clo
 
 ## IBM Cloud Virtual Servers for VPC
 {: #virt-sol-openshift-compute-design-vsi}
-
-[OpenShift Virtualization]{: tag-red}
 
 IBM Cloud Virtual Servers for VPC provide secure, isolated virtual machines deployed within a Virtual Private Cloud environment. These instances deliver enterprise-grade compute for production workloads, and development and test environments requiring flexible resource allocation and comprehensive infrastructure control.
 

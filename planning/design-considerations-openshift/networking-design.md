@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2025-12-17"
+lastupdated: "2025-12-19"
 
 keywords: ROKS, network, layer2, localnet
 
@@ -27,16 +27,12 @@ The key network architecture elements are shown in the following diagram.
 ## IBM Cloud VPC Networking
 {: #virt-sol-openshift-network-design-vpc}
 
-[OpenShift Virtualization]{: tag-red}
-
 IBM Cloud VPC is a secure, isolated, and highly configurable networking environment that enables organizations to deploy and manage cloud resources with fine-grained control. It provides the foundation for modern workloads, including virtual servers, containers, and bare metal deployments, while ensuring network segmentation, security, and scalability.
 
 You need to create a VPC to provision a ROKS cluster.
 
 ### Default private networking with subnets
 {: #virt-sol-openshift-network-design-vpc-subnets}
-
-[OpenShift Virtualization]{: tag-red}
 
 See [Default private networking with subnets](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-subnets).
 
@@ -45,16 +41,14 @@ You need to create a VPC subnet in at least one Availability Zone to provision a
 ### Load-balancers
 {: #virt-sol-openshift-network-design-vpc-lb}
 
-[OpenShift Virtualization]{: tag-red}
-
 See [Load-balancers](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-lb).
 
 A Red Hat OpenShift Ingress controller is deployed to your Red Hat OpenShift Kubernetes Service (ROKS) cluster that functions as the ingress endpoint for external network traffic. In a ROKS cluster, a VPC Application Load Balancer is automatically created per cluster to expose the Ingress controller
 
 **How it works:**
-1. DNS service resolves the route subdomain to the VPC load balancer hostname 
-2. The VPC load balancer resolves the VPC hostname to an available external IP address of an Ingress controller service that was reported as healthy 
-3. The VPC load balancer sends the request to an Ingress controller service 
+1. DNS service resolves the route subdomain to the VPC load balancer hostname
+2. The VPC load balancer resolves the VPC hostname to an available external IP address of an Ingress controller service that was reported as healthy
+3. The VPC load balancer sends the request to an Ingress controller service
 4. The Ingress controller forwards the request to the private IP address of the app pod over the private network
 
 In ROKS on VPC:
@@ -67,8 +61,6 @@ In ROKS on VPC:
 
 ### Virtual Private Endpoints
 {: #virt-sol-openshift-network-design-vpc-vpe}
-
-[OpenShift Virtualization]{: tag-red}
 
 See [Virtual Private Endpoints](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-vpe).
 
@@ -126,14 +118,10 @@ See [External connectivity](/docs/virtualization-solutions?topic=virt-sol-networ
 ### Interconnectivity
 {: #virt-sol-openshift-network-design-vpc-interconnectivity}
 
-[OpenShift Virtualization]{: tag-red}
-
 See [Interconnectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-interconnectivity).
 
 ## Red Hat OpenShift Virtualization Networking
 {: #virt-sol-openshift-network-design-openshift}
-
-[OpenShift Virtualization]{: tag-red}
 
 Red Hat OpenShift Virtualization leverages OpenShift's networking capabilities to provide flexible, software-defined networking for virtual machines running alongside containerized workloads.
 
@@ -151,12 +139,12 @@ The following is the default networking for OpenShift, this default can be modif
     * When a VM is running inside the virt-launcher pod the VMs IP is NAT'ed with the virt-launcher pod's IP
 * **IP Masquerading (SNAT):**
     * When pods initiate outbound connections to external networks, source IP is masqueraded
-    * The source IP address of the request packet is changed to the IP address of the worker node where the pod runs 
+    * The source IP address of the request packet is changed to the IP address of the worker node where the pod runs
     * This is necessary because pod IPs are not routable outside the cluster
     * Return traffic is de-masqueraded back to the original pod IP
     * External services see requests coming from worker node IPs, not pod IPs
 
-### ClusterIP Service 
+### ClusterIP Service
 {: #virt-sol-openshift-network-design-openshift-clusterip}
 
 Services provide stable endpoints and load balancing for pods. They abstract pod IPs and provide consistent access points for applications. The ClusterIP Service:
@@ -214,7 +202,6 @@ On IBM Cloud ROKS, the LoadBalancer service type automatically provisions a VPC 
 ### OpenShift Routes
 {: #virt-sol-openshift-network-design-openshift-routes}
 
-
 OpenShift Routes expose services to external traffic by mapping FQDNs to backend services, making applications accessible outside of the cluster. Key features:
 
 * Layer 7 routing - HTTP/HTTPS traffic with hostname-based routing
@@ -229,8 +216,6 @@ OpenShift Routes expose services to external traffic by mapping FQDNs to backend
 
 ## Open Virtual Networking (OVN)
 {: #virt-sol-openshift-network-design-ovn}
-
-[OpenShift Virtualization]{: tag-red}
 
 The **OVN-Kubernetes** CNI plugin is the recommended networking option for OpenShift Virtualization, supporting VM networking use cases alongside traditional pod networking. OVN-Kubernetes is based on OVN and uses Open vSwitch (OVS) on every worker node. It supports multi-tenancy, NetworkPolicies, and hybrid VM/pod networking. Red Hat OpenShift on IBM Cloud VPC supports OVN-Kubernetes as the default networking plugin.
 
@@ -282,8 +267,6 @@ These characteristics can be combined to create customized networking solutions.
 ### OVN Layer 2 Networks
 {: #virt-sol-openshift-network-design-udn-layer2}
 
-[OpenShift Virtualization]{: tag-red}
-
 An **OVN layer 2** network is a software-defined layer 2 broadcast domain, similar to an NSX overlay segment or traditional VLAN, but implemented entirely within OVN using Geneve encapsulation over the cluster's existing network infrastructure. A layer 2 network allows pods and VMs to communicate as if they were on the same Ethernet segment, with support for ARP discovery, broadcast, multicast, and direct MAC-to-MAC communication.
 
 An OpenShift cluster has a primary cluster network where pods/VMs receive IPs from the default cluster CIDR, routed via OVN. A secondary layer 2 network is one you define via a `ClusterUserDefinedNetwork` (CUDN) or namespace-scoped UDN. A **secondary layer 2 network** is any additional network you create beyond the default pod network.
@@ -298,8 +281,6 @@ Key characteristics of layer 2 networks:
 
 ### OVN Localnet Networks
 {: #virt-sol-openshift-network-design-udn-localnet}
-
-[OpenShift Virtualization]{: tag-red}
 
 An **OVN localnet** network provides VMs and pods with direct VLAN access to the underlying VPC network infrastructure. In IBM Cloud VPC, this enables VMs and pods to connect to VPC subnets using Virtual Network Interface (VNI) and VLAN attachments.
 
