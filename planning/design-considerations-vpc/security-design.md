@@ -89,40 +89,19 @@ IBM Cloud provides comprehensive compliance capabilities and certifications to m
 ### IBM Cloud Security and Compliance Center Workload Protection
 {: #virt-sol-vpc-security-design-scc}
 
-**Posture Management:**
-* Continuous security posture assessment
-* Configuration compliance scanning
-* Drift detection from security baselines
-* Remediation guidance and automation
-
-**Compliance Monitoring:**
-* Regulatory compliance validation
-* Custom control framework definition
-* Evidence collection for audits
-* Compliance dashboards and reporting
-
-**Workload Protection:**
-* Runtime threat detection
-* Vulnerability scanning for VMs and containers
-* File integrity monitoring
-* Compliance scanning for CIS benchmarks and other frameworks
+| Feature | Description |
+| -------------- | -------------- |
+| Posture Management | - Continuous security posture assessment. \n - Configuration compliance scanning. \n - Drift detection from security baselines. \n Remediation guidance and automation |
+| Compliance monitoring | * Regulatory compliance validation. \n - Custom control framework definition. \n - Evidence collection for audits. \n - Compliance dashboards and reporting |
+| Workload protection | - Runtime threat detection. \n - Vulnerability scanning for VMs and containers. \n - File integrity monitoring. \n - Compliance scanning for CIS benchmarks and other frameworks |
+{: caption="IBM Cloud Security and Compliance Center Workload Protection" caption-side="bottom"}
 
 ### Activity Tracking and Logging
 {: #virt-sol-vpc-security-design-logging}
 
-**IBM Cloud Activity Tracker:**
-* Audit logging for all IBM Cloud API calls
-* User activity tracking and attribution
-* Resource lifecycle event logging
-
-**VPC Flow Logs:**
-* Network traffic capture and analysis
-* Troubleshooting connectivity issues
-* Security incident investigation
-* Compliance evidence collection
-
-**OpenShift Audit Logs:**
-* Kubernetes API server audit logging
-* User and service account activity tracking
-* RBAC policy enforcement logging
-* Integration with IBM Cloud Logging
+| Feature | Description |
+| -------------- | -------------- |
+| IBM Cloud Activity Tracker | - Audit logging for all {{site.data.keyword.cloud_notm}} API calls \n - User activity tracking and attribution \n - Resource lifecycle event logging |
+| VPC Flow Logs | - Network traffic capture and analysis  \n - Troubleshooting connectivity issues \n - Security incident investigation \n - Compliance evidence collection |
+| OpenShift Audit Logs | - Kubernetes API server audit logging \n - User and service account activity tracking \n - RBAC policy enforcement logging. \n - Integration with {{site.data.keyword.cloud_notm}} Logging |
+{: caption="Activity Tracking and Logging" caption-side="bottom"}
