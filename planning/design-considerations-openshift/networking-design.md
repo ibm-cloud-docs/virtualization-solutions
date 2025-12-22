@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2025-12-19"
+lastupdated: "2025-12-22"
 
 keywords: ROKS, network, layer2, localnet
 
@@ -14,7 +14,7 @@ subcollection: virtualization-solutions
 # Network Design for OpenShift Virtualization
 {: #virt-sol-openshift-network-design}
 
-The network design in Red Hat OpenShift Virtualization on VPC has two distinct layers:
+The network design in Red Hat OpenShift Virtualization on VPC has three distinct layers:
 
 * IBM Cloud VPC networking
 * Red Hat OpenShift networking
@@ -34,18 +34,15 @@ You need to create a VPC to provision a ROKS cluster.
 ### Default private networking with subnets
 {: #virt-sol-openshift-network-design-vpc-subnets}
 
-See [Default private networking with subnets](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-subnets).
-
-You need to create a VPC subnet in at least one Availability Zone to provision a ROKS cluster.
+You need to create a VPC subnet in at least one Availability Zone to provision a ROKS cluster. For more information, see [Default private networking with subnets](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-subnets).
 
 ### Load-balancers
 {: #virt-sol-openshift-network-design-vpc-lb}
 
-See [Load-balancers](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-lb).
+A Red Hat OpenShift Ingress controller is deployed to your Red Hat OpenShift Kubernetes Service (ROKS) cluster that functions as the ingress endpoint for external network traffic. In a ROKS cluster, a VPC Application Load Balancer is automatically created per cluster to expose the Ingress controller. For more information, see [Load-balancers](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-lb).
 
-A Red Hat OpenShift Ingress controller is deployed to your Red Hat OpenShift Kubernetes Service (ROKS) cluster that functions as the ingress endpoint for external network traffic. In a ROKS cluster, a VPC Application Load Balancer is automatically created per cluster to expose the Ingress controller
+ROKS does the following:
 
-**How it works:**
 1. DNS service resolves the route subdomain to the VPC load balancer hostname
 2. The VPC load balancer resolves the VPC hostname to an available external IP address of an Ingress controller service that was reported as healthy
 3. The VPC load balancer sends the request to an Ingress controller service
@@ -64,61 +61,29 @@ In ROKS on VPC:
 
 See [Virtual Private Endpoints](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-vpe).
 
-VPEs in ROKS environments are primarily used to enable **private connectivity between the OpenShift cluster and IBM Cloud platform services** without traffic traversing the public internet. The following Virtual Private Endpoints are automatically provisioned by IBM Cloud for essential cluster operations:
+VPEs in ROKS environments are primarily used to enable **private connectivity between the OpenShift cluster and IBM Cloud platform services** without traffic traversing the public internet.
 
-* **iks-api** - Kubernetes Service API
-    * Private access to the IBM Cloud Kubernetes Service API
-    * Cluster management operations (kubectl, oc commands)
-    * Worker node to control plane communication
-    * IBM Cloud CLI operations (`ibmcloud ks` commands)
-    * Enables private-only cluster configurations
-* **iks-riaas** - VPC Infrastructure Services
-    * Private access to VPC Infrastructure APIs
-    * Worker node provisioning and lifecycle management
-    * Storage volume attachment and management
-    * VPC networking operations (load balancers, security groups)
-    * Infrastructure resource management
-    * Used by:
-      * IBM Cloud cluster autoscaler
-      * Storage CSI drivers for volume operations
-      * Load balancer provisioning services
-      * Worker node lifecycle controllers
-* **iks-registry** - Container Registry
-    * Private access to IBM Cloud Container Registry
-    * Pull container images without public internet
-    * Access to public and private registry namespaces
-    * Eliminates public egress charges for image pulls
-* **iks-<cluster_id>** - Specific Cluster Instance
-    * Private endpoint specific to your cluster instance
-    * Direct cluster API access
-    * Used for private-only cluster configurations
-    * Alternative to regional API endpoint
-    * Used by:
-      * Tools requiring direct cluster access
-      * Service-to-service communication within VPC
-      * Private cluster access patterns
-* **iks-cos-config** - Cloud Object Storage (Config)
-    * Private access to IBM Cloud Object Storage configuration API
-    * Bucket management and configuration operations
-    * IAM policy and access control management
-    * Service credential operations
-* **iks-cos** - Cloud Object Storage (Data)
-    * Private access to IBM Cloud Object Storage S3 API
-    * Object storage data plane operations (PUT/GET/DELETE)
-    * Backup and restore data transfer
-    * Application data storage access
+The following tables lists all the virtual private endpoints that are automatically provisioned by IBM Cloud for essential cluster operations.
+
+| Virtual private endpoint | Managed by | Description
+| -------------- | -------------- | -------------- |
+| iks-api | Kubernetes Service API | - Private access to the IBM Cloud Kubernetes Service API  \n - Cluster management operations (kubectl, oc commands)  \n - Worker node to control plane communication  \n - IBM Cloud CLI operations (`ibmcloud ks` commands)  \n - Enables private-only cluster configurations |
+| iks-riaas | VPC Infrastructure Services | - Private access to VPC Infrastructure APIs  \n - Worker node provisioning and lifecycle management  \n - Storage volume attachment and management  \n - VPC networking operations (load balancers, security groups)  \n - Infrastructure resource management  \n - Used by IBM Cloud cluster autoscaler, Storage CSI drivers for volume operations, Load balancer provisioning services, Worker node lifecycle controllers |
+| iks-registry | Container Registry | - Private access to IBM Cloud Container Registry  \n - Pull container images without public internet  \n - Access to public and private registry namespaces  \n - Eliminates public egress charges for image pulls |
+| iks-<cluster_id> | Specific Cluster Instance | - Private endpoint specific to your cluster instance  \n - Direct cluster API access  \n - Used for private-only cluster configurations  \n - Alternative to regional API endpoint  \n - Used by Tools requiring direct cluster access, Service-to-service communication within VPC, Private cluster access patterns |
+| iks-cos-config | Cloud Object Storage (Config) | - Private access to IBM Cloud Object Storage configuration API  \n - Bucket management and configuration operations  \n - IAM policy and access control management  \n - Service credential operations |
+| iks-cos | Cloud Object Storage (Data) | - Private access to IBM Cloud Object Storage S3 API  \n - Object storage data plane operations (PUT/GET/DELETE)  \n - Backup and restore data transfer  \n - Application data storage access |
+{: caption="Virtual private endpoings provisioned for cluster operations." caption-side="bottom"}
 
 ### External connectivity
 {: #virt-sol-openshift-network-design-vpc-external}
 
-[OpenShift Virtualization]{: tag-red}
-
-See [External connectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-external).
+For more information, see [External connectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-external).
 
 ### Interconnectivity
 {: #virt-sol-openshift-network-design-vpc-interconnectivity}
 
-See [Interconnectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-interconnectivity).
+For more information, see [Interconnectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-interconnectivity).
 
 ## Red Hat OpenShift Virtualization Networking
 {: #virt-sol-openshift-network-design-openshift}
