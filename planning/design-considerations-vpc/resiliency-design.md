@@ -157,15 +157,14 @@ Veeam is not available directly in the IBM Cloud catalog, however, you can use V
 * Folders and files
 * Veeam Plug-Ins for Enterprise Applications further enhance Veeam Backup & Replication by enabling transactionally consistent backups of SAP HANA, Oracle, and Microsoft SQL Server databases
 
-**Veeam Licenses** - You can order a Veeam license for the use of Veeam Agent and Veeam Backup and Replication software through the Veeam website or through the process described at [Ordering Veeam stand-alone licenses from the IBM Cloud console](https://cloud.ibm.com/docs/vpc?topic=vpc-ordering-veeam-licenses#ordering-veeam-license-procedure)
+| Service | Description |
+| -------------- | -------------- |
+| Veeam Licenses | You can order a Veeam license for the use of Veeam Agent and Veeam Backup and Replication software through the Veeam website or through the process described at [Ordering Veeam stand-alone licenses from the IBM Cloud console](https://cloud.ibm.com/docs/vpc?topic=vpc-ordering-veeam-licenses#ordering-veeam-license-procedure). |
+| Veeam Backup Server | The core component that serves as the configuration and control center for the entire backup infrastructure. The backup server manages job scheduling, resource allocation, and centralized administration of all backup operations.  \n The Veeam Backup and Replication software can be installed only on a Microsoft Windows operating system. See [Installing and operating the Veeam Backup and Replication software](https://cloud.ibm.com/docs/vpc?topic=vpc-using-veeam-backup-replication-software). |
+| Veeam Agents | Lightweight software installed on protected computers that perform data backup operations such as creating volume snapshots, reading backed-up data, and transferring data to target locations. Supported Linux® distributions include CentOS, RHEL, Ubuntu, and Debian. With the Veeam Agent for Linux® and the Veeam Agent for Microsoft™ Windows™ you can create backups and perform restores, see [Installing and operating the Veeam Agent](https://cloud.ibm.com/docs/vpc?topic=vpc-using-veeam-agent). |
+{: caption="Veeam services" caption-side="bottom"}
 
-**Veeam Backup Server** - The core component that serves as the configuration and control center for the entire backup infrastructure. The backup server manages job scheduling, resource allocation, and centralized administration of all backup operations.
-
-The Veeam Backup and Replication software can be installed only on a Microsoft Windows operating system. See [Installing and operating the Veeam Backup and Replication software](https://cloud.ibm.com/docs/vpc?topic=vpc-using-veeam-backup-replication-software).
-
-**Veeam Agents** - Lightweight software installed on protected computers that perform data backup operations such as creating volume snapshots, reading backed-up data, and transferring data to target locations. Supported Linux® distributions include CentOS, RHEL, Ubuntu, and Debian. With the Veeam Agent for Linux® and the Veeam Agent for Microsoft™ Windows™ you can create backups and perform restores, see [Installing and operating the Veeam Agent](https://cloud.ibm.com/docs/vpc?topic=vpc-using-veeam-agent)
-
-See [About Veeam](https://cloud.ibm.com/docs/vpc?topic=vpc-about-veeam)
+For more information, see [About Veeam](https://cloud.ibm.com/docs/vpc?topic=vpc-about-veeam).
 
 **Protection Groups** - Containers in the Veeam Backup & Replication inventory that specify computers on which Veeam Agents should be installed and managed, with selection based on individual IP addresses, Active Directory objects, or CSV files.
 
