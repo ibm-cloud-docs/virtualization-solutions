@@ -215,7 +215,7 @@ Wanclouds VPC+ DRaaS can backup and restore the entire IBM Cloud Virtual Private
 | Storage | - Cloud Object Storage Buckets (COS Buckets) - backup data from one COS bucket to other buckets on demand  \n - Volume attachments and configurations |
 {: caption="Wanclouds VPC+ DRaaS components" caption-side="bottom"}
 
-The service provides flexible restore options:
+Wanclouds VPC+ DRaaS provides flexible restore options:
 
 | Restore option | Description |
 | -------------- | -------------- |
@@ -223,7 +223,7 @@ The service provides flexible restore options:
 | Granular Restore | - Restore entire VPC infrastructure  \n - Individual resource restoration  \n - Restore on-demand in the same VPC, Region, or across different VPCs and regions |
 {: caption="Wanclouds VPC+ DRaaS restore options" caption-side="bottom"}
 
-The service includes:
+Wanclouds VPC+ DRaaS also includes:
 
 | Other features | Description |
 | -------------- | -------------- |
