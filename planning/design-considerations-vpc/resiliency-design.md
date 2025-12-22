@@ -25,17 +25,22 @@ The key backup and restore architecture elements are shown in the following diag
 ## IBM Cloud VPC Block Storage Snapshots
 {: #virt-sol-vpc-vpc-resiliency-design-vpc-snap}
 
-IBM Cloud VPC Block Storage Snapshots provide point-in-time copies of Block Storage volumes attached to virtual server instances. Snapshots are stored regionally in IBM Cloud Object Storage and can be used for data protection, disaster recovery, and creating new volumes from a known good state. Key capabilities include:
+IBM Cloud VPC Block Storage Snapshots provide point-in-time copies of Block Storage volumes attached to virtual server instances. Snapshots are stored regionally in IBM Cloud Object Storage and can be used for data protection, disaster recovery, and creating new volumes from a known good state.
 
-* **Fast snapshot creation** - Snapshots are created quickly using copy-on-write technology without impacting volume performance
-* **Space-efficient storage** - Only changed blocks are stored after the initial full snapshot, minimizing storage costs
-* **Regional availability** - Snapshots are stored within the same region as the source volume and can be used to create volumes in any zone within that region
-* **Bootable volume support** - Snapshots of boot volumes can be used to create new virtual server instances with identical configurations
-* **Consistency groups** - Create crash-consistent snapshots across multiple volumes attached to the same instance (available for certain configurations)
-* **Fast restore snapshot clones** - By keeping a clone of the data in a zone within your VPC region and not in a separate regional storage repository, this feature can achieve a recovery time objective (RTO) quicker than restoring from a regular snapshot
-* **Cross-regional snapshot copies** - Copies a snapshot from one region to another region. This feature can be used in disaster recovery scenarios when you need to start your virtual server instance and data volumes in a different region. The snapshot is created as normal, and when the snapshot is stable, a copy of the snapshot is created in the regional storage repository in the target region. When the snapshot copy in the remote region is stable, you can use and manage it independently from the parent volume or the original snapshot. The creation of the copy in the remote region takes time, for example, the creation of a full snapshot of a 3 TB volume in a remote region can take up to 12.5 hours.
+The following tables lists the key capabilities for IBM Cloud VPC Block Storage Snapshots.
 
-Use cases include the following:
+| Feature | Description |
+| -------------- | -------------- |
+| Fast snapshot creation | Snapshots are created quickly using copy-on-write technology without impacting volume performance |
+| Space-efficient storage | Only changed blocks are stored after the initial full snapshot, minimizing storage costs |
+| Regional availability | Snapshots are stored within the same region as the source volume and can be used to create volumes in any zone within that region |
+| Bootable volume support | Snapshots of boot volumes can be used to create new virtual server instances with identical configurations |
+| Consistency groups | Create crash-consistent snapshots across multiple volumes attached to the same instance (available for certain configurations) |
+| Fast restore snapshot clones | By keeping a clone of the data in a zone within your VPC region and not in a separate regional storage repository, this feature can achieve a recovery time objective (RTO) quicker than restoring from a regular snapshot |
+| Cross-regional snapshot copies | Copies a snapshot from one region to another region. This feature can be used in disaster recovery scenarios when you need to start your virtual server instance and data volumes in a different region. The snapshot is created as normal, and when the snapshot is stable, a copy of the snapshot is created in the regional storage repository in the target region. When the snapshot copy in the remote region is stable, you can use and manage it independently from the parent volume or the original snapshot. The creation of the copy in the remote region takes time, for example, the creation of a full snapshot of a 3 TB volume in a remote region can take up to 12.5 hours. |
+{: caption="IBM Cloud VPC Block Storage Snapshots features" caption-side="bottom"}
+
+The use cases applicable to these features include the following.
 
 * Pre-change backups before system updates or configuration changes
 * Creating golden images for rapid virtual server deployment
@@ -43,14 +48,15 @@ Use cases include the following:
 * Development and test environment provisioning from production snapshots
 * Multi-volume application-consistent backups using consistency groups
 
-Be aware of the following limitations:
+## IBM Cloud VPC Block Storage Snapshots Limitations
+{: #virt-sol-vpc-vpc-resiliency-design-vpc-snap-limitations}
 
 * Cumulative size of all snapshots for a volume cannot exceed 10 TB
 * Creating crash-consistent snapshots of multiple volumes leads to short-lived I/O suspension that can last from a few milliseconds to a few seconds, depending on the size and quantity of volumes
 * No application-aware quiescing (snapshots are crash-consistent)
 * Individual snapshot management (not policy-driven without Backup for VPC service)
 
-See [About Block Storage for VPC snapshots](https://cloud.ibm.com/docs/vpc?topic=vpc-snapshots-vpc-about&interface=ui)
+For more information, see [About Block Storage for VPC snapshots](https://cloud.ibm.com/docs/vpc?topic=vpc-snapshots-vpc-about&interface=ui).
 
 ## IBM Cloud Backup for VPC
 {: #virt-sol-vpc-vpc-resiliency-design-vpc-bu}
@@ -64,11 +70,15 @@ IBM Cloud Backup for VPC provides a policy-driven approach to snapshot lifecycle
 * **Cross-region snapshot copies** - Integrate with cross-region snapshot copy feature for geographic disaster recovery
 * **Centralized management** - Manage backup policies and monitor backup status through IBM Cloud console, CLI, API, or Terraform
 
-Backup policy components include:
+The following table details eacch backup policy component for IBM Cloud Backup for VPC.
 
-* **Backup plan** - Defines the cron-based schedule and retention rules for backups
-* **Backup policy** - Container for one or more backup plans with target resource selection via user tags
-* **Backup jobs** - Automated execution of snapshot operations based on defined schedules
+| Backup policy component | Description |
+| -------------- | -------------- |
+| Backup plan | Defines the cron-based schedule and retention rules for backups |
+| Backup policy | Container for one or more backup plans with target resource selection via user tags |
+| Backup jobs | Automated execution of snapshot operations based on defined schedules |
+{: caption="IBM Cloud Backup for VPC backup policy components" caption-side="bottom"}
+
 
 Use cases include the following:
 
