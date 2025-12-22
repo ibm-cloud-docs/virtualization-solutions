@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-17"
+lastupdated: "2025-12-22"
 
 keywords: File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -25,8 +25,6 @@ The key backup and restore architecture elements are shown in the following diag
 ## IBM Cloud VPC Block Storage Snapshots
 {: #virt-sol-vpc-vpc-resiliency-design-vpc-snap}
 
-[VPC VSI]{: tag-blue}
-
 IBM Cloud VPC Block Storage Snapshots provide point-in-time copies of Block Storage volumes attached to virtual server instances. Snapshots are stored regionally in IBM Cloud Object Storage and can be used for data protection, disaster recovery, and creating new volumes from a known good state. Key capabilities include:
 
 * **Fast snapshot creation** - Snapshots are created quickly using copy-on-write technology without impacting volume performance
@@ -47,8 +45,8 @@ Use cases include the following:
 
 Be aware of the following limitations:
 
-* Cumulative size of all snapshots for a volume cannot exceed 10 TB 
-* Creating crash-consistent snapshots of multiple volumes leads to short-lived I/O suspension that can last from a few milliseconds to a few seconds, depending on the size and quantity of volumes 
+* Cumulative size of all snapshots for a volume cannot exceed 10 TB
+* Creating crash-consistent snapshots of multiple volumes leads to short-lived I/O suspension that can last from a few milliseconds to a few seconds, depending on the size and quantity of volumes
 * No application-aware quiescing (snapshots are crash-consistent)
 * Individual snapshot management (not policy-driven without Backup for VPC service)
 
@@ -57,14 +55,12 @@ See [About Block Storage for VPC snapshots](https://cloud.ibm.com/docs/vpc?topic
 ## IBM Cloud Backup for VPC
 {: #virt-sol-vpc-vpc-resiliency-design-vpc-bu}
 
-[VPC VSI]{: tag-blue}
-
 IBM Cloud Backup for VPC provides a policy-driven approach to snapshot lifecycle management, allowing automated backup of VPC Block Storage volumes with configurable schedules and retention policies. Key capabilities include:
 
-* **Backup policies** - Create backup policies with up to four plans to automate backups on daily, weekly, monthly, or yearly schedules 
-* **Automated retention management** - Configure retention of backups based on age or total count, with automatic deletion of expired backups 
-* **Tag-based automation** - Target Block Storage volumes for backup using tags configured in backup policy that match user-provided tags on volumes 
-* **Consistency group support** - Automate multi-volume snapshot consistency groups for crash-consistent backups across multiple volumes 
+* **Backup policies** - Create backup policies with up to four plans to automate backups on daily, weekly, monthly, or yearly schedules
+* **Automated retention management** - Configure retention of backups based on age or total count, with automatic deletion of expired backups
+* **Tag-based automation** - Target Block Storage volumes for backup using tags configured in backup policy that match user-provided tags on volumes
+* **Consistency group support** - Automate multi-volume snapshot consistency groups for crash-consistent backups across multiple volumes
 * **Cross-region snapshot copies** - Integrate with cross-region snapshot copy feature for geographic disaster recovery
 * **Centralized management** - Manage backup policies and monitor backup status through IBM Cloud console, CLI, API, or Terraform
 
@@ -92,11 +88,11 @@ Use cases include the following:
 | **Volume targeting** | Direct volume selection | Tag-based automatic targeting |
 | **Use case** | Ad-hoc backups, golden images | Ongoing operational backups |
 | **Management** | Per-snapshot management | Policy-driven centralized management |
-{: caption "Comparison with Manual Snapshots} 
+{: caption="Comparison with Manual Snapshots" caption-side="bottom"}
 
 Best practices:
 
-* Schedule automated backup policies during off-peak hours to minimize performance impact from I/O suspension 
+* Schedule automated backup policies during off-peak hours to minimize performance impact from I/O suspension
 * Use consistent tagging strategy across volumes to simplify backup policy application
 * Combine Backup for VPC with cross-region snapshot copies for comprehensive disaster recovery
 * Monitor backup job status and configure alerts for failed backup operations
@@ -107,8 +103,6 @@ See [About Backup for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-backup-servi
 
 ## IBM Cloud Backup and Recovery
 {: #virt-sol-vpc-vpc-resiliency-design-bar}
-
-[VPC VSI]{: tag-blue} [OpenShift Virtualization]{: tag-red}
 
 **IBM Cloud Backup and Recovery** is a provider managed backup service for file, folder and database servers (MS SQL Server and SAP HANA) in VPC environments running on IBM Cloud. This service lets you define backup schedules to routinely protect data sources using a secure, agent-based, application-consistent backup service. Backup infrastructure is managed by IBM. The service is comprised of:
 
@@ -136,8 +130,6 @@ The IBM Cloud Backup and Recovery service will soon be updated to include VMs ho
 
 ## Veeam Backup & Replication with Agent-Based Backup
 {: #virt-sol-vpc-vpc-resiliency-design-veeam-vbr}
-
-[VPC VSI]{: tag-blue}
 
 Veeam Backup & Replication (VBR) is an enterprise-grade backup and disaster recovery solution that provides comprehensive data protection for physical servers, virtual machines, and cloud workloads. For IBM Cloud VPC Virtual Server Instances, Veeam utilizes agent-based backup to provide application-aware, image-level backup and recovery capabilities.
 
@@ -174,7 +166,7 @@ See [About Veeam](https://cloud.ibm.com/docs/vpc?topic=vpc-about-veeam)
     * Pre-installed agent management for third-party deployment tools
     * Remote upgrade and patch management for deployed agents
 * **Centralized Job Management:**
-    * Agent backup jobs run on the backup server, via a schedule, allocating infrastructure resources, and managing job execution 
+    * Agent backup jobs run on the backup server, via a schedule, allocating infrastructure resources, and managing job execution
     * Single backup job can process multiple protection groups and individual computers
     * Backup policies for scheduling agent jobs directly on protected computers
     * Unified console for monitoring all backup operations
@@ -184,15 +176,15 @@ See [About Veeam](https://cloud.ibm.com/docs/vpc?topic=vpc-about-veeam)
     * Export backups to standalone files for archival
     * Import existing agent backups into Veeam infrastructure
 * **Application-Aware Processing:**
-    * For Windows-based computers, Veeam Agent leverages Microsoft VSS technology to create VSS snapshots for transactionally consistent backups 
-    * Support for VSS-aware applications including Microsoft SQL Server, Exchange, Active Directory, and Oracle databases 
-    * For Linux systems, support for Oracle, MySQL, and PostgreSQL database processing to create transactionally consistent backups 
+    * For Windows-based computers, Veeam Agent leverages Microsoft VSS technology to create VSS snapshots for transactionally consistent backups
+    * Support for VSS-aware applications including Microsoft SQL Server, Exchange, Active Directory, and Oracle databases
+    * For Linux systems, support for Oracle, MySQL, and PostgreSQL database processing to create transactionally consistent backups
     * Application item-level restore (database, mailbox, Active Directory objects)
 * **Advanced Data Protection:**
-    * Immutable, direct-to-object storage backups that naturally scale with needs 
+    * Immutable, direct-to-object storage backups that naturally scale with needs
     * Inline malware detection during backup operations
     * Encryption in-flight and at-rest with AES-256
-    * Built-in deduplication and compression to reduce backup file sizes and data traffic 
+    * Built-in deduplication and compression to reduce backup file sizes and data traffic
     * WAN acceleration for remote site backups
 * **Flexible Backup Targets:**
     * Local backup repositories (fast local recovery)
@@ -200,14 +192,12 @@ See [About Veeam](https://cloud.ibm.com/docs/vpc?topic=vpc-about-veeam)
     * Copy jobs to create secondary backup copies (3-2-1 rule compliance)
 * **Granular Recovery:**
     * File-level restore from image-level backups without full system restore. Note image-level means the OS image, not the VSI image.
-    * Application item-level restore including databases, mailboxes, and specific application objects 
+    * Application item-level restore including databases, mailboxes, and specific application objects
     * Volume-level restore for partial system recovery
     * Restore to original or alternate locations
 
 ## Third-Party Backup Solutions
 {: #virt-sol-vpc-vpc-resiliency-design-3rd-party}
-
-[VPC VSI]{: tag-blue}
 
 Various third-party backup solutions provide alternatives for VPC VSIs backup, available as self-managed with bring-your-own-license (BYOL) models. Additional third-party backup solutions compatible with IBM Cloud VPC include:
 
@@ -220,8 +210,6 @@ These solutions typically support both agent-based backup for virtual server ins
 
 ## Wanclouds VPC+ DRaaS (Disaster Recovery as a Service)
 {: #virt-sol-vpc-component-design-wanclouds-draas}
-
-[VPC VSI]{: tag-blue}
 
 Wanclouds VPC+ DRaaS is a comprehensive SaaS-based Disaster Recovery as a Service (DRaaS) solution that enables IBM Cloud customers to backup their entire Virtual Private Cloud resources including network, compute, and storage, and restore them across different regions in IBM Cloud. This approach eliminates the need for expensive standby environments, replacing them with flexible on-demand recovery. The service is available directly from IBM Cloud Catalog. Key differentiators:
 
@@ -277,8 +265,6 @@ See [IBM documentation](https://docs.wanclouds.net/ibm/) and [VPC+ DRaaS (VPC+ D
 ## RackWare DR
 {: #virt-sol-vpc-component-design-rackware-dr}
 
-[VPC VSI]{: tag-blue}
-
 ## RackWare RMM for VPC VSI Cross-Region Disaster Recovery
 {: #virt-sol-component-design-rackware-vpc-dr}
 
@@ -331,7 +317,10 @@ RackWare provides flexible scheduling with options for hot and cold standby of r
 | **Cost** | Higher (running compute) | Lower (storage only) |
 | **Use Cases** | Mission-critical, RTO < 5 min | Important workloads, RTO < 30 min |
 | **Sync Impact** | Faster (VSI already running) | Must boot before final sync |
-{: caption "Rackware capabilities"} 
+{: caption="Rackware capabilities" caption-side="bottom"}
 
+For more informatiopn, see the following:
 
-See [Protect critical workloads across hybrid and multi-cloud environments](https://www.rackwareinc.com/rackware-platform/disaster-recovery), [RackWare and IBM Cloud](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm) and [RackWare RMM users Guide for IBM Cloud](https://rackware.attachments9.freshdesk.com/data/helpdesk/attachments/production/5193588906/original/Rackware%20RMM%20Users%20Guide%20for%20IBM%20Cloud%20v2.2.pdf?response-content-type=application%2Fpdf&Expires=1764355600&Signature=gLDEmBxGd1dCMuzHjAP1FT3cCOzV6J7PGG7AHJ7dTKpTyGCvsY2IkzwQKI7VcJu~vnXprXUmkR9IUUUm0yhyD3hFdHU9tYZd4-6NfrZ7Ix2wXNfY44D2-rFWDoNy-LfiFaD2huPCdY2m-~1kw0ZtPqHLF7h5194~VPrhNgRPIrj~sfgN8wF8M8TLzkgZ84-MxbU~nn98rQFcnRgrKIc2inkfD~VYuAGaScmepjhRRoc8Gkd5LRIbPfyU1rAKWEj0L8AhfhjvLLVMGiu6CbfTGD1gLawXa24zm4ZR8-80LKdKstsJJx4vqgHEAbIQAD--XZsvY7CQ5AupWhdtPVzySA__&Key-Pair-Id=APKAJ7JARUX3F6RQIXLA)
+- [Protect critical workloads across hybrid and multi-cloud environments](https://www.rackwareinc.com/rackware-platform/disaster-recovery){: external}
+- [RackWare and IBM Cloud](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm){: external}
+- [RackWare RMM users Guide for IBM Cloud](https://rackware.attachments9.freshdesk.com/data/helpdesk/attachments/production/5193588906/original/Rackware%20RMM%20Users%20Guide%20for%20IBM%20Cloud%20v2.2.pdf?response-content-type=application%2Fpdf&Expires=1764355600&Signature=gLDEmBxGd1dCMuzHjAP1FT3cCOzV6J7PGG7AHJ7dTKpTyGCvsY2IkzwQKI7VcJu~vnXprXUmkR9IUUUm0yhyD3hFdHU9tYZd4-6NfrZ7Ix2wXNfY44D2-rFWDoNy-LfiFaD2huPCdY2m-~1kw0ZtPqHLF7h5194~VPrhNgRPIrj~sfgN8wF8M8TLzkgZ84-MxbU~nn98rQFcnRgrKIc2inkfD~VYuAGaScmepjhRRoc8Gkd5LRIbPfyU1rAKWEj0L8AhfhjvLLVMGiu6CbfTGD1gLawXa24zm4ZR8-80LKdKstsJJx4vqgHEAbIQAD--XZsvY7CQ5AupWhdtPVzySA__&Key-Pair-Id=APKAJ7JARUX3F6RQIXLA){: external}
