@@ -61,14 +61,19 @@ For more information, see [About Block Storage for VPC snapshots](https://cloud.
 ## IBM Cloud Backup for VPC
 {: #virt-sol-vpc-vpc-resiliency-design-vpc-bu}
 
-IBM Cloud Backup for VPC provides a policy-driven approach to snapshot lifecycle management, allowing automated backup of VPC Block Storage volumes with configurable schedules and retention policies. Key capabilities include:
+IBM Cloud Backup for VPC provides a policy-driven approach to snapshot lifecycle management, allowing automated backup of VPC Block Storage volumes with configurable schedules and retention policies.
 
-* **Backup policies** - Create backup policies with up to four plans to automate backups on daily, weekly, monthly, or yearly schedules
-* **Automated retention management** - Configure retention of backups based on age or total count, with automatic deletion of expired backups
-* **Tag-based automation** - Target Block Storage volumes for backup using tags configured in backup policy that match user-provided tags on volumes
-* **Consistency group support** - Automate multi-volume snapshot consistency groups for crash-consistent backups across multiple volumes
-* **Cross-region snapshot copies** - Integrate with cross-region snapshot copy feature for geographic disaster recovery
-* **Centralized management** - Manage backup policies and monitor backup status through IBM Cloud console, CLI, API, or Terraform
+The following tables lists the key capabilities for IBM Cloud Backup for VPC.
+
+| Feature | Description |
+| -------------- | -------------- |
+| Backup policies | Create backup policies with up to four plans to automate backups on daily, weekly, monthly, or yearly schedules |
+| Automated retention management | Configure retention of backups based on age or total count, with automatic deletion of expired backups |
+| Tag-based automation | Target Block Storage volumes for backup using tags configured in backup policy that match user-provided tags on volumes |
+| Consistency group support | Automate multi-volume snapshot consistency groups for crash-consistent backups across multiple volumes |
+| Cross-region snapshot copies | Integrate with cross-region snapshot copy feature for geographic disaster recovery |
+| Centralized management | Manage backup policies and monitor backup status through IBM Cloud console, CLI, API, or Terraform |
+{: caption="IBM Cloud Backup for VPC features" caption-side="bottom"}
 
 The following table details eacch backup policy component for IBM Cloud Backup for VPC.
 
@@ -80,7 +85,7 @@ The following table details eacch backup policy component for IBM Cloud Backup f
 {: caption="IBM Cloud Backup for VPC backup policy components" caption-side="bottom"}
 
 
-Use cases include the following:
+The use cases applicable to these features include the following.
 
 * Automated daily/weekly/monthly backups for production virtual server instances
 * Compliance and regulatory data retention requirements
@@ -100,7 +105,7 @@ Use cases include the following:
 | **Management** | Per-snapshot management | Policy-driven centralized management |
 {: caption="Comparison with Manual Snapshots" caption-side="bottom"}
 
-Best practices:
+The following list is the best practice for IBM Cloud Backup for VPC.
 
 * Schedule automated backup policies during off-peak hours to minimize performance impact from I/O suspension
 * Use consistent tagging strategy across volumes to simplify backup policy application
