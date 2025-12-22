@@ -63,6 +63,15 @@ For more information, see [About Block Storage for VPC snapshots](https://cloud.
 
 IBM Cloud Backup for VPC provides a policy-driven approach to snapshot lifecycle management, allowing automated backup of VPC Block Storage volumes with configurable schedules and retention policies.
 
+The following table details each backup policy component for IBM Cloud Backup for VPC.
+
+| Backup policy component | Description |
+| -------------- | -------------- |
+| Backup plan | Defines the cron-based schedule and retention rules for backups |
+| Backup policy | Container for one or more backup plans with target resource selection via user tags |
+| Backup jobs | Automated execution of snapshot operations based on defined schedules |
+{: caption="IBM Cloud Backup for VPC backup policy components" caption-side="bottom"}
+
 The following tables lists the key capabilities for IBM Cloud Backup for VPC.
 
 | Feature | Description |
@@ -74,16 +83,6 @@ The following tables lists the key capabilities for IBM Cloud Backup for VPC.
 | Cross-region snapshot copies | Integrate with cross-region snapshot copy feature for geographic disaster recovery |
 | Centralized management | Manage backup policies and monitor backup status through IBM Cloud console, CLI, API, or Terraform |
 {: caption="IBM Cloud Backup for VPC features" caption-side="bottom"}
-
-The following table details eacch backup policy component for IBM Cloud Backup for VPC.
-
-| Backup policy component | Description |
-| -------------- | -------------- |
-| Backup plan | Defines the cron-based schedule and retention rules for backups |
-| Backup policy | Container for one or more backup plans with target resource selection via user tags |
-| Backup jobs | Automated execution of snapshot operations based on defined schedules |
-{: caption="IBM Cloud Backup for VPC backup policy components" caption-side="bottom"}
-
 
 The use cases applicable to these features include the following.
 
@@ -121,12 +120,15 @@ See [About Backup for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-backup-servi
 
 **IBM Cloud Backup and Recovery** is a provider managed backup service for file, folder and database servers (MS SQL Server and SAP HANA) in VPC environments running on IBM Cloud. This service lets you define backup schedules to routinely protect data sources using a secure, agent-based, application-consistent backup service. Backup infrastructure is managed by IBM. The service is comprised of:
 
-* **IBM Cloud Backup and Recovery service** - Managed by IBM, once provisioned via the IBM Cloud catalog, you access via a web browser to manage your backup policies, download the agents and restore.
-* **VPE Gateway** - To improve performance it is recommended to use a VPE gateway to access the service instead of the native connection. To create one or more VPE gateways use the IBM Cloud catalog to order a VPC gateway and configure it to use the Backup and Recovery service.
-* **Data Source Connector** - Installed via the IBM Cloud Catalog which install a VSI in your VPC. Install one or more (at least two recommended for HA) data connectors and increase as need to increase backup throughput. Data source connectors are used to establish connectivity between your source VSI and the service. The data source connectors also interacts with the service's IBM Cloud Object Service bucket where the backups are located. This bucket is managed by the provider and is not contained within your account.
-* **Agent** - An agent is IBM Cloud Backup and Recovery software installed on the VSI that interacts locally with the operating system and source data being protected. The agent communicates with the Data Source Connector and Backup and Recovery instance during backup and recovery operations. Windows and Linux agents are currently available, with support for additional agent types planned for the future.
+| Service | Description |
+| -------------- | -------------- |
+| IBM Cloud Backup and Recovery service | Managed by IBM, once provisioned via the IBM Cloud catalog, you access via a web browser to manage your backup policies, download the agents and restore. |
+| VPE Gateway | To improve performance it is recommended to use a VPE gateway to access the service instead of the native connection. To create one or more VPE gateways use the IBM Cloud catalog to order a VPC gateway and configure it to use the Backup and Recovery service. |
+| Data Source Connector | Installed via the IBM Cloud Catalog which install a VSI in your VPC. Install one or more (at least two recommended for HA) data connectors and increase as need to increase backup throughput. Data source connectors are used to establish connectivity between your source VSI and the service. The data source connectors also interacts with the service's IBM Cloud Object Service bucket where the backups are located. This bucket is managed by the provider and is not contained within your account. |
+| Agent | An agent is IBM Cloud Backup and Recovery software installed on the VSI that interacts locally with the operating system and source data being protected. The agent communicates with the Data Source Connector and Backup and Recovery instance during backup and recovery operations. Windows and Linux agents are currently available, with support for additional agent types planned for the future. |
+{: caption="IBM Cloud Backup and Recovery services" caption-side="bottom"}
 
-Key capabilities:
+The following list is the key capabilities for IBM Cloud Backup and Recovery.
 
 * Agent-based backup for virtual server instances
 * Support for file-level and folder-level backups
@@ -138,10 +140,9 @@ Key capabilities:
     * Security - Take advantage of granular role-based access control to stop unauthorized actors from modifying or deleting data
     * Application-consistent backup - Capture backups of your application data in a consistent state, allowing for clean restoration to a specific point in time without data corruption or loss.
 
-See [Getting started with Backup and Recovery](https://cloud.ibm.com/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery)
+For more information, see [Getting started with Backup and Recovery](https://cloud.ibm.com/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery)
 
-The IBM Cloud Backup and Recovery service will soon be updated to include VMs hosted on Red Hat OpenShift on IBM Cloud VPC.
-{: note}
+
 
 ## Veeam Backup & Replication with Agent-Based Backup
 {: #virt-sol-vpc-vpc-resiliency-design-veeam-vbr}
