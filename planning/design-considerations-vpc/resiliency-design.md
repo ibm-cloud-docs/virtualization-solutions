@@ -175,41 +175,16 @@ For more information, see [About Veeam](https://cloud.ibm.com/docs/vpc?topic=vpc
 
 **Veeam features** - Veeam Backup & Replication offers automated deployment and management of Veeam Agents, allowing administrators to perform deployment, administration, data protection, and disaster recovery tasks remotely from the Veeam Backup & Replication console without installing and configuring agents on every computer individually.
 
-* **Centralized Deployment:**
-    * Automatic agent discovery and deployment to VPC virtual server instances
-    * Manual deployment using installation packages for restricted environments
-    * Pre-installed agent management for third-party deployment tools
-    * Remote upgrade and patch management for deployed agents
-* **Centralized Job Management:**
-    * Agent backup jobs run on the backup server, via a schedule, allocating infrastructure resources, and managing job execution
-    * Single backup job can process multiple protection groups and individual computers
-    * Backup policies for scheduling agent jobs directly on protected computers
-    * Unified console for monitoring all backup operations
-* **Centralized Backup Management:**
-    * Restore data from agent backups through the Veeam console
-    * Copy backups to secondary repositories for 3-2-1 compliance
-    * Export backups to standalone files for archival
-    * Import existing agent backups into Veeam infrastructure
-* **Application-Aware Processing:**
-    * For Windows-based computers, Veeam Agent leverages Microsoft VSS technology to create VSS snapshots for transactionally consistent backups
-    * Support for VSS-aware applications including Microsoft SQL Server, Exchange, Active Directory, and Oracle databases
-    * For Linux systems, support for Oracle, MySQL, and PostgreSQL database processing to create transactionally consistent backups
-    * Application item-level restore (database, mailbox, Active Directory objects)
-* **Advanced Data Protection:**
-    * Immutable, direct-to-object storage backups that naturally scale with needs
-    * Inline malware detection during backup operations
-    * Encryption in-flight and at-rest with AES-256
-    * Built-in deduplication and compression to reduce backup file sizes and data traffic
-    * WAN acceleration for remote site backups
-* **Flexible Backup Targets:**
-    * Local backup repositories (fast local recovery)
-    * IBM Cloud Object Storage for long-term retention and offsite protection
-    * Copy jobs to create secondary backup copies (3-2-1 rule compliance)
-* **Granular Recovery:**
-    * File-level restore from image-level backups without full system restore. Note image-level means the OS image, not the VSI image.
-    * Application item-level restore including databases, mailboxes, and specific application objects
-    * Volume-level restore for partial system recovery
-    * Restore to original or alternate locations
+| Feature | Description |
+| -------------- | -------------- |
+| Centralized Deployment | - Automatic agent discovery and deployment to VPC virtual server instances  \n - Manual deployment using installation packages for restricted environments  \n - Pre-installed agent management for third-party deployment tools  \n Remote upgrade and patch management for deployed agents |
+| Centralized Job Management | = Agent backup jobs run on the backup server, via a schedule, allocating infrastructure resources, and managing job execution  \n - Single backup job can process multiple protection groups and individual computers  \n - Backup policies for scheduling agent jobs directly on protected computers  \n - Unified console for monitoring all backup operations |
+| Centralized Backup Management | - Restore data from agent backups through the Veeam console  \n - Copy backups to secondary repositories for 3-2-1 compliance  \n - Export backups to standalone files for archival  \n - Import existing agent backups into Veeam infrastructure |
+| Application-Aware Processing | - For Windows-based computers, Veeam Agent leverages Microsoft VSS technology to create VSS snapshots for transactionally consistent backups  \n - Support for VSS-aware applications including Microsoft SQL Server, Exchange, Active Directory, and Oracle databases  \n - For Linux systems, support for Oracle, MySQL, and PostgreSQL database processing to create transactionally consistent backups  \n - Application item-level restore (database, mailbox, Active Directory objects) |
+| Advanced Data Protection | - Immutable, direct-to-object storage backups that naturally scale with needs  \n - Inline malware detection during backup operations  \n - Encryption in-flight and at-rest with AES-256  \n - Built-in deduplication and compression to reduce backup file sizes and data traffic  \n - WAN acceleration for remote site backups |
+| Flexible Backup Targets | - Local backup repositories (fast local recovery)  \n - IBM Cloud Object Storage for long-term retention and offsite protection  \n - Copy jobs to create secondary backup copies (3-2-1 rule compliance) |
+| Granular Recovery | - File-level restore from image-level backups without full system restore. Note image-level means the OS image, not the VSI image.  \n - Application item-level restore including databases, mailboxes, and specific application objects  \n - Volume-level restore for partial system recovery  \n - Restore to original or alternate locations |
+{: caption="Veeam features" caption-side="bottom"}
 
 ## Third-Party Backup Solutions
 {: #virt-sol-vpc-vpc-resiliency-design-3rd-party}
