@@ -208,48 +208,31 @@ Wanclouds VPC+ DRaaS is a comprehensive SaaS-based Disaster Recovery as a Servic
 
 Wanclouds VPC+ DRaaS can backup and restore the entire IBM Cloud Virtual Private Cloud construct, configurations, and resources including:
 
-* **Network Components:**
-    * VLANs and Subnets
-    * Security Groups and Network ACLs
-    * VPN Gateways
-    * Load Balancers (ALB and NLB)
-    * Floating IPs
-    * Public Gateways
-    * Virtual Private Endpoints (VPE)
-* **Compute Resources:**
-    * Virtual Server Instances (VSIs) - backup different versions of Windows and Linux OS flavors including Ubuntu, Red Hat Enterprise Linux (RHEL), Debian, and CentOS
-    * Attached Data Volumes (Block Storage)
-    * Instance configurations and metadata
-* **Storage:**
-    * Cloud Object Storage Buckets (COS Buckets) - backup data from one COS bucket to other buckets on demand
-    * Volume attachments and configurations
+| Component | Description |
+| -------------- | -------------- |
+| Network Components | - VLANs and Subnets  \n - Security Groups and Network ACLs  \n - VPN Gateways  \n - Load Balancers (ALB and NLB)  \n - Floating IPs  \n - Public Gateways  \n - Virtual Private Endpoints (VPE)
+| Compute Resources | - Virtual Server Instances (VSIs) - backup different versions of Windows and Linux OS flavors including Ubuntu, Red Hat Enterprise Linux (RHEL), Debian, and CentOS  \n - Attached Data Volumes (Block Storage)  \n - Instance configurations and metadata |
+| Storage | - Cloud Object Storage Buckets (COS Buckets) - backup data from one COS bucket to other buckets on demand  \n - Volume attachments and configurations |
+{: caption="Wanclouds VPC+ DRaaS components" caption-side="bottom"}
 
 The service provides flexible restore options:
 
-* **Cross-Region Restore:**
-    * Restore or replicate infrastructure on demand in the same or across different regions
-    * Restore data on-demand within or across regions for ultimate flexibility and security
-    * Restore backed-up workloads, resources, applications, and data into an existing VPC or create a new VPC and restore on-demand in any region across IBM Cloud
-* **Granular Restore:**
-    * Restore entire VPC infrastructure
-    * Individual resource restoration
-    * Restore on-demand in the same VPC, Region, or across different VPCs and regions
+| Restore option | Description |
+| -------------- | -------------- |
+| Cross-Region Restore | - Restore or replicate infrastructure on demand in the same or across different regions  \n - Restore data on-demand within or across regions for ultimate flexibility and security  \n - Restore backed-up workloads, resources, applications, and data into an existing VPC or create a new VPC and restore on-demand in any region across IBM Cloud |
+| Granular Restore | - Restore entire VPC infrastructure  \n - Individual resource restoration  \n - Restore on-demand in the same VPC, Region, or across different VPCs and regions |
+{: caption="Wanclouds VPC+ DRaaS restore options" caption-side="bottom"}
 
 The service includes:
 
-* **Automated Discovery:**
-    * Automatically discover VPC resources and track infrastructure across multiple regions
-    * Real-time inventory of all cloud resources
-* **Topology Visualization:**
-    * Visualize VPC topology and inter-resource relationships
-    * Visualize resource relationships for faster diagnostics
-    * Dependency mapping for impact analysis
-* **Compliance Management:**
-    * Apply compliance policies and set up compliance policies
-    * Discover and track all resources with compliance and visualization features
-    * Audit trails for backup and restore operations
+| Other features | Description |
+| -------------- | -------------- |
+| Automated Discovery | - Automatically discover VPC resources and track infrastructure across multiple regions  \n - Real-time inventory of all cloud resources |
+| Topology Visualization | - Visualize VPC topology and inter-resource relationships  \n - Visualize resource relationships for faster diagnostics  \n - Dependency mapping for impact analysis |
+| Compliance Management | - Apply compliance policies and set up compliance policies  \n - Discover and track all resources with compliance and visualization features  \n - Audit trails for backup and restore operations |
+{: caption="Wanclouds VPC+ DRaaS other features" caption-side="bottom"}
 
-See [IBM documentation](https://docs.wanclouds.net/ibm/) and [VPC+ DRaaS (VPC+ Disaster Recovery as a Service)](https://cloud.ibm.com/catalog/services/vpc-draas-vpc-disaster-recovery-as-a-service)
+For more information, see [IBM documentation](https://docs.wanclouds.net/ibm/) and [VPC+ DRaaS (VPC+ Disaster Recovery as a Service)](https://cloud.ibm.com/catalog/services/vpc-draas-vpc-disaster-recovery-as-a-service)
 
 
 ## RackWare DR
