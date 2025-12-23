@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-22"
+lastupdated: "2025-12-23"
 
 keywords: File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -243,7 +243,7 @@ For more information, see [IBM documentation](https://docs.wanclouds.net/ibm/) a
 
 RackWare Management Module (RMM) platform integrates with IBM Cloud VPC to enable intelligent provisioning, workload mobility, and cross-region DR planning. RackWare enables both hot and warm standby deployments with rapid failover and rollback capabilities across IBM Cloud VPC with policy-driven DR strategies.
 
-The RackWare Management Module (RMM) is deployed in IBM Cloud VPC and provides a centralized interface for managing, scheduling, and automating migration and disaster recovery tasks:
+The RackWare Management Module (RMM) is deployed in IBM Cloud VPC and provides a centralized interface for managing, scheduling, and automating migration and disaster recovery tasks. The following list includes the features of RMM.
 
 * Deployed as VSI in IBM Cloud VPC
 * Uses Floating IP for external GUI access
@@ -256,30 +256,13 @@ The RackWare Management Module (RMM) is deployed in IBM Cloud VPC and provides a
 * Policy-driven automation for failover and failback
 * GUI-based management with real-time monitoring
 
-DR Configuration Models
+The following tables lists the disaster recovery configuration models.
 
-* Passthrough enabled by default - RMM acts as proxy between source and target servers
-    * Source and target VSIs cannot communicate directly
-    * Cross-region networking not configured
-    * Additional security layer desired
-    * Centralized traffic monitoring required
-    * No direct connectivity required between regions
-    * Centralized control and monitoring
-    * Simplified firewall rules
-    * All data flows through RMM
-    * RMM bandwidth becomes bottleneck for large datasets
-    * Additional network hop adds latency
-* Direct Mode
-    * Source and target VSIs both use Floating IPs
-    * Transit Gateway configured between regions
-    * High-bandwidth requirements
-    * Minimize network latency
-    * Better performance for large datasets
-    * Reduced load on RMM server
-    * Lower latency for data transfer
-    * Network connectivity between regions (Transit Gateway or Floating IPs)
-    * Firewall rules allowing SSH between source and target
-    * Security considerations for cross-region traffic
+| Disaster recovery configuration model | Description |
+| -------------- | -------------- |
+| Passthrough enabled by default where RMM acts as proxy between source and target servers | - Source and target VSIs cannot communicate directly  \n - Cross-region networking not configured  \n - Additional security layer desired  \n - Centralized traffic monitoring required  \n No direct connectivity required between regions  \n Centralized control and monitoring  \n - Simplified firewall rules  \n All data flows through RMM  \n RMM bandwidth becomes bottleneck for large datasets  \n Additional network hop adds latency |
+| Direct Mode | - Source and target VSIs both use Floating IPs  \n - Transit Gateway configured between regions  \n - High-bandwidth requirements  \n - Minimize network latency  \n - Better performance for large datasets  \n - Reduced load on RMM server  \n - Lower latency for data transfer  \n - Network connectivity between regions (Transit Gateway or Floating IPs)  \n - Firewall rules allowing SSH between source and target  \n - Security considerations for cross-region traffic |
+{: caption="RMM disaster recovery configuration models" caption-side="bottom"}
 
 RackWare provides flexible scheduling with options for hot and cold standby of replicated workloads.
 
