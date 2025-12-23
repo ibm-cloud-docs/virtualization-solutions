@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-17"
+lastupdated: "2025-12-23"
 
 keywords: IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection
 
@@ -26,8 +26,6 @@ The key observability architecture elements are shown in the following diagram.
 ## IBM Cloud Security and Compliance Center Workload Protection
 {: #virt-sol-vpc-observability-design-scc-wpp}
 
-[VPC VSI]{: tag-blue}
-
 IBM Cloud Security and Compliance Center Workload Protection provides comprehensive security monitoring and threat detection for workloads running on IBM Cloud, including virtual machines on VPC and OpenShift Virtualization environments.
 
 The Workload Protection agent discovers and prioritizes software vulnerabilities, detects and responds to runtime threats, and manages configurations, permissions, and compliance requirements for hosted virtual machines and containerized workloads.
@@ -39,13 +37,16 @@ See [Getting started with IBM Cloud Security and Compliance Center Workload Prot
 
 To enable Workload Protection, provision an instance of the IBM Cloud Security and Compliance Center Workload Protection service in IBM Cloud. After provisioning, deploy the agent to collect security and compliance data across your infrastructure.
 
-The agent provides the following capabilities:
+The following table details the capabilities the agent provides.
 
-* **Vulnerability scanning** - Identify security vulnerabilities in images, packages, and applications
-* **Intrusion detection** - Detect runtime threats and anomalous behavior
-* **Posture management** - Validate security configurations and compliance policies
-* **Incident response** - Investigate and respond to security events with forensic data
-* **Compliance validation** - Assess compliance against regulatory frameworks and industry standards
+| Feature | Description |
+| -------------- | -------------- |
+| Vulnerability scanning | Identify security vulnerabilities in images, packages, and applications |
+| Intrusion detection | Detect runtime threats and anomalous behavior |
+| Posture management | Validate security configurations and compliance policies |
+| Incident response | Investigate and respond to security events with forensic data |
+| Compliance validation | Assess compliance against regulatory frameworks and industry standards |
+{: caption="IBM Cloud Security and Compliance Center Workload Protection features" caption-side="bottom"}
 
 This unified approach enables organizations to accelerate hybrid cloud adoption while addressing security and regulatory compliance requirements across cloud, on-premises, virtual machines, containers, and Kubernetes environments.
 
@@ -53,8 +54,6 @@ See [Protecting Linux hosts](https://cloud.ibm.com/docs/workload-protection?topi
 
 ## IBM Cloud Monitoring and Logs
 {: #virt-sol-vpc-observability-design-mon-and-logs}
-
-[VPC VSI]{: tag-blue}
 
 IBM Cloud Monitoring and IBM Cloud Logs provide cloud-native observability for applications and infrastructure running on IBM Cloud, including virtual machines on VPC and OpenShift Virtualization.
 
@@ -91,8 +90,6 @@ Be aware that for IBM Cloud Linux VSI and IBM Cloud Windows VSI	both Service ID 
 
 ### Combined Observability Benefits
 {: #virt-sol-vpc-observability-design-combined-benefits}
-
-[VPC VSI]{: tag-blue}
 
 IBM Cloud uses a single unified agent that can collect both security data (for Workload Protection) and metrics data (for Cloud Monitoring). Key points:
 
