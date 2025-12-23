@@ -73,28 +73,27 @@ IBM Cloud uses a single unified agent that can collect both security data (for W
 * Multiple instances of the agent cannot be deployed on the same host, but by creating a connection between instances, a single agent can collect both security and metrics data
 * You can connect only one Monitoring instance to one Workload Protection instance, and both instances must be in the same region
 
-When you deploy the unified agent, it includes multiple components:
+The following table details the unified agent components.
 
-* For Monitoring (Metrics):
-    * Agent: Collects metrics from containers, pods, nodes, and Kubernetes resources
-    * Prometheus integration: Custom metrics collection
-    * Cluster metadata: Automatic tagging with cluster name and context
-* For Workload Protection (Security):
-    * Node Analyzer: Includes host scanner and KSPM (Kubernetes Security Posture Management) analyzer
-    * Host Scanner: Detects vulnerabilities and identifies resolution priority based on available fixed versions and severity
-    * KSPM Analyzer: Kubernetes Security Posture Management for compliance and configuration analysis
-    * Cluster Shield: Security runtime component
+| Component | Description |
+| -------------- | -------------- |
+| For Monitoring (Metrics) | - Agent: Collects metrics from containers, pods, nodes, and Kubernetes resources  \n - Prometheus integration: Custom metrics collection  \n  - Cluster metadata: Automatic tagging with cluster name and context
+| For Workload Protection (Security) | - Node Analyzer: Includes host scanner and KSPM (Kubernetes Security Posture Management) analyzer  \n Host Scanner: Detects vulnerabilities and identifies resolution priority based on available fixed versions and severity  \n - KSPM Analyzer: Kubernetes Security Posture Management for compliance and configuration analysis  \n - Cluster Shield: Security runtime component |
+{: caption="Components of unified agent" caption-side="bottom"}
 
-Deploying both the unified agent (for IBM Cloud Monitoring and Workload Protection) and the IBM Cloud Logs agent in VPC VSIs provides comprehensive observability:
+The following table details the comprehensive observability provided when deploying both the unified agent (for IBM Cloud Monitoring and Workload Protection) and the IBM Cloud Logs agent in VPC virtual server instances.
 
-* **Full-stack visibility** - Monitor from infrastructure through application layers
-* **Correlated insights** - Correlate metrics and logs for faster root cause analysis
-* **Unified dashboards** - View metrics and logs in integrated IBM Cloud console
-* **Custom alerting** - Configure alerts based on metric thresholds and log patterns
-* **Long-term retention** - Store historical data for trend analysis and compliance
-* **Centralized management** - Manage observability across hybrid and multicloud environments from a single platform
-* **Vulnerability scanning** - Identify security vulnerabilities in images, packages, and applications
-* **Intrusion detection** - Detect runtime threats and anomalous behavior
-* **Posture management** - Validate security configurations and compliance policies
-* **Incident response** - Investigate and respond to security events with forensic data
-* **Compliance validation** - Assess compliance against regulatory frameworks and industry standards
+| Observability | Description |
+| -------------- | -------------- |
+| Full-stack visibility | Monitor from infrastructure through application layers |
+| Correlated insights | Correlate metrics and logs for faster root cause analysis |
+| Unified dashboards | View metrics and logs in integrated IBM Cloud console |
+| Custom alerting | Configure alerts based on metric thresholds and log patterns |
+| Long-term retention | Store historical data for trend analysis and compliance |
+| Centralized management | Manage observability across hybrid and multicloud environments from a single platform |
+| Vulnerability scanning | Identify security vulnerabilities in images, packages, and applications |
+| Intrusion detection | Detect runtime threats and anomalous behavior |
+| Posture management | Validate security configurations and compliance policies |
+| Incident response | Investigate and respond to security events with forensic data |
+| Compliance validation | Assess compliance against regulatory frameworks and industry standards |
+{: caption="Observabiilty provided by unified agent" caption-side="bottom"}
