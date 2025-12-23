@@ -57,34 +57,11 @@ See [Protecting Linux hosts](https://cloud.ibm.com/docs/workload-protection?topi
 
 IBM Cloud Monitoring and IBM Cloud Logs provide cloud-native observability for applications and infrastructure running on IBM Cloud, including virtual machines on VPC and OpenShift Virtualization.
 
-### IBM Cloud Monitoring
-{: #virt-sol-vpc-observability-design-monitoring}
-
-IBM Cloud Monitoring is a cloud-native, container-intelligence management system that provides operational visibility into the performance and health of applications, services, and platforms. It offers administrators, DevOps teams, and developers full-stack telemetry with advanced features for monitoring, troubleshooting, alerting, and custom dashboard creation.
-
-**Agent deployment and metrics collection:**
-
-To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. No additional instrumentation is required to gain insights from automatically collected metrics.
-
-See [Getting started with IBM Cloud Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Windows environment](https://cloud.ibm.com/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu).
-
-### IBM Cloud Logs
-{: #virt-sol-vpc-observability-design-logging}
-
-IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior.
-
-IBM Cloud Logs supports log collection from:
-
-* IBM Cloud services and resources
-* On-premises infrastructure
-* Third-party cloud providers
-* Security and audit logs generated in IBM Cloud
-
-**Logging agent deployment:**
-
-The Logging agent, based on the open-source Fluent Bit log processor, collects and sends infrastructure and application logs to IBM Cloud Logs instances. The agent supports multiple data sources and log formats, providing flexible log collection across diverse environments.
-
-See [Getting started with IBM Cloud Logs](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-getting-started), [The Logging agent](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about), and [Logging agent for non-orchestrated environments](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-std)
+| Service | Description | Agent deployment metrics collection |
+| -------------- | -------------- | -------------- |
+| IBM Cloud Monitoring | IBM Cloud Monitoring is a cloud-native, container-intelligence management system that provides operational visibility into the performance and health of applications, services, and platforms. It offers administrators, DevOps teams, and developers full-stack telemetry with advanced features for monitoring, troubleshooting, alerting, and custom dashboard creation. | To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. No additional instrumentation is required to gain insights from automatically collected metrics.  \n For more information, see [Getting started with IBM Cloud Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Windows environment](https://cloud.ibm.com/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu). |
+| IBM Cloud Logs | IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior. | IBM Cloud Logs supports log collection from:  \n - IBM Cloud services and resources  \n - On-premises infrastructure  \n - Third-party cloud providers  \n - Security and audit logs generated in IBM Cloud  \n To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. No additional instrumentation is required to gain insights from automatically collected metrics.  \n For more information, see [Getting started with IBM Cloud Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Windows environment](https://cloud.ibm.com/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu). |
+{: caption="IBM Cloud Monitoring and IBM Cloud Logs details" caption-side="bottom"}
 
 Be aware that for IBM Cloud Linux VSI and IBM Cloud Windows VSI	both Service ID API key and Trusted Profiles authentication methods are supported by the agent with the IBM Cloud Logs service.
 
