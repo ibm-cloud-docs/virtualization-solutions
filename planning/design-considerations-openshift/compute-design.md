@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-19"
+lastupdated: "2025-12-23"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -58,7 +58,7 @@ The following tables lists the key features for IBM Cloud Virtual Servers for VP
 | Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
 {: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
 
-For more information on VSI profiles supported by ROKS, see [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
+For more information on virtual server instance profiles supported by ROKS, see [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
 
 ## IBM Cloud Bare Metal Servers for VPC
 {: #virt-sol-openshift-compute-design-bms}
