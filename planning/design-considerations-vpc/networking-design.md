@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2025-12-17"
+lastupdated: "2025-12-23"
 
 keywords: ROKS, VPC, subnets
 
@@ -27,23 +27,17 @@ The key network architecture elements are shown in the following diagram.
 ## IBM Cloud VPC Networking
 {: #virt-sol-network-design-vpc-networking}
 
-[VPC VSI]{: tag-blue}
-
 IBM Cloud VPC is a secure, isolated, and highly configurable networking environment that enables organizations to deploy and manage cloud resources with fine-grained control. It provides the foundation for modern workloads, including virtual servers, containers, and bare metal deployments, while ensuring network segmentation, security, and scalability.
 
 ### Default private networking with subnets
 {: #virt-sol-network-design-vpc-networking-subnets}
 
-[VPC VSI]{: tag-blue}
-
-VPCs span a region and contain subnets that span individual zones within that region. These subnets use ranges of private IP addresses, with the option to bring your own public IP range. Subnets within a VPC are private by default and can communicate with each other without configuring additional routes. As a result, all resources within a VPC can communicate with one another by default subject to security groups and access control lists. Virtual server instances are attached to one or more subnets. 
+VPCs span a region and contain subnets that span individual zones within that region. These subnets use ranges of private IP addresses, with the option to bring your own public IP range. Subnets within a VPC are private by default and can communicate with each other without configuring additional routes. As a result, all resources within a VPC can communicate with one another by default subject to security groups and access control lists. Virtual server instances are attached to one or more subnets.
 
 See the architecture diagram in [About networking for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-networking-for-vpc) for a visual representation of VPC networking concepts. For additional information and design considerations, see [Setting IP ranges](https://cloud.ibm.com/docs/vpc?topic=vpc-choosing-ip-ranges-for-your-vpc).
 
 ### Load-balancers
 {: #virt-sol-network-design-vpc-networking-lb}
-
-[VPC VSI]{: tag-blue}
 
 IBM Cloud provides two families of load balancers for VPC: Application Load Balancer (ALB) and Network Load Balancer (NLB), each designed for different use cases and operating at different layers of the OSI model.
 
@@ -55,8 +49,8 @@ Application Load Balancer provides layer 7 and layer 4 load balancing on IBM Clo
 * Content-based routing and URL-based routing
 * HTTP/HTTPS protocol support
 * Cookie-based session affinity
-* Configured in active-active mode with high availability achieved using Domain Name Service (DNS), where the VIP of each compute resource is registered to the assigned DNS 
-* Support for virtual server instances, bare metal server instances, and Power System Virtual Server instances connected over Direct Link as back-end pool members 
+* Configured in active-active mode with high availability achieved using Domain Name Service (DNS), where the VIP of each compute resource is registered to the assigned DNS
+* Support for virtual server instances, bare metal server instances, and Power System Virtual Server instances connected over Direct Link as back-end pool members
 * Multi-zone deployment capability
 * Integration with instance groups for auto-scaling
 
@@ -72,11 +66,11 @@ Network Load Balancer provides only layer 4 load balancing on IBM Cloud and does
 
 * Layer 4 (transport) load balancing
 * TCP and UDP protocol support
-* Single, highly available virtual IP (VIP) that can be used directly, instead of through an assigned fully qualified domain name (FQDN) 
+* Single, highly available virtual IP (VIP) that can be used directly, instead of through an assigned fully qualified domain name (FQDN)
 * Direct Server Return (DSR) for high-performance data transfer
 * Lower latency compared to ALB
 * Higher throughput for large data transfers
-* Supports public, private, Private Path, and private-type with routing mode enabled configurations 
+* Supports public, private, Private Path, and private-type with routing mode enabled configurations
 
 Choose Network Load Balancer when:
 
@@ -87,13 +81,11 @@ Choose Network Load Balancer when:
 ### Virtual Private Endpoints
 {: #virt-sol-network-design-vpc-networking-vpe}
 
-[VPC VSI]{: tag-blue}
-
 IBM Cloud Virtual Private Endpoint (VPE) for VPC enables you to access supported IBM Cloud services remotely by using the IP addresses of your choice, which are allocated from a subnet within your VPC.
 
 VPEs are virtual IP interfaces that are bound to an endpoint gateway created on a per-service or service-instance basis. The endpoint gateway is a virtualized function that scales horizontally, is redundant and highly available, and spans all availability zones of your VPC. Key characteristics:
 
-* Endpoint gateways enable communications from virtual server instances within your VPC and IBM Cloud service on the private backbone 
+* Endpoint gateways enable communications from virtual server instances within your VPC and IBM Cloud service on the private backbone
 * Private IP addresses allocated from customer-defined VPC subnets
 * No public internet connectivity required
 * Horizontal scaling and high availability across availability zones
@@ -103,13 +95,11 @@ VPEs are virtual IP interfaces that are bound to an endpoint gateway created on 
 ### External connectivity
 {: #virt-sol-network-design-vpc-networking-external}
 
-[VPC VSI]{: tag-blue}
+External connectivity can be achieved with public gateways, floating IPs, and VPN gateways.
 
-External connectivity can be achieved with public gateways, floating IPs, and VPN gateways. 
+**Public gateways** span an entire subnet and enable all compute instances attached to that subnet to initiate outbound connections to the internet.
 
-**Public gateways** span an entire subnet and enable all compute instances attached to that subnet to initiate outbound connections to the internet. 
-
-**Floating IPs** are associated with a single compute instance and support both initiating connections to and receiving connections from the internet. 
+**Floating IPs** are associated with a single compute instance and support both initiating connections to and receiving connections from the internet.
 
 **VPN for VPC** provides secure site-to-site connectivity from a VPC to another private network. See [About site-to-site VPN gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn) for additional details.
 
@@ -118,9 +108,7 @@ External connectivity can be achieved with public gateways, floating IPs, and VP
 ### Security
 {: #virt-sol-network-design-vpc-networking-security}
 
-[VPC VSI]{: tag-blue}
-
-Network security in VPC is controlled through security groups and access control lists (ACLs). 
+Network security in VPC is controlled through security groups and access control lists (ACLs).
 
 **Access control lists (ACLs)** manage traffic at the subnet level using stateless rules. ACLs can control external connectivity established via a public gateway on a subnet.
 
@@ -130,8 +118,6 @@ See [Security in your VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-security-in-
 
 ### Interconnectivity
 {: #virt-sol-network-design-vpc-networking-interconnectivity}
-
-[VPC VSI]{: tag-blue}
 
 **IBM Cloud Direct Link** and **VPN for VPC** enable secure connectivity between a VPC and on-premises networks. Direct Link provides dedicated, low-latency private connections, while VPN offers encrypted connectivity over the internet.
 
