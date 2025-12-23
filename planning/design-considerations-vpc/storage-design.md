@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-17"
+lastupdated: "2025-12-23"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -23,7 +23,6 @@ The key compute architecture elements are shown in the following diagram.
 ![Red Hat OpenShift Virtualization on IBM Cloud Storage](../../images/vpc-vsi/vpc-vsi-high-level-storage.svg "Red Hat OpenShift Virtualization on IBM Cloud Storage"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Storage" caption-side="bottom"}
 
 
-
 ## Storage Options
 {: #virt-sol-storage-options}
 
@@ -34,35 +33,27 @@ Red Hat OpenShift on IBM Cloud offers integrated add-ons for block and file stor
 ### OpenShift Data Foundation (ODF)
 {: #virt-sol-storage-odf-summary}
 
-[OpenShift Virtualization]{: tag-red}
-
 OpenShift Data Foundation (ODF) is Red Hat’s integrated storage solution for OpenShift that provides persistent, software-defined storage for containerized applications. It delivers highly available and scalable storage by combining object, block, and file storage under a unified platform. ODF offers features like snapshots, replication, and scalable storage management, all integrated seamlessly with the OpenShift console and APIs, making it easier to manage storage across diverse workloads.
 
-The primary storage option for OpenShift Virtualization is **OpenShift Data Foundation**. It is a highly available storage solution that consists of several open source operators and technologies like **Ceph**, **NooBaa**, and **Rook**. These operators allow you to provision and manage File, Block, and Object storage for your clusters using storage classes. 
+The primary storage option for OpenShift Virtualization is **OpenShift Data Foundation**. It is a highly available storage solution that consists of several open source operators and technologies like **Ceph**, **NooBaa**, and **Rook**. These operators allow you to provision and manage File, Block, and Object storage for your clusters using storage classes.
 
 ODF abstracts your underlying storage, and you can use ODF to create File, Block, or Object storage claims from the same underlying raw block storage. In virtualization, ODF uses local NVMe disks on VPC BMSs to create a performant virtualized storage layer, where your app data is replicated in multiples of 3 for high availability by default. Using ODF with OpenShift Virtualization is especially critical if you want to use disaster recovery (DR) capabilities for your VM workloads.
 
 For more details of ODF, refer to [Understanding OpenShift Data Foundation](https://cloud.ibm.com/docs/openshift?topic=openshift-ocs-storage-prep)
 
-
-### IBM Cloud Object Storage 
+### IBM Cloud Object Storage
 {: #virt-sol-storage-cos-summary}
 
-[VPC VSI]{: tag-blue} [OpenShift Virtualization]{: tag-red}
-
-IBM Cloud Object Storage can be used with backup solutions, or other Object Storage related use cases. COS allows backup data to be stored outside of the ODF cluster in case a disaster occurs. 
+IBM Cloud Object Storage can be used with backup solutions, or other Object Storage related use cases. COS allows backup data to be stored outside of the ODF cluster in case a disaster occurs.
 
 IBM Cloud Object Storage is a fully managed IBM Cloud service, while object storage built in the ODF clusters is a self managed on ROKS managed worker nodes. Depending on the use case, there might be a use case for either, or even both of these.
-
 
 ### File Storage for VPC
 {: #virt-sol-storage-file-summary}
 
-[VPC VSI]{: tag-blue} [OpenShift Virtualization]{: tag-red}
+Customers can use File Storage for VPC, which is a network-attached storage with NFS support.
 
-Customers can use File Storage for VPC, which is a network-attached storage with NFS support. 
-
-IBM Cloud File Storage for VPC is persistent, fast, and flexible network-attached, NFS-based File Storage for VPC that you can add to your apps by using persistent volumes claims (PVCs). You can choose between predefined storage classes that meet the GB sizes and IOPS that meet the requirements of your workloads. 
+IBM Cloud File Storage for VPC is persistent, fast, and flexible network-attached, NFS-based File Storage for VPC that you can add to your apps by using persistent volumes claims (PVCs). You can choose between predefined storage classes that meet the GB sizes and IOPS that meet the requirements of your workloads.
 
 * All file shares are provisioned with zonal availability, except regional classes which have regional availability.
 * All classes are elastic network interface (ENI) enabled.
@@ -76,7 +67,7 @@ Regional file share classes can be a better choice for workloads that prioritize
 
 See [About File Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-vpc-about) for the details.
 
-For NFS based file share needs for your workloads, you can also use the NFS storage built in the ODF clusters. The key differences here is that File Storage for VPC is a fully managed IBM Cloud service, while NFS storage built in the ODF clusters is a self managed on ROKS managed worker nodes. Also the IOPS and size settings are independent of your clusters. Depending on the use case, there might be a use case for either, or even both of these. 
+For NFS based file share needs for your workloads, you can also use the NFS storage built in the ODF clusters. The key differences here is that File Storage for VPC is a fully managed IBM Cloud service, while NFS storage built in the ODF clusters is a self managed on ROKS managed worker nodes. Also the IOPS and size settings are independent of your clusters. Depending on the use case, there might be a use case for either, or even both of these.
 
 For OpenShift Virtualization workloads, keep the following considerations in mind:
 - Snapshots are not supported.
@@ -91,9 +82,7 @@ The add-on automatically installs the PersistentVolume provisioner `vpc.file.csi
 ### Block Storage for VPC
 {: #virt-sol-storage-block-summary}
 
-[VPC VSI]{: tag-blue} 
-
-This add-on provisions hypervisor-mounted, high-performance, block-level data storage for your worker nodes by using Kubernetes persistent volume claims (PVCs). It enables you to store virtual machine disks on IBM Cloud Block Storage volumes.  
+This add-on provisions hypervisor-mounted, high-performance, block-level data storage for your worker nodes by using Kubernetes persistent volume claims (PVCs). It enables you to store virtual machine disks on IBM Cloud Block Storage volumes.
 
 See [About Block Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-about) for details.
 
@@ -102,17 +91,13 @@ See [About Block Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-block
 
 IBM Cloud Key Protect is a cloud-based key management service (KMS) that enables organizations to create, manage, and control encryption keys used to secure data across IBM Cloud services and applications. It provides centralized key lifecycle management with strong security and compliance features, helping businesses meet regulatory requirements and maintain data confidentiality.
 
-[VPC VSI]{: tag-blue} 
-
-Data on a file share is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys. 
+Data on a file share is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys.
 [About File Storage for VPC > Securing your data](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-vpc-about&interface=ui#fs-data-security)
-
-[OpenShift Virtualization]{: tag-red}
 
 The ODF add-on supports multiple layers of encryption, including:
 
 - Cluster encryption: Encrypts data at rest across the entire storage cluster.
 - In-transit encryption: Secures data as it moves between nodes, pods, and clients.
-- Storage volume encryption: Provides encryption at the level of individual PersistentVolumes or storage volumes. 
+- Storage volume encryption: Provides encryption at the level of individual PersistentVolumes or storage volumes.
 
 For instructions on setting up storage volume encryption in ROKS, refer to [Setting up encryption by using Hyper Protect Crypto Services](https://cloud.ibm.com/docs/openshift?topic=openshift-deploy-odf-classic&interface=ui#odf-create-hscrypto-classic) for how to set up storage volume encryption
