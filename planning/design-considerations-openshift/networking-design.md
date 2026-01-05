@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2025-12-22"
+lastupdated: "2026-01-05"
 
 keywords: ROKS, network, layer2, localnet
 
@@ -47,14 +47,6 @@ ROKS does the following:
 2. The VPC load balancer resolves the VPC hostname to an available external IP address of an Ingress controller service that was reported as healthy
 3. The VPC load balancer sends the request to an Ingress controller service
 4. The Ingress controller forwards the request to the private IP address of the app pod over the private network
-
-In ROKS on VPC:
-
-- The VPC load balancer automatically fronts the Ingress controller
-- Your Ingress controller services' external IP addresses are floating, and are kept behind a VPC-assigned hostname
-- The load balancer provides multi-zone high availability automatically
-- IBM manages the VPC load balancer lifecycle as part of the managed service
-- VPC load-balancers are also automatically deployed in the VPC when the load balancer option is used for an ingress/egress service.
 
 ### Virtual Private Endpoints
 {: #virt-sol-openshift-network-design-vpc-vpe}
