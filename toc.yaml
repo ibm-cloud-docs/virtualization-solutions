@@ -46,8 +46,41 @@ toc:
           topics:
           - topic: planning/design-considerations-vpc/security-design.md
             navtitle: Security
-          - topic: planning/design-considerations-vpc/migration-design.md
-            navtitle: Workload Migration
+          - topicgroup:
+              label: Workload Migration
+              topics:
+              - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
+                navtitle: Migration
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
+                navtitle: Migration Design Overview
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-1-premigration.md
+                navtitle: Pre-migration
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-2-wave.md
+                navtitle: Wave Planning
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-3-postmigration.md
+                navtitle: Post-migration
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-4-risk.md
+                navtitle: Risk Mitigation
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-5-Governance.md
+                navtitle: Governance
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-0-overview.md
+                navtitle: Migration Methods
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-1.md
+                navtitle: Method 1 - Image Import
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-2.md
+                navtitle: Method 2 - Direct Volume
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-3.md
+                navtitle: Method 3 - Live Network Transfer
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-4.md
+                navtitle: Method 4 - VDDK Direct Extraction
+              - topic: planning/design-considerations-vpc/migration-design/migration-considerations-linux.md
+                navtitle: Linux Considerations
+              - topic: planning/design-considerations-vpc/migration-design/migration-considerations-windows.md
+                navtitle: Windows Considerations
+              - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-guide.md
+                navtitle: RackWare Technical Guide
+              - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-tutorial.md
+                navtitle: RackWare Tutorial
           - topic: planning/design-considerations-vpc/resiliency-design.md
             navtitle: Resiliency
           - topic: planning/design-considerations-vpc/observability-design.md
