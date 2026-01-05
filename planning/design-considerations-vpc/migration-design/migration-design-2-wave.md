@@ -149,23 +149,30 @@ Each wave needs a well-defined cutover window.
 - Reduce DNS TTLs for services being migrated
 - Notify users of maintenance window
 
-**Cutover Execution (T-0)**:
+### Cutover Execution (T-0)
+{: #virt-sol-vpc-migration-design-wave-cutover-exec}
 
-**Phase 1: Quiesce and Migrate (Hours 0-4)**
+#### Phase 1: Quiesce and Migrate (Hours 0-4)
+{: #virt-sol-vpc-migration-design-wave-cutover1}
+
 1. Drain connections (remove from load balancers, wait for sessions to close)
 2. Stop applications gracefully
 3. Shut down VMs (or boot from live ISO for Method 3)
 4. Begin disk transfer
 5. Monitor transfer progress
 
-**Phase 2: Transform and Provision (Hours 4-6)**
+#### Phase 2: Transform and Provision (Hours 4-6)
+{: #virt-sol-vpc-migration-design-wave-cutover2}
+
 1. Run virt-v2v if needed for driver injection
 2. Verify disk transfers (fdisk, checksums)
 3. Flush buffers and detach volumes from worker
 4. Create VSIs from migrated volumes
 5. Start VSIs
 
-**Phase 3: Validate and Cutover (Hours 6-8)**
+#### Phase 3: Validate and Cutover (Hours 6-8)
+{: #virt-sol-vpc-migration-design-wave-cutover3}
+
 1. Boot VSIs, access via VNC console if needed
 2. Verify network configuration, adjust if necessary
 3. Start applications
@@ -173,7 +180,9 @@ Each wave needs a well-defined cutover window.
 5. Add to load balancers / update DNS
 6. Monitor application performance
 
-**Phase 4: Stabilize (Hours 8-12)**
+#### Phase 4: Stabilize (Hours 8-12)
+{: #virt-sol-vpc-migration-design-wave-cutover4}
+
 1. Monitor for issues
 2. Verify external connectivity (users can access)
 3. Check application logs for errors

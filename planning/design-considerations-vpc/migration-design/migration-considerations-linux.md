@@ -116,9 +116,12 @@ If cloud-init is installed on your migrated VM, VPC may treat the first boot as 
 - User account changes
 - Execution of cloud-init scripts
 
-**Design Decisions**:
+### Design Decisions
+{: #virt-sol-vpc-migration-design-linux-cloudinit-decisions}
 
-**Option 1: Disable cloud-init**
+### Option 1: Disable cloud-init
+{: #virt-sol-vpc-migration-design-linux-cloudinit-decisions1}
+
 ```bash
 # Before migration
 sudo touch /etc/cloud/cloud-init.disabled
@@ -126,11 +129,15 @@ sudo touch /etc/cloud/cloud-init.disabled
 # Or after migration via VNC console
 ```
 
-**Option 2: Accept first-boot behavior**
+### Option 2: Accept first-boot behavior
+{: #virt-sol-vpc-migration-design-linux-cloudinit-decisions2}
+
 - Useful if you want VPC to auto-configure networking via DHCP
 - May require manual adjustments post-boot (hostname, users, etc.)
 
-**Option 3: Configure cloud-init for VPC**
+### Option 3: Configure cloud-init for VPC
+{: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
+
 - Create cloud-init config that preserves your settings
 - More complex but gives you control
 

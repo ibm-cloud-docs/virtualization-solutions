@@ -26,7 +26,7 @@ There are four primary methods for migrating VMware VMs to VPC VSI, each with di
 {: #virt-sol-vpc-migration-design-methods-matrix}
 
 | Criterion | Method 1 (Image) | Method 2 (Volume) | Method 3 (Network) | Method 4 (VDDK) |
-|-----------|------------------|-------------------|--------------------|--------------------|
+| ----------- | ------------------ | ------------------- | -------------------- | -------------------- |
 | **Single-disk VM** | ✓ Ideal | ✓ Works | ✓ Works | ✓ Works |
 | **Multi-disk VM** | ✗ Partial only | ✓ Ideal | ✓ Ideal | ✓ Ideal |
 | **VCFaaS source** | ✓ | ✓ | ✓ | ✗ vCenter only |

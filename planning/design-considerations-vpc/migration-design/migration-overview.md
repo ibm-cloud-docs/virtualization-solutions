@@ -21,24 +21,35 @@ There are the following options for migration:
 - **RackWare RMM** - Using the RackWare RMM tooling to migrate your VMs. This documentation includes a guide and a tutorial.
 - **DIY migration** - Migration methods that don't use a service provider or RackWare RMM, but use techniques that you can adopt and automate to suit your needs.
 
+The key compute architecture elements are shown in the following diagram.
+
+![VPC VSI Virtualization on IBM Cloud Migration](../../../images/vpc-vsi/vpc-vsi-high-level-migration.svg "VPC VSI Virtualization on IBM Cloud Migration"){: caption="VPC VSI Virtualization on IBM Cloud Migration" caption-side="bottom"}
+
+
 This guide focuses on **General Principles**, **DIY migration**, and **RackWare RMM**, see:
 
-**General Principles**
+## General Principles
+{: #virt-sol-vpc-migration-design-migration-principles}
+
 * [Pre-Migration Design Decisions](migration-design-1-premigration.md)
 * [Wave Planning and Execution Design](migration-design-2-wave.md)
 * [Post-Migration Validation and Optimization](migration-design-3-postmigration.md)
 * [Risk Mitigation and Rollback Strategies](migration-design-4-risk.md)
 * [Governance, Documentation, and Lessons Learned](migration-design-5-governance.md)
 
-**DIY migration**
+## DIY migration
+{: #virt-sol-vpc-migration-design-migration-diy}
+
 * [Method 1: Image Import (Template-Based Migration)](migration-method-1.md)
 * [Method 2: Direct Volume Copy (Multi-Disk Migration)](migration-method-2.md)
 * [Method 3: Live Network Transfer (Recommended for Scale)](migration-method-3.md)
 * [Method 4: VDDK Direct Extraction (vCenter Only)](migration-method-4.md)
 * [Linux Migration Considerations](migration-considerations-linux.md)
-* [Windows Migration Considerations][migration-considerations-windows.md]
+* [Windows Migration Considerations](migration-considerations-windows.md)
 
-**RackWare RMM**
+## RackWare RMM
+{: #virt-sol-vpc-migration-design-migration-rackware}
+
 * [Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Technical Guide](rackware-vcf-classic-2-vpc-vsi-guide.md)
 * [Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Tutorial](rackware-vcf-classic-2-vpc-vsi-tutorial.md)
 
@@ -59,6 +70,7 @@ Export your VM from VMware as a VMDK, convert it to QCOW2 format, upload to IBM 
 t specifications you need, then directly write your VM's disk contents to them using a worker VSI. Export VMDKs from VMware, transfer them to the worker VSI, convert with `qemu-img`, and optionally transform with `virt-v2v` for driver injection. Attach the populated volumes to your new VSI. Handles multi-disk VMs, avoids image proliferation, and provides precise control over the migration process at the cost of increased orchestration complexity. See [Method 2: Direct Volume Copy (Multi-Disk Migration)](migration-method-2.md).
 
 ### Method 3: Live Network Transfer
+{: #virt-sol-vpc-migration-design-migration-diy-method3}
 
 Boot your source VM from a live ISO (like Ubuntu installer), establish network connectivity to a worker VSI in VPC via Transit Gateway, and stream disk contents directly over the network using tools like `dd`, `gzip`, and `netcat`. Eliminates the export step entirely, making it highly efficient for large-scale migrations. Supports parallel migrations and provides maximum flexibility, though it requires upfront investment in Transit Gateway setup and live ISO preparation. See [Method 3: Live Network Transfer (Recommended for Scale)](migration-method-3.md).
 
@@ -73,7 +85,7 @@ Use Red Hat's `virt-v2v` tool with VMware's VDDK library to connect directly to 
 See the following for specific considerations for Windows and Linux VMs that apply to the methods described above:
 
 * [Linux Migration Considerations](migration-considerations-linux.md)
-* [Windows Migration Considerations][migration-considerations-windows.md]
+* [Windows Migration Considerations](migration-considerations-windows.md)
 
 ## RackWare RMM migration overview
 {: #virt-sol-vpc-migration-design-migration-rmm}

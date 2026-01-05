@@ -112,9 +112,13 @@ Critical issue: The `--block-driver virtio-scsi` option is required for VPC Wind
 - **RHEL libguestfs**: Includes virtio-win drivers at `/usr/share/virtio-win`
 - **Ubuntu libguestfs**: Does not include virtio-win drivers
 
-**Workaround**:
+### Workaround
+{: #virt-sol-vpc-migration-design-windows-virtv2v-workaround}
 
-**Option 1: Build libguestfs on Ubuntu**
+
+#### Option 1: Build libguestfs on Ubuntu
+{: #virt-sol-vpc-migration-design-windows-virtv2v-workaround1}
+
 ```bash
 # On Ubuntu worker VSI
 apt-get install libguestfs-tools
@@ -128,7 +132,9 @@ tar xzf virtio-win.tar.gz -C /usr/share/
 virt-v2v -i disk windows.img -o disk -os /target --block-driver virtio-scsi
 ```
 
-**Option 2: Two-stage conversion**
+#### Option 2: Two-stage conversion
+{: #virt-sol-vpc-migration-design-windows-virtv2v-workaround2}
+
 ```bash
 # On RHEL worker (has drivers, no SCSI support)
 virt-v2v -i disk windows.img -o disk -os /tmp
@@ -204,8 +210,8 @@ C:\Windows\System32\Recovery\winre.wim
 If your Windows disk uses GPT (not MBR):
 - Use `list volume` and `select volume` instead of `list partition`
 - Setting volume IDs differs:
-  - Data volume: `set id=ebd0a0a2-b9e5-4433-87c0-68b6b72699c7`
-  - System volume: `set id=c12a7328-f81f-11d2-ba4b-00a0c93ec93b`
+   - Data volume: `set id=ebd0a0a2-b9e5-4433-87c0-68b6b72699c7`
+   - System volume: `set id=c12a7328-f81f-11d2-ba4b-00a0c93ec93b`
 
 ## Supported Windows Versions
 {: #virt-sol-vpc-migration-design-windows-versions}
@@ -225,7 +231,7 @@ Older versions (Server 2003, 2008 non-R2, Vista) are not supported.
 **Design Decision Matrix for Windows**:
 
 | Scenario | Recommended Approach |
-|----------|---------------------|
+| ---------- | --------------------- |
 | Development/test VMs | Sysprep (simple, identity reset acceptable) |
 | Production standalone servers | virt-v2v (preserves identity) |
 | Domain-joined production servers | virt-v2v (avoids domain re-join) |

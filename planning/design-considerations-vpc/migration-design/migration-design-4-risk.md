@@ -39,6 +39,7 @@ subcollection: virtualization-solutions
 **Rollback**: Restart VMware VMs, update DNS/load balancers to point back to VMware
 
 ### Risk: Application Fails to Start
+{: #virt-sol-vpc-migration-design-risk-common-application}
 
 **Manifestation**: Application service won't start after migration, or starts but doesn't function.
 

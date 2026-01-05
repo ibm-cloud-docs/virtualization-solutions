@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-11"
+lastupdated: "2026-01-05"
 
 keywords:
 
@@ -15,9 +15,6 @@ subcollection: virtualization-solutions
 
 # Migration Workloads to Red Hat OpenShift Virtualiztaion
 {: #virt-sol-openshift-migration-design}
-
-This is a short description that introduces the content in this topic.
-{: shortdesc}
 
 For migrations, customers can self-serve or they can use offerings and services from either IBM Consulting, Red Hat Consulting or other IBM Cloud’s migration services partners. To migrate virtual machines from an external provider such as VMware vSphere, Red Hat OpenStack Platform (RHOSP), Red Hat Virtualization, or another OpenShift Container Platform cluster, you can use the Migration Toolkit for Virtualization (MTV). Open Virtual Appliance (OVA) files created by VMware vSphere can also be migrated using the same tool. For self-serve customers supporting documentation and assets will be provided.
 
