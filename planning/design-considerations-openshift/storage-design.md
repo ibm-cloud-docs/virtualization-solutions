@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-17"
+lastupdated: "2026-01-07"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -65,10 +65,7 @@ IBM Cloud File Storage for VPC is persistent, fast, and flexible network-attache
 * All file shares are provisioned with zonal availability.
 * All classes support cross-zone mounting.
 
-Data on a file share is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys.
-[About File Storage for VPC > Securing your data](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-vpc-about&interface=ui#fs-data-security)
-
-See [About File Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-vpc-about) for the details.
+Data on a file share is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys. For more information, see See [About File Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-vpc-about) and [About File Storage for VPC > Securing your data](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-vpc-about&interface=ui#fs-data-security).
 
 For NFS based file share needs for your workloads, you can also use the NFS storage built in the ODF clusters. The key differences here is that File Storage for VPC is a fully managed IBM Cloud service, while NFS storage built in the ODF clusters is a self managed on ROKS managed worker nodes. The IOPS and GB settings are independent of your clusters. Depending on the use case, there might be a use case for either, or even both of these.
 
@@ -92,6 +89,4 @@ Block storage for VPC is only available for VSI worker nodes.
 This add-on provisions hypervisor-mounted, high-performance, block-level data storage for your VSI worker nodes by using Kubernetes persistent volume claims (PVCs). It enables you to store virtual machine disks on IBM Cloud Block Storage volumes.
 
 Data on a block volume is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys.
-[About Block Storage for VPC > Securing your data](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-about#bs-data-security)
-
-See [About Block Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-about) for details.
+For more information see [About Block Storage for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-about)  and [About Block Storage for VPC > Securing your data](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-about#bs-data-security).
