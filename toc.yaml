@@ -19,8 +19,14 @@ toc:
       topics:
       - topic: reference-architectures/reference-architecture-openshift.md
         navtitle: OpenShift Virtualization Architecture
+      - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
+        navtitle: Migration Workloads to Red Hat OpenShift Virtualization
       - topic: reference-architectures/reference-architecture-vsi.md
-        navtitle: Virtual Servers Architecture
+        navtitle: Virtual Servers for VPC Architecture
+      - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
+        navtitle: Overview VMware to Virtual Servers on VPC migration
+      - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
+        navtitle: Overview Virtual Servers migration design
   - navgroup:
       id: plan
       topics:
@@ -32,14 +38,10 @@ toc:
           - topicgroup:
               label: Workload Migration
               topics:
-              - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
-                navtitle: Migration Design Overview
               - topic: planning/design-considerations-openshift/migration-design/migration-toolkit.md
                 navtitle: Migration Toolkit for Virtualization
               - topic: planning/design-considerations-openshift/migration-design/migration-design.md
                 navtitle: Migration Infrastructure Design
-              - topic: planning/design-considerations-openshift/migration-design/migration-workflow.md
-                navtitle: Migration Workflow
               - topic: planning/design-considerations-openshift/migration-design/vmware-requirements.md
                 navtitle: VMware Requirements
               - topic: planning/design-considerations-openshift/migration-design/migration-partners.md
@@ -62,10 +64,6 @@ toc:
           - topicgroup:
               label: Workload Migration
               topics:
-              - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
-                navtitle: Migration
-              - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
-                navtitle: Migration Design Overview
               - topic: planning/design-considerations-vpc/migration-design/migration-design-1-premigration.md
                 navtitle: Pre-migration
               - topic: planning/design-considerations-vpc/migration-design/migration-design-2-wave.md
@@ -108,6 +106,11 @@ toc:
   - navgroup:
       id: howto
       topics:
+      - topicgroup:
+          label: VPC virtual servers
+          topics:
+          - topic: planning/design-considerations-openshift/migration-design/migration-workflow.md
+            navtitle: Migration Workflow
       - topicgroup:
           label: VPC virtual servers
           topics:
