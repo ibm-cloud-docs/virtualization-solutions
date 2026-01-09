@@ -82,8 +82,6 @@ toc:
                 navtitle: Linux Considerations
               - topic: planning/design-considerations-vpc/migration-design/migration-considerations-windows.md
                 navtitle: Windows Considerations
-              - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-guide.md
-                navtitle: RackWare Technical Guide
           - topic: planning/design-considerations-vpc/resiliency-design.md
             navtitle: Resiliency
           - topic: planning/design-considerations-vpc/observability-design.md
@@ -94,6 +92,19 @@ toc:
             navtitle: Compute
           - topic: planning/design-considerations-vpc/networking-design.md
             navtitle: Networking
+  - navgroup:
+      id: tutorial
+      topics:
+      - topicgroup:
+          label: OpenShift Virtualization
+          topics:
+          - topic: tutorial/openshift/migration-toolkit.md
+            navtitle: Migration Toolkit Tutorial
+      - topicgroup:
+          label: VPC virtual servers
+          topics:
+          - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-tutorial.md
+            navtitle: RackWare Tutorial
   - navgroup:
       id: howto
       topics:
@@ -109,18 +120,10 @@ toc:
           - topic: planning/design-considerations-vpc/migration-design/migration-method-4.md
             navtitle: Method 4 - VDDK Direct Extraction
   - navgroup:
-      id: tutorial
+      id: reference
       topics:
-      - topicgroup:
-          label: OpenShift Virtualization
-          topics:
-          - topic: tutorial/openshift/migration-toolkit.md
-            navtitle: Migration Toolkit Tutorial
-      - topicgroup:
-          label: VPC virtual servers
-          topics:
-          - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-tutorial.md
-            navtitle: RackWare Tutorial
+      - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-guide.md
+        navtitle: RackWare Technical Guide
   - navgroup:
       id: help
       topics:
