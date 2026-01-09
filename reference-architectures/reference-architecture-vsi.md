@@ -1,11 +1,8 @@
 ---
 
-# The YAML header is required. For more information about the YAML header, see
-# https://test.cloud.ibm.com/docs-internal/writing?topic=writing-reference-architectures
-
 copyright:
   years: 2025
-lastupdated: "2025-12-15"
+lastupdated: "2026-01-09"
 
 keywords: # Not typically populated
 
@@ -47,7 +44,7 @@ The following table outlines the products or services used in the architecture f
 
 | Component | Architecture components | How the component is used |
 | -------------- | -------------- | -------------- |
-| [**Workload Migration**](/docs/virtualization-solutions?topic=virtualization-solutions-migration-design) |  IBM Consulting / Expert Labs | Professional services organizations providing migration and deployment services |
+| [**Workload Migration**](/docs/virtualization-solutions?topic=virtualization-solutions-migration-design) | IBM Consulting / Expert Labs | Professional services organizations providing migration and deployment services |
 | | 3rd Party Migration Tools | Tools in the {{site.data.keyword.cloud_notm}} Catalog such as RackWare RMM, Wanclouds |
 | | Customer Self-Service | Direct migration using image import, instance provisioning, and configuration management tools |
 | [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design) | {{site.data.keyword.cloud_notm}} Snapshots | Point-in-time copies of Block Storage volumes for backup and recovery |

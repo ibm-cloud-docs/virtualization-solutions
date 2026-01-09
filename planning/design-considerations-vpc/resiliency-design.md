@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-23"
+lastupdated: "2026-01-09"
 
 keywords: File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -95,7 +95,7 @@ The use cases applicable to these features include the following.
 **Comparison with Manual Snapshots:**
 
 | Feature | Manual Snapshots | Backup for VPC |
-|---------|------------------|----------------|
+| --------- | ------------------ | ---------------- |
 | **Automation** | Manual or external scripting | Policy-based automation |
 | **Scheduling** | External orchestration required | Built-in cron-based scheduling |
 | **Retention management** | Manual deletion | Automatic retention policy enforcement |
@@ -267,7 +267,7 @@ The following tables lists the disaster recovery configuration models.
 RackWare provides flexible scheduling with options for hot and cold standby of replicated workloads.
 
 | Aspect | Hot Standby | Warm Standby |
-|--------|-------------|--------------|
+| -------- | ------------- | -------------- |
 | **DR VSIs State** | Running continuously | Powered off |
 | **Failover Time** | Minutes | 5-15 minutes (boot time) |
 | **Cost** | Higher (running compute) | Lower (storage only) |

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-22"
+lastupdated: "2026-01-09"
 
 keywords:
 
@@ -75,7 +75,7 @@ IBM Cloud provides comprehensive encryption capabilities to protect data at rest
 
 IBM Cloud VPC provides multiple layers of network security controls to protect workloads and control traffic flow.
 
-| VPC security control| Description | Key features |
+| VPC security control | Description | Key features |
 | -------------- | -------------- | -------------- |
 | VPC Security Groups | Security Groups are stateful firewall controls that protect virtual instances on IBM Cloud VPC, with stateful rules where responses are automatically allowed when a request is permitted. | - Instance-level (network interface) security  \n - Stateful traffic filtering  \n - Attached to virtual server instance NICs or load balancers  \n - Ingress (inbound) and egress (outbound) rules  \n - Support for protocol, port, and source/destination specification |
 | VPC Access Control Lists (ACLs) | ACLs control traffic to and from subnets, acting as built-in virtual firewalls at the subnet level. | - Subnet-level security  \n - Stateless traffic filtering - if you want to permit traffic both ways on a target you must set up two rules  \n - All resources in a subnet with an associated ACL follow ACL rules  \n Rules evaluated in numerical order (priority-based)  \n - Allow and deny rules for granular control  \n - Use ACLs for broad subnet-level controls  \n - Combine ACLs with security groups for defense-in-depth  \n - Implement explicit deny rules for known malicious traffic  \n - Order rules efficiently (most specific first)  \n - Document ACL rule purposes and maintenance procedures |

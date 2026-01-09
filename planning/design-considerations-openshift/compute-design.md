@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-23"
+lastupdated: "2026-01-09"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -87,7 +87,7 @@ The following table shows the typical specifications for a bare metal profile.
 | bx2.metal.96x384 | 48 | 384 | - |
 | bx2d.metal.96x384 | 48 | 384 | 8x3.2TB SSD NVMe drives |
 | mx2.metal.96x768 | 48 | 768 | - |
-| mx2d.metal.96x768 | 48 | 768 |  8x3.2TB SSD NVMe drives |
+| mx2d.metal.96x768 | 48 | 768 | 8x3.2TB SSD NVMe drives |
 {: caption="Typical bare metal profile specifications" caption-side="bottom"}
 
 All bare metal servers have 100Gbps bonded network speed, 960GB SSD boot disks in RAID 1, do not support GPUs and run Red Hat CoreOS.

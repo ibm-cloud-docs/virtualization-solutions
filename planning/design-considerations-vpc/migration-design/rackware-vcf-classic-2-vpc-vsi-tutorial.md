@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-05"
+lastupdated: "2026-01-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
 
@@ -384,7 +384,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDXA2L3ppb3YQxYQYC2eZon0I7J3Xm/zFMb5PuDHcxK
 While RMM allows auto-provisioning, where the RMM server will create the target servers in the IBM Cloud VPC with the CPU, RAM, and disk that matches the source server specifications, we are manually creating the target VSI in the IBM Cloud VPC in this tutorial. Collect the source VM specifications and especially the IP address and assigned NAT IP address. For example:
 
 | Hostname | OS | IP Address | NAT IP Address |
-| --- | --- | --- | ---|
+| --- | --- | --- | --- |
 | VM1 | Ubuntu | 192.168.10.11 | 10.194.177.82 |
 | VM2 | Windows | 192.168.10.12 | 10.194.177.83 |
 

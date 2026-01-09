@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-05"
+lastupdated: "2026-01-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -117,10 +117,3 @@ The path from VMware to VPC VSI is well-traveled, but every migration is unique.
 - [libguestfs and virt-v2v](https://libguestfs.org/)
 - [Red Hat Migration Toolkit for Virtualization](https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/)
 - [VMware VDDK Documentation](https://developer.vmware.com/web/sdk/7.0/vddk)
-
-**Community Resources**:
-- [Scott Moonen's "From VMware to IBM Cloud VPC VSI" Series](https://fullvalence.com/2025/10/29/from-vmware-to-ibm-cloud-vpc-vsi-part-1-introduction/)
-    - Part 1: Introduction (Instance and Storage Profiles)
-    - Part 2: VPC Network Design
-    - Part 3: Migrating Virtual Machines (detailed method walkthrough)
-    - Parts 4-6: Backup, Object Model, and Disaster Recovery

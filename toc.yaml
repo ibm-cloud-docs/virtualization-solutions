@@ -29,8 +29,21 @@ toc:
           topics:
           - topic: planning/design-considerations-openshift/security-design.md
             navtitle: Security
-          - topic: planning/design-considerations-openshift/migration-design.md
-            navtitle: Workload Migration
+          - topicgroup:
+              label: Workload Migration
+              topics:
+              - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
+                navtitle: Migration Design Overview
+              - topic: planning/design-considerations-openshift/migration-design/migration-toolkit.md
+                navtitle: Migration Toolkit for Virtualization
+              - topic: planning/design-considerations-openshift/migration-design/migration-design.md
+                navtitle: Migration Infrastructure Design
+              - topic: planning/design-considerations-openshift/migration-design/migration-workflow.md
+                navtitle: Migration Workflow
+              - topic: planning/design-considerations-openshift/migration-design/vmware-requirements.md
+                navtitle: VMware Requirements
+              - topic: planning/design-considerations-openshift/migration-design/migration-partners.md
+                navtitle: Migration Partners
           - topic: planning/design-considerations-openshift/resiliency-design.md
             navtitle: Resiliency
           - topic: planning/design-considerations-openshift/observability-design.md
@@ -61,7 +74,7 @@ toc:
                 navtitle: Post-migration
               - topic: planning/design-considerations-vpc/migration-design/migration-design-4-risk.md
                 navtitle: Risk Mitigation
-              - topic: planning/design-considerations-vpc/migration-design/migration-design-5-Governance.md
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-5-governance.md
                 navtitle: Governance
               - topic: planning/design-considerations-vpc/migration-design/migration-method-0-overview.md
                 navtitle: Migration Methods

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-09"
+lastupdated: "2026-01-09"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, ROVE, VSI, File Storage,
 
@@ -116,7 +116,7 @@ The following table details the high-level, key responsibilities for Red Hat Ope
 {: class="simple-tab-table"}
 {: #simpletabtable1}
 
-| Responsibility|
+| Responsibility |
 | -------------- |
 | OpenShift control plane management and updates |
 | Worker node OS patching and maintenance |

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-02"
+lastupdated: "2026-01-09"
 
 keywords:
 
@@ -46,5 +46,3 @@ Frequently asked questions for xxx might include questions about xxx or xxx. To 
 {: faq}
 
 Each answer should be approximately one to five sentences. You want to make sure you are not re-documenting information that is already available in documentation because then you'd have to maintain it in two places. If a more detailed explanation for the question exists out in a documentation page, give a concise answer here, and then link out to the doc.
-
-For detailed guidance on what to include on this page, see [FAQ guidance](https://test.cloud.ibm.com/docs-internal/writing?topic=writing-faq). You can also check out some examples here: [IBM Cloud IAM FAQ](https://test.cloud.ibm.com/docs/account?topic=account-iamfaq) and [Account FAQ](https://test.cloud.ibm.com/docs/account?topic=account-accountfaqs).

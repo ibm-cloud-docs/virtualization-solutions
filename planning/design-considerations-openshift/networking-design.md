@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2026-01-05"
+lastupdated: "2026-01-09"
 
 keywords: ROKS, network, layer2, localnet
 
@@ -80,9 +80,25 @@ For more information, see [Interconnectivity](/docs/virtualization-solutions?top
 ## Red Hat OpenShift Virtualization Networking
 {: #virt-sol-openshift-network-design-openshift}
 
-Red Hat OpenShift Virtualization leverages OpenShift's networking capabilities to provide flexible, software-defined networking for virtual machines running alongside containerized workloads.
+Red Hat OpenShift Virtualization leverages OpenShift's networking capabilities to provide flexible, software-defined networking for virtual machines running alongside containerized workloads. Though these the same concepts, it is important to understand the difference for VM networking and pod networking. Each VM runs within a `virt-launcher` pod, which is always connected to the default pod network.
 
-The following is the default networking for OpenShift, this default can be modified with OVN-Kubernetes networking
+```bash
+┌─────────────────────┐
+│    Worker Node      │
+│  ┌───────────────┐  │
+│  │ virt-launcher │  │  ← Kubernetes Pod Security Context
+│  │     pod       │  │
+│  │  ┌─────────┐  │  │
+│  │  │   VM    │  │  │  ← KVM/QEMU Hypervisor Isolation
+│  │  │ (QEMU)  │  │  │
+│  │  └─────────┘  │  │
+│  └───────────────┘  │
+└─────────────────────┘
+```
+
+Depending how you provision and setup your VMs, the VM can share the same pod network (or it can be connected to different networks using `multus`).  
+
+The following describes the default pod networking in OpenShift, which can be modified with OVN-Kubernetes networking:
 
 * **Pod Network (Cluster Network):**
     * Each pod receives a private IP address from the cluster network CIDR
@@ -94,6 +110,7 @@ The following is the default networking for OpenShift, this default can be modif
     * Network policies provide segmentation and security
     * DNS-based service discovery within cluster
     * When a VM is running inside the virt-launcher pod the VMs IP is NAT'ed with the virt-launcher pod's IP
+
 * **IP Masquerading (SNAT):**
     * When pods initiate outbound connections to external networks, source IP is masqueraded
     * The source IP address of the request packet is changed to the IP address of the worker node where the pod runs
@@ -174,7 +191,7 @@ OpenShift Routes expose services to external traffic by mapping FQDNs to backend
 ## Open Virtual Networking (OVN)
 {: #virt-sol-openshift-network-design-ovn}
 
-The **OVN-Kubernetes** CNI plugin is the recommended networking option for OpenShift Virtualization, supporting VM networking use cases alongside traditional pod networking. OVN-Kubernetes is based on OVN and uses Open vSwitch (OVS) on every worker node. It supports multi-tenancy, NetworkPolicies, and hybrid VM/pod networking. Red Hat OpenShift on IBM Cloud VPC supports OVN-Kubernetes as the default networking plugin.
+The **OVN-Kubernetes** CNI (Container Network Interface) plugin is the recommended networking option for OpenShift Virtualization, supporting VM networking use cases alongside traditional pod networking. OVN-Kubernetes is based on OVN and uses Open vSwitch (OVS) on every worker node. It supports multi-tenancy, NetworkPolicies, and hybrid VM/pod networking. Red Hat OpenShift on IBM Cloud VPC supports OVN-Kubernetes as the default networking plugin.
 
 In OpenShift with OVN, three networking topologies provide secondary network connectivity to pods and VMs:
 
@@ -187,14 +204,20 @@ In Red Hat OpenShift Virtualization on IBM Cloud, **OVN layer 2** and **OVN loca
 * **OVN layer 2** provides overlay networking similar to NSX overlay segments, using Geneve encapsulation to create software-defined L2 broadcast domains across the cluster. These networks are isolated from the VPC subnets and require a gateway pod/VM connected to an OVN Localnet to provide ingress/egress to the VPC subnet and a VPC route.
 * **OVN Localnet** provides VLAN access to the underlying VPC network and are similar to NSX VLAN-backed segments. In IBM Cloud VPC, this enables VMs and pods to connect directly to VPC subnets using Virtual Network Interface (VNI) and VLAN attachments.
 
+The following diagram presents an overview of the VM networking with OVN and `multus`. By default, Kubernetes (and OpenShift) assigns a single network interface to each pod using a primary CNI plugin (like OVN-Kubernetes). Multus in OpenShift is a CNI plugin that enables multiple network interfaces for pods and therefore also for virtualized VMs.
+
+![OVN Networking with multus](../../images/openshift/openshift-virtualization-ovn-multus.svg "OVN Networking with multus"){: caption="OVN Networking with multus" caption-side="bottom"}
+
 Note that initially, only OVN layer 2 networking will be available.
+{: important}
+
 
 ## OVN User-Defined Networks
 {: #virt-sol-openshift-network-design-udn}
 
 [OpenShift Virtualization]{: tag-red}
 
-A **User-Defined Network (UDN)** in OpenShift is a custom network provided by OVN-Kubernetes. A UDN replaces the default cluster network (also known as the default pod network). UDNs allow you to create networks with their own IP subnets, gateways, and routing domains, independent of the primary pod network. They're commonly used when workloads require:
+A **User-Defined Network (UDN)** in OpenShift is a custom network provided by OVN-Kubernetes. A UDN **replaces the default cluster network** (also known as the default **pod network**). UDNs allow you to create networks with their own IP subnets, gateways, and routing domains, independent of the primary pod network. They're commonly used when workloads require:
 
 * **Network isolation** from other applications in the cluster
 * **Custom IP address ranges** or overlapping subnets
@@ -232,7 +255,7 @@ Key characteristics of layer 2 networks:
 
 * Provide L2 broadcast domains created by OVN with IPAM, MAC assignment, and connectivity
 * No built-in DNS resolution for pod names on secondary networks
-* Traffic from the **primary layer 2 network** is source NATted when egressing the VM
+* Traffic from the **primary layer 2 network** is source NATted when egressing the VM, but also routed access to the layer 2 network can be configured using `FRR-K8s` and VPC routes 
 * **Secondary layer 2 networks** are isolated by default with no direct internet access unless explicitly configured
 * Suitable for VM-to-VM communication within the cluster and multicast-dependent applications
 

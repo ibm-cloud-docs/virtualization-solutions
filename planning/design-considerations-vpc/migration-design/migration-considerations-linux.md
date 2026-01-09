@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-05"
+lastupdated: "2026-01-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -135,7 +135,7 @@ sudo touch /etc/cloud/cloud-init.disabled
 - Useful if you want VPC to auto-configure networking via DHCP
 - May require manual adjustments post-boot (hostname, users, etc.)
 
-### Option 3: Configure cloud-init for VPC
+### Option 3: Configure cloud-init for sc
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
 
 - Create cloud-init config that preserves your settings
