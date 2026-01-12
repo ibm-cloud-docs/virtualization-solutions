@@ -120,9 +120,9 @@ toc:
               - topic: planning/design-considerations-vpc/migration-design/migration-method-2.md
                 navtitle: Copying direct volume (multi-disk method)
               - topic: planning/design-considerations-vpc/migration-design/migration-method-3.md
-                navtitle: Method 3 - Live Network Transfer
+                navtitle: Live Network Transfer
               - topic: planning/design-considerations-vpc/migration-design/migration-method-4.md
-                navtitle: Method 4 - VDDK Direct Extraction
+                navtitle: VDDK Direct Extraction
   - navgroup:
       id: reference
       topics:

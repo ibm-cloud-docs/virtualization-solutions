@@ -151,7 +151,7 @@ The following are the constratins and limitations of a live network transfer mig
 - Not Suitable for Warm Migration
    - This is a cold migration approach—source virtual machine is offline during transfer.
 
-## Advanced Pattern: virt-p2v Integration
+## virt-p2v Integration
 {: #virt-sol-vpc-migration-design-method3-advanced}
 
 virt-p2v Integration is more automated but requires building libguestfs with RHEL/Ubuntu hybrid components.
