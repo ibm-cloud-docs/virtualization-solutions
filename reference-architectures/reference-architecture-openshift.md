@@ -28,7 +28,7 @@ Red Hat OpenShift Virtualization servers run on bare metal servers within {{site
 
 **Red Hat Advanced Cluster Management (RHACM)** provides a centralized control plane for multi-cluster and hybrid management to manage Red Hat OpenShift clusters across on-premises data centers, private clouds, and other public cloud environments. You can deploy RHACM into an {{site.data.keyword.cloud_notm}} ROKS cluster that serves as the hub for orchestrating and governing Red Hat OpenShift deployments across hybrid and multi-cloud landscapes.
 
-## Red Hat OpenShift Virtualization on {{site.data.keyword.cloud_notm}} architecture
+## Red Hat OpenShift Virtualization on {{site.data.keyword.cloud_notm}} architecture overview
 {: #virt-sol-rove-architecture-diagram}
 
 The following diagram shows the high-level reference architecture for Red Hat OpenShift Virtualization on {{site.data.keyword.cloud_notm}}.
