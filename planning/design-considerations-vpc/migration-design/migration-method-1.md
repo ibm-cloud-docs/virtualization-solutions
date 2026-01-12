@@ -85,4 +85,4 @@ The following are the constratins and limitations of a image import migration.
       - Generating new SSH host keys
       - Running provisioning scripts
 
-**Design Decision**: Use Method 1 for true template scenarios (deploying multiple identical virtual machines from a base image) and for simple single-disk virtual machines where image management overhead is acceptable.
+Use image import migration for true template scenarios (deploying multiple identical virtual machines from a base image) and for simple single-disk virtual machines where image management overhead is acceptable.

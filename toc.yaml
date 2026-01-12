@@ -116,7 +116,7 @@ toc:
               label: Migrating virtual server options
               topics:
               - topic: planning/design-considerations-vpc/migration-design/migration-method-1.md
-                navtitle: Method 1 - Image Import
+                navtitle: Image Import (Template-Based Migration)
               - topic: planning/design-considerations-vpc/migration-design/migration-method-2.md
                 navtitle: Copying direct volume (multi-disk method)
               - topic: planning/design-considerations-vpc/migration-design/migration-method-3.md
