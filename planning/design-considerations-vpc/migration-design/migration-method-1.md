@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Image Import (Template-Based Migration)
 {: #virt-sol-vpc-migration-design-method1}
 
-For single-disk virtual machines, template reuse scenarios, and simple migrations, you can migrate to a virtual server using the image import migration method. This is the most VMware-familiar approach. You export a virtual machine, convert it to a format VPC understands (QCOW2), upload it to Cloud Object Storage, and create a custom image. You then boot a VSI from this custom image, much like deploying from a template in VMware.
+For single-disk virtual machines, template reuse scenarios, and simple migrations, you can migrate to a virtual server using the image import migration method. This is the most VMware-familiar approach. You export a virtual machine, convert it to a format VPC understands (QCOW2), upload it to Cloud Object Storage, and create a custom image. You then boot a virtual server instance from this custom image, much like deploying from a template in VMware.
 {: shortdesc}
 
 ## Overview of the migration process
@@ -45,10 +45,10 @@ The following steps layout the process to migrate using direct volume copy.
    1. Create new image, point to COS URL
    1. Select appropriate OS type (includes BYOL variants)
    1. Configure encryption (provider-managed or customer-managed)
-1. Provision VSI from Custom Image
-   1. Create VSI selecting your custom image as the boot source
+1. Provision virtual server instance from Custom Image
+   1. Create virtual server instance selecting your custom image as the boot source
    1. Configure network, security groups, SSH keys
-   1. VSI boots with a boot volume that's a linked clone of your custom image
+   1. virtual server instance boots with a boot volume that's a linked clone of your custom image
 
 ## Image import design advantages
 {: #virt-sol-vpc-migration-design-method1-advantages}
@@ -76,7 +76,7 @@ The following are the constratins and limitations of a image import migration.
    - Each unique virtual machine creates a unique custom image. Unlike VMware templates, these aren't true reusable templates—they're snapshots of individual virtual machines. Over time, you'll have dozens or hundreds of one-off custom images in your list.
 - Linked Clone Constraint
    - The boot volume maintains a space-efficient linkage to the custom image. This means:
-      - You **cannot delete the custom image** while any VSI is using a boot volume derived from it
+      - You **cannot delete the custom image** while any virtual server instance is using a boot volume derived from it
       - Storage savings are realized through this linkage
       - Breaking the linkage requires creating a new image from the boot volume and re-provisioning
 - Cloud-Init First Boot
