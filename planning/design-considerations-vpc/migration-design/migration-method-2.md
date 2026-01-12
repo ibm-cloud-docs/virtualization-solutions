@@ -34,6 +34,8 @@ The architecture components of a direct volume copy are
 ## Overview of the migration process
 {: #virt-sol-vpc-migration-design-method2-process}
 
+The following steps layout the process to migrate using direct volume copy.
+
 1. Provision Worker virtual server instance
    1. Ubuntu or RHEL instance with adequate workspace
    1. Attach a large secondary volume if workspace is needed for VMDKs
@@ -83,7 +85,7 @@ The architecture components of a direct volume copy are
 ## Direct volume copy design advantages
 {: #virt-sol-vpc-migration-design-method2-advantages}
 
-The design advantages of of a direct volume copy are:
+The design advantages of direct volume copy migration are:
 
 - Multi-Disk Support handles virtual machines with any number of disks, up to VPC's 12-disk limit.
 - No Image Proliferation means you're not creating a custom image for each virtual machine. Your custom image list stays clean.
@@ -93,7 +95,7 @@ The design advantages of of a direct volume copy are:
 ## Direct volume copy design constraints and limitations
 {: #virt-sol-vpc-migration-design-method2-constraints}
 
-The following are the constratins and limiations of a direct volume copy:
+The following are the constratins and limitations of a direct volume copy migration.
 
 - Orchestration Complexity which means there are more steps and moving parts. You need solid runbooks and preferably automation (Terraform, Ansible, scripts).
 - There are volume attachment limitations. The IBM Cloud UI doesn't support attaching secondary volumes during virtual server instance creation. You must do one of the following:
