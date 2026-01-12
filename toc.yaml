@@ -128,7 +128,3 @@ toc:
       topics:
       - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-guide.md
         navtitle: RackWare Technical Guide
-  - navgroup:
-      id: help
-      topics:
-      - faqs.md

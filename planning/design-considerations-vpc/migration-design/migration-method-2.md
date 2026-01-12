@@ -21,7 +21,7 @@ For multi-disk virtual machines where you can to avoid image proliferation and s
 ## Architecture Components
 {: #virt-sol-vpc-migration-design-method2-architecture}
 
-The architecture components of a direct volume copy are
+The architecture components of a direct volume copy migration are
 
 - Worker virtual server instance: A temporary virtual server instance that serves as your migration workspace. This virtual server instance needs the following:
    - Adequate CPU and memory to run conversion tools
@@ -31,7 +31,7 @@ The architecture components of a direct volume copy are
 - Ephemeral virtual server instance: A short-lived virtual server instance created solely to generate boot and data volumes with the correct configuration. You'll delete this virtual server instance immediately but keep its volumes.
 - Target Volumes: The actual volumes that will become your migrated VM's disks.
 
-## Overview of the migration process
+## Overview of the copying direct volume migration process
 {: #virt-sol-vpc-migration-design-method2-process}
 
 The following steps layout the process to migrate using direct volume copy.
