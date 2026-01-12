@@ -19,16 +19,8 @@ toc:
       topics:
       - topic: reference-architectures/reference-architecture-openshift.md
         navtitle: OpenShift Virtualization Architecture
-      - topic: planning/design-considerations-openshift/migration-design/migration-design.md
-        navtitle: Red Hat OpenShift Migration Infrastucture Design
-      - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
-        navtitle: Migration Workloads to Red Hat OpenShift Virtualization
       - topic: reference-architectures/reference-architecture-vsi.md
         navtitle: Virtual Servers for VPC Architecture
-      - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
-        navtitle: Overview VMware to Virtual Servers on VPC migration
-      - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
-        navtitle: Overview Virtual Servers migration design
   - navgroup:
       id: plan
       topics:
@@ -107,19 +99,30 @@ toc:
       - topicgroup:
           label: OpenShift Virtualization
           topics:
+          - topic: planning/design-considerations-openshift/migration-design/migration-design.md
+            navtitle: Red Hat OpenShift Migration Infrastucture Design
+          - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
+            navtitle: Migration Workloads to Red Hat OpenShift Virtualization
           - topic: planning/design-considerations-openshift/migration-design/migration-workflow.md
             navtitle: Migration Workflow
       - topicgroup:
-          label: VPC virtual servers
+          label: Virtual servers on VPC
           topics:
-          - topic: planning/design-considerations-vpc/migration-design/migration-method-1.md
-            navtitle: Method 1 - Image Import
-          - topic: planning/design-considerations-vpc/migration-design/migration-method-2.md
-            navtitle: Method 2 - Direct Volume
-          - topic: planning/design-considerations-vpc/migration-design/migration-method-3.md
-            navtitle: Method 3 - Live Network Transfer
-          - topic: planning/design-considerations-vpc/migration-design/migration-method-4.md
-            navtitle: Method 4 - VDDK Direct Extraction
+          - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
+            navtitle: Overview VMware to Virtual Servers on VPC migration
+          - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
+            navtitle: Overview Virtual Servers migration design
+          - topicgroup:
+              label: Migrating virtual server options
+              topics:
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-1.md
+                navtitle: Method 1 - Image Import
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-2.md
+                navtitle: Copying direct volume (multi-disk method)
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-3.md
+                navtitle: Method 3 - Live Network Transfer
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-4.md
+                navtitle: Method 4 - VDDK Direct Extraction
   - navgroup:
       id: reference
       topics:

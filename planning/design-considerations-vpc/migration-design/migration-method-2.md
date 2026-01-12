@@ -12,7 +12,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating to a virtual server using direct volume copy (multi-disk method)
+# Copying direct volume (multi-disk method)
 {: #virt-sol-vpc-migration-design-method2}
 
 For multi-disk virtual machines where you can to avoid image proliferation and scenarios requiring precise control over volume configuration, you can migrate to a virtual server using the direct volume copy (multi-disk migration). Instead of importing a virtual machine as an image, you instead create empty volumes with the exact specifications you need. You then directly write your virtual machine's contents to those volumes.
