@@ -49,7 +49,7 @@ toc:
           - topic: planning/design-considerations-openshift/networking-design.md
             navtitle: Networking
       - topicgroup:
-          label: VPC virtual servers
+          label: Virtual servers on VPC
           topics:
           - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
             navtitle: Overview VMware to Virtual Servers on VPC migration
@@ -93,7 +93,7 @@ toc:
           - topic: tutorial/openshift/migration-toolkit.md
             navtitle: Migration Toolkit Tutorial
       - topicgroup:
-          label: VPC virtual servers
+          label: Virtual servers on VPC
           topics:
           - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-tutorial.md
             navtitle: RackWare Tutorial
