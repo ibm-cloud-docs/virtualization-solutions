@@ -20,7 +20,7 @@ production: false
 {: #virt-sol-rove-architecture}
 
 Red Hat OpenShift Virtualization on {{site.data.keyword.cloud}} is used to run virtual server workloads alongside containerized applications that are within a unified Kubernetes environment. Red Hat OpenShift Virtualization is based on the KubeVirt Kubernetes operator. Which means that you can deploy both new and existing virtual server workloads on a single, managed platform on {{site.data.keyword.cloud_notm}}.
-{: shortdesc}
+{: #shortdesc}
 
 Red Hat OpenShift Virtualization servers run on bare metal servers within {{site.data.keyword.cloud_notm}} VPC, which helps provide high performance, security, and network isolation.
 
