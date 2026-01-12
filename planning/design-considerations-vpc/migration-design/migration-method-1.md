@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-05"
+lastupdated: "2026-01-12"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -12,12 +12,11 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Method 1: Image Import (Template-Based Migration)
+# Image Import (Template-Based Migration)
 {: #virt-sol-vpc-migration-design-method1}
 
-**Use Case**: Single-disk VMs, template reuse scenarios, simple migrations
-
-**Conceptual Model**: This is the most VMware-familiar approach. You export a VM, convert it to a format VPC understands (QCOW2), upload it to Cloud Object Storage, and create a custom image. You then boot a VSI from this custom image, much like deploying from a template in VMware.
+For single-disk virtual machines, template reuse scenarios, and simple migrations, you can migrate to a virtual server using the image import migration method. This is the most VMware-familiar approach. You export a VM, convert it to a format VPC understands (QCOW2), upload it to Cloud Object Storage, and create a custom image. You then boot a VSI from this custom image, much like deploying from a template in VMware.
+{: shortdesc}
 
 ## Process Overview
 {: #virt-sol-vpc-migration-design-method1-process}

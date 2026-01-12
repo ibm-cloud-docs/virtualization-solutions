@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Copying direct volume (multi-disk method)
 {: #virt-sol-vpc-migration-design-method2}
 
-For multi-disk virtual machines where you can to avoid image proliferation and scenarios requiring precise control over volume configuration, you can migrate to a virtual server using the direct volume copy (multi-disk migration). Instead of importing a virtual machine as an image, you instead create empty volumes with the exact specifications you need. You then directly write your virtual machine's contents to those volumes.
+For multi-disk virtual machines where you can to avoid image proliferation and scenarios requiring precise control over volume configuration, you can migrate to a virtual server using the direct volume copy (multi-disk migration) migration method. Instead of importing a virtual machine as an image, you instead create empty volumes with the exact specifications you need. You then directly write your virtual machine's contents to those volumes.
 {: shortdesc}
 
 ## Architecture Components
@@ -40,7 +40,7 @@ The architecture components of a direct volume copy are
    1. Install required tools
       -  `qemu-img`
       - `libguestfs-tools` (for virt-v2v)
-1. Create Ephemeral virtual server instance**
+1. Create Ephemeral virtual server instance
    1. Configure it to match your target VM (OS, boot disk size, secondary disk count/sizes)
    1. **Critical**: Disable auto-delete on all volumes
    1. **Critical**: Use `general-purpose` storage profile for boot volume
@@ -53,7 +53,7 @@ The architecture components of a direct volume copy are
    1. Attach them in the same order they were created
    1. Note device names (e.g., /dev/vdb, /dev/vdc, etc.)
    1. Verify sizes: `blockdev --getsize64 /dev/vdb`
-1. Transfer and Convert VM Disks**
+1. Transfer and Convert VM Disks
    1. If exported: Copy VMDK to worker virtual server instance
    1. Convert and write in one step:
 
@@ -83,7 +83,7 @@ The architecture components of a direct volume copy are
 ## Direct volume copy design advantages
 {: #virt-sol-vpc-migration-design-method2-advantages}
 
-The design advantages of of a direct volume copy are
+The design advantages of of a direct volume copy are:
 
 - Multi-Disk Support handles virtual machines with any number of disks, up to VPC's 12-disk limit.
 - No Image Proliferation means you're not creating a custom image for each virtual machine. Your custom image list stays clean.

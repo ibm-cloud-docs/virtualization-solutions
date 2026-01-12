@@ -51,6 +51,10 @@ toc:
       - topicgroup:
           label: VPC virtual servers
           topics:
+          - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
+            navtitle: Overview VMware to Virtual Servers on VPC migration
+          - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
+            navtitle: Overview Virtual Servers migration design
           - topic: planning/design-considerations-vpc/security-design.md
             navtitle: Security
           - topicgroup:
@@ -108,10 +112,6 @@ toc:
       - topicgroup:
           label: Virtual servers on VPC
           topics:
-          - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
-            navtitle: Overview VMware to Virtual Servers on VPC migration
-          - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
-            navtitle: Overview Virtual Servers migration design
           - topicgroup:
               label: Migrating virtual server options
               topics:
