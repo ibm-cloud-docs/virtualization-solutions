@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025
+  years: 2025, 2026
 lastupdated: "2026-01-13"
 
-keywords:
+keywords: migration, warm migration, cold migration, mtv, red hat openShift migration toolkit for virtualization, migration toolkit for virtualization 
 
 subcollection: virtualization-solutions
 
@@ -12,65 +12,64 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-
 # Red Hat OpenShift Migration Toolkit for Virtualization (MTV)
 {: #virt-sol-openshift-migration-design-mtv}
 
-The Migration Toolkit for Virtualization (MTV) on OpenShift Container Platform helps migrate virtual machines from traditional hypervisors like VMware vSphere, Red Hat Virtualization, or OpenStack into OpenShift Virtualization, enabling consolidation of virtual machines and containers on a single Kubernetes-native platform.
+**The Migration Toolkit for Virtualization (MTV)** on Red Hat OpenShift Container Platform helps you migrate virtual servers from traditional hypervisors such as VMware vSphere, Red Hat Virtualization, or OpenStack into Red Hat OpenShift Virtualization, by consolidating virtual servers and containers into a single Kubernetes-native platform.
 {: shortdesc}
 
-MTV provides a web UI and API for discovery, planning, and execution of migrations, leveraging persistent volume cloning or streaming for disk data, while maintaining virtual machine configuration and networking. It integrates with OpenShift Virtualization to run migrated virtual machines alongside containers, using Kubernetes-native storage and networking constructs.
+MTV provides a web UI and API for discovery, planning, and execution of migrations that uses persistent volume cloning or streaming for disk data while it maintains virtual server configuration and networking. MTV integrates with Red Hat OpenShift Virtualization to run migrated virtual servers alongside containers by using Kubernetes-native storage and networking constructs.
 
-For VMware migrations, the Migration Toolkit for Virtualization (MTV) integrates with vCenter to discover virtual machines and inventory data, map virtual machine resources (clusters, networks, datastores) to OpenShift equivalents, and automate bulk or selective migrations. It supports disk data transfer via warm or cold migration, preserves virtual machine configuration (CPU, memory, NICs), and converts VMware constructs into Kubernetes-native resources for seamless execution in OpenShift Virtualization.
+For VMware migrations, the Migration Toolkit for Virtualization (MTV) integrates with vCenter to discover virtual machines and inventory data, map virtual machine resources (clusters, networks, data stores) to Red Hat OpenShift equivalents, and automate bulk or selective migrations. It supports disk data transfer with warm or cold migration, preserves virtual machine configuration (CPU, memory, NICs), and converts VMware constructs into Kubernetes-native resources for seamless execution in Red Hat OpenShift Virtualization.
 
-## Red Hat OpenShift Migration Types
+## Red Hat OpenShift migrations
 {: #virt-sol-openshift-migration-design-migration-type}
 
-Migration Toolkit for Virtualization (MTV) supports two types of migration:
+Migration Toolkit for Virtualization (MTV) supports two types of migration.
 
-   - Cold migration is the default migration type where the source’s virtual machines are shutdown while the data is copied.
-   - Warm migration copies most of the data during the precopy stage. Then the virtual machines are shut down and the remaining data is copied during the cutover stage.
+   - **Cold migration** is the default migration. The source virtual servers are stopped while the data is copied.
+   - **Warm migration** most of the data during the precopy stage is copied. Then, the virtual servers are stopped and the remaining data is copied during the cutover stage.
 
-Comparing the migration speeds of cold and warm migrations, you can observe single disk transfer and disk conversion are approximately the same for the warm and cold migrations. The benefit of warm migration is that the transfer of the snapshot happens in the background while the virtual machine is powered on. The default snapshot time is taken every 60 minutes. If virtual machines change substantially, more data needs to be transferred than in cold migration when the virtual machine is powered off. The cutover time, meaning the shutdown of the virtual machine and last snapshot transfer, depends on how much the virtual machine has changed since the last snapshot.
+When you compare the migration speeds of cold and warm migrations, you can observe that the single disk transfer and disk conversion are approximately the same for each option. The benefit of warm migration is that the transfer of the snapshot happens in the background while the virtual server runs. The default snapshot time is every 60 minutes. If virtual servers change substantially, more data is needs to be transferred than in cold migration when the virtual server is stopped. The cutover time, meaning the shutdown of the virtual machine and last snapshot transfer, depends on how much the virtual server was changed after the last snapshot.
 
 ## Red Hat OpenShift cold migration
 {: #virt-sol-openshift-cold-migration}
 
 Cold migration is the default migration type. The source virtual machines are shut down while the data is copied.
 
-To enable MTV to automatically install `qemu-guest-agent` on the migrated VMs, ensure that your package manager can install the daemon during the first boot of the VM after migration. If that is not possible, use your preferred automated or manual procedure to install `qemu-guest-agent` manually.
+To enable MTV to automatically install `qemu-guest-agent` on the migrated virtual servers, make sure that your package manager can install the daemon during the first start of the virtual server after the migration. If that isn't possible, use your preferred automated or manual procedure to install `qemu-guest-agent`.
 {: note}
 
 ## Red Hat OpenShift warm migration
 {: #virt-sol-openshift-warm-migration}
 
-In warm migration, the virtual machine is not shutdown during the precopy stage. This is a two step process. Most of the data is copied during the precopy stage while the source virtual machines (VMs) are running.Then the VMs are shut down and the remaining data is copied during the cutover stage.
+During a warm migration, the virtual server isn't stopped during the precopy stage. A warm migration is a two-step process. Most of the data is copied during the precopy stage while the source virtual servers run. Then, the virtual servers are stopped and the remaining data is copied during the cutover stage.
 
 ### Warm migration precopy stage
 {: #virt-sol-openshift-warm-migration-precopy}
 
-The following processes is an overview of the precopy stage process.
+THe following information is an overview of the precopy stage process.
 
-1. Creates an initial snapshot of running virtual machine disks.
-1. Copies the initial snapshot to target (full disk transfer, largest amount of data copied - takes more time).
-1. The virtual machine disks are copied incrementally using changed block tracking (CBT) snapshots.
-1. Copy deltas - Changed data (copies only the data, which has changed since last snapshot - takes less time).
-      1. Creates a new snapshot.
-      1. Copies the delta between previous snapshot and the new snapshot.
-      1. Schedules the next snapshot (configurable, by default 1 hour after last snapshot finished).
+- An initial snapshot of running virtual server disks is created.
+- The initial snapshot to target (full disk transfer, largest amount of data copied - takes more time) is copied.
+- The virtual server disks are incrementally copied by using the changed block tracking (CBT) snapshots.
+- Copy deltas - changed data (copies only the data that changed after the last snapshot - takes less time).
+   - A new snapshot is created.
+   - The delta between the previous snapshot and the new snapshot is copied.
+   - The next snapshot (configurable, by default 1 hour after the last snapshot finished) is scheduled.
 
-A virtual machine can support up to 28 CBT snapshots. If that limit is exceeded, a warm import retry limit reached error message is displayed. If the virtual machine has preexisting CBT snapshots, it will reach this limit sooner.
+Virtual servers can support up to 28 CBT snapshots. If you exceed that limit, a warm import retry limit-reached error message appears. If the virtual server has preexisting CBT snapshots, it reaches this limit sooner.
 {: note}
 
 ### Warm migration cutover stage
 {: #virt-sol-openshift-warm-migration-cutover}
 
-The virtual machines are shut down during the cutover stage and the remaining data is migrated. Data stored in RAM is not migrated.
+The virtual servers are shut down during the cutover stage and the remaining data is migrated. Data that is stored in RAM isn't migrated.
 
-The following process is an overview of the cutover stage process.
+The following information is an overview of the cutover stage process.
 
-1. Schedules time to finalize warm migration.
-1. You can start the cutover stage manually in the MTV console.
-1. Continue in the same way as cold migration
-   1. Guest conversion.
-   1. Optionally starting target virtual machine.
+- Time to finalize warm migration is scheduled.
+- You can start the cutover stage manually in the MTV console.
+- The migration process continues in the same way as cold migration
+   - Guest conversion.
+   - Optionally, start the target virtual server.
