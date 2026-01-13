@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-09"
+lastupdated: "2026-01-13"
 
 keywords:
 
@@ -17,6 +17,7 @@ subcollection: virtualization-solutions
 {: #virt-sol-openshift-migration-design-migration-vmware}
 
 If you migrate from a VMware environment to OpenShift, you must meet the following requirements before you migrate.
+{: shortdesc}
 
 **VMware environment requirements:**
 
@@ -32,5 +33,5 @@ If you migrate from a VMware environment to OpenShift, you must meet the followi
     - lowercase letters (a-z), numbers (0-9), or hyphens (-), up to a maximum of 253 characters.
     - The first and last characters must be alphanumeric.
     - The name must not contain uppercase letters, spaces, periods (.), or special characters.
-- Virtual machine name does not duplicate the name of a virtual machine in the OpenShift Virtualization environment.
+- Virtual machine name can't duplicate the name of a virtual machine in the OpenShift Virtualization environment.
 - Operating system is certified and supported.
