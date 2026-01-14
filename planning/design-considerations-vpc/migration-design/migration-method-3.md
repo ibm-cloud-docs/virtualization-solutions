@@ -23,21 +23,13 @@ For Large-scale migrations, minimizing downtime, maximum efficiency, scenarios w
 
 The architecture components of a live network transfer migration are:
 
-- Transit Gateway
-   - Connects your VMware environment (Classic, NSX, or VCFaaS) to your VPC. This provides the Layer 3 routing necessary for your source virtual machine (in VMware) to communicate with your worker virtual server instance (in VPC).
-- Worker virtual server instance
-   - Similar to Method 2, but here it's purely a receiver—listening on a network port for incoming disk data.
-- Live ISO
-   - A bootable ISO that provides:
-      - Network configuration tools
-      - Disk reading utilities (`dd`)
-      - Compression tools (`gzip`, `pigz`)
-      - Network transfer tools (`netcat`, `socat`, `ssh`)
-- Boot Source Options
-   - Ubuntu Install ISO: Has a "Enter shell" option in the help menu, includes most needed tools
-   - TinyCore Linux: Extremely small but requires package installation for ssh/qemu
-   - virt-p2v ISO: Purpose-built by Red Hat for P2V migrations, integrates with virt-v2v on receiver
-   - G4L (Ghost for Linux): Imaging-focused live Linux
+| Architecture components | Description |
+| ----------- | ------------------ |
+| Transit Gateway | Connects your VMware environment (Classic, NSX, or VCFaaS) to your VPC. This provides the Layer 3 routing necessary for your source virtual machine (in VMware) to communicate with your worker virtual server instance (in VPC). |
+| Worker virtual server instance | Similar to Method 2, but here it's purely a receiver—listening on a network port for incoming disk data. |
+| Live ISO | A bootable ISO that provides:  \n  \n - Network configuration tools  \n  \n - Disk reading utilities (`dd`)  \n  \n - Compression tools (`gzip`, `pigz`)  \n  \n - Network transfer tools (`netcat`, `socat`, `ssh`) |
+| Boot Source Options |  \n  \n - Ubuntu Install ISO: Has a "Enter shell" option in the help menu, includes most needed tools  \n  \n - TinyCore Linux: Extremely small but requires package installation for ssh/qemu  \n  \n - virt-p2v ISO: Purpose-built by Red Hat for P2V migrations, integrates with virt-v2v on receiver  \n  \n - G4L (Ghost for Linux): Imaging-focused live Linux |
+{: caption="Architecture components for live network transfer migration method" caption-side="bottom"}
 
 ## Overview of the live network transfer migration process
 {: #virt-sol-vpc-migration-design-method3-process}

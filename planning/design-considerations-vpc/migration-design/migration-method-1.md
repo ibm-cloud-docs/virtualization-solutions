@@ -53,11 +53,14 @@ The following steps layout the process to migrate using direct volume copy.
 ## Image import design advantages
 {: #virt-sol-vpc-migration-design-method1-advantages}
 
-The design advantages of image import migration are:
+The followin table lists the design advantages of image import migration.
 
--  The process is straight-forward process, well-documented, and easy to understand.
-- You can reuse the template. If you have 10 web servers from the same template, you import once and provision 10 times.
-- The process is IBM-managed. The process is native to VPC and no third-party tools are required.
+| Design advantage | Description |
+| ----------- | ------------------ |
+| Process | The process is straight-forward process, well-documented, and easy to understand. |
+| Template | You can reuse the template. If you have 10 web servers from the same template, you import once and provision 10 times. |
+| Managed | The process is IBM-managed. The process is native to VPC and no third-party tools are required. |
+{: caption="Design advantages for image import migration method" caption-side="bottom"}
 
 ## Image import design constraints and limitations
 {: #virt-sol-vpc-migration-design-method1-constraints}

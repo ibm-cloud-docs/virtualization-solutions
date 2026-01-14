@@ -21,15 +21,15 @@ For multi-disk virtual machines where you can to avoid image proliferation and s
 ## Architecture Components
 {: #virt-sol-vpc-migration-design-method2-architecture}
 
-The architecture components of a direct volume copy migration are
+The following tables lists the architecture components of a direct volume copy migration.
 
-- Worker virtual server instance: A temporary virtual server instance that serves as your migration workspace. This virtual server instance needs the following:
-   - Adequate CPU and memory to run conversion tools
-   - Sufficient workspace storage to hold exported VMDKs (or large ephemeral disk)
-   - Network connectivity to your VMware environment (if using live transfer)
-   - The `qemu-img` tool and optionally `libguestfs` (virt-v2v) for transformations
-- Ephemeral virtual server instance: A short-lived virtual server instance created solely to generate boot and data volumes with the correct configuration. You'll delete this virtual server instance immediately but keep its volumes.
-- Target Volumes: The actual volumes that will become your migrated VM's disks.
+| Architecture components | Description |
+| ----------- | ------------------ |
+| Worker virtual server instance | A temporary virtual server instance that serves as your migration workspace. This virtual server instance needs the following:  \n  \n - Adequate CPU and memory to run conversion tools  \n  \n - Sufficient workspace storage to hold exported VMDKs (or large ephemeral disk)  \n  \n - Network connectivity to your VMware environment (if using live transfer)  \n  \n - The `qemu-img` tool and optionally `libguestfs` (virt-v2v) for transformations |
+| Ephemeral virtual server instance | A short-lived virtual server instance created solely to generate boot and data volumes with the correct configuration. You'll delete this virtual server instance immediately but keep its volumes. |
+| Target Volumes | The actual volumes that will become your migrated VM's disks. |
+{: caption="Architecture components for direct volume copy migration method" caption-side="bottom"}
+
 
 ## Overview of the copying direct volume migration process
 {: #virt-sol-vpc-migration-design-method2-process}
@@ -85,12 +85,15 @@ The following steps layout the process to migrate using direct volume copy.
 ## Direct volume copy design advantages
 {: #virt-sol-vpc-migration-design-method2-advantages}
 
-The design advantages of direct volume copy migration are:
+The following table lists the design advantages of direct volume copy migration.
 
-- Multi-Disk Support handles virtual machines with any number of disks, up to VPC's 12-disk limit.
-- No Image Proliferation means you're not creating a custom image for each virtual machine. Your custom image list stays clean.
-- Flexible Transformation enables easy integration with virt-v2v for driver injection, OS tweaks, etc.
-- The Storage Efficiency Option means If you import a base template as a custom image and use it as the boot volume source for your ephemeral virtual server instance (step 2), the final boot volume inherits the linked-clone space efficiency.
+| Design advantage | Description |
+| ----------- | ------------------ |
+| Multi-Disk Support | Multi-disk support handles virtual machines with any number of disks, up to VPC's 12-disk limit. |
+| No Image Proliferation | You're not creating a custom image for each virtual machine. Your custom image list stays clean. |
+| Flexible Transformation | Enables easy integration with virt-v2v for driver injection, OS tweaks, etc. |
+| Storage Efficiency Option | If you import a base template as a custom image and use it as the boot volume source for your ephemeral virtual server instance (step 2), the final boot volume inherits the linked-clone space efficiency. |
+{: caption="Design advantages for direct volume copy migration method" caption-side="bottom"}
 
 ## Direct volume copy design constraints and limitations
 {: #virt-sol-vpc-migration-design-method2-constraints}
