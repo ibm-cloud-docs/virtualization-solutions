@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-12"
+lastupdated: "2026-01-14"
 
 keywords: virtual server instance, File Storage, Block Storage, Encryption, Migration
 
@@ -21,16 +21,15 @@ For vCenter environments only, automation-first migrations, scenarios where you 
 ## Architecture Components
 {: #virt-sol-vpc-migration-design-method4-architecture}
 
-The architecture components of a VDDK Direct Extraction migration are:
+The following tables lists the architecture components of a VDDK Direct Extraction migration.
 
-- VDDK
-   - VMware's API library for accessing virtual disks. You'll download this from VMware's developer portal.
-- libguestfs with VDDK Support
-   - The `virt-v2v` tool built with the nbdkit VDDK plugin. This requires RHEL (Ubuntu builds don't include VDDK support).
-- Worker virtual server instance
-   - RHEL-based instance with libguestfs-tools and VDDK installed.
-- vCenter Access
-   - Network connectivity from worker virtual server instance to vCenter and vSphere hosts, with credentials that allow virtual machine disk access.
+| Architecture components | Description |
+| ----------- | ------------------ |
+| VDDK | VMware's API library for accessing virtual disks. You'll download this from VMware's developer portal. |
+| libguestfs with VDDK Support | The `virt-v2v` tool built with the nbdkit VDDK plugin. This requires RHEL (Ubuntu builds don't include VDDK support). |
+| Worker virtual server instance | RHEL-based instance with libguestfs-tools and VDDK installed. |
+| vCenter Access | Network connectivity from worker virtual server instance to vCenter and vSphere hosts, with credentials that allow virtual machine disk access. |
+{: caption="Architecture components for VDDK direct extration migration method" caption-side="bottom"}
 
 ## Overview of the VDDK Direct Extraction migration process
 {: #virt-sol-vpc-migration-design-method4-process}
@@ -119,38 +118,27 @@ The following steps layout the process to migrate using VDDK Direct Extraction.
 ## Design Advantages
 {: #virt-sol-vpc-migration-design-method4-advantages}
 
-The design advantages of VDDK Direct Extraction migration are:
+The following tables lists the design advantages of VDDK Direct Extraction migration.
 
-- Single-Command Migration
-   - One virt-v2v invocation does everything—extract from vCenter, convert format, inject drivers, write to destination.
-- No Export Step
-   - Like Method 3, eliminates the export overhead.
-- Automation-Friendly
-   - Easily scriptable for large-scale migrations once working.
-- Integrated Transformation
-   - Driver injection and OS preparation happen automatically.
+| Design advantage | Description |
+| ----------- | ------------------ |
+| Single-Command Migration | One virt-v2v invocation does everything—extract from vCenter, convert format, inject drivers, write to destination. |
+| No Export Step | Similar to live network transfer migration, eliminates the export overhead. |
+| Automation-Friendly | Easily scriptable for large-scale migrations once working. |
+| Integrated Transformation | Driver injection and OS preparation happen automatically. |
+{: caption="Design advantages for VDDK direct extration migration method" caption-side="bottom"}
 
 ## Design Constraints and Limitations
 {: #virt-sol-vpc-migration-design-method4-constraints}
 
-The following are the constratins and limitations of a VDDK Direct Extraction migration.
+The following table lists the constratins and limitations of a VDDK Direct Extraction migration.
 
-- vCenter Only
-   - Does not work with VCFaaS (no vCenter API access).
-- RHEL/Ubuntu Tool Gaps - Critical challenge
-   - RHEL build of libguestfs includes VDDK support (nbdkit plugin)
-   - RHEL build of virt-v2v does NOT support `--block-driver virtio-scsi` (required for Windows)
-   - Ubuntu build of virt-v2v supports `--block-driver virtio-scsi`
-   - Ubuntu build does NOT include VDDK support
-
-You must either:
-- Build libguestfs yourself on Ubuntu with VDDK plugin, OR
-- Use RHEL for VDDK extraction, write to file, transfer to Ubuntu system for virt-v2v transformation
-{: important}
-
-- Complex Prerequisites
-   - Requires VDDK installation, vCenter API access, certificate thumbprints, precise connection strings. More setup than other methods.
-- Network Requirements
-   - Worker virtual server instance must reach vCenter and ESXi hosts directly. May require additional firewall rules.
+| Limitation or Constraint | Description |
+| ----------- | ------------------ |
+| vCenter Only | Does not work with VCFaaS (no vCenter API access). |
+| RHEL/Ubuntu Tool Gaps | Critical challenge  \n  \n - RHEL build of libguestfs includes VDDK support (nbdkit plugin)  \n  \n - RHEL build of virt-v2v does NOT support `--block-driver virtio-scsi` (required for Windows)  \n  \n - Ubuntu build of virt-v2v supports `--block-driver virtio-scsi`  \n  \n - Ubuntu build does NOT include VDDK support  \n  \n You must either:  \n  \n - Build libguestfs yourself on Ubuntu with VDDK plugin  \n  \n OR  \n  \n - Use RHEL for VDDK extraction, write to file, transfer to Ubuntu system for virt-v2v transformation |
+| Complex Prerequisites | Requires VDDK installation, vCenter API access, certificate thumbprints, precise connection strings. More setup than other methods. |
+| Network Requirements | Worker virtual server instance must reach vCenter and ESXi hosts directly. May require additional firewall rules. |
+{: caption="Limitations and constraints for VDDK direct extration migration method" caption-side="bottom"}
 
 VDDK Direct Extraction migration is powerful for large-scale vCenter migrations where the upfront investment in setup and tooling builds pays off across many virtual machines. Not recommended for small migrations or VCFaaS environments. If you choose this method, budget time for tool setup and testing.

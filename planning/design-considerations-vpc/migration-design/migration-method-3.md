@@ -122,18 +122,16 @@ The following steps layout the process to migrate using live network transfer.
 ## Design Advantages
 {: #virt-sol-vpc-migration-design-method3-advantages}
 
-The design advantages of live network transfer migration are:
+The following tables lists the design advantages of live network transfer migration.
 
-- No Export Overhead
-   - Eliminates the entire export step—no time spent exporting VMDKs, no export storage needed, no transferring exports to VPC.
-- Efficient Network Utilization
-   - Direct streaming with compression makes optimal use of available bandwidth.
-- Parallel Migration Capability
-   - Provision multiple worker virtual server instances and migrate multiple virtual machines concurrently, limited only by network bandwidth and worker resources.
-- Maximum Flexibility
-   - Easy to integrate with virt-v2v transformations, supports both VCFaaS and vCenter, works with any virtual machine regardless of disk count.
-- Clean Disk State
-   - Booting from ISO ensures the source OS isn't running, providing a clean, consistent disk state (similar to a cold snapshot).
+| Design advantage | Description |
+| ----------- | ------------------ |
+| No Export Overhead | Eliminates the entire export step—no time spent exporting VMDKs, no export storage needed, no transferring exports to VPC. |
+| Efficient Network Utilization | Direct streaming with compression makes optimal use of available bandwidth. |
+| Parallel Migration Capability | Provision multiple worker virtual server instances and migrate multiple virtual machines concurrently, limited only by network bandwidth and worker resources. |
+| Maximum Flexibility | Easy to integrate with virt-v2v transformations, supports both VCFaaS and vCenter, works with any virtual machine regardless of disk count. |
+| Clean Disk State | Booting from ISO ensures the source OS isn't running, providing a clean, consistent disk state (similar to a cold snapshot). |
+{: caption="Design advantages for live network transfer migration method" caption-side="bottom"}
 
 ## Design Constraints and Limitations
 {: #virt-sol-vpc-migration-design-method3-constraints}
