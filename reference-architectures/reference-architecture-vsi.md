@@ -56,7 +56,7 @@ The following table outlines the products or services that are used in the archi
 | | {{site.data.keyword.logs_routing_full_notm}} | Agent-based log aggregation and analysis. |
 | | {{site.data.keyword.cloud_notm}} IBM Cloud Activity Tracker Event Routing | Audit logging for VPC resource management activities. |
 | | {{site.data.keyword.cloud_notm}} security and compliance center | Posture management and compliance scanning for your VPC infrastructure. |
-| [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | {{site.data.keyword.block_storage_is_short}}| High-performance block storage volumes with configurable IOPS for boot and data disks. |
+| [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | {{site.data.keyword.block_storage_is_short}} | High-performance block storage volumes with configurable IOPS for boot and data disks. |
 | | {site.data.keyword.filestorage_vpc_short}} | Persistent, fast, and flexible network-attached, NFS-based file storage. |
 | | {{site.data.keyword.cos_full}} | Designed for unstructured data. Ideal for workloads such as backup, archiving, big data analytics, and application data storage. |
 | | {{site.data.keyword.cloud_notm}} Key Protect | Provision and store encrypted keys that are used for volume encryption. |

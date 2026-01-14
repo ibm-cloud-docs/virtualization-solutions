@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-13"
+lastupdated: "2026-01-14"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -90,7 +90,7 @@ To resolve Static IP Configuration, do the following:
          gateway4: 10.240.0.1
          nameservers:
            addresses: [8.8.8.8, 8.8.4.4]
-```
+   ```
 {: codeblock}
 
 - Traditional /etc/network/interfaces (Debian, older Ubuntu)
