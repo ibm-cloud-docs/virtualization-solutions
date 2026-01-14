@@ -36,8 +36,6 @@ toc:
                 navtitle: Migration Toolkit for Virtualization
               - topic: planning/design-considerations-openshift/migration-design/vmware-requirements.md
                 navtitle: VMware Requirements
-              - topic: planning/design-considerations-openshift/migration-design/migration-partners.md
-                navtitle: Migration Partners
           - topic: planning/design-considerations-openshift/resiliency-design.md
             navtitle: Resiliency
           - topic: planning/design-considerations-openshift/observability-design.md
