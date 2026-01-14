@@ -67,7 +67,7 @@ toc:
               - topic: planning/design-considerations-vpc/migration-design/migration-design-3-postmigration.md
                 navtitle: Post-migration
               - topic: planning/design-considerations-vpc/migration-design/migration-design-4-risk.md
-                navtitle: Governance
+                navtitle: Risk Mitigation
               - topic: planning/design-considerations-vpc/migration-design/migration-method-0-overview.md
                 navtitle: Migration Methods
               - topic: planning/design-considerations-vpc/migration-design/migration-considerations-linux.md
