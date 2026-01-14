@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-13"
+lastupdated: "2026-01-14"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -35,15 +35,14 @@ This guide is organized into general principals, DIY migration, and RackWare RMM
 * [Wave Planning and Execution Design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-waveß)
 * [Post-Migration Validation and Optimization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-post)
 * [Risk Mitigation and Rollback Strategies](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-risk)
-* [Governance, Documentation, and Lessons Learned](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-governance)
 
 ## DIY migration
 {: #virt-sol-vpc-migration-design-migration-diy}
 
-* [Method 1: Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1)
-* [Method 2: Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
-* [Method 3: Live Network Transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3)
-* [Method 4: VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
+* [Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1)
+* [Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
+* [Live Network Transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3)
+* [VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 * [Linux Migration Considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
 * [Windows Migration Considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
 
@@ -58,27 +57,27 @@ This guide is organized into general principals, DIY migration, and RackWare RMM
 
 Review the summary of each migration method.
 
-### Method 1: Image Import
+### Image Import
 {: #virt-sol-vpc-migration-design-migration-diy-method1}
 
 Export your virtual machine from VMware as a VMDK, convert it to QCOW2 format, upload to IBM Cloud Object Storage, and create a custom VPC image. Boot new virtual server instances from this image, similar to deploying from a VMware template. Best suited for single-disk virtual machines and scenarios where you want to reuse a base image across multiple deployments. Simple and well-documented, but creates proliferation of custom images and only handles one disk per virtual machine. For more information, see [Method 1: Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1).
 
-### Method 2: Copying direct volume
+### Copying direct volume
 {: #virt-sol-vpc-migration-design-migration-diy-method2}
 
 t specifications you need, then directly write your virtual machine's disk contents to them using a worker virtual server instance. Export VMDKs from VMware, transfer them to the worker virtual server instance, convert with `qemu-img`, and optionally transform with `virt-v2v` for driver injection. Attach the populated volumes to your new virtual server instance. Handles multi-disk virtual machines, avoids image proliferation, and provides precise control over the migration process at the cost of increased orchestration complexity. For more information, see [Method 2: Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2).
 
-### Method 3: Live Network Transfer
+### Live Network Transfer
 {: #virt-sol-vpc-migration-design-migration-diy-method3}
 
 Boot your source virtual machine from a live ISO (like Ubuntu installer), establish network connectivity to a worker virtual server instance in VPC via Transit Gateway, and stream disk contents directly over the network using tools like `dd`, `gzip`, and `netcat`. Eliminates the export step entirely, making it highly efficient for large-scale migrations. Supports parallel migrations and provides maximum flexibility, though it requires upfront investment in Transit Gateway setup and live ISO preparation. For more information, see [Method 3: Live Network Transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3).
 
-### Method 4: VDDK Direct Extraction
+### VDDK Direct Extraction
 {: #virt-sol-vpc-migration-design-migration-diy-method3}
 
 Use Red Hat's `virt-v2v` tool with VMware's VDDK library to connect directly to vCenter, extract virtual machine disks, perform format conversion and driver injection in a single operation, and write directly to VPC volumes. Highly automated and ideal for vCenter environments, but requires complex tool setup (dealing with RHEL/Ubuntu capability gaps), only works with vCenter (not VCFaaS), and has significant prerequisites including VDDK licensing and vCenter API access. For more information, see [Method 4: VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4).
 
-### Migration Considerations
+### Linux and Windows migration considerations
 {: #virt-sol-vpc-migration-design-migration-diy-considerations}
 
 See the following for specific considerations for Windows and Linux virtual machines that apply to the methods described above:

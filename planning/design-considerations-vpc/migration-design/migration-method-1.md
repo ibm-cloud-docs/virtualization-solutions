@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-12"
+lastupdated: "2026-01-14"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -56,33 +56,20 @@ The following steps layout the process to migrate using direct volume copy.
 The design advantages of image import migration are:
 
 -  The process is straight-forward process, well-documented, and easy to understand.
-- You can reuse the template reuse. If you have 10 web servers from the same template, you import once and provision 10 times.
+- You can reuse the template. If you have 10 web servers from the same template, you import once and provision 10 times.
 - The process is IBM-managed. The process is native to VPC and no third-party tools are required.
 
 ## Image import design constraints and limitations
 {: #virt-sol-vpc-migration-design-method1-constraints}
 
-The following are the constratins and limitations of a image import migration.
+The following tables lists the constraints and limitations of a image import migration.
 
-- Single Disk Limitation
-   - This method only handles the boot disk. If your virtual machine has multiple disks, you'll need to:
-      - Use a different method for the entire virtual machine
-
-      OR
-
-      - Use this method for the boot disk and Method 2 for secondary disks (hybrid approach)
-
-- Image Proliferation
-   - Each unique virtual machine creates a unique custom image. Unlike VMware templates, these aren't true reusable templates—they're snapshots of individual virtual machines. Over time, you'll have dozens or hundreds of one-off custom images in your list.
-- Linked Clone Constraint
-   - The boot volume maintains a space-efficient linkage to the custom image. This means:
-      - You **cannot delete the custom image** while any virtual server instance is using a boot volume derived from it
-      - Storage savings are realized through this linkage
-      - Breaking the linkage requires creating a new image from the boot volume and re-provisioning
-- Cloud-Init First Boot
-   - If cloud-init is installed and configured on your image, VPC may treat the boot as a first boot, potentially:
-      - Resetting the root password
-      - Generating new SSH host keys
-      - Running provisioning scripts
+| Limitation or Constraint | Description |
+| ----------- | ------------------ |
+| Single Disk Limitation | This method only handles the boot disk.  \n  \n If your virtual machine has multiple disks, you'll need to:  \n  \n - Use a different method for the entire virtual machine  \n  \n OR  \n \n - Use this method for the boot disk and Method 2 for secondary disks (hybrid approach) |
+| Image Proliferation | Each unique virtual machine creates a unique custom image. Unlike VMware templates, these aren't true reusable templates—they're snapshots of individual virtual machines. Over time, you'll have dozens or hundreds of one-off custom images in your list. |
+| Linked Clone Constraint | The boot volume maintains a space-efficient linkage to the custom image. This means:  \n  \n - You **cannot delete the custom image** while any virtual server instance is using a boot volume derived from it  \n  \n - Storage savings are realized through this linkage  \n  \n - Breaking the linkage requires creating a new image from the boot volume and re-provisioning |
+| Cloud-Init First Boot | If cloud-init is installed and configured on your image, VPC may treat the boot as a first boot, potentially:  \n  \n - Resetting the root password  \n  \n - Generating new SSH host keys  \n  \n - Running provisioning scripts|
+{: caption="Limitations and constraints for image import migration method" caption-side="bottom"}
 
 Use image import migration for true template scenarios (deploying multiple identical virtual machines from a base image) and for simple single-disk virtual machines where image management overhead is acceptable.

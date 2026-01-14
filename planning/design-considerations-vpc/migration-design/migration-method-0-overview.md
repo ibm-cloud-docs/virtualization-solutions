@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-13"
+lastupdated: "2026-01-14"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -12,7 +12,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migration Methods
+# Migration methods for virtual servers
 {: #virt-sol-vpc-migration-design-methods}
 
 There are four primary methods for migrating VMware virtual machines to VPC virtual server instance, each with distinct design implications, advantages, and constraints. Your choice depends on virtual machine characteristics, source environment access, team expertise, and scale requirements.

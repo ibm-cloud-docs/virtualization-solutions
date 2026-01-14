@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-12"
+lastupdated: "2026-01-14"
 
 keywords: virtual server instance, File Storage, Block Storage, Encryption, Migration
 
@@ -138,18 +138,16 @@ The design advantages of live network transfer migration are:
 ## Design Constraints and Limitations
 {: #virt-sol-vpc-migration-design-method3-constraints}
 
-The following are the constratins and limitations of a live network transfer migration.
+The following table lists the constratins and limitations of a live network transfer migration.
 
-- Transit Gateway Requirement
-   - Requires upfront investment in setting up and testing Transit Gateway connectivity.
-- Live ISO Preparation
-   - You need to prepare and test your chosen live ISO, potentially customizing it with needed tools.
-- Network Bandwidth Dependency
-   - Transfer speed is limited by network bandwidth between environments. Monitor and plan accordingly.
-- Manual Network Configuration
-   - For each source virtual machine, you need to configure networking in the live ISO environment (can be scripted).
-- Not Suitable for Warm Migration
-   - This is a cold migration approach—source virtual machine is offline during transfer.
+| Limitation or Constraint | Description |
+| ----------- | ------------------ |
+| Transit Gateway Requirement | Requires upfront investment in setting up and testing Transit Gateway connectivity. |
+| Live ISO Preparation | - You need to prepare and test your chosen live ISO, potentially customizing it with needed tools. |
+| Network Bandwidth Dependency | Transfer speed is limited by network bandwidth between environments. Monitor and plan accordingly. |
+| Manual Network Configuration | For each source virtual machine, you need to configure networking in the live ISO environment (can be scripted). |
+| Not Suitable for Warm Migration | This is a cold migration approach—source virtual machine is offline during transfer. |
+{: caption="Limitations and constraints for live network transfer migration method" caption-side="bottom"}
 
 ## virt-p2v Integration
 {: #virt-sol-vpc-migration-design-method3-advanced}

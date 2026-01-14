@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-12"
+lastupdated: "2026-01-14"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration, virtual server instance
 
@@ -95,14 +95,14 @@ The design advantages of direct volume copy migration are:
 ## Direct volume copy design constraints and limitations
 {: #virt-sol-vpc-migration-design-method2-constraints}
 
-The following are the constratins and limitations of a direct volume copy migration.
+The following table lists the constratins and limitations of a direct volume copy migration.
 
-- Orchestration Complexity which means there are more steps and moving parts. You need solid runbooks and preferably automation (Terraform, Ansible, scripts).
-- There are volume attachment limitations. The IBM Cloud UI doesn't support attaching secondary volumes during virtual server instance creation. You must do one of the following:
-   - Use CLI: `ibmcloud is instance-create ... --volume-attach ...`
-   - Use API/Terraform for full automation
-   - Create the virtual server instance, stop it, attach volumes, then start it
-- There is export overhead. If you're exporting VMDKs from VMware, you still incur that overhead (though less than OVA export).
+| Limitation or Constraint | Description |
+| ----------- | ------------------ |
+| Orchestration Complexity | There are more steps and moving parts. You need solid runbooks and preferably automation (Terraform, Ansible, scripts). |
+| Volume attachment limitations. | The IBM Cloud UI doesn't support attaching secondary volumes during virtual server instance creation. You must do one of the following:  \n  \n - Use CLI: `ibmcloud is instance-create ... --volume-attach ...`  \n  \n - Use API/Terraform for full automation  \n  \n - Create the virtual server instance, stop it, attach volumes, then start it |
+| Export overhead |  If you're exporting VMDKs from VMware, you still incur that overhead (though less than OVA export). |
+{: caption="Limitations and constraints for direct volume copy migration method" caption-side="bottom"}
 
 ## Skip export by using network transfer
 {: #virt-sol-vpc-migration-design-method2-network-transfer}

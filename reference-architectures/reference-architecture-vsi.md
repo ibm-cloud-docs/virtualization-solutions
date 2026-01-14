@@ -46,6 +46,9 @@ The following table outlines the products or services that are used in the archi
 | [**Workload Migration**](/docs/virtualization-solutions?topic=virtualization-solutions-migration-design) | IBM Consulting and expert labs | Professional services organizations that provide migration and deployment services. |
 | | 3rd-party migration tools | Tools that are in the {{site.data.keyword.cloud_notm}} catalog such as RackWare RMM, Wanclouds. |
 | | Self-service | Direct migration by using image import, instance provisioning, and configuration management tools. |
+| [**Security**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-security-design-overview) | 3rd party Virtual network functions | 3rd party firewalls |
+| | IBM Cloud Key Protect | IBM Key Protect for IBM Cloud® service helps you provision and store encrypted keys for apps across IBM Cloud services, so you can see and manage data encryption and the entire key lifecycle from one central location. |
+| | IBM Cloud Security and Compliance Center Workload Protection | IBM Cloud Security and Compliance Center Workload Protection to find and prioritize software vulnerabilities, detect and respond to threats, and manage configurations, permissions, and compliance. | 
 | [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design) | {{site.data.keyword.cloud_notm}} Snapshots | Point-in-time copies of block storage volumes for backup and recovery. |
 | | {{site.data.keyword.cloud_notm}} VPC Backup Service | Scheduled point-in-time copies of Block Storage volumes for backup and recovery |
 | | {{site.data.keyword.cloud_notm}} Backup and recovery | Agent-based backup service for file-level and folder-level backup. |

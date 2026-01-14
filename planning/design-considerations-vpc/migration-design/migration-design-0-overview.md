@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-13"
+lastupdated: "2026-01-14"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -80,10 +80,11 @@ Key Takeaways:
 
 1. Understand the differences: VPC's Layer 3 networking, managed hypervisor model, and storage profiles represent a paradigm shift from VMware. Invest time in understanding these differences before you migrate your first virtual machine.
 1. Choose the right method for your context:
-   - [Method 1 Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1) for simple, single-disk virtual machines and template scenarios
-   - [Method 2 Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2) for multi-disk virtual machines and precise control
-   - [Method 3 Live network transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3) for scale, efficiency, and minimizing downtime
-   - [Method 4 VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4) for vCenter automation-first approaches
+   - Review the comparision table of the different migration methods available in [Migration methods for virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods).
+   - [Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1) for simple, single-disk virtual machines and template scenarios
+   - [Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2) for multi-disk virtual machines and precise control
+   - [Live network transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3) for scale, efficiency, and minimizing downtime
+   - [VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4) for vCenter automation-first approaches
 1. Windows requires special handling: Whether sysprep or virt-v2v, budget time for driver injection and testing. Don't underestimate the RHEL/Ubuntu tooling gaps.
 1. Network architecture is critical: Transit Gateway connectivity between your VMware environment and VPC is foundational. Test it early, test it thoroughly.
 1. Start with a pilot**: Your first wave teaches you more than any amount of lab testing. Make it representative but low-risk.
