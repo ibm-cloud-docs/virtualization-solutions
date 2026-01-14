@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-12"
+lastupdated: "2026-01-14"
 
 keywords: 
 
@@ -34,7 +34,7 @@ For enterprise management and governance, {{site.data.keyword.cloud_notm}} servi
 
 The following diagram shows the high-level reference architecture for your virtual servers.
 
-![IBM Cloud Virtual Servers for VPC Architecture](../images/vpc-vsi/vpc-vsi-high-level-arch.svg "IBM Cloud Virtual Servers for VPC Architecture"){: caption="IBM Cloud Virtual Servers for VPC Architecture" caption-side="bottom"}
+![IBM Cloud Virtual Servers for VPC Architecture](../images/vpc-vsi/vpc-vsi-high-level.svg "IBM Cloud Virtual Servers for VPC Architecture"){: caption="IBM Cloud Virtual Servers for VPC Architecture" caption-side="bottom"}
 
 ### Components
 {: #virt-sol-vpc-vsi-components}
