@@ -83,7 +83,8 @@ First, you need to set up your source virtual machine. This section has examples
 - [Windows source virtual machine](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-tutorial#virt-sol-vpc-migration-design-rmm-tutorial-step1-windows).
 
 ### Ubuntu Source virtual machine
-{: #virt-sol-vpc-migration-design-rmm-tutorial-step1-ubuntu}
+{: #virt-sol-vpc-migration-design-rmm-tutorial-ubuntu-vm}
+{: step}
 
 Deploy a virtual machine on the IBM Cloud VCF-Automated instance with the following specification:
 
@@ -154,48 +155,48 @@ You may need to update the RMM version, if so via email to RackWare, request acc
 1. Obtain licenses from RackWare by emailing the generated preinstall file to RackWare licensing.
 1. To generate a preinstall file in `/etc/rackware`, run the following command using your public key name and IP address.
 
-```bash
-ssh -i ~/.ssh/sno3 root@161.156.171.81
-rwadm relicense
-```
-{: codeblock}
+   ```bash
+   ssh -i ~/.ssh/sno3 root@161.156.171.81
+   rwadm relicense
+   ```
+   {: codeblock}
 
-Example output is shown below, please note that RackWare recommend installing RMM on RHEL or Rocky 8.x servers:
+   Example output is shown below, please note that RackWare recommend installing RMM on RHEL or Rocky 8.x servers:
 
-```text
-CentOS Linux release 7.9.2009 (Core)
-Found supported RedHat/CentOS release.
-CentOS Linux release 7.9.2009 (Core)
+   ```text
+   CentOS Linux release 7.9.2009 (Core)
+   Found supported RedHat/CentOS release.
+   CentOS Linux release 7.9.2009 (Core)
 
-WARNING: This command will generate a new preinstall file, but will also INVALIDATE the existing license on next RMM restart.
-If you wish to continue using RMM till you get the new license, DO NOT STOP RMM after running this command.
-Do you wish to continue? (Y/N)  [N]: Y
-PreInstall file generated at /etc/rackware/rwlicense_preinstall_1765474883. Please email this file to licensing@rackwareinc.com to get the license.
-```
-{: screen}
+   WARNING: This command will generate a new preinstall file, but will also INVALIDATE the existing license on next RMM restart.
+   If you wish to continue using RMM till you get the new license, DO NOT STOP RMM after running this command.
+   Do you wish to continue? (Y/N)  [N]: Y
+   PreInstall file generated at /etc/rackware/rwlicense_preinstall_1765474883. Please email this file to licensing@rackwareinc.com to get the license.
+   ```
+  {: screen}
 
 1. Copy the file from `/etc/rackware` and send it to `licensing@rackwareinc.com` as an attachment.
 
-```bash
-scp -i ~/.ssh/sno3 root@161.156.171.81:'/etc/rackware/rwlicense_preinstall_*' /Work/2025/RMM/
-```
-{: pre}
+   ```bash
+   scp -i ~/.ssh/sno3 root@161.156.171.81:'/etc/rackware/rwlicense_preinstall_*' /Work/2025/RMM/
+   ```
+   {: pre}
 
 1. After receiving a valid license, download the license file to `/etc/rackware` and restart the services to apply the license by running the following command, note your filename will be different:
 
-```bash
-scp -i ~/.ssh/sno3 /Work/2025/RMM/rwlicense_1765474883_uk_ibm_POC_Mig root@161.156.171.81:/etc/rackware/
-ssh -i ~/.ssh/sno3 root@161.156.171.81
-rwadm restart
-```
-{: codeblock}
+   ```bash
+   scp -i ~/.ssh/sno3 /Work/2025/RMM/rwlicense_1765474883_uk_ibm_POC_Mig root@161.156.171.81:/etc/rackware/
+   ssh -i ~/.ssh/sno3 root@161.156.171.81
+   rwadm restart
+   ```
+   {: codeblock}
 
 1. Verify the license by running the following command and return the output to `licensing@rackwareinc.com`:
 
-```bash
-rw rmm show
-```
-{: pre}
+   ```bash
+   rw rmm show
+   ```
+   {: pre}
 
 ## Create a Transit Gateway with connections to Classic and VPC
 {: #virt-sol-vpc-migration-design-rmm-tutorial-transit-gateway}
@@ -243,76 +244,76 @@ A virtual machine was deployed on the IBM Cloud VCF-Automated instance with the 
 - Network adapter 1: T1-192-168-10-0-workload
 - Network adapter 2: mgmt-dpg-mgt
 - Firmware: EFI
-- OS:** Ubuntu 22.04
-- IP address 1:** 192.168.10.254
-- IP address 2:** 10.134.54.62
+- OS: Ubuntu 22.04
+- IP address 1: 192.168.10.254
+- IP address 2: 10.134.54.62
 
 1. To access your Ubuntu virtual machine via SSH you may need to configure SSH:
 
    1. Use the following command to configure SSH.
 
-   ```bash
-   sudo nano /etc/ssh/sshd_config
-   ```
-   {: pre}
+      ```bash
+      sudo nano /etc/ssh/sshd_config
+      ```
+      {: pre}
 
    1. Make sure these lines are set:
 
-   ```bash
-   PasswordAuthentication yes
-   PubkeyAuthentication yes
-   ChallengeResponseAuthentication no
-   UsePAM yes
-   KbdInteractiveAuthentication yes
-   ```
-   {: codeblock}
+      ```bash
+      PasswordAuthentication yes
+      PubkeyAuthentication yes
+      ChallengeResponseAuthentication no
+      UsePAM yes
+      KbdInteractiveAuthentication yes
+      ```
+      {: codeblock}
 
    1. Using **Netplan** (default on Ubuntu 18.04+), edit your network config:
 
-   ```bash
-   sudo nano /etc/netplan/50-cloud-init.yaml
-   ```
-   {: pre}
+      ```bash
+      sudo nano /etc/netplan/50-cloud-init.yaml
+      ```
+      {: pre}
 
-   Example configuration with two NICs:
+      Example configuration with two NICs:
 
-   ```yaml
-   network:
-     version: 2
-     renderer: networkd
-     ethernets:
-       ens192:  # NIC 1 - Inside network
-         addresses:
-           - 192.168.10.254/24
-         routes:
-           - to: default
-             via: 192.168.10.1
-         nameservers:
-           addresses: [8.8.8.8, 8.8.4.4]
+      ```yaml
+      network:
+        version: 2
+        renderer: networkd
+        ethernets:
+          ens192:  # NIC 1 - Inside network
+            addresses:
+              - 192.168.10.254/24
+            routes:
+              - to: default
+                via: 192.168.10.1
+            nameservers:
+              addresses: [8.8.8.8, 8.8.4.4]
 
-       ens224:  # NIC 2 - Outside network
-         addresses:
-           - 10.134.54.62/26
-         routes:
-           - to: 10.0.0.0/8
-             via: 10.134.54.1
-   ```
-   {: codeblock}
+          ens224:  # NIC 2 - Outside network
+            addresses:
+              - 10.134.54.62/26
+            routes:
+              - to: 10.0.0.0/8
+                via: 10.134.54.1
+      ```
+      {: codeblock}
 
    1. Apply the configuration:
 
-   ```bash
-   sudo netplan apply
-   ```
-   {: pre}
+      ```bash
+      sudo netplan apply
+      ```
+      {: pre}
 
    1. Verify interfaces:
 
-   ```bash
-   ip addr show
-   ip route show
-   ```
-   {: codeblock}
+      ```bash
+      ip addr show
+      ip route show
+      ```
+      {: codeblock}
 
 ## Configure bridge server
 {: #virt-sol-vpc-migration-design-rmm-tutorial-bridge-server}
@@ -323,84 +324,84 @@ This example uses an Ubuntu virtual machine hosted on the IBM Cloud VCF-Automate
 1. Connect to the virtual machine via SSH:
    1. Update the system with the following command
 
-   ```bash
-   sudo apt update && sudo apt upgrade -y
-   ```
-   {: pre}
+      ```bash
+      sudo apt update && sudo apt upgrade -y
+      ```
+      {: pre}
 
    1. Configure IP Forwarding using the following command.
 
-   ```bash
-   sudo sysctl -w net.ipv4.ip_forward=1
-   sudo sysctl -p
-   ```
-   {: codeblock}
+      ```bash
+      sudo sysctl -w net.ipv4.ip_forward=1
+      sudo sysctl -p
+      ```
+      {: codeblock}
 
    1. Verify the connection using the following command
 
-   ```bash
-   cat /proc/sys/net/ipv4/ip_forward
-   ```
-   {: pre}
+      ```bash
+      cat /proc/sys/net/ipv4/ip_forward
+      ```
+      {: pre}
 
    This should return a 1.
    1. Identify Your Network Interfaces using the following command.
 
-   ```bash
-   ip addr show
-   ```
-   {: pre}
+      ```bash
+      ip addr show
+      ```
+      {: pre}
 
-   Here is an example of what you might see with that command
+      Here is an example of what you might see with that command
 
-   ```text
-   ens192: Source VM network (192.168.10.0/24) - "inside" interface
-   ens224: RMM network (10.134.54.0/26) - "outside" interface
-   ```
-   {: screen}
+      ```text
+      ens192: Source VM network (192.168.10.0/24) - "inside" interface
+      ens224: RMM network (10.134.54.0/26) - "outside" interface
+      ```
+      {: screen}
 
    1. Configure Static NAT (1-to-1 mapping), such as the following example using `VM1: NAT IP: 10.194.177.82, Real IP: 192.168.10.11`.
 
-   ```bash
-   # Install iptables-persistent
-   sudo apt install iptables-persistent -y
+      ```bash
+      # Install iptables-persistent
+      sudo apt install iptables-persistent -y
 
-   # Clear existing rules first
-   sudo iptables -F
-   sudo iptables -t nat -F
+      # Clear existing rules first
+      sudo iptables -F
+      sudo iptables -t nat -F
 
-   # Enable forwarding
-   sudo iptables -P FORWARD ACCEPT
+      # Enable forwarding
+      sudo iptables -P FORWARD ACCEPT
 
-   # Static NAT for VM1 (192.168.10.11 <-> 10.194.177.82)
-   # Destination NAT (DNAT): Incoming traffic to 10.194.177.82 goes to 192.168.10.11
-   sudo iptables -t nat -A PREROUTING -i ens224 -d 10.194.177.82 -j DNAT --to-destination 192.168.10.11
+      # Static NAT for VM1 (192.168.10.11 <-> 10.194.177.82)
+      # Destination NAT (DNAT): Incoming traffic to 10.194.177.82 goes to 192.168.10.11
+      sudo iptables -t nat -A PREROUTING -i ens224 -d 10.194.177.82 -j DNAT --to-destination 192.168.10.11
 
-   # Source NAT (SNAT): Outgoing traffic from 192.168.10.11 appears as 10.194.177.82
-   sudo iptables -t nat -A POSTROUTING -o ens224 -s 192.168.10.11 -j SNAT --to-source 10.194.177.82
+      # Source NAT (SNAT): Outgoing traffic from 192.168.10.11 appears as 10.194.177.82
+      sudo iptables -t nat -A POSTROUTING -o ens224 -s 192.168.10.11 -j SNAT --to-source 10.194.177.82
 
-   # Static NAT for VM1 (192.168.10.12 <-> 10.194.177.83)
-   # Destination NAT (DNAT): Incoming traffic to 10.194.177.83 goes to 192.168.10.12
-   sudo iptables -t nat -A PREROUTING -i ens224 -d 10.194.177.83 -j DNAT --to-destination 192.168.10.12
+      # Static NAT for VM1 (192.168.10.12 <-> 10.194.177.83)
+      # Destination NAT (DNAT): Incoming traffic to 10.194.177.83 goes to 192.168.10.12
+      sudo iptables -t nat -A PREROUTING -i ens224 -d 10.194.177.83 -j DNAT --to-destination 192.168.10.12
 
-   # Source NAT (SNAT): Outgoing traffic from 192.168.10.12 appears as 10.194.177.83
-   sudo iptables -t nat -A POSTROUTING -o ens224 -s 192.168.10.12 -j SNAT --to-source 10.194.177.83
+      # Source NAT (SNAT): Outgoing traffic from 192.168.10.12 appears as 10.194.177.83
+      sudo iptables -t nat -A POSTROUTING -o ens224 -s 192.168.10.12 -j SNAT --to-source 10.194.177.83
 
-   # Allow forwarding between interfaces for these specific IPs
-   sudo iptables -A FORWARD -s 192.168.10.11 -j ACCEPT
-   sudo iptables -A FORWARD -d 192.168.10.11 -j ACCEPT
-   sudo iptables -A FORWARD -s 192.168.10.12 -j ACCEPT
-   sudo iptables -A FORWARD -d 192.168.10.12 -j ACCEPT
+      # Allow forwarding between interfaces for these specific IPs
+      sudo iptables -A FORWARD -s 192.168.10.11 -j ACCEPT
+      sudo iptables -A FORWARD -d 192.168.10.11 -j ACCEPT
+      sudo iptables -A FORWARD -s 192.168.10.12 -j ACCEPT
+      sudo iptables -A FORWARD -d 192.168.10.12 -j ACCEPT
 
-   # Allow established connections
-   sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+      # Allow established connections
+      sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 
-   # Add IP aliases for NAT addresses on ens224
-   # The bridge server owns these IPs directly, so it responds to ARP requests
-   sudo ip addr add 10.194.177.82/32 dev ens224
-   sudo ip addr add 10.194.177.83/32 dev ens224
-   ```
-   {: codeblock}
+      # Add IP aliases for NAT addresses on ens224
+      # The bridge server owns these IPs directly, so it responds to ARP requests
+      sudo ip addr add 10.194.177.82/32 dev ens224
+      sudo ip addr add 10.194.177.83/32 dev ens224
+      ```
+      {: codeblock}
 
 ## Generate the RMM’s ssh keys
 {: #virt-sol-vpc-migration-design-rmm-tutorial-ssh-keys}
@@ -550,83 +551,91 @@ The RMM must be able to ssh without using a password to the source server:
 - Paste the contents of the RMM public key file created earlier into the source host’s authorized_keys file for the rackware user.
 
 1. Login to your source host through SSH as user with root privileges or with full sudo privileges, and prepend ‘sudo’ to the commands on the source server.
-2. Add a route to the RMM server via the bridge server, for example in Ubuntu `sudo nano /etc/netplan/50-cloud-init.yaml`:
+1. Add a route to the RMM server via the bridge server, for example in Ubuntu `sudo nano /etc/netplan/50-cloud-init.yaml`:
 
-```yaml
-ens192:
-    dhcp4: false
-    dhcp6: false
-    addresses:
-        - 192.168.10.11/24
-    routes:
-        - to: default
-        via: 192.168.10.1
-        - to: 10.68.70.11
-        via: 192.168.10.254
-```
+   ```yaml
+   ens192:
+       dhcp4: false
+       dhcp6: false
+       addresses:
+           - 192.168.10.11/24
+       routes:
+           - to: default
+           via: 192.168.10.1
+           - to: 10.68.70.11
+           via: 192.168.10.254
+   ```
+   {: codeblock}
 
-3. Create a user `rackware`:
+1. Create a user `rackware`:
 
-```bash
-# Create the user rackware
-sudo useradd -m -s /bin/bash rackware
-```
+   ```bash
+   # Create the user rackware
+   sudo useradd -m -s /bin/bash rackware
+   ```
+   {: codeblock}
 
-4. Edit the `sudoers` file with the contents of the sudoers information contained in `opt/rackware/docs/sudo-config.txt` in the RMM server.
+1. Edit the `sudoers` file with the contents of the sudoers information contained in `opt/rackware/docs/sudo-config.txt` in the RMM server.
 
-```bash
-# Edit sudoers file on the source host
-sudo visudo
-```
+   ```bash
+   # Edit sudoers file on the source host
+   sudo visudo
+   ```
+   {: codeblock}
 
-5. Copy sudo-config.txt from RMM to bottom of sudoers file on source host:
+1. Copy sudo-config.txt from RMM to bottom of sudoers file on source host:
 
-```bash
-# ---- BEGIN RACKWARE SUDOERS CONFIGURATION ----
-# Append this file to /etc/sudoers
-# Example:
-# cat sudo-config.txt >> /etc/sudoers
+   ```bash
+   # ---- BEGIN RACKWARE SUDOERS CONFIGURATION ----
+   # Append this file to /etc/sudoers
+   # Example:
+   # cat sudo-config.txt >> /etc/sudoers
 
-User_Alias RW_MGMT_USERS = rackware
+   User_Alias RW_MGMT_USERS = rackware
 
-Runas_Alias RW_MGMT_RUNAS_USER = root
+   Runas_Alias RW_MGMT_RUNAS_USER = root
 
-RW_MGMT_USERS ALL=(RW_MGMT_RUNAS_USER) NOPASSWD: ALL
+   RW_MGMT_USERS ALL=(RW_MGMT_RUNAS_USER) NOPASSWD: ALL
 
-Defaults:RW_MGMT_USERS !requiretty
-# ---- END RACKWARE SUDOERS CONFIGURATION ----
-```
+   Defaults:RW_MGMT_USERS !requiretty
+   # ---- END RACKWARE SUDOERS CONFIGURATION ----
+   ```
+   {: codeblock}
 
-```bash
-# Create .ssh directory and authorized_key file for rackware user on source host
-sudo su - rackware
-mkdir -p /home/rackware/ .ssh
-touch /home/rackware/.ssh/authorized_keys
-chmod 700 ~/.ssh/
-chmod 600 ~/.ssh/authorized_keys
-vi /home/rackware/.ssh/authorized_keys
-```
+   ```bash
+   # Create .ssh directory and authorized_key file for rackware user on source host
+   sudo su - rackware
+   mkdir -p /home/rackware/ .ssh
+   touch /home/rackware/.ssh/authorized_keys
+   chmod 700 ~/.ssh/
+   chmod 600 ~/.ssh/authorized_keys
+   vi /home/rackware/.ssh/authorized_keys
+   ```
+   {: codeblock}
 
-6. Paste the contents of the RMM public key file created earlier into the source host’s authorized_keys file for the rackware user.
+1. Paste the contents of the RMM public key file created earlier into the source host’s authorized_keys file for the rackware user.
+1. You may need to enable RSA keys in some Linux distros e.g. Ubuntu 22.04 by editing the SSH server config:
 
-7. You may need to enable RSA keys in some Linux distros e.g. Ubuntu 22.04 by editing the SSH server config:
+   ```bash
+   sudo nano /etc/ssh/sshd_config
+   ```
+   {: codeblock}
 
-```bash
-sudo nano /etc/ssh/sshd_config
-```
-8. Add this line at the end of the file:
+1. Add this line at the end of the file:
 
-```bash
-PubkeyAcceptedAlgorithms +ssh-rsa
-```
+   ```bash
+   PubkeyAcceptedAlgorithms +ssh-rsa
+   ```
+   {: codeblock}
 
-9. Save and exit (Ctrl+X, Y, Enter) and then restart SSH:
+1. Save and exit (Ctrl+X, Y, Enter) and then restart SSH:
 
-```bash
-sudo systemctl restart sshd
-```
+   ```bash
+   sudo systemctl restart sshd
+   ```
+   {: codeblock}
 
-10. Test connectivity between your RMM and the source virtual machine e.g. `ssh rackware@10.194.177.82`. You should connect without being prompted for a password.
+1. Test connectivity between your RMM and the source virtual machine e.g. `ssh rackware@10.194.177.82`. You should connect without being prompted for a password.
 
 ### Windows Source virtual machine
 {: #virt-sol-vpc-migration-design-rmm-tutorial-prepare-source-vm-windows}
@@ -660,6 +669,7 @@ New-NetFirewallRule `
   -Action Allow `
   -Profile Any
 ```
+{: codeblock}
 
 To install Rackware SSHD Service in the source virtual machine:
 
