@@ -14,7 +14,7 @@ account-plan: paid
 completion-time: 60m
 use-case: ApplicationModernization
 industry: Software and platform applications
-compliance: FedRAMP 
+compliance: HIPPA
 
 ---
 
@@ -197,7 +197,7 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 
    - Select Cold migration (default) (VM is shut down during data copy) or Warm migration (VM runs during precopy stage, minimizing downtime).
 
-6. Other Settings (Optional)
+1. Other Settings (Optional)
 
    - Disk decryption passphrases: Enter passphrases for Linux Unified Key Setup (LUKS) encrypted devices.
    - Transfer Network: Optionally override the provider's default transfer network. Note: If the OpenShift transfer network MTU is changed, the VMware migration network MTU must also be adjusted.
@@ -244,7 +244,6 @@ Running and Monitoring
    - The cutover stage, which involves shutting down the source VM and transferring the final delta, must be initiated manually by clicking **Cutover**.
    - The Cutover window allows you to **Set cutover** (schedule time/date) or **Remove cutover** (cancel a scheduled time).
    - Before cutover, stop applications, middleware, and database services on source VMs. This step is not required by MTV but is recommended to minimize data changes during cutover.
-
 
 1. Monitoring
 
@@ -319,59 +318,59 @@ Running and Monitoring
 
     a. Warm import retry limit reached
 
-    - Cause: Warm migration created more than the maximum 28 CBT snapshots.
-    - Resolution:
-        - Delete older CBT snapshots on the source VM.
-        - Ensure snapshot churn is reduced (increase precopy interval if appropriate).
-        - Restart the migration plan.
+       - Cause: Warm migration created more than the maximum 28 CBT snapshots.
+       - Resolution:
+           - Delete older CBT snapshots on the source VM.
+           - Ensure snapshot churn is reduced (increase precopy interval if appropriate).
+           - Restart the migration plan.
 
     b. Unable to resize disk image to required size
 
-    - Cause: Destination VM persistent volumes (EXT4 on block storage) exceed the default 10% filesystem overhead assumed by CDI, leaving insufficient space for the root partition.
-    - Resolution:
-        - Edit the ForkliftController CR.
-        - Increase controller_filesystem_overhead (set to a value > 0.10, for example 0.15).
-        - Apply the change and re-run the migration.
+       - Cause: Destination VM persistent volumes (EXT4 on block storage) exceed the default 10% filesystem overhead assumed by CDI, leaving insufficient space for the root partition.
+       - Resolution:
+           - Edit the ForkliftController CR.
+           - Increase controller_filesystem_overhead (set to a value > 0.10, for example 0.15).
+           - Apply the change and re-run the migration.
 
     c. Migration plan fails after creation
 
-    - Cause: VDDK image pull denied; validator pod cannot authenticate to internal registry.
-    - Resolution:
-        - Grant pull access: `oc adm policy add-cluster-role-to-user registry-viewer system:serviceaccount:<target-namespace>:default`
-        - Run via Web Terminal or local oc CLI.
+       - Cause: VDDK image pull denied; validator pod cannot authenticate to internal registry.
+       - Resolution:
+           - Grant pull access: `oc adm policy add-cluster-role-to-user registry-viewer system:serviceaccount:<target-namespace>:default`
+           - Run via Web Terminal or local oc CLI.
 
     d. Migration plan fails during initialize phase
 
-    - Cause: Importer pod cannot resolve ESXi hostnames; DNS lookup fails for port 902 host connections.
-    - Resolution:
-        - Configure DNS forwarding/zone for the vCenter/ESXi domain.
-        - Add forwarding zone pointing to domain controllers.
-        - Example:
+       - Cause: Importer pod cannot resolve ESXi hostnames; DNS lookup fails for port 902 host connections.
+       - Resolution:
+           - Configure DNS forwarding/zone for the vCenter/ESXi domain.
+           - Add forwarding zone pointing to domain controllers.
+           - Example:
 
-            ```yaml
-            servers:
-            - forwardPlugin:
-                    policy: Random
-                    upstreams:
-                    - <Domain Controller IP1>
-                    - <Domain Controller IP2>
-                name: vcs-resolver
-                zones:
-                - vcs.example.com
-            ```
-            {: codeblock}
+              ```yaml
+               servers:
+               - forwardPlugin:
+                       policy: Random
+                       upstreams:
+                       - <Domain Controller IP1>
+                       - <Domain Controller IP2>
+                   name: vcs-resolver
+                   zones:
+                   - vcs.example.com
+               ```
+               {: codeblock}
 
-        - Apply DNS change.
+           - Apply DNS change.
 
     e. virt-v2v: filesystem mounted read-only
 
-    - Cause: Source Windows VM was not cleanly shut down (Fast Startup or hibernation left filesystem dirty) before exporting the OVA.
-    - Resolution:
-        - Disable Fast Startup: Control Panel > Power Options > Choose what the power buttons do > Uncheck "Turn on fast startup".
-        - Disable hibernation (elevated cmd): powercfg /h off
-        - Perform a clean shutdown: shutdown /s /t 0
-        - Re-export the OVA after the clean shutdown.
-        - Upload the new OVA to the NFS server and retry OVA migration.
+       - Cause: Source Windows VM was not cleanly shut down (Fast Startup or hibernation left filesystem dirty) before exporting the OVA.
+       - Resolution:
+           - Disable Fast Startup: Control Panel > Power Options > Choose what the power buttons do > Uncheck "Turn on fast startup".
+           - Disable hibernation (elevated cmd): powercfg /h off
+           - Perform a clean shutdown: shutdown /s /t 0
+           - Re-export the OVA after the clean shutdown.
+           - Upload the new OVA to the NFS server and retry OVA migration.
 
 ## Additional Resources
 {: #additional-resources}
