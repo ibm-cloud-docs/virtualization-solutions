@@ -12,9 +12,11 @@ content-type: tutorial
 services: Registry, OpenShift, OpenShift Virtualization, VMware
 account-plan: paid
 completion-time: 60m
+use-case: ApplicationModernization
+industry: Software and platform applications
+compliance: FedRAMP 
 
 ---
-
 
 {{site.data.keyword.attribute-definition-list}}
 
@@ -24,6 +26,9 @@ completion-time: 60m
 {: toc-content-type="tutorial"}
 {: toc-services="Registry, OpenShift, OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
+{: toc-use-case="ApplicationModernization"}
+{: toc-industry="Software and platform applications"}
+{: toc-compliance="HIPPA"}
 
 This document provides a comprehensive guide to migrating virtual machines from VMware vSphere to OpenShift Virtualization using the Migration Toolkit for Virtualization (MTV), including prerequisites, installation, and step-by-step migration processes.
 {: shortdesc}
