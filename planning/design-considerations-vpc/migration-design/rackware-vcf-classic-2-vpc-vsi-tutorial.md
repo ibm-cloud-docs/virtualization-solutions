@@ -140,7 +140,7 @@ Use the VPC product documentation to:
 1. [Create a SSH key](/docs/vpc?topic=vpc-creating-vpc-resources-with-cli-and-api&interface=cli#add-ssh-key-cli).
 1. Deploy the RMM server from the IBM Cloud catalog.
 
-The RMM server has a public IP address for connectivity and a default login.
+   The RMM server has a public IP address for connectivity and a default login.
 
 1. After you deploy, log in to the RMM server.
 1. In the RMM server, change the default password, create users, and create an SSH key.
@@ -727,9 +727,9 @@ RackWare RMM follows a phased approach that minimizes downtime through delta syn
 1. Delta Sync(s) - Multiple delta syncs can be performed to keep target up-to-date with only changed files
 1. Final Sync/Cutover - The actual cutover with minimal downtime. It is recommended that any applications are quiesced, while performing the final delta sync
 
-Once the source virtual machines has been prepared and the RMM can ssh to them, and the information for the target virtual server instances has been obtained, the virtual machine's workload can be migrated from the source virtual machines to the target virtual server instances using the RMM GUI.
+   Once the source virtual machines has been prepared and the RMM can ssh to them, and the information for the target virtual server instances has been obtained, the virtual machine's workload can be migrated from the source virtual machines to the target virtual server instances using the RMM GUI.
 
-You can migrate servers one by one or run multiple, simultaneous migrations. If you are running multiple, simultaneous migrations, then download the CSV template from the RMM server and populate the appropriate fields. In this tutorial we will not be using this method.
+   You can migrate servers one by one or run multiple, simultaneous migrations. If you are running multiple, simultaneous migrations, then download the CSV template from the RMM server and populate the appropriate fields. In this tutorial we will not be using this method.
 
 1. To bring up the GUI, point a web browser at the Floating IP address of the RMM server.
 1. Use `admin` as the Username. `rackware` is the default Password. If you have not already changed the password for the `admin` user, do so by using the standard Linux ‘passwd’ command. Press the Login button. The RMM home page will then be shown.
