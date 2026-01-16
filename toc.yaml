@@ -27,6 +27,10 @@ toc:
       - topicgroup:
           label: OpenShift Virtualization
           topics:
+          - topic: planning/design-considerations-openshift/migration-design/migration-design.md
+            navtitle: Red Hat OpenShift Migration Infrastucture Design
+          - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
+            navtitle: Migration Workloads to Red Hat OpenShift Virtualization
           - topicgroup:
               label: Workload Migration
               topics:
@@ -101,10 +105,6 @@ toc:
       - topicgroup:
           label: OpenShift Virtualization
           topics:
-          - topic: planning/design-considerations-openshift/migration-design/migration-design.md
-            navtitle: Red Hat OpenShift Migration Infrastucture Design
-          - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
-            navtitle: Migration Workloads to Red Hat OpenShift Virtualization
           - topic: planning/design-considerations-openshift/migration-design/migration-workflow.md
             navtitle: Migration Workflow
       - topicgroup:
