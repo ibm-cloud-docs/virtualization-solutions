@@ -2,14 +2,14 @@
 
 copyright:
    years: 2025
-lastupdated: "2026-01-15"
+lastupdated: "2026-01-19"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, MTV, Migration
 
 subcollection: virtualization-solutions
 
 content-type: tutorial
-services: Registry, OpenShift, OpenShift Virtualization, VMware
+services: OpenShift Virtualization, VMware
 account-plan: paid
 completion-time: 60m
 use-case: ApplicationModernization
@@ -24,7 +24,7 @@ compliance: HIPPA
 {: #vsphere-openshift-migration}
 {: #tutorial-migration-toolkit}
 {: toc-content-type="tutorial"}
-{: toc-services="Registry, OpenShift, OpenShift Virtualization, VMware"}
+{: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 {: toc-use-case="ApplicationModernization"}
 {: toc-industry="Software and platform applications"}
