@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-19"
+lastupdated: "2026-01-20"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
 
@@ -173,7 +173,7 @@ You may need to update the RMM version, if so via email to RackWare, request acc
    Do you wish to continue? (Y/N)  [N]: Y
    PreInstall file generated at /etc/rackware/rwlicense_preinstall_1765474883. Please email this file to licensing@rackwareinc.com to get the license.
    ```
-  {: screen}
+   {: screen}
 
 1. Copy the file from `/etc/rackware` and send it to `licensing@rackwareinc.com` as an attachment.
 
