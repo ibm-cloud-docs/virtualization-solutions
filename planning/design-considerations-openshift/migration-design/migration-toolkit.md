@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-15"
+lastupdated: "2026-01-20"
 
 keywords: migration, warm migration, cold migration, mtv, red hat openShift migration toolkit for virtualization, migration toolkit for virtualization
 
@@ -22,7 +22,7 @@ MTV provides a web UI and API for discovery, planning, and execution of migratio
 
 For VMware migrations, the Migration Toolkit for Virtualization (MTV) integrates with vCenter to discover virtual machines and inventory data, map virtual machine resources (clusters, networks, data stores) to Red Hat OpenShift equivalents, and automate bulk or selective migrations. It supports disk data transfer with warm or cold migration, preserves virtual machine configuration (CPU, memory, NICs), and converts VMware constructs into Kubernetes-native resources for seamless execution in Red Hat OpenShift Virtualization.
 
-### Migration Types Supported
+## Migration Types Supported
 {: #migration-types-supported}
 
 Migration Toolkit for Virtualization supports the following types of VM migration.
