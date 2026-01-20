@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "title": "Virtualization Solutions",
+  "introduction": "Virtualization on IBM Cloud® provides enterprises with a scalable and secure foundation for running their virtualized workloads in a public cloud environment. By abstracting physical resources into virtualized environments, organizations can optimize their infrastructure utilization, reduce operational complexity, and accelerate application delivery. ",
+  "product_page": "https://www.ibm.com/solutions/virtualization",
+  "section_topics": {
+    "links": [
+      {
+        "title": "Getting started with Virtual Private Cloud (VPC)",
+        "href": "/docs/vpc?topic=vpc-getting-started"
+      },
+      {
+        "title": "Getting started with Red Hat OpenShift on IBM Cloud",
+        "href": "/docs/openshift?topic=openshift-getting-started"
+      },
+      {
+        "title": "Installing the OpenShift Virtualization Operator on Red Hat OpenShift on IBM Cloud clusters",
+        "href": "/docs/openshift?topic=openshift-oc-virtualization"
+      }
+    ]
+  },
+  "section_highlights": [
+    {
+      "title": "Migrate VMware Workloads to IBM Cloud Red Hat OpenShift Virtualization",
+      "description": "Migrate enterprise production grade VMware workloads from on premises or hyperscaler VMware based environments to IBM Cloud Red Hat OpenShift Virtualization",
+      "href": "https://cloud.ibm.com/docs/pattern-migrate-os-virtualization?topic=pattern-migrate-os-virtualization-openshift-virt-arch",
+      "type": "blog"
+    }
+  ],
+  "section_architectures": [
+    {
+      "title": "OpenShift Virtualization Reference Architecture",
+      "href": "/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture",
+      "deployable": false
+    },
+    {
+      "title": "VPC VSI Reference Architecture",
+      "href": "/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vsi-architecture",
+      "deployable": false
+    }
+  ],
+  "section_updates": {
+    "view_more": "/docs/virtualization-solutions?topic=virtualization-solutions-overview",
+    "tiles": [
+      {
+        "date": "01 December 2025",
+        "title": "Initial Release"
+      }
+    ]
+  }
+}

@@ -1,0 +1,128 @@
+toc:
+  properties:
+    subcollection: virtualization-solutions
+    href: /docs/virtualization-solutions
+    path: virtualization-solutions
+    audience: solution
+    category: solution_docs
+    content-type: solution
+    use-case: Virtualization
+    description: This documentation summarizes IBM Cloud Virtualization Solutions available.
+    label: Virtualization Solutions
+  entries:
+  - navgroup:
+      id: overview
+      topics:
+      - overview/overview.md
+  - navgroup:
+      id: architecture
+      topics:
+      - topic: reference-architectures/reference-architecture-openshift.md
+        navtitle: OpenShift Virtualization Architecture
+      - topic: reference-architectures/reference-architecture-vsi.md
+        navtitle: Virtual Servers for VPC Architecture
+  - navgroup:
+      id: plan
+      topics:
+      - topicgroup:
+          label: OpenShift Virtualization
+          topics:
+          - topic: planning/design-considerations-openshift/migration-design/migration-design.md
+            navtitle: Red Hat OpenShift Migration Infrastucture Design
+          - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
+            navtitle: Migration Workloads to Red Hat OpenShift Virtualization
+          - topicgroup:
+              label: Workload Migration
+              topics:
+              - topic: planning/design-considerations-openshift/migration-design/migration-toolkit.md
+                navtitle: Migration Toolkit for Virtualization
+              - topic: planning/design-considerations-openshift/migration-design/vmware-requirements.md
+                navtitle: VMware Requirements
+          - topic: planning/design-considerations-openshift/security-design.md
+            navtitle: Security
+          - topic: planning/design-considerations-openshift/resiliency-design.md
+            navtitle: Resiliency
+          - topic: planning/design-considerations-openshift/observability-design.md
+            navtitle: Observability
+          - topic: planning/design-considerations-openshift/storage-design.md
+            navtitle: Storage
+          - topic: planning/design-considerations-openshift/compute-design.md
+            navtitle: Compute
+          - topic: planning/design-considerations-openshift/networking-design.md
+            navtitle: Networking
+      - topicgroup:
+          label: Virtual servers on VPC
+          topics:
+          - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
+            navtitle: Overview VMware to Virtual Servers on VPC migration
+          - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
+            navtitle: Overview Virtual Servers migration design
+          - topicgroup:
+              label: Workload Migration
+              topics:
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-1-premigration.md
+                navtitle: Pre-migration
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-2-wave.md
+                navtitle: Wave Planning
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-3-postmigration.md
+                navtitle: Post-migration
+              - topic: planning/design-considerations-vpc/migration-design/migration-design-4-risk.md
+                navtitle: Risk Mitigation
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-0-overview.md
+                navtitle: Migration Methods
+              - topic: planning/design-considerations-vpc/migration-design/migration-considerations-linux.md
+                navtitle: Linux Considerations
+              - topic: planning/design-considerations-vpc/migration-design/migration-considerations-windows.md
+                navtitle: Windows Considerations
+          - topic: planning/design-considerations-vpc/security-design.md
+            navtitle: Security
+          - topic: planning/design-considerations-vpc/resiliency-design.md
+            navtitle: Resiliency
+          - topic: planning/design-considerations-vpc/observability-design.md
+            navtitle: Observability
+          - topic: planning/design-considerations-vpc/storage-design.md
+            navtitle: Storage
+          - topic: planning/design-considerations-vpc/compute-design.md
+            navtitle: Compute
+          - topic: planning/design-considerations-vpc/networking-design.md
+            navtitle: Networking
+  - navgroup:
+      id: tutorial
+      topics:
+      - topicgroup:
+          label: OpenShift Virtualization
+          topics:
+          - topic: tutorial/openshift/migration-toolkit.md
+            navtitle: Migration Toolkit Tutorial
+      - topicgroup:
+          label: Virtual servers on VPC
+          topics:
+          - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-tutorial.md
+            navtitle: RackWare Tutorial
+  - navgroup:
+      id: howto
+      topics:
+      - topicgroup:
+          label: OpenShift Virtualization
+          topics:
+          - topic: planning/design-considerations-openshift/migration-design/migration-workflow.md
+            navtitle: Migration Workflow
+      - topicgroup:
+          label: Virtual servers on VPC
+          topics:
+          - topicgroup:
+              label: Migrating virtual server options
+              topics:
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-1.md
+                navtitle: Image Import (Template-Based Migration)
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-2.md
+                navtitle: Copying direct volume (multi-disk method)
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-3.md
+                navtitle: Live Network Transfer
+              - topic: planning/design-considerations-vpc/migration-design/migration-method-4.md
+                navtitle: VDDK Direct Extraction
+  - navgroup:
+      id: reference
+      topics:
+      - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-guide.md
+        navtitle: RackWare Technical Guide
