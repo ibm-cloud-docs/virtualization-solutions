@@ -34,14 +34,12 @@ You need to create a VPC to provision a ROKS cluster.
 ### Default private networking with subnets
 {: #virt-sol-openshift-network-design-vpc-subnets}
 
-You need to create a VPC subnet in at least one Availability Zone to provision a ROKS cluster. For more information, see [Default private networking with subnets](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design#virt-sol-openshift-network-design-vpc-subnets).
-
-
+You need to create a VPC subnet in at least one Availability Zone to provision a ROKS cluster. For more information, see [Default private networking with subnets](/docs/openshift?topic=openshift-vpc-subnets).
 
 ### Load-balancers
 {: #virt-sol-openshift-network-design-vpc-lb}
 
-A Red Hat OpenShift Ingress controller is deployed to your Red Hat OpenShift Kubernetes Service (ROKS) cluster that functions as the ingress endpoint for external network traffic. In a ROKS cluster, a VPC Application Load Balancer is automatically created per cluster to expose the Ingress controller. For more information, see [Load-balancers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design#virt-sol-openshift-network-design-vpc-lb).
+A Red Hat OpenShift Ingress controller is deployed to your Red Hat OpenShift Kubernetes Service (ROKS) cluster that functions as the ingress endpoint for external network traffic. In a ROKS cluster, a VPC Application Load Balancer is automatically created per cluster to expose the Ingress controller. For more information, see [Load-balancers](/docs/openshift?topic=openshift-setup_vpc_alb).
 
 ROKS does the following:
 
@@ -53,9 +51,7 @@ ROKS does the following:
 ### Virtual Private Endpoints
 {: #virt-sol-openshift-network-design-vpc-vpe}
 
-See [Virtual Private Endpoints](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design#virt-sol-openshift-network-design-vpc-vpe).
-
-VPEs in ROKS environments are primarily used to enable **private connectivity between the OpenShift cluster and IBM Cloud platform services** without traffic traversing the public internet.
+Virtual Private Endpoints (VPE) in ROKS environments are primarily used to enable **private connectivity between the OpenShift cluster and IBM Cloud platform services** without traffic traversing the public internet.
 
 The following tables lists all the virtual private endpoints that are automatically provisioned by IBM Cloud for essential cluster operations.
 
