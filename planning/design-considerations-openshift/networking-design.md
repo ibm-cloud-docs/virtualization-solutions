@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2026-01-09"
+lastupdated: "2026-01-21"
 
 keywords: ROKS, network, layer2, localnet
 
@@ -34,12 +34,14 @@ You need to create a VPC to provision a ROKS cluster.
 ### Default private networking with subnets
 {: #virt-sol-openshift-network-design-vpc-subnets}
 
-You need to create a VPC subnet in at least one Availability Zone to provision a ROKS cluster. For more information, see [Default private networking with subnets](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-subnets).
+You need to create a VPC subnet in at least one Availability Zone to provision a ROKS cluster. For more information, see [Default private networking with subnets](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design#virt-sol-openshift-network-design-vpc-subnets).
+
+
 
 ### Load-balancers
 {: #virt-sol-openshift-network-design-vpc-lb}
 
-A Red Hat OpenShift Ingress controller is deployed to your Red Hat OpenShift Kubernetes Service (ROKS) cluster that functions as the ingress endpoint for external network traffic. In a ROKS cluster, a VPC Application Load Balancer is automatically created per cluster to expose the Ingress controller. For more information, see [Load-balancers](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-lb).
+A Red Hat OpenShift Ingress controller is deployed to your Red Hat OpenShift Kubernetes Service (ROKS) cluster that functions as the ingress endpoint for external network traffic. In a ROKS cluster, a VPC Application Load Balancer is automatically created per cluster to expose the Ingress controller. For more information, see [Load-balancers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design#virt-sol-openshift-network-design-vpc-lb).
 
 ROKS does the following:
 
@@ -51,7 +53,7 @@ ROKS does the following:
 ### Virtual Private Endpoints
 {: #virt-sol-openshift-network-design-vpc-vpe}
 
-See [Virtual Private Endpoints](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-vpe).
+See [Virtual Private Endpoints](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design#virt-sol-openshift-network-design-vpc-vpe).
 
 VPEs in ROKS environments are primarily used to enable **private connectivity between the OpenShift cluster and IBM Cloud platform services** without traffic traversing the public internet.
 
@@ -65,17 +67,7 @@ The following tables lists all the virtual private endpoints that are automatica
 | iks-<cluster_id> | Specific Cluster Instance | - Private endpoint specific to your cluster instance  \n - Direct cluster API access  \n - Used for private-only cluster configurations  \n - Alternative to regional API endpoint  \n - Used by Tools requiring direct cluster access, Service-to-service communication within VPC, Private cluster access patterns |
 | iks-cos-config | Cloud Object Storage (Config) | - Private access to IBM Cloud Object Storage configuration API  \n - Bucket management and configuration operations  \n - IAM policy and access control management  \n - Service credential operations |
 | iks-cos | Cloud Object Storage (Data) | - Private access to IBM Cloud Object Storage S3 API  \n - Object storage data plane operations (PUT/GET/DELETE)  \n - Backup and restore data transfer  \n - Application data storage access |
-{: caption="Virtual private endpoings provisioned for cluster operations." caption-side="bottom"}
-
-### External connectivity
-{: #virt-sol-openshift-network-design-vpc-external}
-
-For more information, see [External connectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-external).
-
-### Interconnectivity
-{: #virt-sol-openshift-network-design-vpc-interconnectivity}
-
-For more information, see [Interconnectivity](/docs/virtualization-solutions?topic=virt-sol-network-design-vpc-networking-interconnectivity).
+{: caption="Virtual private endpoints provisioned for cluster operations." caption-side="bottom"}
 
 ## Red Hat OpenShift Virtualization Networking
 {: #virt-sol-openshift-network-design-openshift}
