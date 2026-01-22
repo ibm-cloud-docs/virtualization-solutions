@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-14"
+lastupdated: "2026-01-22"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -32,7 +32,7 @@ This guide is organized into general principals, DIY migration, and RackWare RMM
 {: #virt-sol-vpc-migration-design-migration-principles}
 
 * [Pre-Migration Design Decisions](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-premigration)
-* [Wave Planning and Execution Design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-waveß)
+* [Wave Planning and Execution Design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-wave)
 * [Post-Migration Validation and Optimization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-post)
 * [Risk Mitigation and Rollback Strategies](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-risk)
 
