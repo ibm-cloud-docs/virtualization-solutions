@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-20"
+lastupdated: "2026-01-22"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
 
@@ -13,7 +13,7 @@ services: OpenShift Virtualization, VMware
 account-plan: paid
 completion-time: 60m
 use-case: ApplicationModernization
-industry: Software and platform applications
+industry: SoftwareAndPlatformApplications
 compliance: HIPPA
 
 ---
