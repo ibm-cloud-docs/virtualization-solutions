@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-22"
+lastupdated: "2026-01-26"
 
 keywords:
 
@@ -43,7 +43,7 @@ The following table outlines the products or services that are used in the archi
 
 | Component | Architecture components | How the component is used |
 | -------------- | -------------- | -------------- |
-| [**Workload Migration**](/docs/virtualization-solutions?topic=virt-sol-vpc-migration-design-migration#virt-sol-vpc-migration-design-migration-principles) | IBM Consulting and expert labs | Professional services organizations that provide migration and deployment services. |
+| [**Workload Migration**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-migration) | IBM Consulting and expert labs | Professional services organizations that provide migration and deployment services. |
 | | 3rd-party migration tools | Tools that are in the {{site.data.keyword.cloud_notm}} catalog such as RackWare RMM, Wanclouds. |
 | | Self-service | Direct migration by using image import, instance provisioning, and configuration management tools. |
 | [**Security**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-security-design-overview) | 3rd party Virtual network functions | 3rd party firewalls |
