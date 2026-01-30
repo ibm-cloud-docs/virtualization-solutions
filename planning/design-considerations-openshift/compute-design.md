@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-01-09"
+  years: 2025, 2026
+lastupdated: "2026-01-23"
 
-keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
+keywords: ROKS, red hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
 subcollection: virtualization-solutions
 
@@ -12,41 +12,40 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Compute Design for OpenShift Virtualization
+# Compute design for Red Hat OpenShift virtualization
 {: #virt-sol-openshift-compute-design}
 
-IBM Cloud VPC provides a comprehensive portfolio of compute options designed to support diverse workloads, from traditional applications to modern cloud-native solutions. These offerings deliver flexibility, scalability, and enterprise-grade security, enabling organizations to deploy workloads across virtualized, containerized, and bare metal environments.
+{{site.data.keyword.cloud}} provides compute options that support diverse workloads, from traditional applications to modern cloud-native solutions. These offerings deliver flexibility, scalability, and enterprise-grade security, that help you deploy diverse workloads.
+{: shortdesc}
 
-Key IBM Cloud VPC compute options:
+IBM Cloud VPC offers two compute options:
 
-- Virtual Servers for VPC
-- Bare Metal Servers for VPC
-
-IBM Cloud VPC compute solutions empower businesses to select the optimal infrastructure for their needs—whether optimizing cost, achieving high performance, or enabling hybrid and multicloud strategies.
+- [Virtual servers](/docs/vpc?topic=vpc-about-advanced-virtual-servers)
+- [Bare metal server](/docs/vpc?topic=vpc-about-bare-metal-servers)
 
 The key compute architecture elements are shown in the following diagram.
 
 ![Red Hat OpenShift Virtualization on IBM Cloud Compute](../../images/openshift/openshift-virtualization-high-level-compute.svg "Red Hat OpenShift Virtualization on IBM Cloud Compute"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Compute" caption-side="bottom"}
 
-## Red Hat OpenShift Worker Nodes
+## Red Hat OpenShift worker nodes
 {: #virt-sol-openshift-compute-design-workers}
 
-{{site.data.keyword.openshiftshort}} (ROKS) is a managed Kubernetes service on IBM Cloud that allows you to create OpenShift clusters where you can deploy and manage virtualized and containerized applications. Combined with an intuitive user experience, built-in security and isolation, and advanced tools to secure, manage, and monitor your cluster workloads, you can rapidly deliver highly available and secure containerized applications.
+{{site.data.keyword.openshiftshort}} (ROKS) is a managed Kubernetes service that uses Red Hat OpenShift clusters where you can deploy and manage virtualized and containerized applications. A ROKS cluster has a managed control plane and one or more worker pools. A worker pool consists of two or more compute hosts that are called worker nodes. Worker pools contain worker nodes of the same profile of CPU, memory, operating system, attached storage, and other properties. The worker nodes are managed by the Kubernetes control plane, which controls and monitors all Kubernetes resources that are in the cluster. The Kubernetes scheduler decides which worker node to deploy resources on and accounts for deployment requirements and available capacity in the cluster.
 
-A ROKS cluster consists of a managed control plane and one or more Worker Pools. A Worker Pool consists of two or more compute hosts called Worker Nodes. Worker Pools contain Worker Nodes of the same profile of CPU, memory, operating system, attached storage, and other properties. The Worker Nodes are managed by the Kubernetes control plane, which centrally controls and monitors all Kubernetes resources in the cluster. The Kubernetes scheduler decides which worker node to deploy resources on, accounting for deployment requirements and available capacity in the cluster.
+After a cluster is created, you can add more worker nodes to a pool by resizing it or by adding extra worker pools. Clusters that have a worker pool in only one zone are called single zone clusters. For high availability, you can create multizone clusters with worker pools that span multiple availability zones. You can create multizone clusters, but they are not recommended for virtualization workloads because of storage latency.
 
-After cluster creation, you can add more worker nodes to a pool by resizing it or by adding additional worker pools. Clusters that have a worker pool in only one zone are called single zone clusters. For high availability, you can create multizone clusters with worker pools spanning multiple availability zones. While multizone clusters can be created they are not recommended for virtualization workloads because of the storage latency introduced by this design.
+IBM Cloud Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads because Red Hat supports only bare metal worker nodes for production virtualized workloads. The bare metal nodes must be provisioned with local NVMe drives so they can be used by Red Hat OpenShift Data Foundation (ODF) as backing storage.
 
-IBM Cloud Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads as Red Hat only supports bare metal worker nodes for production virtualized workloads. The bare metal nodes should be provisioned with local NVMe drives so they can be consumed by OpenShift Data Foundation (ODF) as backing storage, providing the software-defined storage resources required for VM persistent volumes.
-
-For more information, refer to [IBM Cloud Docs - OpenShift Overview](https://cloud.ibm.com/docs/openshift?topic=openshift-overview).
+For more information, see to [Red Hat OpenShift overview](https://cloud.ibm.com/docs/openshift?topic=openshift-overview).
 
 ## IBM Cloud Virtual Servers for VPC
 {: #virt-sol-openshift-compute-design-vsi}
 
-IBM Cloud Virtual Servers for VPC provide secure, isolated virtual machines deployed within a Virtual Private Cloud environment. These instances deliver enterprise-grade compute for production workloads, and development and test environments requiring flexible resource allocation and comprehensive infrastructure control.
+IBM Cloud Virtual Servers for VPC provide secure, isolated virtual machines that are deployed within a Virtual Private Cloud environment. You can use these instances for production workloads, and development and test environments that require flexible resource allocation and comprehensive infrastructure control.
 
-The following tables lists the key features for IBM Cloud Virtual Servers for VPC.
+For more information about virtual servers, see [About virtual server instances for VPC](/docs/vpc?topic=vpc-about-advanced-virtual-servers).
+
+The following table lists the key features for IBM Cloud Virtual Servers for VPC.
 
 | Feature | Description |
 | -------------- | -------------- |
@@ -58,25 +57,25 @@ The following tables lists the key features for IBM Cloud Virtual Servers for VP
 | Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
 {: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
 
-For more information on virtual server instance profiles supported by ROKS, see [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
+For more information about virtual server instance profiles that are supported by ROKS, see [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
 
 ## IBM Cloud Bare Metal Servers for VPC
 {: #virt-sol-openshift-compute-design-bms}
 
-IBM Cloud Bare Metal Servers for VPC provide single-tenant, dedicated physical servers for your workloads, delivering maximum performance, security, and control. These servers are required for production deployments of Red Hat OpenShift Virtualization on IBM Cloud.
+IBM Cloud Bare Metal Servers for VPC provide single-tenant, dedicated physical servers that deliver maximum performance, security, and control. These servers are required for production deployments of Red Hat OpenShift Virtualization.
 
-The following tables lists the key features for IBM Cloud Bare Metal Servers for VPC.
+The following table lists the key features for IBM Cloud Bare Metal Servers for VPC.
 
 | Feature | Description |
 | -------------- | -------------- |
 | Single-tenant isolation | Dedicated physical hardware with no resource sharing |
-| High-performance NVMe storage | Local NVMe drives for OpenShift Data Foundation deployments |
-| Consistent performance | Predictable, bare-metal performance without virtualization overhead |
+| High-performance NVMe storage | Local NVMe drives for Red Hat OpenShift Data Foundation deployments |
+| Consistent performance | Predictable performance without virtualization resource overuse |
 | Large memory configurations | Support for memory-intensive virtualization workloads |
 | Network performance | High-bandwidth, low-latency networking for VM traffic |
 {: caption="IBM Cloud Bare Metal Servers for VPC key features" caption-side="bottom"}
 
-Bare Metal worker nodes supported by ROKS varies by region and Availability Zone and can be checked at [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
+Bare Metal worker nodes that are supported by ROKS varies by region and Availability Zone. For more information, see [Worker node VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
 
 The following table shows the typical specifications for a bare metal profile.
 
@@ -90,4 +89,4 @@ The following table shows the typical specifications for a bare metal profile.
 | mx2d.metal.96x768 | 48 | 768 | 8x3.2TB SSD NVMe drives |
 {: caption="Typical bare metal profile specifications" caption-side="bottom"}
 
-All bare metal servers have 100Gbps bonded network speed, 960GB SSD boot disks in RAID 1, do not support GPUs and run Red Hat CoreOS.
+For more information about bare metal servers, see [About Bare Metal Servers for VPC](/docs/vpc?topic=vpc-about-bare-metal-servers).
