@@ -55,7 +55,7 @@ The following diagram illustrates what you build as part of this tutorial.
 This tutorial requires the following prerequisites.
 
 - An available VCFaaS instance
-- Have the correct access policies to manage VCFaaS environments and make sure that you can create the following VCFaaS resources. For more information, see [Managing IAM access for VCFaaS](/docs/vmware-servicetopic=vmware-service-vmaas-iam&interface=ui).
+- Have the correct access policies to manage VCFaaS environments and make sure that you can create the following VCFaaS resources. For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?topic=vmware-service-vmaas-iam&interface=ui).
    - VMs
    - Networks
    - Firewall Rules

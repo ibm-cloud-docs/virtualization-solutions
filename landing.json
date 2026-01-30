@@ -19,14 +19,7 @@
       }
     ]
   },
-  "section_highlights": [
-    {
-      "title": "Migrate VMware Workloads to IBM Cloud Red Hat OpenShift Virtualization",
-      "description": "Migrate enterprise production grade VMware workloads from on premises or hyperscaler VMware based environments to IBM Cloud Red Hat OpenShift Virtualization",
-      "href": "https://cloud.ibm.com/docs/pattern-migrate-os-virtualization?topic=pattern-migrate-os-virtualization-openshift-virt-arch",
-      "type": "blog"
-    }
-  ],
+  "section_highlights": [],
   "section_architectures": [
     {
       "title": "OpenShift Virtualization Reference Architecture",
