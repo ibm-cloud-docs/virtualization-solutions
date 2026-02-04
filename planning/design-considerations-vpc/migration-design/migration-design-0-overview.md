@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-14"
+lastupdated: "2026-02-04"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -98,14 +98,14 @@ The path from VMware to VPC virtual server instance is well-traveled, but every 
 {: #virt-sol-vpc-migration-design-design-overview-vpc-resources}
 
 **IBM Cloud Documentation**:
-- [VPC Getting Started](https://cloud.ibm.com/docs/vpc?topic=vpc-getting-started)
-- [Migrating Virtual Server Instances to VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-migrate-vsi-to-vpc)
-- [Instance Profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles)
-- [Block Storage Profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-profiles)
-- [Transit Gateway](https://cloud.ibm.com/docs/transit-gateway)
-- [VPC Solution Tutorials](https://cloud.ibm.com/docs?tab=solutions)
+- [VPC Getting Started](/docs/vpc?topic=vpc-getting-started)
+- [Migrating Virtual Server Instances to VPC](/docs/vpc?topic=vpc-migrate-vsi-to-vpc)
+- [Instance Profiles](/docs/vpc?topic=vpc-profiles)
+- [Block Storage Profiles](/docs/vpc?topic=vpc-block-storage-profiles)
+- [Transit Gateway](/docs/transit-gateway)
+- [VPC Solution Tutorials](/docs?tab=solutions)
 
 **Third-Party Tools and Resources**:
-- [libguestfs and virt-v2v](https://libguestfs.org/)
-- [Red Hat Migration Toolkit for Virtualization](https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/)
-- [VMware VDDK Documentation](https://developer.vmware.com/web/sdk/7.0/vddk)
+- [libguestfs and virt-v2v](https://libguestfs.org/){: external}
+- [Red Hat Migration Toolkit for Virtualization](https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/){: external}
+- [VMware VDDK Documentation](https://developer.vmware.com/web/sdk/7.0/vddk){: external}

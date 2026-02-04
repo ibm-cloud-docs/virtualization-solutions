@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-02-02"
+lastupdated: "2026-02-04"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -456,6 +456,7 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
     5. Click **Details** > **Launch Web Console** and in the **Web Console** window,
         1. Log in as Administrator with the password of the Windows virtual server.
         2. Open the command prompt and copy the ISO from the RHEL virtual server by running the following command:
+
         `scp root@<TEMP_RHEL_VM_IP>:/usr/share/virtio-win/virtio-win.iso C:\virtio-win.iso`
 
             Where
@@ -478,7 +479,7 @@ The Windows virtual server also needs Cloud-init installed on it to run as a vir
 5. Download the cloud-init installer
    1. From the Web Console window:
       1. Open Microsoft Edge.
-      2. Go to [the download page for the installer](https://www.cloudbase.it/downloads/CloudbaseInitSetup_1_1_4_x64.msi). The download starts automatically.
+      2. Go to [the download page for the installer](https://www.cloudbase.it/downloads/CloudbaseInitSetup_1_1_4_x64.msi) {: external}. The download starts automatically.
    2. Close the Web Console window.
 
 ## Setting up a transit gateway (private connection) between the VCFaaS instance and VPC
@@ -508,7 +509,7 @@ Use the following steps to create a transit gateway to securely connect your VCF
       4. For **Available connections**, select **vpc-migration**.
       5. Click **Add**.
 4. Connect the VCFaaS instance to the transit gateway.
-   1. Follow the steps that are in [Using transit gateway to interconnect VCF as a Service with IBM Cloud services](https://cloud.ibm.com/docs/vmware-service?topic=vmware-service-tgw-adding-connections) to connect the VCFaaS instance to the transit gateway.
+   1. Follow the steps that are in [Using transit gateway to interconnect VCF as a Service with IBM Cloud services](/docs/vmware-service?topic=vmware-service-tgw-adding-connections) to connect the VCFaaS instance to the transit gateway.
 5. Create a security group to allow traffic between the virtual server on the VPC environment and the VCFaaS instance.
    1. From the **Navigation menu**, click **Infrastructure > Network > Security groups**.
    2. Click **Create**.
@@ -606,7 +607,7 @@ Before you can migrate the virtual server, you must install the necessary driver
       3. Double-click `C:\virtio-win.iso`.
       4. Double-click `virtio-win-gt-x64` and follow the prompts.
       5. Double-click `virtio-win-guest-tools` and follow the prompts.
-6. Install the virtIO drivers on the recovery image of the Windows virtual server by following the steps that are in [Making the virtio-win drivers available in the recovery image](https://cloud.ibm.com/docs/vpc?topic=vpc-create-windows-custom-image#virtio-win-drivers-windows-recovery-image).
+6. Install the virtIO drivers on the recovery image of the Windows virtual server by following the steps that are in [Making the virtio-win drivers available in the recovery image](/docs/vpc?topic=vpc-create-windows-custom-image#virtio-win-drivers-windows-recovery-image).
 
     Keep in mind that if your virtual server has a GPT partition table, you must set the partition IDs to UUIDs, not numbers. Get the correct IDs by displaying the details of the System and Recovery partitions while `diskpart` is running. For more information, see the [documentation on the detail partition command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/detail-partition){: external}.
 
@@ -618,6 +619,7 @@ Before you can migrate the virtual server, you must install the necessary driver
 8. Run `sysprep` on the Windows virtual server to generalize it immediately before you migrate it.
    1. From the Web Console window, open the command prompt.
    2. Generalize the virtual server by running the following command:
+
    `C:\Windows\System32\Sysprep\Sysprep.exe /oobe /generalize /shutdown "/unattend:C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\Unattend.xml"`
 
    After you run sysprep, the virtual server stops.
@@ -795,7 +797,7 @@ When the virtual server starts, Cloud-init runs and the administrator password r
           Where
 
           `<WINDOWS_VSI_IP>` is the IP of the Windows virtual server that you copied previously.
-  
+
           `<BASTION_VSI_IP>` is the IP of the Bastion virtual server that you copied previously.
 
     2. Use your preferred Remote Desktop client to connect to the Windows virtual server. Use `localhost` as the IP and log in as Administrator with the password of the Windows virtual server.

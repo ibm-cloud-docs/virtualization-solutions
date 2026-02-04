@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-23"
+lastupdated: "2026-02-04"
 
 keywords: ROKS, red hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -36,7 +36,7 @@ After a cluster is created, you can add more worker nodes to a pool by resizing 
 
 IBM Cloud Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads because Red Hat supports only bare metal worker nodes for production virtualized workloads. The bare metal nodes must be provisioned with local NVMe drives so they can be used by Red Hat OpenShift Data Foundation (ODF) as backing storage.
 
-For more information, see to [Red Hat OpenShift overview](https://cloud.ibm.com/docs/openshift?topic=openshift-overview).
+For more information, see to [Red Hat OpenShift overview](/docs/openshift?topic=openshift-overview).
 
 ## IBM Cloud Virtual Servers for VPC
 {: #virt-sol-openshift-compute-design-vsi}
@@ -57,7 +57,7 @@ The following table lists the key features for IBM Cloud Virtual Servers for VPC
 | Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
 {: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
 
-For more information about virtual server instance profiles that are supported by ROKS, see [IBM Cloud Docs - Worker Nodes VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
+For more information about virtual server instance profiles that are supported by ROKS, see [IBM Cloud Docs - Worker Nodes VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
 
 ## IBM Cloud Bare Metal Servers for VPC
 {: #virt-sol-openshift-compute-design-bms}

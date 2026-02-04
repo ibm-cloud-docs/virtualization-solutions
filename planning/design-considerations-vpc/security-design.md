@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-01-09"
+  years: 2025, 2026
+lastupdated: "2026-02-04"
 
 keywords:
 
@@ -25,9 +25,9 @@ For workload migration and deployment, robust security capabilities are essentia
 ## Shared Responsibility Model
 {: #virt-sol-vpc-security-design-shared-responsibility}
 
-IBM Cloud uses a shared responsibility model that defines which security and compliance responsibilities are managed by IBM Cloud and which ones lie with customers . Understanding this model is critical for implementing effective security controls. See [Shared responsibilities for using IBM Cloud products](https://cloud.ibm.com/docs/overview?topic=overview-shared-responsibilities) and [Infrastructure-as-a-service](https://cloud.ibm.com/docs/overview?topic=overview-shared-responsibilities#iaas-services-responsibilities)
+IBM Cloud uses a shared responsibility model that defines which security and compliance responsibilities are managed by IBM Cloud and which ones lie with customers . Understanding this model is critical for implementing effective security controls. See [Shared responsibilities for using IBM Cloud products](/docs/overview?topic=overview-shared-responsibilities) and [Infrastructure-as-a-service](/docs/overview?topic=overview-shared-responsibilities#iaas-services-responsibilities)
 
-IBM Cloud provides a secure cloud platform that you can trust. IBM Cloud compliance results from a platform and services that are built on best-in-industry security standards, including GDPR, HIPAA, ISO 9001, ISO 27001, ISO 27017, ISO 27018, PCI, SOC2, and others. See [Understanding compliance in IBM Cloud](https://cloud.ibm.com/docs/overview?topic=overview-compliance)
+IBM Cloud provides a secure cloud platform that you can trust. IBM Cloud compliance results from a platform and services that are built on best-in-industry security standards, including GDPR, HIPAA, ISO 9001, ISO 27001, ISO 27017, ISO 27018, PCI, SOC2, and others. See [Understanding compliance in IBM Cloud](/docs/overview?topic=overview-compliance)
 
 ## Identity and Access Management
 {: #virt-sol-vpc-security-design-iam}

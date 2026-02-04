@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2025
-lastupdated: "2025-12-23"
+lastupdated: "2026-02-04"
 
 keywords: ROKS, VPC, subnets
 
@@ -34,7 +34,7 @@ IBM Cloud VPC is a secure, isolated, and highly configurable networking environm
 
 VPCs span a region and contain subnets that span individual zones within that region. These subnets use ranges of private IP addresses, with the option to bring your own public IP range. Subnets within a VPC are private by default and can communicate with each other without configuring additional routes. As a result, all resources within a VPC can communicate with one another by default subject to security groups and access control lists. Virtual server instances are attached to one or more subnets.
 
-See the architecture diagram in [About networking for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-networking-for-vpc) for a visual representation of VPC networking concepts. For additional information and design considerations, see [Setting IP ranges](https://cloud.ibm.com/docs/vpc?topic=vpc-choosing-ip-ranges-for-your-vpc).
+See the architecture diagram in [About networking for VPC](/docs/vpc?topic=vpc-about-networking-for-vpc) for a visual representation of VPC networking concepts. For additional information and design considerations, see [Setting IP ranges](/docs/vpc?topic=vpc-choosing-ip-ranges-for-your-vpc).
 
 ### Load-balancers
 {: #virt-sol-network-design-vpc-networking-lb}
@@ -101,9 +101,9 @@ External connectivity can be achieved with public gateways, floating IPs, and VP
 
 **Floating IPs** are associated with a single compute instance and support both initiating connections to and receiving connections from the internet.
 
-**VPN for VPC** provides secure site-to-site connectivity from a VPC to another private network. See [About site-to-site VPN gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn) for additional details.
+**VPN for VPC** provides secure site-to-site connectivity from a VPC to another private network. See [About site-to-site VPN gateways](/docs/vpc?topic=vpc-using-vpn) for additional details.
 
-**Client VPN for VPC** offers client-to-site servers, which allow remote clients on the internet to connect securely to VPN servers and access VPC resources. See [VPNs for VPC overview](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-overview) for more information.
+**Client VPN for VPC** offers client-to-site servers, which allow remote clients on the internet to connect securely to VPN servers and access VPC resources. See [VPNs for VPC overview](/docs/vpc?topic=vpc-vpn-overview) for more information.
 
 ### Security
 {: #virt-sol-network-design-vpc-networking-security}
@@ -114,7 +114,7 @@ Network security in VPC is controlled through security groups and access control
 
 **Security groups** manage traffic at the instance level using stateful rules. Security groups control external connectivity established via floating IPs attached to virtual server instances.
 
-See [Security in your VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-security-in-your-vpc) for additional details.
+See [Security in your VPC](/docs/vpc?topic=vpc-security-in-your-vpc) for additional details.
 
 ### Interconnectivity
 {: #virt-sol-network-design-vpc-networking-interconnectivity}
@@ -123,4 +123,4 @@ See [Security in your VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-security-in-
 
 **IBM Cloud Transit Gateway** interconnects VPCs with each other, PowerVS Workspaces and with IBM Cloud Classic infrastructure, providing a hub for routing traffic across multiple cloud environments. Transit Gateway simplifies network topology management in hybrid and multicloud architectures.
 
-For guidance on selecting the appropriate connectivity option, see [Interconnecting your VPC using IBM Cloud offerings](https://cloud.ibm.com/docs/vpc?topic=vpc-interconnectivity) and [Getting started with IBM Cloud Transit Gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started).
+For guidance on selecting the appropriate connectivity option, see [Interconnecting your VPC using IBM Cloud offerings](/docs/vpc?topic=vpc-interconnectivity) and [Getting started with IBM Cloud Transit Gateway](/docs/transit-gateway?topic=transit-gateway-getting-started).
