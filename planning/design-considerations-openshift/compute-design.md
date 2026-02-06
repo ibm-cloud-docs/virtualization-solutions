@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-04"
+lastupdated: "2026-02-06"
 
 keywords: ROKS, red hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -75,7 +75,7 @@ The following table lists the key features for IBM Cloud Bare Metal Servers for 
 | Network performance | High-bandwidth, low-latency networking for VM traffic |
 {: caption="IBM Cloud Bare Metal Servers for VPC key features" caption-side="bottom"}
 
-Bare Metal worker nodes that are supported by ROKS varies by region and Availability Zone. For more information, see [Worker node VPC flavors](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-flavors).
+Bare Metal worker nodes that are supported by ROKS varies by region and Availability Zone. For more information, see [Worker node VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
 
 The following table shows the typical specifications for a bare metal profile.
 

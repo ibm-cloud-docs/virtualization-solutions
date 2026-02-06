@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-04"
+lastupdated: "2026-02-06"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -107,5 +107,5 @@ The path from VMware to VPC virtual server instance is well-traveled, but every 
 
 **Third-Party Tools and Resources**:
 - [libguestfs and virt-v2v](https://libguestfs.org/){: external}
-- [Red Hat Migration Toolkit for Virtualization](https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/){: external}
-- [VMware VDDK Documentation](https://developer.vmware.com/web/sdk/7.0/vddk){: external}
+- [Red Hat Migration Toolkit for Virtualization](https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.10){: external}
+- [VMware VDDK Documentation](https://developer.broadcom.com/sdks/vmware-virtual-disk-development-kit-vddk/7.0){: external}

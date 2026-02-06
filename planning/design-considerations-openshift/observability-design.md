@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-04"
+lastupdated: "2026-02-06"
 
 keywords: ROKS, RHACM, IBM Cloud Logs, IBM Cloud Monitoring, Workload Protection
 
@@ -88,7 +88,7 @@ IBM Cloud Security and Compliance Center Workload Protection provides comprehens
 
 The Workload Protection agent discovers and prioritizes software vulnerabilities, detects and responds to runtime threats, and manages configurations, permissions, and compliance requirements for hosted virtual machines and containerized workloads.
 
-See [Getting started with IBM Cloud Security and Compliance Center Workload Protection](https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-getting-started)
+See [Getting started with IBM Cloud Security and Compliance Center Workload Protection](/docs/workload-protection?topic=workload-protection-getting-started)
 
 ### Deployment and Capabilities
 {: #virt-sol-openshift-observability-design-scc-wpp-deployment}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-16"
+lastupdated: "2026-02-06"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
 
@@ -17,7 +17,7 @@ subcollection: virtualization-solutions
 
 This guide focuses on using RackWare RMM (RackWare Management Module) to migrate IBM Cloud VCF-Automated Virtual Machines (VMs) to IBM Cloud VPC Virtual Server Instances (VSIs). There is an associated tutorial that steps through the process.
 
-IBM Cloud VCF-Automated VM OS licenses are the responsibility of the customer and are not provided by IBM Cloud. When creating the Target VSI's be aware of the provisioning options of [Bring your own license](https://cloud.ibm.com/docs/vpc?topic=vpc-byol-vpc-about).
+IBM Cloud VCF-Automated VM OS licenses are the responsibility of the customer and are not provided by IBM Cloud. When creating the Target VSI's be aware of the provisioning options of [Bring your own license](/docs/vpc?topic=vpc-byol-vpc-about).
 
 The majority of VMs hosted on IBM Cloud VCF-Automated are connected to NSX overlay segments which don't have native access to the IBM Cloud Classic networks. Additionally as we want the the target VSIs to have the same IP addresses as the source VMs we have to ensure that the NSX overlay segment and the target VSI VPC subnets are isolated. We accomplish this with the following RMM features:
 
