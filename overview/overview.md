@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-09"
+lastupdated: "2026-02-02"
 
 keywords: virtual servers, ROKS, ROVE, VSI, virtualization
 
@@ -75,7 +75,7 @@ The following table details the high-level, key responsibilities for {{site.data
 {: class="simple-tab-table"}
 {: #simpletabtable1}
 
-For a comprehensive list of responsibilities, see [Understanding your responsibilities when you use Virtual Private Cloud](https://cloud.ibm.com/docs/vpc?topic=vpc-responsibilities-vpc).
+For a comprehensive list of responsibilities, see [Understanding your responsibilities when you use Virtual Private Cloud](/docs/vpc?topic=vpc-responsibilities-vpc).
 
 ## Red Hat OpenShift Virtualization on {{site.data.keyword.cloud_notm}}
 {: #virt-sol-overview-rove}
@@ -126,4 +126,4 @@ The following table details the high-level, key responsibilities for Red Hat Ope
 {: class="simple-tab-table"}
 {: #simpletabtable1}
 
- For a comprehensive list of responsibilities, see [Red Hat OpenShift Virtualization on IBM Cloud](https://cloud.ibm.com/docs/openshift?topic=openshift-responsibilities_iks).
+ For a comprehensive list of responsibilities, see [Red Hat OpenShift Virtualization on IBM Cloud](/docs/openshift?topic=openshift-responsibilities_iks).

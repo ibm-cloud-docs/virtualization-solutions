@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-14"
+lastupdated: "2026-02-04"
 
 keywords: ROKS, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -18,7 +18,7 @@ subcollection: virtualization-solutions
 Red Hat Advanced Cluster Management (RHACM) enables disaster recovery solutions for Red Hat OpenShift Data Foundation clusters. RHACM provides multi-cluster management and application lifecycle orchestration, serving as the control plane in a multi-cluster environment.
 {: shortdesc}
 
-See the [Resiliency in IBM Cloud](https://cloud.ibm.com/docs/resiliency?topic=resiliency-resiliency-overview) Guide that is an overview about resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. The following guide provides specific information for Red Hat Red Hat OpenShift on VPC.
+See the [Resiliency in IBM Cloud](/docs/resiliency?topic=resiliency-resiliency-overview) Guide that is an overview about resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. The following guide provides specific information for Red Hat Red Hat OpenShift on VPC.
 
 The key backup and restore architecture elements are shown in the following diagram.
 
@@ -69,7 +69,7 @@ The following table details the architecture components of each solution.
 
 OADP works with Red Hat OpenShift DR to provide comprehensive data protection. While Red Hat OpenShift DR provides PVC replication and application mobility between clusters, OADP helps make sure that all supporting Kubernetes resources and configurations are backed up and can be restored. OADP backs up data to S3-compatible object storage such as IBM Cloud Object Storage or NooBaa Multi-Cloud Gateway. NooBaa Multi-Cloud Gateway is included with Red Hat OpenShift Data Foundation, and can use ODF storage or external object storage that enables both cluster-local recovery and cross-cluster disaster recovery scenarios.
 
-For more information, see [Red Hat Red Hat OpenShift on VPC multiregion DR](https://cloud.ibm.com/docs/pattern-openshift-vpc-dr-multiregion?topic=pattern-openshift-vpc-dr-multiregion-overview).
+For more information, see [Red Hat Red Hat OpenShift on VPC multiregion DR](/docs/pattern-openshift-vpc-dr-multiregion?topic=pattern-openshift-vpc-dr-multiregion-overview).
 
 ## IBM Cloud Backup and Recovery
 {: #virt-sol-openshift-resiliency-design-bar}
@@ -101,7 +101,7 @@ The following table details the architecture components of IBM Cloud Backup and 
 | Agent | IBM Cloud Backup and Recovery software that interacts locally with the operating system and protected source data. The agent communicates with the Data Source Connector and backup and recovery instance during backup and recovery operations. Windows and Linux agents are currently available. |
 {: caption="IBM Cloud Backup and Recovery architecture components" caption-side="bottom"}
 
-For more information, see [Getting started with Backup and Recovery](https://cloud.ibm.com/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery).
+For more information, see [Getting started with Backup and Recovery](/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery).
 
 
 

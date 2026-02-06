@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-01-22"
+  years: 2025, 2026
+lastupdated: "2026-02-06"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
 
@@ -79,7 +79,7 @@ In this tutorial we migrate an Ubuntu virtual machine and an a Microsoft Windows
 
 First, you need to set up your source virtual machine. This section has examples for the following:
 
-- [Ubuntu source virtual machine](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-tutorial#virt-sol-vpc-migration-design-rmm-tutorial-step1-ubuntu).
+- [Ubuntu source virtual machine](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-tutorial#virt-sol-vpc-migration-design-rmm-tutorial-ubuntu-vm).
 - [Windows source virtual machine](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-tutorial#virt-sol-vpc-migration-design-rmm-tutorial-step1-windows).
 
 ### Ubuntu Source virtual machine

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-12-23"
+lastupdated: "2026-02-04"
 
 keywords: VSI, File Storage, Block Storage, Encryption
 
@@ -45,4 +45,4 @@ The following tables lists the key features for IBM Cloud Virtual Servers for VP
 | Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
 {: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
 
-For more information on virtual server instance profiles, see [IBM Cloud Docs - VPC Instance Profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles).
+For more information on virtual server instance profiles, see [IBM Cloud Docs - VPC Instance Profiles](/docs/vpc?topic=vpc-profiles).

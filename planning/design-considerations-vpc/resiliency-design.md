@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-01-09"
+  years: 2025, 2026
+lastupdated: "2026-02-04"
 
 keywords: File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Resiliency Design for VPC virtual servers
 {: #virt-sol-vpc-vpc-resiliency-design}
 
-See the [Resiliency in IBM Cloud](https://cloud.ibm.com/docs/resiliency?topic=resiliency-resiliency-overview) Solution Guide which is general guide on resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. This guide focuses on specific information for VPC VSIs.
+See the [Resiliency in IBM Cloud](/docs/resiliency?topic=resiliency-resiliency-overview) Solution Guide which is general guide on resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. This guide focuses on specific information for VPC VSIs.
 
 The key backup and restore architecture elements are shown in the following diagram.
 
@@ -56,7 +56,7 @@ The use cases applicable to these features include the following.
 * No application-aware quiescing (snapshots are crash-consistent)
 * Individual snapshot management (not policy-driven without Backup for VPC service)
 
-For more information, see [About Block Storage for VPC snapshots](https://cloud.ibm.com/docs/vpc?topic=vpc-snapshots-vpc-about&interface=ui).
+For more information, see [About Block Storage for VPC snapshots](/docs/vpc?topic=vpc-snapshots-vpc-about&interface=ui).
 
 ## IBM Cloud Backup for VPC
 {: #virt-sol-vpc-vpc-resiliency-design-vpc-bu}
@@ -113,7 +113,7 @@ The following list is the best practice for IBM Cloud Backup for VPC.
 * Test restore procedures regularly to validate recovery time objectives (RTO)
 * Consider combining with IBM Cloud Backup and Recovery for application-aware backups and file-level recovery
 
-See [About Backup for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-backup-service-about&interface=ui)
+See [About Backup for VPC](/docs/vpc?topic=vpc-backup-service-about&interface=ui)
 
 ## IBM Cloud Backup and Recovery
 {: #virt-sol-vpc-vpc-resiliency-design-bar}
@@ -140,7 +140,7 @@ The following list is the key capabilities for IBM Cloud Backup and Recovery.
     * Security - Take advantage of granular role-based access control to stop unauthorized actors from modifying or deleting data
     * Application-consistent backup - Capture backups of your application data in a consistent state, allowing for clean restoration to a specific point in time without data corruption or loss.
 
-For more information, see [Getting started with Backup and Recovery](https://cloud.ibm.com/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery)
+For more information, see [Getting started with Backup and Recovery](/docs/backup-recovery?topic=backup-recovery-getting-started-backup-recovery)
 
 
 
@@ -159,12 +159,12 @@ Veeam is not available directly in the IBM Cloud catalog, however, you can use V
 
 | Service | Description |
 | -------------- | -------------- |
-| Veeam Licenses | You can order a Veeam license for the use of Veeam Agent and Veeam Backup and Replication software through the Veeam website or through the process described at [Ordering Veeam stand-alone licenses from the IBM Cloud console](https://cloud.ibm.com/docs/vpc?topic=vpc-ordering-veeam-licenses#ordering-veeam-license-procedure). |
-| Veeam Backup Server | The core component that serves as the configuration and control center for the entire backup infrastructure. The backup server manages job scheduling, resource allocation, and centralized administration of all backup operations.  \n The Veeam Backup and Replication software can be installed only on a Microsoft Windows operating system. See [Installing and operating the Veeam Backup and Replication software](https://cloud.ibm.com/docs/vpc?topic=vpc-using-veeam-backup-replication-software). |
-| Veeam Agents | Lightweight software installed on protected computers that perform data backup operations such as creating volume snapshots, reading backed-up data, and transferring data to target locations. Supported Linux® distributions include CentOS, RHEL, Ubuntu, and Debian. With the Veeam Agent for Linux® and the Veeam Agent for Microsoft™ Windows™ you can create backups and perform restores, see [Installing and operating the Veeam Agent](https://cloud.ibm.com/docs/vpc?topic=vpc-using-veeam-agent). |
+| Veeam Licenses | You can order a Veeam license for the use of Veeam Agent and Veeam Backup and Replication software through the Veeam website or through the process described at [Ordering Veeam stand-alone licenses from the IBM Cloud console](/docs/vpc?topic=vpc-ordering-veeam-licenses#ordering-veeam-license-procedure). |
+| Veeam Backup Server | The core component that serves as the configuration and control center for the entire backup infrastructure. The backup server manages job scheduling, resource allocation, and centralized administration of all backup operations.  \n The Veeam Backup and Replication software can be installed only on a Microsoft Windows operating system. See [Installing and operating the Veeam Backup and Replication software](/docs/vpc?topic=vpc-using-veeam-backup-replication-software). |
+| Veeam Agents | Lightweight software installed on protected computers that perform data backup operations such as creating volume snapshots, reading backed-up data, and transferring data to target locations. Supported Linux® distributions include CentOS, RHEL, Ubuntu, and Debian. With the Veeam Agent for Linux® and the Veeam Agent for Microsoft™ Windows™ you can create backups and perform restores, see [Installing and operating the Veeam Agent](/docs/vpc?topic=vpc-using-veeam-agent). |
 {: caption="Veeam services" caption-side="bottom"}
 
-For more information, see [About Veeam](https://cloud.ibm.com/docs/vpc?topic=vpc-about-veeam).
+For more information, see [About Veeam](/docs/vpc?topic=vpc-about-veeam).
 
 **Protection Groups** - Containers in the Veeam Backup & Replication inventory that specify computers on which Veeam Agents should be installed and managed, with selection based on individual IP addresses, Active Directory objects, or CSV files.
 
