@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-13"
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -96,7 +96,7 @@ The following is the process for `virt-v2v` driver injection:
    ```
    {: codeblock}
 
-   Paremeters:
+   Parameters:
    - `-i disk`: Input is a disk image file
    - `-o disk -os /target`: Output to directory
    - `--block-driver virtio-scsi`: Use SCSI driver for first disk (required for VPC boot volumes)
@@ -105,7 +105,7 @@ The following is the process for `virt-v2v` driver injection:
 
    ```bash
    ln -fs /dev/vdb /target/windows-vm-sda
-   virt-v2
+   virt-v2v -i disk windows-vm.img -o disk -os /target --block-driver virtio-scsi
    ```
    {: codeblock}
 
@@ -135,12 +135,12 @@ Critical issue: The `--block-driver virtio-scsi` option is required for VPC Wind
 #### Workaround
 {: #virt-sol-vpc-migration-design-windows-virtv2v-workaround}
 
-The are two workaround for the RHEL/Ubuntu issue.
+There are two workarounds for the RHEL/Ubuntu issue.
 
 #### Option 1: Build libguestfs on Ubuntu
 {: #virt-sol-vpc-migration-design-windows-virtv2v-workaround1}
 
-The first option is to build `libguestfs` on Ubuntun by running the following command.
+The first option is to build `libguestfs` on Ubuntu by running the following command.
 
 ```bash
 # On Ubuntu worker VSI
@@ -245,7 +245,7 @@ Windows Server:
 - 2016, 2019, 2022, 2025
 
 Windows Client:
-- 7,
+- 7
 - 8, 8.1
 - 10
 - 11

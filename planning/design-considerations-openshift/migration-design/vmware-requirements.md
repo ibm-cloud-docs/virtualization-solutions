@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-13"
+lastupdated: "2026-02-09"
 
 keywords:
 
@@ -32,5 +32,5 @@ Virtual server requirements:
    - lowercase letters (a-z), numbers (0-9), or hyphens (-), up to a maximum of 253 characters.
    - The first and last characters must be alphanumeric.
 - The name must not contain uppercase letters, spaces, periods (.), or special characters.
-- Virtual servers name can't duplicate the name of a virtual server in the Red Hat OpenShift Virtualization environment.
+- Virtual server names can't duplicate the name of a virtual server in the Red Hat OpenShift Virtualization environment.
 - A certified and supported operating system.

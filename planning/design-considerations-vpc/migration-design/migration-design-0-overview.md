@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-02-06"
+  years: 2025, 2026
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -21,12 +21,12 @@ This guide focuses specifically on the design considerations for migrating your 
 ## Understanding the Destination: VPC virtual server instance for VMware Administrators
 {: #virt-sol-vpc-migration-design-design-overview-vpc}
 
-Before diving into migration design, let's establish what's fundamentally different about VPC virtual server instance compared to your VMware environment.
+Before diving into migration design, let's explore what's fundamentally different about VPC virtual server instance compared to your VMware environment.
 
 ### The Managed Hypervisor Model
 {: #virt-sol-vpc-migration-design-design-overview-vpc-hypervisor}
 
-In your VMware environment, you manage everything from the hypervisor up. You patch ESXi hosts, manage vCenter, configure vSAN polices, design and maintain NSX overlays, and handle capacity planning for compute, storage, and network resources.
+In your VMware environment, you manage everything from the hypervisor up. You patch ESXi hosts, manage vCenter, configure vSAN policies, design and maintain NSX overlays, and handle capacity planning for compute, storage, and network resources.
 
 With VPC virtual server instance, IBM manages the hypervisor layer, so you don't need to patch hosts. Instead, you work with:
 
@@ -64,7 +64,9 @@ Coming from VMware, you're accustomed to either local VMDK files on vSAN or NFS 
 VPC virtual server instance does not support shared block volumes
 {: attention}
 
-If you have Windows Failover Clusters using shared VMDK files, or Linux clusters with shared LVM, you'll need to redesign these. Your options, include:
+If you have Windows Failover Clusters using shared VMDK files, or Linux clusters with shared LVM, you'll need to redesign these. 
+
+Options available:
 
 - Use VPC file storage (NFS-based) for shared file access
 - Deploy your own iSCSI target on a virtual server instance to expose shared block storage
@@ -80,14 +82,14 @@ Key Takeaways:
 
 1. Understand the differences: VPC's Layer 3 networking, managed hypervisor model, and storage profiles represent a paradigm shift from VMware. Invest time in understanding these differences before you migrate your first virtual machine.
 1. Choose the right method for your context:
-   - Review the comparision table of the different migration methods available in [Migration methods for virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods).
+   - Review the comparison table of the different migration methods available in [Migration methods for virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods).
    - [Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1) for simple, single-disk virtual machines and template scenarios
    - [Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2) for multi-disk virtual machines and precise control
    - [Live network transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3) for scale, efficiency, and minimizing downtime
    - [VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4) for vCenter automation-first approaches
 1. Windows requires special handling: Whether sysprep or virt-v2v, budget time for driver injection and testing. Don't underestimate the RHEL/Ubuntu tooling gaps.
 1. Network architecture is critical: Transit Gateway connectivity between your VMware environment and VPC is foundational. Test it early, test it thoroughly.
-1. Start with a pilot**: Your first wave teaches you more than any amount of lab testing. Make it representative but low-risk.
+1. Start with a pilot: Your first wave teaches you more than any amount of lab testing. Make it representative but low-risk.
 1. Automate where it matters: For large migrations, invest in automation for the repetitive parts (volume provisioning, virtual server instance creation). Accept manual steps for the variable parts (application validation).
 1. Plan for rollback: Things will go wrong. Having clear rollback criteria, procedures, and preserved source virtual machines gives you confidence to proceed.
 1. Optimize post-migration: Don't stop at "it works." Right-size instances, leverage cloud-native services, and improve upon your VMware architecture.

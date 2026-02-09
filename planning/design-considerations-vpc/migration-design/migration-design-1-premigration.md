@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-13"
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -26,9 +26,9 @@ Before you migrate anything, you need to understand what you have. This goes bey
 ### Discovery and Dependencies
 {: #virt-sol-vpc-migration-design-premigration-assessment-discovery}
 
-Use tools like RVTools to extract your VMware inventory. For each  virtual machine, document:
+Use tools like RVTools to extract your VMware inventory. For each virtual machine, document:
 
-- Dependencies: What does this  virtual machine talk to? What talks to it? Can it be migrated independently?
+- Dependencies: What does this virtual machine talk to? What talks to it? Can it be migrated independently?
 - Network characteristics: Static IP or DHCP? Multiple NICs? Specific VLAN requirements?
 - Storage layout: How many disks? Current IOPS usage? Total capacity?
 - Performance baseline: Current CPU, memory, network, and storage utilization
@@ -43,7 +43,7 @@ This assessment drives your wave planning, method selection, and timeline estima
 Because you cannot stretch subnets and VPC reserves certain addresses, you need to decide early:
 
 1. What additional subnets do I need? If you cannot migrate subnet-by-subnet, you may need to re-subnet certain applications. Consider separating applications into their own smaller subnets.
-1. Which  virtual machines must be re-IPed? If they use .0, .1, .2, .3, or broadcast addresses, or if you're consolidating IP ranges, you'll need to change IPs.
+1. Which virtual machines must be re-IPed? If they use .0, .1, .2, .3, or broadcast addresses, or if you're consolidating IP ranges, you'll need to change IPs.
 1. What's the DNS/load balancer update strategy? Even if you maintain IPs within the VPC, you'll likely need to update external DNS, load balancers, or firewall rules to point to the new environment.
 
 Document this in a migration-specific document. You'll reference it constantly during execution.
@@ -51,7 +51,7 @@ Document this in a migration-specific document. You'll reference it constantly d
 ## Connectivity Architecture: Bridging VMware and VPC
 {: #virt-sol-vpc-migration-design-premigration-connectivity}
 
-Your  virtual machines may need to talk to each other during migration. It is expected that you will migrate a subnet at a time, but this may need to be multiple subnets if latency is a limiting factor.
+Your virtual machines may need to talk to each other during migration. It is expected that you will migrate a subnet at a time, but this may need to be multiple subnets if latency is a limiting factor.
 
 ### IBM Cloud Transit Gateway
 {: #virt-sol-vpc-migration-design-premigration-connectivity-tgw}
@@ -99,7 +99,7 @@ IBM recently introduced burst profiles that allow for oversubscription ratios of
 Each instance profile specifies total network bandwidth. This is allocated in a 3:1 ratio between network traffic and storage I/O by default, and you can adjust this after provisioning.
 
 Example: A profile with 32 Gbps total bandwidth allocates:
-- 24 Gbps for  virtual machine network traffic
+- 24 Gbps for virtual machine network traffic
 - 8 Gbps for storage I/O (across all attached volumes)
 
 Pooled vs. Fixed Storage Bandwidth: If your profile supports it (check the documentation), choose pooled allocation. This allows your virtual server instance to dynamically share storage bandwidth across all volumes rather than dividing it equally. Your boot volume still gets a guaranteed minimum.
@@ -179,7 +179,7 @@ Design Decision:
 IBM Cloud offers two licensing models for operating systems:
 
 - IBM-provided licensing: IBM includes the OS license in your hourly virtual server instance cost. Available for RHEL, Windows Server, etc.
-- BYOL (Bring Your Own License)**: You provide the license and create custom images marked as BYOL. Hourly costs are lower but you manage licensing compliance.
+- **BYOL (Bring Your Own License)**: You provide the license and create custom images marked as BYOL. Hourly costs are lower but you manage licensing compliance.
 
 VMware Migration Context: If you have Windows Server licenses with Software Assurance or RHEL subscriptions with Cloud Access, you can leverage BYOL. Otherwise, IBM-provided licensing simplifies operations.
 

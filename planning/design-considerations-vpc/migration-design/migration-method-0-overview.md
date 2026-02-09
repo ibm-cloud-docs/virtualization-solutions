@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-14"
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -19,9 +19,9 @@ There are four primary methods for migrating VMware virtual machines to VPC virt
 {: shortdesc}
 
 * Method 1: [Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1)
-* Method 2: [Copying direct volume (multi-disk method))](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
+* Method 2: [Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
 * Method 3: [Live Network Transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3)
-* Method 4: [VDDK Direct Extraction (vCenter Only)](/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
+* Method 4: [VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 
 ## Migration Method Selection Matrix
 {: #virt-sol-vpc-migration-design-methods-matrix}
@@ -35,7 +35,7 @@ There are four primary methods for migrating VMware virtual machines to VPC virt
 | Avoids export overhead | ✗ | Partial | ✓ | ✓ |
 | Windows driver injection | Manual | ✓ (virt-v2v) | ✓ (virt-v2v) | ✓ Built-in |
 | Parallel migration | ✓ | ✓ | ✓ Excellent | ✓ |
-| Setup complexity| Low | Medium | Medium-High | High |
+| Setup complexity | Low | Medium | Medium-High | High |
 | Per-virtual machine complexity | Low | Medium | Medium | Low (once setup) |
 | Automation potential | Medium | High | High | Very High |
 | Template reuse | ✓ Excellent | Limited | Limited | Limited |

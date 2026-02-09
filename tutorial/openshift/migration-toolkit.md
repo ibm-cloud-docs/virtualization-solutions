@@ -1,8 +1,8 @@
 ---
 
 copyright:
-   years: 2025
-lastupdated: "2026-01-19"
+  years: 2025, 2026
+lastupdated: "2026-02-09"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, MTV, Migration
 
@@ -14,7 +14,7 @@ account-plan: paid
 completion-time: 60m
 use-case: ApplicationModernization
 industry: Software and platform applications
-compliance: HIPPA
+compliance: HIPAA
 
 ---
 
@@ -22,13 +22,13 @@ compliance: HIPPA
 
 # Migrate from VMware to Red Hat OpenShift Virtualization Tutorial
 {: #vsphere-openshift-migration}
-{: #tutorial-migration-toolkit}
+{: #tutorial-rove-migration-toolkit}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 {: toc-use-case="ApplicationModernization"}
 {: toc-industry="Software and platform applications"}
-{: toc-compliance="HIPPA"}
+{: toc-compliance="HIPAA"}
 
 This document provides a comprehensive guide to migrating virtual machines from VMware vSphere to OpenShift Virtualization using the Migration Toolkit for Virtualization (MTV), including prerequisites, installation, and step-by-step migration processes.
 {: shortdesc}
@@ -63,7 +63,7 @@ The following network prerequisites apply across all migrations:
 - Destination Networks: If multiple source and destination networks are mapped, a network attachment definition must be created for each additional destination network.
 - Required Ports: Firewalls must permit traffic over specific ports based on the source provider:
 - VMware vSphere: TCP ports 443 (for inventory and disk transfer authentication) and 902 (for disk transfer data copy) from OpenShift nodes to VMware vCenter/ESXi hosts.
-- Open Virtual Appliance (OVA): TCP port 2049 (for NFS service) and TCP or UCP port 111 (for RPC Portmapper, only required for NFSv4.0) from OpenShift nodes to the server containing the OVA files.
+- Open Virtual Appliance (OVA): TCP port 2049 (for NFS service) and TCP or UDP port 111 (for RPC portmapper, only required for NFSv4.0) from OpenShift nodes to the server containing the OVA files.
 
 ### Source VM Prerequisites
 {: #source-vm-prerequisites}
@@ -222,13 +222,13 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
    - Review the **Plan settings** section for optional configurations. All settings can be edited via the Options menu.
    - Check the **Conditions** section; all listed conditions must be resolved before the plan can run successfully.
 
-Running and Monitoring
+### Running and Monitoring
 {: #running-monitoring}
 {: step}
 
 1. Pre-Migration Activities
    - Before starting a warm migration, check for VM snapshots and commit/delete snapshots to ensure the VMs have enough available CBT snapshots.
-   - Grant access for 'default' service account of Target Namespace to pull VDDK image from Openshift MTV Namespace.
+   - Grant access for 'default' service account of Target Namespace to pull VDDK image from OpenShift MTV Namespace.
    - Validate migration plan and resolve any warnings/errors.
    - Take a full backup of the source VMs if needed.
 
@@ -264,7 +264,7 @@ Running and Monitoring
    - Start applications and databases on target VMs if they were stopped before cutover.
    - Verify application functionality on the migrated VMs.
 
-## V. Performance, and Troubleshooting
+## Performance and troubleshooting
 {: #performance-troubleshooting}
 {: step}
 
@@ -376,5 +376,15 @@ Running and Monitoring
 {: #additional-resources}
 
 The following resources provide detailed guidance and practical examples:
-- MTV documentation (v2.9): https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.9/html/installing_and_using_the_migration_toolkit_for_virtualization/index
-- Preparing virtual machine networking for migration from vSphere to Red Hat OpenShift Virtualization: https://www.redhat.com/en/blog/openshift-virtualization-networking-for-vsphere-migration
+- [MTV documentation (v2.9)](https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.9/html/installing_and_using_the_migration_toolkit_for_virtualization/index){: external}
+
+## Next steps
+{: #migration-toolkit-next-steps}
+
+After completing your migration with MTV, consider these next steps:
+
+- **Implement backup**: Set up [backup and recovery with Veeam Kasten](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup) to protect your migrated workloads
+- **Review architecture**: Explore the complete [Red Hat OpenShift Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)
+- **Design considerations**: Learn about [networking](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design), [storage](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview), and [security](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) best practices
+- **Optimize performance**: Review [observability and monitoring](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-openshift-observability-design-overview) for your environment
+- [Preparing virtual machine networking for migration from vSphere to Red Hat OpenShift Virtualization](https://www.redhat.com/en/blog/openshift-virtualization-networking-for-vsphere-migration){: external}

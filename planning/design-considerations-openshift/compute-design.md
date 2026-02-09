@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-06"
+lastupdated: "2026-02-09"
 
 keywords: ROKS, red hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -36,7 +36,7 @@ After a cluster is created, you can add more worker nodes to a pool by resizing 
 
 IBM Cloud Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads because Red Hat supports only bare metal worker nodes for production virtualized workloads. The bare metal nodes must be provisioned with local NVMe drives so they can be used by Red Hat OpenShift Data Foundation (ODF) as backing storage.
 
-For more information, see to [Red Hat OpenShift overview](/docs/openshift?topic=openshift-overview).
+For more information, see [Red Hat OpenShift overview](/docs/openshift?topic=openshift-overview).
 
 ## IBM Cloud Virtual Servers for VPC
 {: #virt-sol-openshift-compute-design-vsi}
@@ -90,3 +90,13 @@ The following table shows the typical specifications for a bare metal profile.
 {: caption="Typical bare metal profile specifications" caption-side="bottom"}
 
 For more information about bare metal servers, see [About Bare Metal Servers for VPC](/docs/vpc?topic=vpc-about-bare-metal-servers).
+
+## Next steps
+{: #virt-sol-openshift-compute-design-next-steps}
+
+Now that you understand the compute design for Red Hat OpenShift Virtualization, explore these related topics:
+
+- **Networking**: Review [networking design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) for OpenShift and OVN
+- **Storage**: Explore [storage design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) including OpenShift Data Foundation
+- **Security**: Learn about [security design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) for OpenShift workloads
+- **Migration**: Review [migration strategies](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration) using MTV

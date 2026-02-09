@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-05"
+lastupdated: "2026-02-09"
 
 keywords: VSI, Migration, virtual server migration, vmware virtual server migration, vmware migration
 
@@ -58,8 +58,10 @@ For more information about RackWare RMM, see the following links.
 * [Migrating from IBM Cloud VMware VCF-automated to VPC virtual servers with RackWare RMM technical guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
 * [Migrating from IBM Cloud VMware VCF-automated to VPC virtual servers with RackWare RMM tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-tutorial)
 
-## DIY migration overview
-{: #virt-sol-vpc-migration-design-migration-diy}
+## DIY migration methods comparison
+{: #virt-sol-vpc-migration-design-migration-diy-overview}
+
+The following table provides a comparison of the four DIY migration methods available for migrating VMware virtual machines to VPC virtual server instances. Each method has distinct advantages and is suited for different migration scenarios. Review these options to determine which approach best fits your workload requirements, technical constraints, and migration scale.
 
 Review the following table for summaries of each migration method.
 

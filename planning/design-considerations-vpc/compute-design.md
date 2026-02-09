@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-02-04"
+  years: 2025, 2026
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption
 
@@ -46,3 +46,13 @@ The following tables lists the key features for IBM Cloud Virtual Servers for VP
 {: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
 
 For more information on virtual server instance profiles, see [IBM Cloud Docs - VPC Instance Profiles](/docs/vpc?topic=vpc-profiles).
+
+## Next steps
+{: #virt-sol-vpc-compute-design-next-steps}
+
+Now that you understand the compute design options for VPC virtual servers, explore these related topics:
+
+- **Networking**: Review [networking design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-design) for VPC connectivity and security
+- **Storage**: Explore [storage design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) for persistent data
+- **Security**: Learn about [security design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-security-design-overview) for VPC workloads
+- **Migration**: Review [migration strategies](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-migration) from VMware to VPC

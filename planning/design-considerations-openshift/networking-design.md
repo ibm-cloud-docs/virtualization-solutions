@@ -1,7 +1,8 @@
 ---
+
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-30"
+lastupdated: "2026-02-09"
 
 keywords: ROKS, network, layer2, localnet
 
@@ -74,17 +75,17 @@ The following table lists all the virtual private endpoints that are automatical
 Red Hat OpenShift Virtualization uses the Red Hat OpenShift networking capabilities to provide flexible, software-defined networking for virtual servers that run alongside containerized workloads. It is important to understand the difference for virtual server networking and pod networking. Each virtual server runs within a `virt-launcher` pod that is always connected to the default pod network.
 
 ```bash
-┌─────────────────────┐
-│    Worker Node      │
-│  ┌───────────────┐  │
-│  │ virt-launcher │  │  ← Kubernetes Pod Security Context
-│  │     pod       │  │
-│  │  ┌─────────┐  │  │
-│  │  │   virtual server    │  │  │  ← KVM/QEMU Hypervisor Isolation
-│  │  │ (QEMU)  │  │  │
-│  │  └─────────┘  │  │
-│  └───────────────┘  │
-└─────────────────────┘
+┌────────────────────────────────┐
+│          Worker Node           │
+│  ┌──────────────────────────┐  │
+│  │      virt-launcher       │  │  ← Kubernetes Pod Security Context
+│  │          pod             │  │
+│  │  ┌────────────────────┐  │  │
+│  │  │   virtual server   │  │  │  ← KVM/QEMU Hypervisor Isolation
+│  │  │       (QEMU)       │  │  │
+│  │  └────────────────────┘  │  │
+│  └──────────────────────────┘  │
+└────────────────────────────────┘
 ```
 
 Depending how you provision and set up your virtual server, it shares a pod network (or it can connect to different networks by using `multus`).
@@ -289,3 +290,13 @@ The following examples are use cases for Localnet.
 * Direct connectivity to other VPC resources
 * Compliance requirements for network segmentation by using VPC subnets
 * Hybrid architectures that require consistent IP addressing across VPC and Red Hat OpenShift Virtualization
+
+## Next steps
+{: #virt-sol-openshift-network-design-next-steps}
+
+Now that you understand the networking design for Red Hat OpenShift Virtualization, explore these related topics:
+
+- **Security**: Review [security design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) including network policies and SCCs
+- **Compute**: Explore [compute design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design) for worker nodes
+- **Storage**: Learn about [storage design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) for persistent volumes
+- **Observability**: Understand [observability solutions](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-openshift-observability-design-overview) for network monitoring
