@@ -12,102 +12,98 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migration Design Overview
+# Migration design overview
 {: #virt-sol-vpc-migration-design-design-overview}
 
-This guide focuses specifically on the design considerations for migrating your VMware workloads to IBM Cloud VPC virtual server instance. It assumes you have other design considerations documents covering compute, networking, storage, security, resiliency, and observability in your target VPC environment. Our focus here is on the migration journey itself, the decisions you'll need to make, the patterns you can follow, and the issues you'll want to avoid.
+The following guide is an overview of the design considerations to consider before you migrate your VMware workloads to IBM Cloud VPC. It assumes that you have other design considerations documents that describe compute, networking, storage, security, resiliency, and observability in your target VPC environment.
 {: shortdesc}
 
-## Understanding the Destination: VPC virtual server instance for VMware Administrators
+## Understanding the destination: VPC virtual server instances for VMware administrators
 {: #virt-sol-vpc-migration-design-design-overview-vpc}
 
-Before diving into migration design, let's explore what's fundamentally different about VPC virtual server instance compared to your VMware environment.
+Use the following sections to help you understand the differences between the IBM Cloud VPC environment compared to a VMware environment.
 
-### The Managed Hypervisor Model
+### The managed hypervisor approach
 {: #virt-sol-vpc-migration-design-design-overview-vpc-hypervisor}
 
-In your VMware environment, you manage everything from the hypervisor up. You patch ESXi hosts, manage vCenter, configure vSAN policies, design and maintain NSX overlays, and handle capacity planning for compute, storage, and network resources.
+In your VMware environment, you manage most everything at the hypervisor level.
 
-With VPC virtual server instance, IBM manages the hypervisor layer, so you don't need to patch hosts. Instead, you work with:
+With VPC virtual servers, IBM Cloud manages the following actions at the hypervisor layer.
 
-- Instance profiles that define your virtual machine's CPU, memory, and network characteristics
+- Instance profiles that define virtual server CPU, memory, and network characteristics
 - Storage profiles that define your disk performance characteristics
-- Software-defined networking that's fundamentally Layer 3, not Layer 2
+- Software-defined Layer 3 networking
 - APIs and Infrastructure-as-Code as the primary management interface
 
-### From Layer 2 to Layer 3: The Networking Paradigm Shift
+### Networking differences
 {: #virt-sol-vpc-migration-design-design-overview-network}
 
-This is perhaps the most significant conceptual change. Your VMware environment uses Layer 2 networking extensively—VLANs, virtual switches, distributed port groups. You can move a virtual machine between hosts and maintain the same IP address because you're working at Layer 2.
+A VMware environment uses Layer 2 networking VLANs and virtual switches that are distributed port groups. You can move a virtual server between hosts and maintain the same IP address within a Layer 2 network.
 
-VPC is fundamentally a Layer 3 software-defined network. While your virtual server instances may appear to have Layer 2 connectivity, under the hood they're connected via a highly scalable Layer 3 fabric. This has several implications:
+IBM Cloud VPC is a Layer 3 software-defined network. While your VPC virtual server instances might appear to have Layer 2 connectivity, they're connected through a Layer 3 environment. Keep the following networking differences in mind when you plan your migration to VPC.
 
-1. You cannot stretch a subnet between VMware and VPC during migration. You'll need to migrate at least a subnet at a time.
-1. Every IP address needs a Virtual Network Interface (VNI). In VMware terms, think of a VNI as a combination of a vNIC, its MAC address, its IP configuration, and its security group membership, all defined as a discrete object.
-1. VPC reserves specific addresses in every subnet: the .0 address, .1 (gateway), .2 and .3 (reserved), and the broadcast address. Even though you can use your own private IP ranges, you may need to re-IP some virtual machines if they currently use these reserved addresses.
-1. Shared VIPs are not straightforward. You can't simply assign the same virtual IP to multiple virtual server instances. For high availability scenarios, you'll typically use VPC's load balancers.
+* You can't stretch a subnet between VMware and VPC during migration. You need to migrate at least one subnet at a time.
+* Every IP address needs a Virtual Network Interface (VNI). In a VMware environment, think of a VNI as a combination of a vNIC, MAC address, IP configuration, and security group membership that are all defined as one object.
+* VPC reserves a specific address in every subnet: the `.0` address, `.1` (gateway), `.2` and `.3` (reserved), and the broadcast address. Even though you can use your own private IP ranges, you might need to re-IP some virtual server if they currently use these reserved addresses.
+* Shared virtual IPs are not straightforward. You can't assign the same virtual IP to multiple virtual server instances. For high availability scenarios, you typically use load balancers.
 
-### Storage: Block Volumes and IOPS Tiers
+### Storage differences
 {: #virt-sol-vpc-migration-design-design-overview-vpc-storage}
 
-Coming from VMware, you're accustomed to either local VMDK files on vSAN or NFS storage accessed by your ESXi hosts. In VPC:
+A VMware environment relies on either local VMDK files on vSAN or NFS storage that is accessed by ESXi hosts, while IBM Cloud VPC uses network-attached storage. The following items describe IBM Cloud VPC storage solutions for IBM Cloud VPC.
 
-- All storage is network-attached block volumes. There are no local disks from the virtual machine's perspective.
-- Storage performance is defined by IOPS tiers, not by the underlying array. You select a profile (like `5iops-tier` or `10iops-tier`) that guarantees performance per GB.
-- Network bandwidth is shared between virtual machine networking and storage I/O in a 3:1 ratio by default. An instance profile that provides 32 Gbps of network bandwidth gives you ~24 Gbps for network traffic and ~8 Gbps for storage traffic. This matters when you're sizing your instances.
-- Boot volumes are special. They have constraints (10-250 GB, must use `general-purpose` profile) and exist in a linked-clone relationship with their source image.
-- No shared datastores - In VMware, you provision an NFS datastore and multiple virtual machines share that datastore's total IOPS capacity. If your datastore can deliver 10,000 IOPS, those IOPS are shared across all virtual machines on that datastore—potentially creating "noisy neighbor" issues where one virtual machine's heavy I/O impacts others. In VPC, each volume has its own dedicated performance allocation. A volume configured with 10iops-tier at 100GB gets 1,000 IOPS that are guaranteed to that volume alone, regardless of what other virtual server instances are doing. This eliminates the need for Storage DRS-style balancing and makes capacity planning more predictable. You size each volume individually rather than sizing shared capacity pools.
+- All storage is network-attached block volumes. Virtual servers don't have local disks.
+- Storage performance is defined by IOPS tiers. You select a profile (such as `5iops-tier` or `10iops-tier`) that helps maintain performance per GB.
+- Network bandwidth is shared between virtual server networking and storage input and output in a 3:1 ratio by default. Keep this ratio in mind when you size your instances.
+- VPC doesn't use shared data stores. In a VMware environment, IOPS is shared across all virtual servers. This sharing creates "noisy neighbor" issues when one virtual server inputs and outputs affects other virtual servers. In the IBM Cloud VPC environment, each volume has its own dedicated performance allocation that helps prevent noisy neighbors.  
 
-### Shared block storage is not available
+- Boot volume scenarios that need 10 - 250 GB of storage must use `general-purpose` profile that exist in a linked-clone relationship with the source image.
+
+#### Shared block storage not supported 
 {: #virt-sol-vpc-migration-design-design-overview-vpc-block}
 
 VPC virtual server instance does not support shared block volumes
 {: attention}
 
-If you have Windows Failover Clusters using shared VMDK files, or Linux clusters with shared LVM, you'll need to redesign these. 
-
-Options available:
+If you have Windows failover clusters that use shared VMDK files, or Linux clusters with shared LVM, then you need to redesign your storage solution. The following alternative options are available.
 
 - Use VPC file storage (NFS-based) for shared file access
-- Deploy your own iSCSI target on a virtual server instance to expose shared block storage
-- Redesign the application to use cloud-native HA patterns
+- Deploy your own iSCSI target on a virtual server to show shared block storage
+- Redesign the application to use cloud-native high availability patterns
 - Use database replication instead of shared storage clustering
 
-## Conclusion
-{: #virt-sol-vpc-migration-design-design-overview-vpc-conclusion}
+## Tips for successful migrations
+{: #virt-sol-vpc-migration-design-design-overview-vpc-next-steps}
 
-Migrating from VMware to IBM Cloud VPC virtual server instance is a significant undertaking that requires careful planning, the right method selection, and structured execution. The fundamental shift from managing hypervisors to consuming managed compute services changes not just your infrastructure but also your operational model.
+Now that you understand the main differences between a VMware environment and an IBM Cloud environment, use the following information to learn more.
 
-Key Takeaways:
+* Choose the right method that is best for your scenario.
 
-1. Understand the differences: VPC's Layer 3 networking, managed hypervisor model, and storage profiles represent a paradigm shift from VMware. Invest time in understanding these differences before you migrate your first virtual machine.
-1. Choose the right method for your context:
-   - Review the comparison table of the different migration methods available in [Migration methods for virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods).
-   - [Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1) for simple, single-disk virtual machines and template scenarios
-   - [Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2) for multi-disk virtual machines and precise control
-   - [Live network transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3) for scale, efficiency, and minimizing downtime
-   - [VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4) for vCenter automation-first approaches
-1. Windows requires special handling: Whether sysprep or virt-v2v, budget time for driver injection and testing. Don't underestimate the RHEL/Ubuntu tooling gaps.
-1. Network architecture is critical: Transit Gateway connectivity between your VMware environment and VPC is foundational. Test it early, test it thoroughly.
-1. Start with a pilot: Your first wave teaches you more than any amount of lab testing. Make it representative but low-risk.
-1. Automate where it matters: For large migrations, invest in automation for the repetitive parts (volume provisioning, virtual server instance creation). Accept manual steps for the variable parts (application validation).
-1. Plan for rollback: Things will go wrong. Having clear rollback criteria, procedures, and preserved source virtual machines gives you confidence to proceed.
-1. Optimize post-migration: Don't stop at "it works." Right-size instances, leverage cloud-native services, and improve upon your VMware architecture.
+   - Review the comparison table of the different [migration methods](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods).
+   - [Image import (template-based migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1) for simple, single-disk virtual servers and template scenarios.
+   - [Copying direct volume (multi-disk method)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2) for multi-disk virtual servers and more control over the migration process.
+   - [Live network transfer](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3) for scale, efficiency, and minimized downtime.
+   - [VDDK Direct Extraction (vCenter only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4) for vCenter automated migrations.
 
-The path from VMware to VPC virtual server instance is well-traveled, but every migration is unique. Use this guide as a framework, adapt it to your specific requirements, and document your own lessons learned for the next project. Your experience migrating infrastructure positions you well for the broader cloud transformation journey ahead.
+* Windows requires special handling. Whether sysprep or virt-v2v, driver set up and testing takes time.
+* Network architecture is important. Which means that Transit Gateway connectivity between your VMware environment and VPC is foundational. Test this connectivity thoroughly.
+* Start with a simple test migration. Make it representative but low-risk.
+* Automate where it matters. For large migrations, invest in automation for the repetitive parts (volume provisioning, virtual server instance creation). Accept manual steps for the variable parts (application validation).
+* Plan for rollback. Things can go wrong. Have clear rollback criteria, procedures, and preserved source virtual servers.
+* Optimize post-migration. Don't stop at "it works." Properly sized instances and adopting cloud-native services improves upon your previous architecture.
 
-## Additional Resources
+## Extra resources
 {: #virt-sol-vpc-migration-design-design-overview-vpc-resources}
 
-**IBM Cloud Documentation**:
-- [VPC Getting Started](/docs/vpc?topic=vpc-getting-started)
-- [Migrating Virtual Server Instances to VPC](/docs/vpc?topic=vpc-migrate-vsi-to-vpc)
-- [Instance Profiles](/docs/vpc?topic=vpc-profiles)
-- [Block Storage Profiles](/docs/vpc?topic=vpc-block-storage-profiles)
-- [Transit Gateway](/docs/transit-gateway)
-- [VPC Solution Tutorials](/docs?tab=solutions)
+For extra information, see the following links.
 
-**Third-Party Tools and Resources**:
+- [VPC Getting started](/docs/vpc?topic=vpc-getting-started)
+- [Migrating virtual server to VPC](/docs/vpc?topic=vpc-migrate-vsi-to-vpc)
+- [Instance profiles](/docs/vpc?topic=vpc-profiles)
+- [Block Storage Profiles](/docs/vpc?topic=vpc-block-storage-profiles)
+- [Transit gateway](/docs/transit-gateway)
+- [VPC solution tutorials](/docs?tab=solutions)
+
 - [libguestfs and virt-v2v](https://libguestfs.org/){: external}
-- [Red Hat Migration Toolkit for Virtualization](https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.10){: external}
-- [VMware VDDK Documentation](https://developer.broadcom.com/sdks/vmware-virtual-disk-development-kit-vddk/7.0){: external}
+- [Red Hat Migration Toolkit for virtualization](https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/){: external}
+- [VMware VDDK documentation](https://developer.vmware.com/web/sdk/7.0/vddk){: external}
