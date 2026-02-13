@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-01-20"
+lastupdated: "2026-02-09"
 
 keywords: migration, warm migration, cold migration, mtv, red hat openShift migration toolkit for virtualization, migration toolkit for virtualization
 
@@ -58,7 +58,7 @@ Migration Toolkit for Virtualization (MTV) supports two types of migration.
    - **Cold migration** is the default migration. The source virtual servers are stopped while the data is copied.
    - **Warm migration** most of the data during the precopy stage is copied. Then, the virtual servers are stopped and the remaining data is copied during the cutover stage.
 
-When you compare the migration speeds of cold and warm migrations, you can observe that the single disk transfer and disk conversion are approximately the same for each option. The benefit of warm migration is that the transfer of the snapshot happens in the background while the virtual server runs. The default snapshot time is every 60 minutes. If virtual servers change substantially, more data is needs to be transferred than in cold migration when the virtual server is stopped. The cutover time, meaning the shutdown of the virtual machine and last snapshot transfer, depends on how much the virtual server was changed after the last snapshot.
+When you compare the migration speeds of cold and warm migrations, you can observe that the single disk transfer and disk conversion are approximately the same for each option. The benefit of warm migration is that the transfer of the snapshot happens in the background while the virtual server runs. The default snapshot time is every 60 minutes. If virtual servers change substantially, more data needs to be transferred than in cold migration when the virtual server is stopped. The cutover time, meaning the shutdown of the virtual machine and last snapshot transfer, depends on how much the virtual server was changed after the last snapshot.
 
 ## Red Hat OpenShift cold migration
 {: #virt-sol-openshift-cold-migration}
@@ -76,7 +76,7 @@ During a warm migration, the virtual server isn't stopped during the precopy sta
 ### Warm migration precopy stage
 {: #virt-sol-openshift-warm-migration-precopy}
 
-THe following information is an overview of the precopy stage process.
+The following information is an overview of the precopy stage process.
 
 - An initial snapshot of running virtual server disks is created.
 - The initial snapshot to target (full disk transfer, largest amount of data copied - takes more time) is copied.

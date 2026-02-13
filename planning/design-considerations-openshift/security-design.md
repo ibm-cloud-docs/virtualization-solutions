@@ -2,13 +2,15 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-04"
+lastupdated: "2026-02-09"
 
 keywords: Security
 
 subcollection: virtualization-solutions
 
 ---
+
+{{site.data.keyword.attribute-definition-list}}
 
 # Security design for Red Hat OpenShift Virtualization
 {: #virt-sol-openshift-security-design-overview}
@@ -71,7 +73,7 @@ The following table details each encryption service and the encryption capabilit
 | -------------- | -------------- |
 | VPC block storage encryption | - Provider-managed encryption by default (IBM-managed keys). \n - Customer-managed encryption by using IBM Key Protect or Hyper Protect Crypto Services \n - AES-256 encryption standard \n - Encryption of virtual server boot volumes and data volumes. |
 | Red Hat OpenShift Cluster Encryption | - etcd data and worker disks encrypted by IBM-managed LUKS encryption keys. \n - Integration with IBM Key Protect allows bring your own root of trust encryption keys that wrap the LUKS key that is used to encrypt etcd storage and worker disks. \n - Kubernetes secrets encryption at rest. \n - Persistent volume encryption through storage providers. |
-| IBM Key Protect | - Bring-your-own-key (BYOK) model with keys that are protected by FIPS 140-2 Level 2 cloud HSM. \n - Centralized key lifecycle management. \n - Key rotation and versioning. \n - Provides audit logs for key operations. \n Integration with VPC and Red Hat OpenShift services |
+| IBM Key Protect | - Bring-your-own-key (BYOK) model with keys that are protected by FIPS 140-2 Level 2 cloud HSM. \n - Centralized key lifecycle management. \n - Key rotation and versioning. \n - Provides audit logs for key operations. \n - Integration with VPC and Red Hat OpenShift services |
 | IBM Hyper Protect Crypto Services | - Keep-your-own-key (KYOK) model that uses FIPS 140-2 Level 4 cloud HSM. \n - Customer-controlled Hardware Security Module (HSM). \n - Exclusive customer control over encryption keys. \n - Enhanced compliance for regulated industries. |
 {: caption="Encryption-at-rest encryption capabilities" caption-side="bottom"}
 {: summary="This table provides all the encryption-at-rest encryption capabilities."}
@@ -94,14 +96,14 @@ The following table details each encryption service and the encryption capabilit
 
 {{site.data.keyword.cloud_notm}} VPC provides multiple layers of network security controls to protect workloads and control traffic flow.
 
-Red Hat OpenShift provides network policies and security context constraints (SCCs)
+Red Hat OpenShift provides network policies and security context constraints (SCCs).
 
 | VPC security control | Description | Key features |
 | -------------- | -------------- | -------------- |
 | Security Groups | Security Groups are stateful firewall controls that protect virtual servers, with stateful rules where responses are automatically allowed when a request is permitted. | - Instance-level (network interface) security \n - Stateful traffic filtering \ - Attached to bare metal servers, virtual server NICs, or load balancers \n - Ingress (inbound) and egress (outbound) rules \n - Support for protocol, port, and source and destination specification |
 | Access control lists (ACLs) | ACLs control traffic to and from subnets, acting as built-in virtual firewalls at the subnet level. | - Subnet-level security  \n - Stateless traffic filtering - if you want to permit traffic both ways on a target you must set up two rules. \n - All resources in a subnet with an associated ACL follow ACL rules. \ - Rules evaluated in numerical order (priority-based). \n - Allow and deny rules for granular control. \n - Use ACLs for broad subnet-level controls. \n Combine ACLs with security groups for defense-in-depth. \n - Implement explicit deny rules for known malicious traffic. \n - Order rules efficiently (most specific first). \n - Document ACL rule purposes and maintenance procedures |
 {: caption="VPC network security controls" caption-side="bottom"}
-{: summary="This table provides tne list of all the VPC security controls."}
+{: summary="This table provides the list of all the VPC security controls."}
 {: #vpc-security-controls}
 {: tab-title="VPC security controls"}
 {: tab-group="network-security"}
@@ -111,7 +113,7 @@ Red Hat OpenShift provides network policies and security context constraints (SC
 | Network policies | - Kubernetes NetworkPolicy resources for pod-to-pod traffic control  \n - Namespace isolation and segmentation. \n - Application-level micro-segmentation. \n - Ingress and egress rule definition |
 | Security contexts constraints (SCCs) | - Control pod security capabilities and permissions. \n - Restrict privileged container execution. \n - Define allowed volume types and host access. \n - Enforce security best practices for workload deployment |
 {: caption="OpenShift network security" caption-side="bottom"}
-{: summary="This table provides tne list of all the OpenShift security controls."}
+{: summary="This table provides the list of all the OpenShift security controls."}
 {: #openshift-security-controls}
 {: tab-title="OpenShift security controls"}
 {: tab-group="network-security"}
@@ -138,8 +140,8 @@ Red Hat OpenShift on {{site.data.keyword.cloud_notm}} includes automatic complia
 
 | Feature | Description |
 | -------------- | -------------- |
-| Posture management | - Continuous security posture assessment. \n - Configuration compliance scanning. \n - Drift detection from security baselines. \n Remediation guidance and automation |
-| Compliance monitoring | * Regulatory compliance validation. \n - Custom control framework definition. \n - Evidence collection for audits. \n - Compliance dashboards and reporting |
+| Posture management | - Continuous security posture assessment. \n - Configuration compliance scanning. \n - Drift detection from security baselines. \n - Remediation guidance and automation |
+| Compliance monitoring | - Regulatory compliance validation. \n - Custom control framework definition. \n - Evidence collection for audits. \n - Compliance dashboards and reporting |
 | Workload protection | - Runtime threat detection. \n - Vulnerability scanning for VMs and containers. \n - File integrity monitoring. \n - Compliance scanning for CIS benchmarks and other frameworks |
 {: caption="IBM Cloud Security and Compliance Center Workload Protection" caption-side="bottom"}
 
@@ -152,3 +154,13 @@ Red Hat OpenShift on {{site.data.keyword.cloud_notm}} includes automatic complia
 | VPC Flow Logs | - Network traffic capture and analysis  \n - Troubleshooting connectivity issues \n - Security incident investigation \n - Compliance evidence collection |
 | Red Hat OpenShift Audit Logs | - Kubernetes API server audit logs \n - User and service account activity tracking \n - RBAC policy enforcement logging. \n - Integration with {{site.data.keyword.cloud_notm}} Logging |
 {: caption="Activity Tracking and Logging" caption-side="bottom"}
+
+## Next steps
+{: #virt-sol-openshift-security-design-next-steps}
+
+Now that you understand the security design for Red Hat OpenShift Virtualization, explore these related topics:
+
+- **Networking**: Review [networking security controls](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) including network policies
+- **Compliance**: Learn about [observability and compliance monitoring](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-openshift-observability-design-overview)
+- **Storage**: Explore [storage encryption options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) for data protection
+- **Reference architecture**: Review the complete [Red Hat OpenShift Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)

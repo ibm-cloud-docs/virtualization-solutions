@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-13"
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -104,7 +104,7 @@ Parallel Migration Capabilities:
 [Method 3 Live network transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3) excels here:
 - Provision multiple worker virtual server instances
 - Migrate multiple virtual machines concurrently
-- Limited by network bandwidth and worker virtual server instance resources[]
+- Limited by network bandwidth and worker virtual server instance resources
 - Typical: 4-8 concurrent migrations per worker virtual server instance
 
 ### Example Wave Structure (50-VM migration)

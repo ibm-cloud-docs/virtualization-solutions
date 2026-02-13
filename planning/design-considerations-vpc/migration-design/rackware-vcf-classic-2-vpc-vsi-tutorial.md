@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-06"
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
 
@@ -14,7 +14,7 @@ account-plan: paid
 completion-time: 60m
 use-case: ApplicationModernization
 industry: SoftwareAndPlatformApplications
-compliance: HIPPA
+compliance: HIPAA
 
 ---
 
@@ -22,13 +22,13 @@ compliance: HIPPA
 
 # Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Tutorial
 {: #virt-sol-vpc-migration-design-rmm-tutorial}
-{: #tutorial-migration-toolkit}
+{: #tutorial-rackware-rmm}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 {: toc-use-case="ApplicationModernization"}
 {: toc-industry="Software and platform applications"}
-{: toc-compliance="HIPPA"}
+{: toc-compliance="HIPAA"}
 
 This tutorial focuses on using RackWare RMM (RackWare Management Module) to migrate IBM Cloud VCF-Automated Virtual Machines (VMs) to IBM Cloud VPC Virtual Server Instances. There is an associated Technical Guide that describes the technologies used.
 {: shortdesc}
@@ -63,7 +63,7 @@ The RackWare Management Module (RMM) migration solution provides a seamless virt
 ## Before you begin
 {: #virt-sol-vpc-migration-design-rmm-before-you-begin}
 
-In this tutorial we migrate an Ubuntu virtual machine and an a Microsoft Windows 2019 virtual machine. This tutorial assumes that you have:
+In this tutorial we migrate an Ubuntu virtual machine and a Microsoft Windows 2019 virtual machine. This tutorial assumes that you have:
 
 1. Read [Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Technical Guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide).
 1. Have existing IBM Cloud VMware-Automated instance and hosting virtual machines on NSX overlay segments. These overlay segments do not have native access to the IBM Cloud Classic private network.
@@ -455,7 +455,7 @@ While RMM allows auto-provisioning, where the RMM server will create the target 
 
 1. Follow the IBM Cloud instructions to create the required subnet in the VPC, the CIDR should match the CIDR of the source network.
 1. Follow the IBM Cloud instructions to create the required security group in the VPC for the target virtual server instances. Ensure that SSH is allowed from the RMM to the target virtual server instances. For the Windows virtual server instance we will also need to include RDP so that we can connect to the virtual server instance to configure it ready for use by RMM
-1. Follow the IBM Cloud instructions to create the required SSH keys in the VPC for the target virtual server instances. As we are provisioning the Ubuntu Target virtual server instance manually, we will need to upload the RMM public key we created earlier and include this when we provision the virtual server instance. This enables RMM to use password-less SSH. For the Windows virtual server instance, this key is used to encrypt the passowrd
+1. Follow the IBM Cloud instructions to create the required SSH keys in the VPC for the target virtual server instances. As we are provisioning the Ubuntu Target virtual server instance manually, we will need to upload the RMM public key we created earlier and include this when we provision the virtual server instance. This enables RMM to use password-less SSH. For the Windows virtual server instance, this key is used to encrypt the password
 1. With the information gathered in the previous step and using the IBM Cloud documentation order the IBM Cloud VPC virtual server instance servers and associated data volumes.
 
 ### Ubuntu Target virtual server instance
@@ -493,7 +493,7 @@ To install Rackware SSHD Service in the target virtual server instance:
 1. Then press the ‘Next’ button. The SSHD Configuration window will be shown.
 1. On the SSHD Configuration window:
 1. As RMM will be accessing the Windows host as the SYSTEM user, then the username field should show SYSTEM.
-1. Enter the RMM’s public SSH ke, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
+1. Enter the RMM’s public SSH key, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
 1. Then press Next and the Confirm Installation screen will be shown.
 1. Press Next to begin the installation.
 1. After the installation completes, you will see the Installation Complete window.
@@ -529,7 +529,7 @@ msiexec.exe /i "C:\Temp\RWSSHDService_x64.msi" /passive /L*v C:\Temp\rwsshd.log 
 
 After configuring all of the above steps for SSH-only, verify that the SSH public key authentication (aka “passwordless SSH”) is working by running the following command from the RMM `ssh SYSTEM@<ip_address>` e.g. `ssh SYSTEM@192.168.10.12`.
 
-If you have any issues with the RMM's keys, they are located in the following location`C:\Program Files (x86)\Rackware-winutil\etc\authorized_keys`
+If you have any issues with the RMM's keys, they are located in the following location `C:\Program Files (x86)\Rackware-winutil\etc\authorized_keys`
 
 ## Prepare the Source virtual machines
 {: #virt-sol-vpc-migration-design-rmm-tutorial-prepare-source-vm}
@@ -605,7 +605,7 @@ The RMM must be able to ssh without using a password to the source server:
    ```bash
    # Create .ssh directory and authorized_key file for rackware user on source host
    sudo su - rackware
-   mkdir -p /home/rackware/ .ssh
+   mkdir -p /home/rackware/.ssh
    touch /home/rackware/.ssh/authorized_keys
    chmod 700 ~/.ssh/
    chmod 600 ~/.ssh/authorized_keys
@@ -678,7 +678,7 @@ To install Rackware SSHD Service in the source virtual machine:
 1. Then press the ‘Next’ button. The SSHD Configuration window will be shown.
 1. On the SSHD Configuration window:
 1. As RMM will be accessing the Windows host as the SYSTEM user, then the username field should show SYSTEM.
-1. Enter the RMM’s public SSH ke, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
+1. Enter the RMM’s public SSH key, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
 1. Then press Next and the Confirm Installation screen will be shown.
 1. Press Next to begin the installation.
 1. After the installation completes, you will see the Installation Complete window.
@@ -714,7 +714,7 @@ msiexec.exe /i "C:\Temp\RWSSHDService_x64.msi" /passive /L*v C:\Temp\rwsshd.log 
 
 After configuring all of the above steps for SSH-only, verify that the SSH public key authentication (aka “passwordless SSH”) is working by running the following command from the RMM `ssh SYSTEM@<ip_address>` e.g. `ssh SYSTEM@10.194.177.83`.
 
-If you have any issues with the RMM's keys, they are located in the following location`C:\Program Files (x86)\Rackware-winutil\etc\authorized_keys`
+If you have any issues with the RMM's keys, they are located in the following location `C:\Program Files (x86)\Rackware-winutil\etc\authorized_keys`
 
 ## Use the RMM GUI to configure the migrations and perform the initial migration
 {: #virt-sol-vpc-migration-design-rmm-tutorial-initial-migration}
@@ -813,7 +813,7 @@ In this step we quiesce the applications and perform a cut-over/final delta sync
       - Monitor the wave status in the RMM console
       - Ensure sync completes successfully with no errors
 1. Shutdown source virtual machines
-1. Network cutover. Redirect user traffic to the new environment in VPC. This step depends on how you have been connecting to your IBM Cloud VMware VCF-Autonmated instance but could include:
+1. Network cutover. Redirect user traffic to the new environment in VPC. This step depends on how you have been connecting to your IBM Cloud VMware VCF-Automated instance but could include:
       - routing traffic to the VPC.
       - removing prefix filters from the transit gateway connection.
       - redirecting traffic from the VPN tunnels to the VPC.
@@ -824,4 +824,4 @@ In this step we quiesce the applications and perform a cut-over/final delta sync
       - Test user access
 
 ## Next steps
-{: #virt-sol-vpc-migration-design-rmm-tutorial=step-next}
+{: #virt-sol-vpc-migration-design-rmm-tutorial-step-next}

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025,2026
-lastupdated: "2026-02-04"
+  years: 2025, 2026
+lastupdated: "2026-02-09"
 
 keywords: IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection
 
@@ -59,8 +59,8 @@ IBM Cloud Monitoring and IBM Cloud Logs provide cloud-native observability for a
 
 | Service | Description | Agent deployment metrics collection |
 | -------------- | -------------- | -------------- |
-| IBM Cloud Monitoring | IBM Cloud Monitoring is a cloud-native, container-intelligence management system that provides operational visibility into the performance and health of applications, services, and platforms. It offers administrators, DevOps teams, and developers full-stack telemetry with advanced features for monitoring, troubleshooting, alerting, and custom dashboard creation. | To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering.   \n   \n No additional instrumentation is required to gain insights from automatically collected metrics.  \n   \n For more information, see [Getting started with IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Windows environment](/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu). |
-| IBM Cloud Logs | IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior. | IBM Cloud Logs supports log collection from:  \n - IBM Cloud services and resources  \n - On-premises infrastructure  \n - Third-party cloud providers  \n - Security and audit logs generated in IBM Cloud  \n   \n To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. No additional instrumentation is required to gain insights from automatically collected metrics.  \n   \n For more information, see [Getting started with IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Windows environment](/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu). |
+| IBM Cloud Monitoring | IBM Cloud Monitoring is a cloud-native, container-intelligence management system that provides operational visibility into the performance and health of applications, services, and platforms. It offers administrators, DevOps teams, and developers full-stack telemetry with advanced features for monitoring, troubleshooting, alerting, and custom dashboard creation. | To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. <br><br> No additional instrumentation is required to gain insights from automatically collected metrics. <br><br> For more information, see [Getting started with IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Windows environment](/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu). |
+| IBM Cloud Logs | IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior. | IBM Cloud Logs supports log collection from: <br> - IBM Cloud services and resources <br> - On-premises infrastructure <br> - Third-party cloud providers <br> - Security and audit logs generated in IBM Cloud <br><br> To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. No additional instrumentation is required to gain insights from automatically collected metrics. <br><br> For more information, see [Getting started with IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Windows environment](/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu). |
 {: caption="IBM Cloud Monitoring and IBM Cloud Logs details" caption-side="bottom"}
 
 Be aware that for IBM Cloud Linux VSI and IBM Cloud Windows VSI	both Service ID API key and Trusted Profiles authentication methods are supported by the agent with the IBM Cloud Logs service.
@@ -96,4 +96,14 @@ The following table details the comprehensive observability provided when deploy
 | Posture management | Validate security configurations and compliance policies |
 | Incident response | Investigate and respond to security events with forensic data |
 | Compliance validation | Assess compliance against regulatory frameworks and industry standards |
-{: caption="Observabiilty provided by unified agent" caption-side="bottom"}
+{: caption="Observability provided by unified agent" caption-side="bottom"}
+
+## Next steps
+{: #virt-sol-vpc-observability-design-next-steps}
+
+Now that you understand the observability design for VPC virtual servers, explore these related topics:
+
+- **Security**: Review [security design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-security-design-overview) including compliance monitoring
+- **Resiliency**: Learn about [backup and disaster recovery](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design) strategies
+- **Networking**: Explore [networking design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-design) for VPC connectivity
+- **Reference architecture**: Review the complete [VPC virtual server reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vsi-architecture)

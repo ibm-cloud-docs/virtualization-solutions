@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-02-04"
+lastupdated: "2026-02-09"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -14,19 +14,19 @@ account-plan: paid
 completion-time: 60m
 
 ---
+
 {{site.data.keyword.attribute-definition-list}}
 
 # Migrating your VMware workloads to IBM Cloud Virtual Servers for VPC
-
 {: #virt-sol-vpc-migration-tutorial-overview}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
 The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmware-service_full}} (VCFaaS) environment to {{site.data.keyword.vpc_full}} (VPC). You can also use this tutorial with a self‑managed VMware environment.
+{: shortdesc}
 
 ## Objective
-
 {: #virt-sol-vpc-migration-tutorial-overview-objectives}
 
 The following objectives are covered in the following tutorial.
@@ -51,30 +51,29 @@ The following diagram illustrates what you build as part of this tutorial.
 ![Virtualization Solutions VPC Migration Tutorial High-Level Architecture](../../images/vpc-vsi/vpc-vsi-migration-tutorial-high-level-diagram.svg){: caption="Virtualization Solutions VPC Migration Tutorial High Level Architecture" caption-side="bottom"}
 
 ## Before you begin
-
 {: #virt-sol-vpc-migration-tutorial-prerequisites}
 
 This tutorial requires the following prerequisites.
 
 - An available VCFaaS instance
 - Have the correct access policies to manage VCFaaS environments and make sure that you can create the following VCFaaS resources. For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?topic=vmware-service-vmaas-iam&interface=ui).
-  - VMs
-  - Networks
-  - Firewall Rules
-  - NAT rules
-  - TGW Connection Group
+   - VMs
+   - Networks
+   - Firewall Rules
+   - NAT rules
+   - TGW Connection Group
+
 - Have the correct access policies to manage VPCs and their resources and make sure that you can create the following VPC resources. For more information, see [Managing IAM access for VPC Infrastructure Services](/docs/vpc?topic=vpc-iam-getting-started&interface=ui).
-  - VPCs
-  - Virtual servers
-  - Security groups
-  - Public gateways
-  - Floating IPs
+   - VPCs
+   - Virtual servers
+   - Security groups
+   - Public gateways
+   - Floating IPs
 - Have the correct access policies to manage TGWs and make sure that you can create the following TGW resources. For more information, see [Using IAM permissions with IBM Cloud Transit Gateway](/docs/transit-gateway?topic=transit-gateway-iam).
-  - TGWs (Transit gateways)
-  - TGW connections
+   - TGWs (Transit gateways)
+   - TGW connections
 
 ## Creating a VPC
-
 {: #virt-sol-vpc-migration-tutorial-create-vpc}
 {: step}
 
@@ -99,7 +98,6 @@ Before you begin, make sure that you're logged in to the IBM Cloud console.
       3. Click **Create a virtual private cloud**.
 
 ## Creating a virtual server
-
 {: #virt-sol-vpc-migration-tutorial-create-virtual-server}
 {: step}
 
@@ -127,7 +125,6 @@ Use the following steps to create a worker virtual server from which to perform 
 8. Click **Create a virtual server**.
 
 ## Creating a Bastion virtual server
-
 {: #virt-sol-vpc-migration-tutorial-create-bastion-virtual-server}
 {: step}
 
@@ -151,7 +148,6 @@ Create a Bastion virtual server from which to securely access the resources in t
 9. Click **Create a virtual server**.
 
 ## Creating a public gateway
-
 {: #virt-sol-vpc-migration-tutorial-create-public-gateway}
 {: step}
 
@@ -174,7 +170,6 @@ Use the following steps to create a public gateway.
 3. Click **Close**.
 
 ## Creating a security group
-
 {: #virt-sol-vpc-migration-tutorial-create-security-group}
 {: step}
 
@@ -209,7 +204,7 @@ To improve the security of your VPC, the inbound rules in this security group mu
    - Select the interface of the Bastion virtual server.
    - Click **Create a security group**.
 6. Get the IP of the Bastion virtual server
-   - From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.**
+   - From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
    - Search for **vpc-migration-vsi-bastion**.
    - Copy the floating IP of the Bastion virtual server from the list of results.
 7. Get the IP of the worker virtual server
@@ -223,6 +218,7 @@ To improve the security of your VPC, the inbound rules in this security group mu
 
 9. Try to connect to the internet from the worker virtual server
    - Use Secure Shell to log in to the worker virtual server by running the following command:
+   
    `ssh -J root@<BASTION_VSI_IP> root@<WORKER_VSI_IP>`
 
    Where
@@ -231,10 +227,10 @@ To improve the security of your VPC, the inbound rules in this security group mu
    - `<WORKER_VSI_IP>` is the IP of the worker virtual server that you copied previously.
 
    - Verify that you can reach Google by its domain name by running the following command:
+
    `nslookup www.google.com`
 
 ## Setting up networking on a VCFaaS instance
-
 {: #virt-sol-vpc-migration-tutorial-setup-vcfaas}
 {: step}
 
@@ -265,8 +261,8 @@ Use the following steps to configure networking in your VMware Cloud Director (V
          3. Click **Next**.
       5. In the **Static IP pools** section, specify the following information:
          1. For **IP range**, enter `192.168.0.2-192.168.0.254`.
-         2. Click **Add**
-         3. Click **Next**
+         2. Click **Add**.
+         3. Click **Next**.
       6. In the **DNS** section, specify the following information:
          1. For **Primary DNS**, enter `161.26.0.10`.
          2. For **Secondary DNS**, enter `8.8.8.8`.
@@ -303,7 +299,6 @@ Use the following steps to configure networking in your VMware Cloud Director (V
       5. Click **Save**.
 
 ## Uploading the Ubuntu Server ISO into the VCFaaS instance
-
 {: #virt-sol-vpc-migration-tutorial-upload-ubuntu-iso}
 {: step}
 
@@ -330,7 +325,6 @@ Use the following steps to create a catalog in VCFaaS and upload an Ubuntu Serve
       2. Click **OK** and wait for the ISO to upload.
 
 ## Creating the Windows and RHEL virtual servers
-
 {: #virt-sol-vpc-migration-tutorial-create-vms}
 {: step}
 
@@ -372,7 +366,7 @@ Use the following steps to create Windows and RHEL virtual servers in VCFaaS. Th
    2. From the list of available data centers, select your VDC.
    3. In the **Compute** section, click **Virtual machines**.
    4. Click **New VM**. In the **New VM** form, specify the following information:
-      1. For **Name**, enter `vm-rhel9*`
+      1. For **Name**, enter `vm-rhel9`
       2. For **Templates**, select **RHEL-9-Template-Official**
       3. In the **NICs** section, specify the following information:
          1. For **IP Mode**, select **Static - IP Pool**.
@@ -401,7 +395,6 @@ Use the following steps to create Windows and RHEL virtual servers in VCFaaS. Th
     2. Close the Web Console window.
 
 ## Getting the ISO for the Windows virtIO drivers into the Windows virtual server
-
 {: #virt-sol-vpc-migration-tutorial-load-virtio-iso}
 {: step}
 
@@ -433,7 +426,7 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
    1. From the side window, click **Data centers**.
    2. From the list of available data centers, select your VDC.
    3. In the **Compute** section, click **Virtual machines**.
-   4. From the list of avaible virtual servers, find **vm-rhel9-tmp**.
+   4. From the list of available virtual servers, find **vm-rhel9-tmp**.
    5. Click **Details** > **Launch Web Console** and in the **Web Console window**,
 6. Register the temporary RHEL virtual server with the Red Hat Subscription Manager by following the steps that are in the [Operating VMware Cloud Director guide](/docs/vmware-service?topic=vmware-service-vcd-ops-guide#vcd-ops-guide-public-cat-rhel).
 7. Install the `virtio-win` package on the RHEL virtual server.
@@ -466,7 +459,6 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
             When prompted whether you trust the remote server, enter **y** and enter the password of the temporary RHEL virtual server.
 
 ## Getting the cloud-init installer for the Windows virtual server
-
 {: #virt-sol-vpc-migration-tutorial-load-cloud-init-installer}
 {: step}
 
@@ -483,7 +475,6 @@ The Windows virtual server also needs Cloud-init installed on it to run as a vir
    2. Close the Web Console window.
 
 ## Setting up a transit gateway (private connection) between the VCFaaS instance and VPC
-
 {: #virt-sol-vpc-migration-tutorial-setup-tgw}
 {: step}
 
@@ -498,7 +489,7 @@ Use the following steps to create a transit gateway to securely connect your VCF
    4. In the **Location** section, specify the following information
       1. For **Routing option**, select **Local routing**
       2. For **Location**, select **Dallas (us-south)**.
-      3. Click **Create**
+      3. Click **Create**.
 3. Connect the VPC to the transit gateway.
    1. From the **Navigation menu**, click **Infrastructure > Network > Transit gateway**.
    2. From the list of available resources, select **vpc-migration-tgw**.
@@ -527,11 +518,11 @@ Use the following steps to create a transit gateway to securely connect your VCF
          4. Click **Create**.
    6. In the **Attaching virtual server interfaces** section, select the interface of the worker virtual server and click **Create a security group**.
 6. Get the IP range of the VPC subnet
-   1. From the **Navigation menu**, click > **Infrastructure > Network > Subnets**.
+   1. From the **Navigation menu**, click **Infrastructure > Network > Subnets**.
    2. From the list of available resources, select **vpc-migration-sn-1**.
    3. Copy the value of the **IP range**.
 7. Go to the VCFaaS tenant portal.
-8. Create firewall rules to allow traffic between the VCFaaS instance and the virtual serverI on a VPC environment.
+8. Create firewall rules to allow traffic between the VCFaaS instance and the virtual server on a VPC environment.
    1. From the side window, click **Data centers**.
    2. From the list of available data centers, select your VDC.
    3. In the **Networking** section, click **Edges**
@@ -562,7 +553,7 @@ Use the following steps to create a transit gateway to securely connect your VCF
           3. Click **Keep**.
        4. Click **Save**.
 9. Disable the NAT rule to allow access to the internet from the network.
-   1. From the side window, click **Data centers**
+   1. From the side window, click **Data centers**.
    2. Click your VDC from the list of available data centers.
    3. In the **Networking** section, click **Edges**.
    4. Click your edge gateway.
@@ -590,7 +581,6 @@ Use the following steps to create a transit gateway to securely connect your VCF
           `ping 192.168.0.1`
 
 ## Preparing the Windows virtual server for migration
-
 {: #virt-sol-vpc-migration-tutorial-prep-windows-vm}
 {: step}
 
@@ -626,7 +616,6 @@ Before you can migrate the virtual server, you must install the necessary driver
    2. Close the Web Console.
 
 ## Migrating the Windows virtual server
-
 {: #virt-sol-vpc-migration-tutorial-migrate-windows-vm}
 {: step}
 
@@ -647,7 +636,7 @@ When the virtual server starts, Cloud-init runs and the administrator password r
       3. For **Zone**, select **us-south-1**.
    6. In the **Details** section, specify the following information:
       1. For **Name**, enter `vpc-migration-vsi-win22`.
-   7. IN the **Server configuration** section, specify the following information:
+   7. In the **Server configuration** section, specify the following information:
       1. For **Image**, click **Change image**. Within the **Select an image** form, specify the following information:
          1. Search for **windows**.
          2. From the list of results, select **ibm-windows-server-2022-full-standard-amd64-32**.
@@ -749,7 +738,7 @@ When the virtual server starts, Cloud-init runs and the administrator password r
       {: tip}
 
     3. Close the Web Console window.
-12. Fix the partition table on the attached boot volume b moving the partition table to the correct position on the disk by running the following command:
+12. Fix the partition table on the attached boot volume by moving the partition table to the correct position on the disk by running the following command:
 
     `sgdisk --move-second-header /dev/<DEV_NAME>`
 
@@ -803,7 +792,6 @@ When the virtual server starts, Cloud-init runs and the administrator password r
     2. Use your preferred Remote Desktop client to connect to the Windows virtual server. Use `localhost` as the IP and log in as Administrator with the password of the Windows virtual server.
 
 ## Preparing the RHEL virtual server for migration
-
 {: #virt-sol-vpc-migration-tutorial-prep-rhel-vm}
 {: step}
 
@@ -838,9 +826,9 @@ Use the following information to prepare the RHEL virtual server for migration.
 
           `rm /etc/sysconfig/network-scripts/*`
 
-      2. Delete the files that re in `/etc/NetworkManager/system-connections` by running the following command:
+      2. Delete the files that are in `/etc/NetworkManager/system-connections` by running the following command:
 
-          `m /etc/NetworkManager/system-connections/*`
+          `rm /etc/NetworkManager/system-connections/*`
 
       3. Open `/etc/sysconfig/network` and delete any lines where _GATEWAYDEV_ is set.
 7. Delete the existing Red Hat Subscription Manager configuration to help make sure that the virtual server gets reregistered when it starts.
@@ -864,7 +852,6 @@ Use the following information to prepare the RHEL virtual server for migration.
    5. Click **Power Off**
 
 ## Migrating the RHEL virtual server
-
 {: #virt-sol-vpc-migration-tutorial-migrate-rhel-vm}
 {: step}
 
@@ -1018,7 +1005,7 @@ When the virtual server starts, Cloud-init runs and the root password resets.
        5. In the **Server configuration** section, specify the following information:
           1. For **SSH Keys**, select **vpc-migration-ssh-key**.
        6. Click **Create a virtual server**.
-16. Get the IP of the RHEL virtual server, specify the following information:
+16. Get the IP of the RHEL virtual server by specifying the following information:
     1. From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
     2. Search for **vpc-migration-vsi-rhel9**.
     3. From the list of results, copy the reserved IP of the RHEL virtual server.
@@ -1029,11 +1016,22 @@ When the virtual server starts, Cloud-init runs and the root password resets.
 
     Where
 
-    `<BASTION_VSI_IP>` is the IP of the Bastion virtual server that you copied previously.
-    `<RHEL_VSI_IP>` is the IP of the RHEL virtual server that you copied previously.
+    - `<BASTION_VSI_IP>` is the IP of the Bastion virtual server that you copied previously.
+    - `<RHEL_VSI_IP>` is the IP of the RHEL virtual server that you copied previously.
 
 ## You completed the tutorial
-
 {: #virt-sol-vpc-migration-tutorial-congratulations}
+
+
+## Next steps
+{: #virt-sol-vpc-migration-tutorial-next-steps}
+
+Now that you've successfully migrated your workloads to VPC, explore these resources:
+
+- **Review architecture**: Understand the complete [Virtual Servers for VPC reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vsi-architecture)
+- **Migration strategies**: Learn about additional [migration methods and design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-migration)
+- **Optimize your environment**: Explore [design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-compute-design-overview) for compute, networking, storage, and security
+- **Implement monitoring**: Set up [observability solutions](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) for your VPC environment
+- **Plan for resiliency**: Review [backup and disaster recovery strategies](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design)
 
 You successfully migrated VCFaaS instances into a VPC. You can continue to develop your VPC by migrating or adding more virtual servers and other resources.

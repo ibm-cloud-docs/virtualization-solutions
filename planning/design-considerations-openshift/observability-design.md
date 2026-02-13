@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-02-06"
+  years: 2025, 2026
+lastupdated: "2026-02-09"
 
 keywords: ROKS, RHACM, IBM Cloud Logs, IBM Cloud Monitoring, Workload Protection
 
@@ -156,4 +156,14 @@ The following table details the comprehensive observability provided when deploy
 | Posture management | Validate security configurations and compliance policies |
 | Incident response | Investigate and respond to security events with forensic data |
 | Compliance validation | Assess compliance against regulatory frameworks and industry standards |
-{: caption="Observabiilty provided by unified agent" caption-side="bottom"}
+{: caption="Observability provided by unified agent" caption-side="bottom"}
+
+## Next steps
+{: #virt-sol-openshift-observability-design-next-steps}
+
+Now that you understand the observability design for Red Hat OpenShift Virtualization, explore these related topics:
+
+- **Security**: Review [security design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) including compliance monitoring
+- **Resiliency**: Learn about [backup and disaster recovery](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design) strategies
+- **Networking**: Explore [networking design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) for OpenShift
+- **Reference architecture**: Review the complete [Red Hat OpenShift Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)

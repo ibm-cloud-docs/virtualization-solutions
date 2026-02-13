@@ -1,7 +1,7 @@
 ---
 copyright:
-  years: 2025
-lastupdated: "2026-02-04"
+  years: 2025, 2026
+lastupdated: "2026-02-09"
 
 keywords: ROKS, VPC, subnets
 
@@ -124,3 +124,13 @@ See [Security in your VPC](/docs/vpc?topic=vpc-security-in-your-vpc) for additio
 **IBM Cloud Transit Gateway** interconnects VPCs with each other, PowerVS Workspaces and with IBM Cloud Classic infrastructure, providing a hub for routing traffic across multiple cloud environments. Transit Gateway simplifies network topology management in hybrid and multicloud architectures.
 
 For guidance on selecting the appropriate connectivity option, see [Interconnecting your VPC using IBM Cloud offerings](/docs/vpc?topic=vpc-interconnectivity) and [Getting started with IBM Cloud Transit Gateway](/docs/transit-gateway?topic=transit-gateway-getting-started).
+
+## Next steps
+{: #virt-sol-network-design-next-steps}
+
+Now that you understand the networking design for VPC virtual servers, explore these related topics:
+
+- **Security**: Review [security design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-security-design-overview) including security groups and ACLs
+- **Compute**: Explore [compute design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-compute-design-overview) for virtual server instances
+- **Storage**: Learn about [storage design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) for VPC workloads
+- **Observability**: Understand [observability solutions](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) for monitoring network performance

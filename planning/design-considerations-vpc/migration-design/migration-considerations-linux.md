@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-14"
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -91,7 +91,7 @@ To resolve Static IP Configuration, do the following:
          nameservers:
            addresses: [8.8.8.8, 8.8.4.4]
    ```
-{: codeblock}
+   {: codeblock}
 
 - Traditional /etc/network/interfaces (Debian, older Ubuntu)
 
@@ -145,7 +145,7 @@ sudo touch /etc/cloud/cloud-init.disabled
 - Useful if you want VPC to auto-configure networking via DHCP
 - May require manual adjustments post-boot (hostname, users, etc.)
 
-### Option 3: Configure cloud-init for sc
+### Option 3: Configure cloud-init 
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
 
 - Create cloud-init config that preserves your settings

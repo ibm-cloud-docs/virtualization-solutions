@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-14"
+lastupdated: "2026-02-09"
 
 keywords: virtual server instance, File Storage, Block Storage, Encryption, Migration
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Live network transfer (Recommended for Scale)
 {: #virt-sol-vpc-migration-design-method3}
 
-For Large-scale migrations, minimizing downtime, maximum efficiency, scenarios where exporting virtual machineDKs is impractical, you can migrate to a virtual server using live network transfer. Instead of shutting down your virtual machine, exporting it, transferring the export, and converting it, you boot the source virtual machine from a live ISO (like a rescue disk), read its disks from within this live environment, and stream them directly over the network to your worker virtual server instance in VPC.
+For Large-scale migrations, minimizing downtime, maximum efficiency, scenarios where exporting VMDKs is impractical, you can migrate to a virtual server using live network transfer. Instead of shutting down your virtual machine, exporting it, transferring the export, and converting it, you boot the source virtual machine from a live ISO (like a rescue disk), read its disks from within this live environment, and stream them directly over the network to your worker virtual server instance in VPC.
 {: shortdesc}
 
 ## Architecture Components
@@ -28,7 +28,7 @@ The architecture components of a live network transfer migration are:
 | Transit Gateway | Connects your VMware environment (Classic, NSX, or VCFaaS) to your VPC. This provides the Layer 3 routing necessary for your source virtual machine (in VMware) to communicate with your worker virtual server instance (in VPC). |
 | Worker virtual server instance | Similar to Method 2, but here it's purely a receiver—listening on a network port for incoming disk data. |
 | Live ISO | A bootable ISO that provides:  \n  \n - Network configuration tools  \n  \n - Disk reading utilities (`dd`)  \n  \n - Compression tools (`gzip`, `pigz`)  \n  \n - Network transfer tools (`netcat`, `socat`, `ssh`) |
-| Boot Source Options |  \n  \n - Ubuntu Install ISO: Has a "Enter shell" option in the help menu, includes most needed tools  \n  \n - TinyCore Linux: Extremely small but requires package installation for ssh/qemu  \n  \n - virt-p2v ISO: Purpose-built by Red Hat for P2V migrations, integrates with virt-v2v on receiver  \n  \n - G4L (Ghost for Linux): Imaging-focused live Linux |
+| Boot Source Options | \n  \n - Ubuntu Install ISO: Has a "Enter shell" option in the help menu, includes most needed tools  \n  \n - TinyCore Linux: Extremely small but requires package installation for ssh/qemu  \n  \n - virt-p2v ISO: Purpose-built by Red Hat for P2V migrations, integrates with virt-v2v on receiver  \n  \n - G4L (Ghost for Linux): Imaging-focused live Linux |
 {: caption="Architecture components for live network transfer migration method" caption-side="bottom"}
 
 ## Overview of the live network transfer migration process
@@ -56,7 +56,7 @@ The following steps layout the process to migrate using live network transfer.
 1. Boot Source virtual machine from ISO
    1. Reboot virtual machine, it boots into the live environment
    1. Your virtual machine's disks are accessible but the OS isn't running (clean shutdown equivalent)
-1. Configure Networking in Live Environment**
+1. Configure Networking in Live Environment
    1. Determine network interface name (may vary: eth0, ens192, etc.)
    1. Configure IP and routing:
 
@@ -88,7 +88,7 @@ The following steps layout the process to migrate using live network transfer.
    - Monitor progress on both sides
    - Transfer time depends on disk size and network bandwidth
    - Compression typically gives 2-4x improvement for OS disks
-1. Repeat for Additional Disks**
+1. Repeat for Additional Disks
    - For multi-disk virtual machines, repeat for each disk:
 
      ```bash
@@ -104,17 +104,17 @@ The following steps layout the process to migrate using live network transfer.
    1. Verify transfers: `fdisk -l /dev/vdb` on worker
    1. Optionally use virt-v2v for transformations: `virt-v2v-in-place -i disk /dev/vdb`
    1. Flush buffers: `blockdev --flushbufs /dev/vdb`
-1. Create virtual server instance from Volumes**
+1. Create virtual server instance from Volumes
    1. Detach volumes from worker
    1. Create final virtual server instance using existing boot volume (same as Method 2 step 8)
-1. Shutdown Source virtual machine**
+1. Shutdown Source virtual machine
     1. After verifying virtual server instance boots successfully, shut down source virtual machine
     1. Optionally create a snapshot in VMware as a rollback point
 
 ## Design Advantages
 {: #virt-sol-vpc-migration-design-method3-advantages}
 
-The following tables lists the design advantages of live network transfer migration.
+The following table describes the design advantages of live network transfer migration.
 
 | Design advantage | Description |
 | ----------- | ------------------ |
@@ -128,7 +128,7 @@ The following tables lists the design advantages of live network transfer migrat
 ## Design Constraints and Limitations
 {: #virt-sol-vpc-migration-design-method3-constraints}
 
-The following table lists the constratins and limitations of a live network transfer migration.
+The following table describes the constraints and limitations of a live network transfer migration.
 
 | Limitation or Constraint | Description |
 | ----------- | ------------------ |

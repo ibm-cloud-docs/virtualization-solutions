@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-13"
+lastupdated: "2026-02-09"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -21,7 +21,7 @@ After each wave, validate success and identify optimization opportunities.
 ## Functional Validation Checklist
 {: #virt-sol-vpc-migration-design-functional}
 
-For Each virtual server instance:
+For each virtual server instance:
 - [ ] Boots successfully
 - [ ] All disks present and mounted
 - [ ] Network connectivity (ping gateway, ping external host)
@@ -29,7 +29,7 @@ For Each virtual server instance:
 - [ ] Application responds to requests
 - [ ] Application logs show no critical errors
 
-For Each Application:
+For each application:
 - [ ] All tiers communicating correctly
 - [ ] Database connections successful
 - [ ] Load balancer health checks passing
@@ -37,7 +37,7 @@ For Each Application:
 - [ ] Authentication working (AD, LDAP, OAuth)
 - [ ] Integrations working (APIs, file transfers, etc.)
 
-For the Environment:
+For the environment:
 - [ ] Monitoring agents reporting
 - [ ] Backup jobs configured and running
 - [ ] Security group rules tested (allowed traffic works, blocked traffic blocked)
@@ -116,6 +116,6 @@ Backup and DR:
 - Consider IBM Cloud Backup for file-level backup
 
 Monitoring and Observability:
-- Integrate with IBM Cloud Monitoring (Sysdig)
-- Implement log aggregation with IBM Log Analysis (LogDNA)
+- Integrate with IBM Cloud Monitoring
+- Implement log aggregation with IBM Cloud Logs
 - Use VPC Flow Logs for network traffic analysis
