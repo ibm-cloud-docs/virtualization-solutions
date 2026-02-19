@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-02-09"
+  years: 2025, 2026
+lastupdated: "2026-02-19"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: Migration, post migration, after migration
 
 subcollection: virtualization-solutions
 
@@ -12,110 +12,105 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Post-Migration Validation and Optimization
+# Post-migration validation and optimization
 {: #virt-sol-vpc-migration-design-post}
 
-After each wave, validate success and identify optimization opportunities.
+After each migration wave, validate success and identify optimization opportunities. 
 {: shortdesc}
 
-## Functional Validation Checklist
+## Functional validation checklist
 {: #virt-sol-vpc-migration-design-functional}
 
-For each virtual server instance:
-- [ ] Boots successfully
-- [ ] All disks present and mounted
-- [ ] Network connectivity (ping gateway, ping external host)
+After a migration wave, verify the following items for each virtual server instance.
+
+- [ ] Starts successfully
+- [ ] All disks are present and mounted
+- [ ] Network connectivity
 - [ ] Application starts without errors
 - [ ] Application responds to requests
 - [ ] Application logs show no critical errors
 
-For each application:
-- [ ] All tiers communicating correctly
+For each application, check the following items.
+
+- [ ] All tiers communicate correctly
 - [ ] Database connections successful
-- [ ] Load balancer health checks passing
-- [ ] External access working (DNS, firewall rules)
-- [ ] Authentication working (AD, LDAP, OAuth)
-- [ ] Integrations working (APIs, file transfers, etc.)
+- [ ] Passed load balancer health checks
+- [ ] Confirm external access
+- [ ] Authentication working
+- [ ] Integrations working
 
-For the environment:
-- [ ] Monitoring agents reporting
-- [ ] Backup jobs configured and running
-- [ ] Security group rules tested (allowed traffic works, blocked traffic blocked)
-- [ ] Compliance checks passing (encryption, audit logging, etc.)
+For the environment, check the following items.
 
-## Performance Validation
+- [ ] Monitoring agents are reporting
+- [ ] Backup jobs are configured and running
+- [ ] Security group rules tested
+- [ ] Compliance checks passed
+
+## Performance validation
 {: #virt-sol-vpc-migration-design-performance}
 
-Compare post-migration metrics to pre-migration baselines:
+Use the following information to help you compare post-migration metrics to premigration baselines.
 
-CPU Utilization:
-- Should be similar or lower (1:1 vCPU:pCPU vs. VMware's oversubscription)
-- If higher, investigate application inefficiencies or incorrect instance profile
+- CPU usage needs to be similar or less than the baseline. If CPU performance is higher, investigate for application inefficiencies or for incorrect instance profile.
+- Memory usage needs to be identical. If memory swap occurs, the instance profile is insufficient.
+- Disk IOPS needs to meet or exceed VMware performance. If IOPS is less than expected, check storage profile tier selection and verify that pooled bandwidth allocation is enabled.
+- Network throughput needs to meet or exceed VMware performance. If throughput is less than expected, check instance profile network bandwidth and verify that storage bandwidth isn't using too much of the 3:1 ratio.
+- Application response time needs to be similar to VMware. If the response time is higher, investigate network latency or storage I/O.
 
-Memory Utilization:
-- Should be identical (same allocated memory)
-- If swapping, instance profile is too small
-
-Disk I/O:
-- IOPS should meet or exceed VMware performance
-- If lower, check storage profile tier selection
-- Verify pooled bandwidth allocation is enabled
-
-Network Throughput:
-- Should meet or exceed VMware performance
-- If lower, check instance profile network bandwidth
-- Verify storage bandwidth isn't consuming too much of the 3:1 ratio
-
-Application Response Time:
-- Should be similar to VMware
-- If higher, investigate network latency (Transit Gateway overhead?) or storage I/O
-
-## Right-Sizing Opportunities
+## Right-sizing opportunities
 {: #virt-sol-vpc-migration-design-rightsize}
 
-Initial migrations often use "lift and shift" sizing (same vCPU and RAM as VMware). After migration, optimize:
+Initial migrations often use "lift and shift" sizing (same vCPU and RAM as VMware). After a migration, optimize the following resources:
 
-CPU Right-Sizing:
-- If average CPU < 20%, consider smaller instance profile
-- If CPU bursts above 80% frequently, consider larger profile or burst profile
-- Use VPC monitoring to track CPU utilization over 2-4 weeks
+CPU right-sizing:
 
-Memory Right-Sizing:
-- If memory utilization < 50%, consider smaller profile
-- If swapping or high memory pressure, increase profile
-- Check application memory leaks (migration is a good opportunity)
+- If average CPU is < 20%, consider a smaller instance profile
+- If CPU bursts greater than 80% frequently, consider a larger profile or a burstable profile
+- Use VPC monitoring to track CPU usage over 2-4 weeks
 
-Storage Right-Sizing:
-- Review actual IOPS usage vs. provisioned tier
-- Downgrade from 10iops-tier to 5iops-tier if actual usage is low
-- Consider SDP for high-performance needs (once limitations are resolved)
+Memory right-sizing:
 
-Network Bandwidth Right-Sizing:
+- If memory usage is < 50%, consider profiles with less memory
+- If memory swap occurs or you have high memory pressure, consider profiles with more memory
+- Check for application memory leaks
+
+Storage right-sizing:
+
+- Compare actual IOPS usage and provisioned tier usage
+- Rollback from a `10iops-tier` to a `5iops-tier` profile if usage is less than expected
+- Consider an `sdp` profile for high-performance needs
+
+Network bandwidth right-sizing:
+
 - Monitor actual network and storage bandwidth usage
-- Adjust instance profile if consistently hitting limits
-- Adjust storage:network ratio if storage is bottlenecked
+- Adjust the instance profile if consistently reaching limits
+- Adjust the storage to network ratio if storage throughput is slow
 
-## Optimization for Cloud-Native Patterns
+## Optimization for cloud-native patterns
 {: #virt-sol-vpc-migration-design-optimization}
 
-After migration stabilizes, consider cloud-native enhancements:
+After migration stabilizes, consider the following cloud-native enhancements:
 
-Managed Services:
-- Replace self-managed databases with IBM Cloud Databases (Postgres, MySQL, MongoDB, etc.)
-- Replace file servers with VPC file storage or Object Storage
-- Replace load balancer virtual machines with VPC Application Load Balancer
+Managed services
 
-High Availability:
-- Deploy multi-zone (place virtual server instances across zones 1, 2, 3)
-- Use VPC load balancers for automatic failover
-- Implement auto-scaling for stateless tiers
+- Replace self-managed databases with IBM Cloud databases
+- Replace file servers with VPC file storage or object storage
+- Replace load balancers with VPC Application Load Balancers
 
-Backup and DR:
-- Leverage VPC snapshots for backup (consistency groups for multi-disk)
-- Implement cross-region snapshot copies for DR
+High availability
+
+- Deploy in multi-zone regions
+- Use load balancers for automatic failover
+- Implement autoscale for stateless tiers
+
+Backup and disaster recovery
+
+- Use VPC snapshots for backup
+- Implement cross-region snapshot copies for disaster recovery
 - Consider IBM Cloud Backup for file-level backup
 
-Monitoring and Observability:
+Monitoring and observability
+
 - Integrate with IBM Cloud Monitoring
 - Implement log aggregation with IBM Cloud Logs
 - Use VPC Flow Logs for network traffic analysis
