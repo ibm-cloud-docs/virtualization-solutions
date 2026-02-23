@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-02-20"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -17,38 +17,18 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
+---
+
 # Migrating your VMware workloads to IBM Cloud Virtual Servers for VPC
 {: #virt-sol-vpc-migration-tutorial-overview}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmware-service_full}} (VCFaaS) environment to {{site.data.keyword.vpc_full}} (VPC). You can also use this tutorial with a self‑managed VMware environment.
+The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC). 
 {: shortdesc}
 
-## Objective
-{: #virt-sol-vpc-migration-tutorial-overview-objectives}
-
-The following objectives are covered in the following tutorial.
-
-- Create a VPC and the resources that it needs
-- Set up a VCFaaS instance with a Microsoft Windows&reg; virtual server and an RHEL virtual server to use as migration examples
-- Build a private connection between VCFaaS and VPC through a Transit Gateway (TGW)
-- Move your virtual server disks into VPC Block Storage volumes
-- Create virtual servers from the migrated disks
-
-Some VMware configuration steps, such as connecting your environment to VPC through a Transit Gateway, are different.
-{: note}
-
-The virtual servers that are part of this tutorial have the following constraints:
-
-- They have a single disk size of less than 250 GB
-- They are not Bring Your Own License (BYOL)
-- They access the internet to download the necessary packages to perform the migration
-
-The following diagram illustrates what you build as part of this tutorial.
-
-![Virtualization Solutions VPC Migration Tutorial High-Level Architecture](../../images/vpc-vsi/vpc-vsi-migration-tutorial-high-level-diagram.svg){: caption="Virtualization Solutions VPC Migration Tutorial High Level Architecture" caption-side="bottom"}
+{{_include-segments/objective.md}}
 
 ## Before you begin
 {: #virt-sol-vpc-migration-tutorial-prerequisites}
@@ -63,172 +43,15 @@ This tutorial requires the following prerequisites.
    - NAT rules
    - TGW Connection Group
 
-- Have the correct access policies to manage VPCs and their resources and make sure that you can create the following VPC resources. For more information, see [Managing IAM access for VPC Infrastructure Services](/docs/vpc?topic=vpc-iam-getting-started&interface=ui).
-   - VPCs
-   - Virtual servers
-   - Security groups
-   - Public gateways
-   - Floating IPs
-- Have the correct access policies to manage TGWs and make sure that you can create the following TGW resources. For more information, see [Using IAM permissions with IBM Cloud Transit Gateway](/docs/transit-gateway?topic=transit-gateway-iam).
-   - TGWs (Transit gateways)
-   - TGW connections
+{{_include-segments/access.md}}
 
-## Creating a VPC
-{: #virt-sol-vpc-migration-tutorial-create-vpc}
-{: step}
+{{_include-segments/create_vpc.md}}
 
-Use the following steps to create and set up a VPC environment. The VPC hosts the migrated virtual servers and associated resources such as subnets, gateways, and security groups. The following information also includes resources that are used later in the migration process.
+{{_include-segments/create_virtual_server.md}}
 
-Before you begin, make sure that you're logged in to the IBM Cloud console.
-{: tip}
+{{_include-segments/create_bastion.md}}
 
-   1. From the **Navigation menu**, click **Infrastructure > Network > VPCs**.
-   2. Click **Create** and specify the following information.
-
-   3. In the **Location** section, specify the following information
-      1. For **Geography**, select **North America**.
-      2. For **Region**, select **Dallas (us-south)**.
-   4. In the **Details** section, specify the following information
-      1. For **Name**, enter `vpc-migration`.
-   5. In the **Subnets** section, specify the following information
-      1. Delete all but the subnet in the zone **us-south-1**.
-      2. Click the **edit** icon of the subnet that remains. The Edit Subnet form appears. Within the form:
-         1. In the **Details** section, for **Name**, enter `vpc-migration-sn-1`.
-         2. Click **Save**.
-      3. Click **Create a virtual private cloud**.
-
-## Creating a virtual server
-{: #virt-sol-vpc-migration-tutorial-create-virtual-server}
-{: step}
-
-Use the following steps to create a worker virtual server from which to perform the migrations.
-
-1. From the **Navigation menu**, click **Infrastructure > Network > Subnets**.
-2. From the list of available resources, select **vpc-migration-sn-1**.
-3. Click **Attached Resources**.
-4. In the **Attached Instances** section, click **Create**.
-5. In the **Location** section, specify the following information
-   1. For **Geography**, select **North America**.
-   2. For **Region**, select **Dallas (us-south)**.
-   3. For **Zone**, select **us-south-1**.
-6. In the **Details** section, for **Name**, enter `vpc-migration-vsi-worker`.
-7. In the **Server configuration** section, specify the following information
-      1. For **Image**, click **Change Image**. The Select an Image form appears. Within the form:
-         1. Search for **Ubuntu**.
-         2. Select **ibm-ubuntu-24-04-3-minimal-amd64-4** from the list of results.
-         3. Click **Save**.
-      2. For **SSH keys**, click **Create an SSH key**. The Create an SSH key form appears. Within the form:
-         1. In the **Details** section, specify the following information
-            1. For **Name**, enter `vpc-migration-ssh-key`.
-            2. For **Select SSH key input method**, select **Generate a key pair for me**.
-         2. Click **Create**. The SSH private key is downloaded automatically.
-8. Click **Create a virtual server**.
-
-## Creating a Bastion virtual server
-{: #virt-sol-vpc-migration-tutorial-create-bastion-virtual-server}
-{: step}
-
-Create a Bastion virtual server from which to securely access the resources in the VPC.
-
-1. From the **Navigation menu**, click **Infrastructure > Network > Subnets**.
-2. From the list of available resources, select **vpc-migration-sn-1**.
-3. Click **Attached Resources**.
-4. In the **Attached Instances** section, click **Create**.
-5. In the **Location** section, specify the following information
-   - For **Geography**, select **North America**.
-   - For **Region**, select **Dallas (us-south)**.
-   - For **Zone**, select **us-south-1**.
-6. In the **Details** section, for **Name**, enter `vpc-migration-vsi-bastion`.
-7. In the **Server configuration** section, specify the following information
-   - For **Image**, click **Change Image**. The **Select an image** form appears. Within the form, do the following actions:
-      1. Search for `ubuntu`.
-      2. Select **ibm-ubuntu-24-04-3-minimal-amd64-4** from the list of results.
-      3. Click **Save**.
-8. For **SSH keys**, select **vpc-migration-ssh-key**.
-9. Click **Create a virtual server**.
-
-## Creating a public gateway
-{: #virt-sol-vpc-migration-tutorial-create-public-gateway}
-{: step}
-
-Use the following steps to create a public gateway.
-
-1. Create the Public Gateway to allow access to the internet from the VPC
-   1. From the **Navigation menu**, click **Infrastructure > Network > Subnets**.
-   2. From the list of available resources, select **vpc-migration-sn-1**.
-   3. In the **Public Gateway** section, click the **toggle switch**. Within the **Attach public gateway** form, click **Attach**.
-2. Bind a Floating IP to the Bastion virtual server by using the following steps.
-   1. From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
-   2. From the list of available resources, select **vpc-migration-vsi-bastion**.
-   3. Click **Networking**.
-   4. Click the **Menu** icon of the attached Network Interface.
-   5. Click **Edit floating IPs**. Within the **Edit floating IPs** form, specify the following information:
-      1. Click **Attach**. Within the **Attach a Floating IP** form, specify the following information:
-      2. Click **Reserve a new floating IP**. Within the **Reserve a Floating IP** form, specify the following information.
-      3. In the **Details** section, for **Name**, enter `vpc-migration-fip`.
-      4. Click **Reserve**.
-3. Click **Close**.
-
-## Creating a security group
-{: #virt-sol-vpc-migration-tutorial-create-security-group}
-{: step}
-
-Use the following steps to create a security group. Security groups allow SSH connections to the Bastion virtual server.
-
-To improve the security of your VPC, the inbound rules in this security group must set an IP or CIDR as the _Source type_ to restrict the sources of traffic into its attached resources.
-{: note}
-
-1. From the **Navigation menu**, click **Infrastructure > Network security groups**.
-2. Click **Create**.
-3. In the **Location** section, specify the following information:
-   - For **Geography**, select **North America**.
-   - For **Region**, select **Dallas (us-south)**.
-      - For **Zone**, select **us-south-1**.
-   - In the **Details** section, specify the following information:
-      - For **Name**, enter `vpc-migration-sg-bastion`
-      - For **Virtual private cloud**, select **vpc-migration**.
-4. In the **Inbound rules** section, specify the following information:
-      1. Click **Create**. In the **Create inbound rule** form, specify the following information
-         - For **Protocol**, select **TCP**.
-         - For **Port**, select the **Port range**.
-         - For **Port min**, enter `22`.
-         - For **Port max**, enter `22`.
-         - Click **Create**.
-      2. Click **Create**. In the **Create inbound rule** form, specify the following information
-         - For **Protocol**, select **ICMP**.
-         - For **Value**, select **Type and code**.
-         - For **Type**, enter `8`.
-         - For **Code**, keep empty.
-         - Click **Create**.
-5. In the **Attaching virtual server interfaces** section, specify the following information
-   - Select the interface of the Bastion virtual server.
-   - Click **Create a security group**.
-6. Get the IP of the Bastion virtual server
-   - From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
-   - Search for **vpc-migration-vsi-bastion**.
-   - Copy the floating IP of the Bastion virtual server from the list of results.
-7. Get the IP of the worker virtual server
-   - From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
-   - Search for **vpc-migration-vsi-worker**.
-   - Copy the reserved IP of the worker virtual server from the list of results.
-8. Copy the downloaded SSH private key to its default location.
-
-    - On Windows, it's `C:\Users\<YourUsername>\.ssh\id_rsa`.
-    - On Linux or macOS, it's `~/.ssh/id_rsa`.
-
-9. Try to connect to the internet from the worker virtual server
-   - Use Secure Shell to log in to the worker virtual server by running the following command:
-   
-   `ssh -J root@<BASTION_VSI_IP> root@<WORKER_VSI_IP>`
-
-   Where
-
-   - `<BASTION_VSI_IP>` is the IP of the Bastion virtual server that you copied previously.
-   - `<WORKER_VSI_IP>` is the IP of the worker virtual server that you copied previously.
-
-   - Verify that you can reach Google by its domain name by running the following command:
-
-   `nslookup www.google.com`
+{{_include-segments/create_security_group.md}}
 
 ## Setting up networking on a VCFaaS instance
 {: #virt-sol-vpc-migration-tutorial-setup-vcfaas}
@@ -398,7 +221,7 @@ Use the following steps to create Windows and RHEL virtual servers in VCFaaS. Th
 {: #virt-sol-vpc-migration-tutorial-load-virtio-iso}
 {: step}
 
-Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers. These drivers help ensure compatibility with IBM Cloud VPC.
+Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers. These drivers help ensure compatibility with IBM Cloud VPC. This ISO file on the Windows virtual server will be used to patch the Windows recovery image in a later step.
 
 1. Log in to the IBM Cloud console.
 2. Go to the VCFaaS tenant portal.
@@ -457,6 +280,7 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
             `<TEMP_RHEL_VM_IP>` is the IP of the temporary RHEL virtual server that you previously copied.
 
             When prompted whether you trust the remote server, enter **y** and enter the password of the temporary RHEL virtual server.
+11. Leave the temporary RHEL virtual server and the virtio-win.iso file in place for now as they will be needed to transfer the ISO file to the worker virtual server once network connectivity is established to the VPC in a later step.
 
 ## Getting the cloud-init installer for the Windows virtual server
 {: #virt-sol-vpc-migration-tutorial-load-cloud-init-installer}
@@ -580,6 +404,54 @@ Use the following steps to create a transit gateway to securely connect your VCF
 
           `ping 192.168.0.1`
 
+## Getting the ISO for the Windows virtIO drivers into the Worker virtual server
+{: #virt-sol-vpc-migration-tutorial-load-virtio-iso-worker}
+{: step}
+
+Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers onto the worker virtual server. These drivers help ensure compatibility with IBM Cloud VPC. This ISO file on the worker virtual server will be used to facilitate disk image conversion in a later step.
+
+1. Log in to the IBM Cloud console.
+2. Go to the VCFaaS tenant portal.
+3. Get the password of the temporary RHEL virtual server.
+    1. From the side window, click **Data centers**.
+    2. From the list of available data centers, select your VDC.
+    3. In the **Compute** section, click **Virtual machines**.
+    4. Find **vm-rhel9-tmp** from the list of available virtual servers.
+    5. Click **Details**.
+    6. Click **Guest OS customization**.
+    7. Click **Edit** and in the **Edit guest properties** form,
+        1. Copy your password.
+        2. Click **Discard**.
+4. Get the IP of the temporary RHEL virtual server
+    1. From the side window, click **Data centers**.
+    2. From the list of available data centers, select your VDC.
+    3. In the **Compute** section, click **Virtual machines**.
+    4. Find **vm-rhel9-tmp** from the list of available virtual servers.
+    5. Click **Details**.
+    6. In the **Hardware** section, click **NICs**.
+    7. Copy the IP address of the primary network interface.
+5. Copy the virtIO drivers ISO into the Worker virtual server.
+
+    1. SSH into the worker virtual server
+
+    ```bash
+    ssh -J root@<BASTION_VSI_IP> root@<WORKER_VSI_IP>
+    ``` 
+    {: codeblock}
+
+    2. SCP over the virtio drivers iso file
+
+    ```bash
+    scp root@<TEMP_RHEL_VM_IP>:/usr/share/virtio-win/virtio-win.iso /root/virtio-win.iso
+    ```
+   {: codeblock}
+
+        Where
+
+        **<TEMP_RHEL_VM_IP>** is the IP of the temporary RHEL virtual server that you previously copied.
+
+        When prompted whether you trust the remote server, enter **yes** and enter the password of the temporary RHEL virtual server.
+
 ## Preparing the Windows virtual server for migration
 {: #virt-sol-vpc-migration-tutorial-prep-windows-vm}
 {: step}
@@ -590,94 +462,29 @@ Before you can migrate the virtual server, you must install the necessary driver
 2. Go to the VCFaaS tenant portal.
 3. Get the password of the Windows virtual server.
 4. Open a Web Console window to the Windows virtual server.
-5. Install the virtIO drivers on the Windows virtual server.
-   1. From the Web Console window:
-      1. Open the File Explorer.
-      2. Go to `C:\`.
-      3. Double-click `C:\virtio-win.iso`.
-      4. Double-click `virtio-win-gt-x64` and follow the prompts.
-      5. Double-click `virtio-win-guest-tools` and follow the prompts.
-6. Install the virtIO drivers on the recovery image of the Windows virtual server by following the steps that are in [Making the virtio-win drivers available in the recovery image](/docs/vpc?topic=vpc-create-windows-custom-image#virtio-win-drivers-windows-recovery-image).
+5. Install the virtIO drivers on the recovery image of the Windows virtual server by following the steps that are in [Making the virtio-win drivers available in the recovery image](/docs/vpc?topic=vpc-create-windows-custom-image#virtio-win-drivers-windows-recovery-image). Use the command prompt, not powershell to run the commands noted in the linked documentation. The driver files added to the recovery image come from mounting the `C:\virtio-win.iso` file that was copied over to the Windows virtual server in an earlier step.
 
     Keep in mind that if your virtual server has a GPT partition table, you must set the partition IDs to UUIDs, not numbers. Get the correct IDs by displaying the details of the System and Recovery partitions while `diskpart` is running. For more information, see the [documentation on the detail partition command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/detail-partition){: external}.
 
-7. Install and configure Cloud-init on the Windows virtual server
-    1. From the Web Console window, open the **File Explorer**.
-    2. Click **Downloads**.
-    3. Double-click the Cloud-init that you downloaded previously and follow the prompts to install the package. Make sure that you use `Administrator` for the name of the Cloud-init user, not Admin.
-    4. Modify the Cloud-init configuration files by following the steps that are in [Customizing a virtual server](/docs/vpc?topic=vpc-create-windows-custom-image#customize-virtual-machine).
-8. Run `sysprep` on the Windows virtual server to generalize it immediately before you migrate it.
-   1. From the Web Console window, open the command prompt.
-   2. Generalize the virtual server by running the following command:
+    If your virtual server does not show any files in the recovery drive after assigning the recovery partition a drive letter, check the `C:\Windows\System32\Recovery` folder. The Winre.wim file will only appear after disabling `reagentc`. The file will still be hidden and can only be viewed by using the `dir /a` command.
 
-   `C:\Windows\System32\Sysprep\Sysprep.exe /oobe /generalize /shutdown "/unattend:C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\Unattend.xml"`
+6. Install and configure Cloud-init on the Windows virtual server
+   1. From the Web Console window, open the **File Explorer**.
+   2. Click **Downloads**.
+   3. Double-click the Cloud-init installer file that you downloaded previously and follow the prompts to install the package. Make sure that you use `Administrator` for the name of the Cloud-init user, not Admin.
+   4. After the install finishes, in the install wizard, do not check any boxes to run sysprep. Just click finish.
+   5. Modify the Cloud-init configuration files by following the steps that are in [Customizing a virtual server](/docs/vpc?topic=vpc-create-windows-custom-image#customize-virtual-machine). **Do not** perform the `sysprep` steps, stop after modifying the files.
+7. Shut down the Windows virtual server and close the Web Console.
 
-   After you run sysprep, the virtual server stops.
-   2. Close the Web Console.
+{{_include-segments/start_netcat_server.md}}
+
 
 ## Migrating the Windows virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-windows-vm}
 {: step}
 
-Use the following steps to migrate the Windows virtual server by transferring its boot disk to a block storage volume in VPC and create a virtual server from it.
-
-When the virtual server starts, Cloud-init runs and the administrator password resets.
-{: note}
-
-1. Log in to the IBM Cloud console.
-2. Create a detached Windows boot volume
-   1. From the **Navigation menu**, click **Infrastructure > Network > Subnets**.
-   2. From the list of available resources, select **vpc-migration-sn-1**.
-   3. Click **Attached resources**
-   4. In the **Attached instances** section, click **Create**.
-   5. In the **Location** section, specify the following information:
-      1. For **Geography**, select **North America**.
-      2. For **Region**, select **Dallas (us-south)**.
-      3. For **Zone**, select **us-south-1**.
-   6. In the **Details** section, specify the following information:
-      1. For **Name**, enter `vpc-migration-vsi-win22`.
-   7. In the **Server configuration** section, specify the following information:
-      1. For **Image**, click **Change image**. Within the **Select an image** form, specify the following information:
-         1. Search for **windows**.
-         2. From the list of results, select **ibm-windows-server-2022-full-standard-amd64-32**.
-         3. Click **Save**.
-      2. For **SSH keys**, select **vpc-migration-ssh-key**.
-   8. In the **Storage** section, click the **edit** icon that is next to the item for the boot volume. Within the **Edit boot volume** form, specify the following information:
-       1. In the **Details** section, specify the following information:
-          1. For **Name**, enter `vpc-migration-vsi-win22-boot-volume`
-          2. Set **Auto-delete** to **disabled**
-       2. In the **Profiles** section, specify the following information:
-          1. Select **general purpose**
-       3. In the **Storage capacity** section, specify the following information:
-          1. For **Storage size**, enter a value that is greater than or equal to the storage size of the Windows virtual server.
-       4. Click **Save**.
-   9. Click **Create a virtual server**.
-   10. From the **Navigation menu**, click > **Infrastructure > Compute > Virtual server instances**.
-   11. From the list of available resources, select **vpc-migration-vsi-win22**.
-   12. Click **Delete**. Within the **Delete virtual server instance** form, specify the following information:
-       1. Enter **Delete** into the input.
-       2. Click **Delete**.
-3. Attach the boot volume to the worker virtual server by specifying the following information:
-   1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
-   2. From the list of available resources, select **vpc-migration-vsi-win22-boot-volume**.
-   3. In the **Attached virtual server** section, click **Attach**. Within the **Attach to a virtual server** form, specify the following information:
-      1. From the list of virtual servers, select **vpc-migration-vsi-worker**.
-      2. Click **Attach**.
-4. SSH into the worker virtual server by running the command that you used previously.
-5. Get the name of the block device for the attached boot volume by running the following command:
-
-    `lsblk -n -d -o NAME | tail -n 1`
-
-6. Start the Netcat server, wait for an incoming disk transfer, and write it to the attached boot volume by running the following command:
-
-    `nc -l 31337 | gunzip | dd of=/dev/<DEV_NAME> bs=16M status=progress`
-
-    Where
-
-    `<DEV_NAME>` is the name of the block device that you found previously.
-
-7. Go to the VCFaaS tenant portal.
-8. Get the IP of the Windows virtual server by specifying the following information:
+1. Go to the VCFaaS tenant portal.
+2. Get the IP of the Windows virtual server by specifying the following information:
    1. From the side window, click **Data centers**.
    2. Click your VDC from the list of available data centers.
    3. In the **Compute** section, click **Virtual machines**.
@@ -685,7 +492,7 @@ When the virtual server starts, Cloud-init runs and the administrator password r
    5. Click **Details**.
    6. In the **Hardware** section, click **NICs**.
    7. Copy the IP address of the primary network interface.
-9. Boot into an Ubuntu Server shell from the Windows virtual server by specifying the following information:
+3. Boot into an Ubuntu Server shell from the Windows virtual server by specifying the following information:
    1. From the side window, click **Data centers**
    2. Click your VDC from the list of available Data Centers.
    3. In the **Compute** section, click **Virtual machines**.
@@ -707,87 +514,122 @@ When the virtual server starts, Cloud-init runs and the administrator password r
        3. Wait for the language selection screen to load.
        4. Choose **Help**.
        5. Choose **Enter shell**.
-10. Configure networking on the Ubuntu Server that is running on the Windows virtual server by specifying the following information:
-    1. Within the Web Console window:
-       1. Add an IP to the primary network interface by running the following command:
+4. Configure networking on the Ubuntu Server that is running on the Windows virtual server by specifying the following information:
+   1. Within the Web Console window:
+      1. Add an IP to the primary network interface by running the following command:
 
-            `ip addr add <WINDOWS_VM_IP>/24 dev ens192`
+         `ip addr add <WINDOWS_VM_IP>/24 dev ens192`
 
-            Where
+         Where
 
-            `<WINDOWS_VM_IP>` is the IP of the Windows virtual server that you copied previously.
+         `<WINDOWS_VM_IP>` is the IP of the Windows virtual server that you copied previously.
 
-       2. Add a default route through the routed VDC Network by running the following command:
+      2. Add a default route through the routed VDC Network by running the following command:
 
-            `ip route add default via 192.168.0.1`
+         `ip route add default via 192.168.0.1`
 
-11. Transfer the disk of the Windows virtual server to the worker virtual server by specifying the following information:
+5. Transfer the disk of the Windows virtual server to the worker virtual server by specifying the following information:
 
-    1. Within the Web Console window:
-       1. Start the transfer of the Windows virtual server disk by running the following command:
+   1. Within the Web Console window:
+      1. Start the transfer of the Windows virtual server disk by running the following command:
 
-          `dd if=/dev/sda bs=16M status=progress | gzip | nc -v <WORKER_VSI_IP> 31337`
+         `dd if=/dev/sda bs=16M status=progress | gzip | nc -v <WORKER_VSI_IP> 31337`
 
-          Where
+         Where
 
-          `<WORKER_VSI_IP>` is the IP of the worker virtual server that you copied previously.
+         `<WORKER_VSI_IP>` is the IP of the worker virtual server that you copied previously.
 
-    2. Wait for the transfer to complete. You can monitor the progress of the transfer from either the Ubuntu Server shell or the worker virtual server.
+   2. Wait for the transfer to complete. You can monitor the progress of the transfer from either the Ubuntu Server shell or the worker virtual server.
 
-          Both the Netcat client and server commands might not stop after the transfer completes. If they don't stop, you need to manually interrupt them.
+      Both the Netcat client and server commands might not stop after the transfer completes. If they don't stop, you need to manually interrupt them.
       {: tip}
 
-    3. Close the Web Console window.
-12. Fix the partition table on the attached boot volume by moving the partition table to the correct position on the disk by running the following command:
+   3. Close the Web Console window.
+6. Back onto the worker virtual server, fix the partition table on the attached boot volume by moving the partition table to the correct position on the disk by running the following command:
 
-    `sgdisk --move-second-header /dev/<DEV_NAME>`
+   `sgdisk --move-second-header /dev/<DEV_NAME>`
 
+   Where
+
+   `<DEV_NAME>` is the name of the block device that you found previously.
+
+7. Flush the buffers of the attached boot volume by running the following command:
+
+   `blockdev --flushbufs /dev/<DEV_NAME>`
+
+   Where
+
+   `<DEV_NAME>` is the name of the block device that you found previously.
+
+14. Install utils to use the virt-v2v-in-place tool
+    1. `apt-get install -y virt-v2v`
+    2. `apt-get install -y rhsrvany`
+15. Make a symlink to the mounted Windows boot volume. Note that the virtual server name here corresponds to the example Windows virtual server name that was created in this document. If a virtual server of a different name is being migrated, use the name of that virtual server instead for the `VM_NAME` variable.
+    ```bash
+    VM_NAME=vm-win22
+    TARGET_DEV=/dev/<DEV_NAME>
+    SYMLINK="/tmp/${VM_NAME}-sda"
+    ln -fs "${TARGET_DEV}" "${SYMLINK}"
+    ls -l "${SYMLINK}"
+    ```
+    {: codeblock}
     Where
-
     `<DEV_NAME>` is the name of the block device that you found previously.
-
-13. Flush the buffers of the attached boot volume by running the following command:
-
-    `blockdev --flushbufs /dev/<DEV_NAME>`
-
-    Where
-
-    `<DEV_NAME>` is the name of the block device that you found previously.
-
-14. Log in to the IBM Cloud console.
-15. Create a Windows virtual server from the attached boot volume by specifying the following information:
-    1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
-    2. From the list of available resources, select **vpc-migration-vsi-win22-boot-volume**.
-    3. In the **Attached virtual server** section, click the **Detach** icon next to the name of the worker virtual server.
-    4. Wait for the worker virtual server to detach.
-    5. In the **Attached virtual server** section, click **Attach**. Within the **Attach to the virtual server** form, specify the following information:
-        1. Click **Create server**.
-        2. Click **Attach as boot volume**.
-        3. In the **Location** section, specify the following information:
-            1. For **Geography**, select **North America**.
-            2. For **Region**, select **Dallas (us-south)**.
-            3. For **Zone**, select **us-south-1**.
-            4. In the **Details** section, specify the following information:
-               1. For **Name**, enter `vpc-migration-vsi-win22`
-               2. In the **Server configuration** section, specify the following information:
-        4. For **SSH Keys**, select **vpc-migration-ssh-key**.
-        5. Click **Create a virtual server**.
-16. Get the IP of the Windows virtual server by specifying the following information:
+16. Run `virt-v2v-in-place`. Note that the virtio-win.iso file copied over from an eariler step is referenced with the `VIRTIO_WIN` variable here.
+    ```bash
+    export LIBGUESTFS_BACKEND=direct
+    export VIRTIO_WIN=/root/virtio-win.iso
+    virt-v2v-in-place -i disk "${SYMLINK}" --block-driver virtio-scsi -v
+    ```
+    {: codeblock}
+17. Ensure the conversion was successful
+    1. Check that the return code is 0. The below command should display `0` if the conversion was successful
+        1. `echo $?`
+    If the `virt-v2v-in-place` command was not successful, then the image on mounted boot volume will be in an indeterminate state. Check the output for any error messages. Any issue will need to be resolved first. Afterwards, the data from the source Windows virtual server will need to be re-transferred to the mounted boot volume on the worker virtual server before retrying the `virt-v2v-in-place` command.
+18. Log in to the IBM Cloud console.
+19. Create a Windows virtual server from the attached boot volume by specifying the following information:
+   1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
+   2. From the list of available resources, select **vpc-migration-vsi-win22-boot-volume**.
+   3. In the **Attached virtual server** section, click the **Detach** icon next to the name of the worker virtual server.
+   4. Wait for the worker virtual server to detach.
+   5. In the **Attached virtual server** section, click **Attach**. Within the **Attach to the virtual server** form, specify the following information:
+      1. Click **Create server**.
+      2. Click **Attach as boot volume**.
+      3. In the **Location** section, specify the following information:
+         1. For **Geography**, select **North America**.
+         2. For **Region**, select **Dallas (us-south)**.
+         3. For **Zone**, select **us-south-1**.
+         4. In the **Details** section, specify the following information:
+            1. For **Name**, enter `vpc-migration-vsi-win22`
+            2. In the **Server configuration** section, specify the following information:
+      4. For **SSH Keys**, select **vpc-migration-ssh-key**.
+      5. Click **Create a virtual server**.
+10. Get the IP of the Windows virtual server by specifying the following information:
     1. From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
     2. Search for **vpc-migration-vsi-win22**.
     3. Copy the reserved IP of the Windows virtual server from the list of results.
-17. Get the password of the Windows virtual server.
-    1. Follow the steps that are in [Connecting to your Windows instance](/docs/vpc?topic=vpc-vsi_is_connecting_windows#vsi_connecting_windows_instance) to get the password of the Administrator user.
-18. Log in to the Windows virtual server.
+21. Get the password of the Windows virtual server.
+    1. This should be the same Administrator password as it was on the source Windows virtual server.
+    2. Log in to the IBM Cloud console.
+    3. Go to the VCFaaS tenant portal.
+    4. Get the password of the Windows virtual server
+         1. From the side window, click **Data centers**.
+         2. From the list of available data centers, select your VDC.
+         3. In the **Compute** section, click **Virtual machines**.
+         4. Find **vm-win22** from the list of available virtual servers.
+         5. Click **Details** > **Guest OS Customization** > **Edit**. In the **Edit Guest Properties** form the password will be listed
+         1. Copy your password.
+         2. Click **Discard**.
+22. Log in to the Windows virtual server.
     1. Display the RDP port of the Windows virtual server through the Bastion virtual server by running the following command:
 
-          `ssh -L 3389:<WINDOWS_VSI_IP>:3389 <BASTION_VSI_IP> -l root -N`
+       `ssh -L 3389:<WINDOWS_VSI_IP>:3389 <BASTION_VSI_IP> -l root -N`
 
-          Where
+       Where
 
-          `<WINDOWS_VSI_IP>` is the IP of the Windows virtual server that you copied previously.
+       `<WINDOWS_VSI_IP>` is the IP of the Windows virtual server that you copied previously.
 
-          `<BASTION_VSI_IP>` is the IP of the Bastion virtual server that you copied previously.
+       `<BASTION_VSI_IP>` is the IP of the Bastion virtual server that you copied previously.
 
     2. Use your preferred Remote Desktop client to connect to the Windows virtual server. Use `localhost` as the IP and log in as Administrator with the password of the Windows virtual server.
 
@@ -851,69 +693,14 @@ Use the following information to prepare the RHEL virtual server for migration.
    4. Find **vm-rhel9** from the list of available virtual servers.
    5. Click **Power Off**
 
+{{_include-segments/create_boot_disk.md}}
+
 ## Migrating the RHEL virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-rhel-vm}
 {: step}
 
-Use the following information to transfer the RHEL virtual server disk to your VPC and create a virtual server from the migrated disk.
-
-When the virtual server starts, Cloud-init runs and the root password resets.
-{: note}
-
-1. Log in to the IBM Cloud console.
-2. Create a detached RHEL boot volume by specifying the following information:
-   1. From the **Navigation menu**, click **Infrastructure > Network > Subnets**.
-   2. From the list of available resources, select **vpc-migration-sn-1**.
-   3. Click **Attached resources**
-   4. In the **Attached instances** section, click **Create**.
-   5. In the **Location** section, specify the following information:
-      1. For **Geography**, select **North America**.
-      2. For **Region**, select **Dallas (us-south)**.
-      3. For **Zone**, select **us-south-1**.
-   6. In the **Details** section, specify the following information:
-      1. For **Name**, enter `vpc-migration-vsi-rhel9`
-   7. In the **Server configuration** section, specify the following information:
-      1. For **Image**, click **Change image**. From the **Select an image** form, specify the following information:
-         1. Search for **Red Hat**.
-         2. Select **ibm-redhat-9-6-minimal-amd64-5** from the list of results.
-         3. Click **Save**.
-      2. For **SSH keys**, select **vpc-migration-ssh-key**.
-   8. In the **Storage** section, click the **Edit** icon that is next to the item for the boot volume. With in the **Edit boot volume** form, specify the following information:
-       1. In the **Details** section, specify the following information:
-          1. For **Name**, enter `vpc-migration-vsi-rhel9-boot-volume`
-          2. Set **Auto-delete** to **Disabled**
-       2. In the **Profiles** section, select **General purpose**.
-       3. In the **Storage capacity** section, specify the following information:
-          1. For **Storage size**, enter a value that is greater than or equal to the storage size of the RHEL virtual server.
-       4. Click **Save**.
-   9. Click **Create a virtual server**.
-   10. From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
-   11. From the list of available resources, select **vpc-migration-vsi-rhel9**.
-   12. Click **Delete**. In the **Delete Virtual server instance** form,
-       1. Enter **Delete**.
-       2. Click **Delete**.
-3. Attach the boot volume to the worker virtual server by specifying the following information:
-   1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
-   2. In the list of available resources, click **vpc-migration-vsi-rhel9-boot-volume**.
-   3. In the **Attached virtual server** section, click **Attach**. Within the **Attach to a virtual server** form, specify the following information:
-      1. From the list of virtual server, select **vpc-migration-vsi-worker**.
-      2. Click **Attach**.
-4. SSH into the worker virtual server by running the command that you used previously.
-
-5. Get the name of the block device for the attached boot volume by running the following command:
-
-    `lsblk -n -d -o NAME | tail -n 1`
-
-6. Start the Netcat server, wait for an incoming disk transfer, and write it to the attached boot volume by running the following command:
-
-    `nc -l 31337 | gunzip | dd of=/dev/<DEV_NAME> bs=16M status=progress`
-
-    Where
-
-    `<DEV_NAME>` is the name of the block device that you found previously.
-
-7. Go to the VCFaaS tenant portal.
-8. Get the IP of the RHEL virtual server by specifying the following information:
+1. Go to the VCFaaS tenant portal.
+2. Get the IP of the RHEL virtual server by specifying the following information:
    1. From the side window, click **Data centers**.
    2. Click your VDC from the list of available data centers.
    3. In the **Compute** section, click **Virtual machines**.
@@ -921,7 +708,7 @@ When the virtual server starts, Cloud-init runs and the root password resets.
    5. Click **Details**.
    6. In the **Hardware** section, click **NICs**.
    7. Copy the IP address of the primary network interface.
-9. Start into a Ubuntu Server shell from the RHEL virtual server by specifying the following information:
+3. Start into a Ubuntu Server shell from the RHEL virtual server by specifying the following information:
    1. From the side window, click **Data centers**
    2. Click your VDC from the list of available data centers.
    3. In the **Compute** section, click **Virtual machines**.
@@ -941,7 +728,7 @@ When the virtual server starts, Cloud-init runs and the root password resets.
        3. Wait for the language selection screen to load.
        4. Choose **Help**.
        5. Choose **Enter shell**.
-10. Configure networking on the Ubuntu Server that is running on the RHEL virtual server
+4. Configure networking on the Ubuntu Server that is running on the RHEL virtual server
     1. Within the Web Console window, specify the following information:
        1. Add an IP to the primary network interface by running the following command:
 
@@ -954,8 +741,8 @@ When the virtual server starts, Cloud-init runs and the root password resets.
        2. Add a default route through the routed VDC Network by running the following command:
 
            `ip route add default via 192.168.0.1`
-
-11. Transfer the disk of the RHEL virtual server to the worker virtual server by specifying the following information:
+ 
+5. Transfer the disk of the RHEL virtual server to the worker virtual server by specifying the following information:
     1. Within the Web Console window:
        1. Start the transfer of the RHEL virtual server disk by running the following command:
 
@@ -967,19 +754,19 @@ When the virtual server starts, Cloud-init runs and the root password resets.
 
        2. Wait for the transfer to complete. You can monitor the progress of the transfer from either the Ubuntu Server shell or the worker virtual server.
 
-       Both the Netcat client and server commands might not stop after the transfer completes. If they don't stop, you need to manually interrupt them.
-       {: note}
+          Both the Netcat client and server commands might not stop after the transfer completes. If they don't stop, you need to manually interrupt them.
+          {: note}
 
     2. Close the Web Console window.
-12. Fix the partition table on the attached boot volume by moving the partition table to the correct position on the disk by running the following command:
+6. Back onto the worker virtual server, fix the partition table on the attached boot volume by moving the partition table to the correct position on the disk by running the following command:
 
     `sgdisk --move-second-header /dev/<DEV_NAME>`
 
     Where
-
+ 
     `<DEV_NAME>` is the name of the block device that you found previously.
-
-13. Flush the buffers of the attached boot volume by running the following command:
+ 
+7. Flush the buffers of the attached boot volume by running the following command:
 
     `blockdev --flushbufs /dev/<DEV_NAME>`
 
@@ -987,51 +774,6 @@ When the virtual server starts, Cloud-init runs and the root password resets.
 
     `<DEV_NAME>` is the name of the block device that you found previously.
 
-14. Log in to the IBM Cloud console.
-15. Create an RHEL virtual server from the attached boot volume
-    1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
-    2. Find and click **vpc-migration-vsi-rhel9-boot-volume** from the list of available resources.
-    3. In the **Attached virtual server** section, click the **detach** icon next to the name of the worker virtual server.
-    4. Wait for the worker virtual server to detach.
-    5. In the **Attached virtual server** section, click **Attach**. Within the **Attach to the virtual server** form, specify the following information:
-       1. Click **Create server**
-       2. Click **Attach as boot volume**.
-       3. In the **Location** section, specify the following information:
-          1. For **Geography**, select **North America**.
-          2. For **Region**, select **Dallas (us-south)**.
-          3. For **Zone**, select **us-south-1**.
-       4. In the **Details** section, specify the following information:
-          1. For **Name**, enter `vpc-migration-vsi-rhel9`
-       5. In the **Server configuration** section, specify the following information:
-          1. For **SSH Keys**, select **vpc-migration-ssh-key**.
-       6. Click **Create a virtual server**.
-16. Get the IP of the RHEL virtual server by specifying the following information:
-    1. From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
-    2. Search for **vpc-migration-vsi-rhel9**.
-    3. From the list of results, copy the reserved IP of the RHEL virtual server.
-17. Log in to the new RHEL virtual server
-    1. SSH into the RHEL virtual server by running the following command:
+{{_include-segments/create_vsi_rhel.md}}
 
-    `ssh -J root@<BASTION_VSI_IP> root@<RHEL_VSI_IP>`
-
-    Where
-
-    - `<BASTION_VSI_IP>` is the IP of the Bastion virtual server that you copied previously.
-    - `<RHEL_VSI_IP>` is the IP of the RHEL virtual server that you copied previously.
-
-## You completed the tutorial
-{: #virt-sol-vpc-migration-tutorial-congratulations}
-
-
-## Next steps
-{: #virt-sol-vpc-migration-tutorial-next-steps}
-
-Now that you've successfully migrated your workloads to VPC, explore these resources:
-
-- **Review architecture**: Understand the complete [Virtual Servers for VPC reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vsi-architecture)
-- **Migration strategies**: Learn about additional [migration methods and design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-migration)
-- **Optimize your environment**: Explore [design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-compute-design-overview) for compute, networking, storage, and security
-- **Implement monitoring**: Set up [observability solutions](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) for your VPC environment
-- **Plan for resiliency**: Review [backup and disaster recovery strategies](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design)
-
-You successfully migrated VCFaaS instances into a VPC. You can continue to develop your VPC by migrating or adding more virtual servers and other resources.
+{{_include-segments/next_step.md}}

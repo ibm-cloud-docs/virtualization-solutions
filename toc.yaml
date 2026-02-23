@@ -100,7 +100,7 @@ toc:
           - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-tutorial.md
             navtitle: RackWare Tutorial
           - topic: tutorial/vpc-vsi/migration-tutorial.md
-            navtitle: VMware Migration Tutorial
+            navtitle: VMware Migration Tutorial - VCFaaS
   - navgroup:
       id: howto
       topics:
