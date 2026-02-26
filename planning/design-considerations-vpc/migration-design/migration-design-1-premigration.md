@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025, {[CURRENT_YEAR]}
-lastupdated: "2026-02-13"
+  years: 2025, 2026
+lastupdated: "2026-02-26"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -11,6 +11,7 @@ subcollection: virtualization-solutions
 ---
 
 {{site.data.keyword.attribute-definition-list}}
+
 
 # Pre-migration design
 {: #virt-sol-vpc-migration-design-premigration}

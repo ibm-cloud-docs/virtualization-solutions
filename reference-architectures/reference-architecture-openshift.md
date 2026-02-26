@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-02-26"
 
 keywords: Red Hat OpenShift, OpenShift Virtualization, KubeVirt, ROKS, virtualization, containers
 
@@ -42,12 +42,12 @@ The following table outlines the products or services that are used in the archi
 
 | Component | Architecture components | Description |
 | -------------- | -------------- | -------------- |
-| [**Workload migration**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design) | Red Hat OpenShift Migration toolkit for Virtualization (MTV) | A set of tools to migrate virtual servers from providers such as Red Hat OpenShift and VMware. | 
+| [**Workload migration**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design) | Red Hat OpenShift Migration toolkit for Virtualization (MTV) | A set of tools to migrate virtual servers from providers such as Red Hat OpenShift and VMware. |
 | | IBM Consulting and expert labs | Professional services organizations that provide Red Hat OpenShift services. |
 | | Self-service and migration partners | Professional services from migration partners such as WanClouds and Primary IO. |
 | [**Security**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) | 3rd party Virtual network functions | 3rd party firewalls |
 | | IBM Cloud Key Protect | IBM Key Protect for IBM Cloud® service helps you provision and store encrypted keys for apps across IBM Cloud services, so you can see and manage data encryption and the entire key lifecycle from one central location. |
-| | IBM Cloud Security and Compliance Center Workload Protection | IBM Cloud Security and Compliance Center Workload Protection to find and prioritize software vulnerabilities, detect and respond to threats, and manage configurations, permissions, and compliance. | 
+| | IBM Cloud Security and Compliance Center Workload Protection | IBM Cloud Security and Compliance Center Workload Protection to find and prioritize software vulnerabilities, detect and respond to threats, and manage configurations, permissions, and compliance. |
 | [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design) | Red Hat Advanced Cluster Management (RHACM), OADP, and ODF | RHACM, OADP, and ODF are combined to provide disaster recovery replication of persistent volumes and required cluster resources. |
 | | 3rd-party backup options | Self-managed backup options with Red Hat OpenShift Virtualization such as Veeam Kasten K10. |
 | [**Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-openshift-observability-design-overview) | Red Hat Advanced Cluster Management (RHACM) | Visibility and control over a hybrid cloud from a single console. |
@@ -74,4 +74,4 @@ Now that you understand the Red Hat OpenShift Virtualization architecture, explo
 - **Plan your deployment**: Review the [design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design) for compute, networking, storage, and security
 - **Migrate workloads**: Follow the [Migration Toolkit for Virtualization tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration) to migrate from VMware
 - **Implement backup**: Set up [backup solutions with Veeam Kasten](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup)
-- **Get started**: Deploy your first [Red Hat OpenShift cluster on IBM Cloud](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
+- **Get started**: Deploy your first [Red Hat OpenShift cluster on IBM Cloud](https://cloud.ibm.com/containers/cluster-management/catalog/create?platformType=openshift)
