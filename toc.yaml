@@ -94,6 +94,8 @@ toc:
           topics:
           - topic: tutorial/openshift/migration-toolkit.md
             navtitle: Migration Toolkit Tutorial
+          - topic: tutorial/openshift/backup_solution.md
+            navtitle: Backups Virtual Machines using Veeam Kasten
       - topicgroup:
           label: Virtual servers on VPC
           topics:
