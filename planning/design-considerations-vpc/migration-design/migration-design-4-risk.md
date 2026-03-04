@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-01-05"
+  years: 2025, 2026
+lastupdated: "2026-03-03"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -12,140 +12,172 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Risk Mitigation and Rollback Strategies
+# Risk mitigation and rollback strategies
 {: #virt-sol-vpc-migration-design-risk}
 
-## Common Migration Risks
+
+The following information covers common difficulties that you might encounter after a migration and offers tips to correct the issues.
+{: shortdesc}
+
+## Common migration risks
 {: #virt-sol-vpc-migration-design-risk-common}
 
-### Risk: Network Connectivity Failure
+The following information covers common difficulties that you might encounter after a migration.
+
+### Risk: Network connectivity failure
+
 {: #virt-sol-vpc-migration-design-risk-common-network}
 
-**Manifestation**: After migration, VSI cannot communicate with other systems.
+Symptom: After migration, the virtual server can't communicate with other systems.
 
-**Prevention**:
-- Test Transit Gateway connectivity thoroughly before migration
-- Verify security group rules allow required traffic
-- Test DNS resolution in target VPC
 
-**Detection**: Post-migration connectivity tests fail (ping, application cannot connect to database, etc.)
+Detection: Post-migration connectivity tests fail.
 
-**Mitigation**:
-- Access via VNC console to troubleshoot
+Fix:
+
+- Access through VNC console to troubleshoot
 - Verify VNI configuration (IP address, security groups)
 - Check routing tables in VPC and Transit Gateway
 - Review security group rules (use VPC flow logs to see dropped packets)
 
-**Rollback**: Restart VMware VMs, update DNS/load balancers to point back to VMware
+Rollback: Restart VMware virtual servers and update DNS and load balancers to point back to VMware.
 
-### Risk: Application Fails to Start
+Prevention:
+
+- Test Transit Gateway connectivity thoroughly before migration
+- Verify that the security group rules allow required traffic
+- Test DNS resolution in the target VPC
+
+### Risk: The application doesn't start
 {: #virt-sol-vpc-migration-design-risk-common-application}
 
-**Manifestation**: Application service won't start after migration, or starts but doesn't function.
+**Symptom**: Application service doesn't start after migration, or starts but doesn't function.
 
-**Prevention**:
-- Verify all dependencies are also migrated or accessible via Transit Gateway
-- Test application startup procedures in pilot wave
-- Document application-specific configuration that may need adjustment
+**Detection**: The service fails to start, or starts but fails health checks.
 
-**Detection**: Service fails to start, or starts but health checks fail
+**Fix**:
 
-**Mitigation**:
 - Check application logs for errors
-- Verify configuration files (paths may have changed if volumes are mounted differently)
+- Verify configuration files
 - Check environment variables
 - Verify database connectivity
-- Check for licensing issues (some apps are hardware-locked)
+- Check for licensing issues
 
-**Rollback**: Stop application in VPC, restart in VMware environment
+**Rollback**: Stop the application in VPC, restart in a VMware environment.
 
-### Risk: Data Corruption
+**Prevention**:
+
+- Verify that all dependencies are migrated or accessible through Transit Gateway.
+- Test application startup procedures that are in the pilot wave.
+- Document application-specific configuration that you might need to adjust.
+
+### Risk: Data corruption
 {: #virt-sol-vpc-migration-design-risk-common-data}
 
-**Manifestation**: Disk contents are corrupted, filesystem errors, application data inconsistencies.
+**Symptom**: Corrupted data, file system errors, or application data inconsistencies.
+
+**Detection**: File system check errors, application reports data errors, database doesn't start
+
+**Fix**:
+
+- Attempt a file system repair
+- If repair fails, retry migration from the source virtual server
+- Verify that the source virtual server was cleanly shut down
+
+**Rollback**: Discard the corrupted VPC virtual server, restart the source virtual server, and investigate the root cause before you retry the migration.
 
 **Prevention**:
-- Cleanly shut down VMs before migration (don't force-off)
-- Verify transfers with checksums where possible
+
+- Cleanly shut down virtual servers before migration
+- Verify transfers with checksums, where possible
 - Use `blockdev --flushbufs` before detaching volumes
 
-**Detection**: Filesystem check errors, application reports data errors, database won't start
-
-**Mitigation**:
-- Attempt filesystem repair (fsck, xfs_repair, chkdsk)
-- If repair fails, retry migration from source VM
-- Verify source VM was cleanly shut down
-
-**Rollback**: Discard corrupted VPC VSI, restart source VM, investigate root cause before retry
-
-### Risk: Performance Degradation
+### Risk: Performance degradation
 {: #virt-sol-vpc-migration-design-risk-common-performance}
 
-**Manifestation**: Application performs worse in VPC than in VMware.
+**Symptom**: Application performs worse in VPC than in VMware.
 
-**Prevention**:
-- Baseline performance in VMware before migration
-- Select appropriate instance and storage profiles based on baselines
-- Enable pooled storage bandwidth allocation
+**Detection**: Increased response times and decreased throughput
 
-**Detection**: Response times increase, throughput decreases, users complain of slowness
+**Fix**:
 
-**Mitigation**:
 - Check CPU, memory, disk I/O, network bandwidth metrics
-- Verify storage profile provides adequate IOPS
-- Verify instance profile provides adequate network bandwidth
-- Check for application configuration issues (connection pooling, caching, etc.)
+- Verify that the storage profile has adequate IOPS
+- Verify that the instance profile has adequate network bandwidth
+- Check for application configuration issues
 - Consider upgrading instance or storage profiles
 
-**Rollback**: If critical, failback to VMware while investigating
+**Rollback**: If critical, failback to VMware while you investigate performance.
 
-## Rollback Strategy Design
+**Prevention**:
+
+- Baseline performance in VMware before migration
+- Select appropriate instance and storage profiles that are based on baselines
+- Enable pooled storage bandwidth allocation
+
+## Rollback strategy design
 {: #virt-sol-vpc-migration-design-risk-rollback}
 
-**Rollback Trigger Criteria**:
+Use the following criteria to determine whether you need to roll back.
 
-Define explicit criteria that trigger rollback:
-- More than 20% of VSIs in a wave fail to boot
-- Critical application fails functional testing
-- Data corruption detected in migrated VMs
-- Performance degradation > 50% from baseline with no quick fix
-- Security group configuration error exposes sensitive services
+- More than 20% of virtual servers in a wave fails to start
+- Critical applications fail functional testing
+- Corrupted data is found in migrated virtual servers
+- Performance degradation greater than 50% from baseline with no quick fix
+- Security group configuration errors expose sensitive services
 
-**Rollback Decision Authority**:
-- Define who can make rollback decision (migration lead, application owner, etc.)
+Rollback decision authority:
+
+- Define who can make the rollback decision
 - Define escalation path if decision-makers disagree
-- Time-box rollback decision (e.g., "must decide within 2 hours of cutover")
+- Timebox rollback decision
 
-**Rollback Procedures**:
+### Rollback procedures
+{: #virt-sol-vpc-migration-design-risk-rollback-procedures}
 
-**Phase 1 Rollback** (before VSIs are created):
-1. Abort migration
-2. Discard worker VSI and volumes
-3. Restart VMware VMs
-4. Update status communications
-5. **Time required**: ~30 minutes
+The following section explains the rollback procedure phases.
 
-**Phase 2 Rollback** (after VSIs created, before DNS cutover):
-1. Stop and delete VSIs
-2. Restart VMware VMs
-3. Verify VMware VMs are functional
-4. Update status communications
-5. **Time required**: ~1 hour
+#### Using the Phase 1 rollback procedure
+{: #virt-sol-vpc-migration-design-risk-rollback-phase1}
 
-**Phase 3 Rollback** (after DNS cutover, data may have changed):
-1. Stop VSIs (don't delete yet—they may have new data)
-2. Update DNS/load balancers to point back to VMware
-3. Restart VMware VMs
-4. **Data decision**: 
-   - If no data changed (read-only apps), proceed with rollback
-   - If data changed in VPC (write operations occurred), must sync data back to VMware before full rollback
-5. Sync data if needed (application-specific procedure)
-6. Verify VMware VMs are functional
-7. After verification period, delete VPC VSIs
-8. **Time required**: ~2-4 hours (depending on data sync)
+Before the virtual servers are created during the migration, follow these steps to use the Phase 1 rollback procedure. This process takes ~30 minutes.
 
-**Source VM Preservation**:
-- Don't delete VMware VMs immediately after migration
-- Retention period: 7-30 days depending on risk tolerance
-- Create VMware snapshots as rollback points
-- Document snapshot locations and retention policies
+1. Stop the migration.
+2. Discard worker virtual servers and volumes.
+3. Restart VMware virtual servers.
+4. Update status communications.
+
+#### Using the Phase 2 rollback procedure
+{: #virt-sol-vpc-migration-design-risk-rollback-phase2}
+
+After virtual servers created during the migration, but before DNS cutover, follow these steps to use the Phase 2 rollback procedure. This process takes ~1 hour.
+
+1. Stop and delete migrated virtual servers.
+2. Restart VMware virtual servers.
+3. Verify that VMware virtual servers are functional.
+4. Update status communications.
+
+#### Using the Phase 3 rollback procedure
+{: #virt-sol-vpc-migration-design-risk-rollback-phase3}
+
+After DNS cutover during the migration, data might change. Use the following steps to use the Phase 3 rollback procedure. Depending on data size, this process takes 2-4 hours.
+
+1. Stop virtual servers, but don't delete them.
+2. Update DNS and load balancers to point back to VMware.
+3. Restart VMware virtual servers.
+4. Data decision:
+   - If no data was changed, proceed with the rollback.
+   - If data changed in VPC, you must sync data back to VMware before you can roll back.
+5. Sync data, if needed.
+6. Verify that VMware virtual servers are functional.
+7. After verification period, delete VPC virtual servers
+
+### Source virtual server preservation
+{: #virt-sol-vpc-migration-design-risk-rollback-preservation}
+
+To help make sure that the source virtual servers are preserved, use the following information.
+
+- Don't delete VMware virtual servers immediately after the migration.
+- The retention period is 7-30 days, depending on your risk tolerance.
+- Create VMware snapshots.
+- Document snapshot locations and your retention policies.
