@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-02-20"
+lastupdated: "2026-03-04"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -25,7 +25,7 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC). 
+The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
 {: shortdesc}
 
 {{_include-segments/objective.md}}
@@ -37,11 +37,11 @@ This tutorial requires the following prerequisites.
 
 - An available VCFaaS instance
 - Have the correct access policies to manage VCFaaS environments and make sure that you can create the following VCFaaS resources. For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?topic=vmware-service-vmaas-iam&interface=ui).
-   - VMs
-   - Networks
-   - Firewall Rules
-   - NAT rules
-   - TGW Connection Group
+  - VMs
+  - Networks
+  - Firewall Rules
+  - NAT rules
+  - TGW Connection Group
 
 {{_include-segments/access.md}}
 
@@ -434,17 +434,19 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
 
     1. SSH into the worker virtual server
 
-    ```bash
-    ssh -J root@<BASTION_VSI_IP> root@<WORKER_VSI_IP>
-    ``` 
-    {: codeblock}
+        ```bash
+        ssh -J root@<BASTION_VSI_IP>   root@<WORKER_VSI_IP>
+        ```
+
+        {: codeblock}
 
     2. SCP over the virtio drivers iso file
 
-    ```bash
-    scp root@<TEMP_RHEL_VM_IP>:/usr/share/virtio-win/virtio-win.iso /root/virtio-win.iso
-    ```
-   {: codeblock}
+        ```bash
+        scp root@<TEMP_RHEL_VM_IP>:/usr/share/virtio-win/virtio-win.iso /root/virtio-win.iso
+        ```
+
+       {: codeblock}
 
         Where
 
@@ -477,7 +479,6 @@ Before you can migrate the virtual server, you must install the necessary driver
 7. Shut down the Windows virtual server and close the Web Console.
 
 {{_include-segments/start_netcat_server.md}}
-
 
 ## Migrating the Windows virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-windows-vm}
@@ -547,68 +548,71 @@ Before you can migrate the virtual server, you must install the necessary driver
    3. Close the Web Console window.
 6. Back onto the worker virtual server, fix the partition table on the attached boot volume by moving the partition table to the correct position on the disk by running the following command:
 
-   `sgdisk --move-second-header /dev/<DEV_NAME>`
+     `sgdisk --move-second-header /dev/<DEV_NAME>`
 
-   Where
+     Where
 
-   `<DEV_NAME>` is the name of the block device that you found previously.
+     `<DEV_NAME>` is the name of the block device that you found previously.
 
 7. Flush the buffers of the attached boot volume by running the following command:
 
-   `blockdev --flushbufs /dev/<DEV_NAME>`
+     `blockdev --flushbufs /dev/<DEV_NAME>`
 
-   Where
+     Where
 
-   `<DEV_NAME>` is the name of the block device that you found previously.
+     `<DEV_NAME>` is the name of the block device that you found previously.
 
-14. Install utils to use the virt-v2v-in-place tool
+8. Install utils to use the virt-v2v-in-place tool
     1. `apt-get install -y virt-v2v`
     2. `apt-get install -y rhsrvany`
-15. Make a symlink to the mounted Windows boot volume. Note that the virtual server name here corresponds to the example Windows virtual server name that was created in this document. If a virtual server of a different name is being migrated, use the name of that virtual server instead for the `VM_NAME` variable.
-    ```bash
-    VM_NAME=vm-win22
-    TARGET_DEV=/dev/<DEV_NAME>
-    SYMLINK="/tmp/${VM_NAME}-sda"
-    ln -fs "${TARGET_DEV}" "${SYMLINK}"
-    ls -l "${SYMLINK}"
-    ```
-    {: codeblock}
-    Where
-    `<DEV_NAME>` is the name of the block device that you found previously.
-16. Run `virt-v2v-in-place`. Note that the virtio-win.iso file copied over from an eariler step is referenced with the `VIRTIO_WIN` variable here.
-    ```bash
-    export LIBGUESTFS_BACKEND=direct
-    export VIRTIO_WIN=/root/virtio-win.iso
-    virt-v2v-in-place -i disk "${SYMLINK}" --block-driver virtio-scsi -v
-    ```
-    {: codeblock}
-17. Ensure the conversion was successful
+9. Make a symlink to the mounted Windows boot volume. Note that the virtual server name here corresponds to the example Windows virtual server name that was created in this document. If a virtual server of a different name is being migrated, use the name of that virtual server instead for the `VM_NAME` variable.
+
+      ```bash
+      VM_NAME=vm-win22
+      TARGET_DEV=/dev/<DEV_NAME>
+      SYMLINK="/tmp/${VM_NAME}-sda"
+      ln -fs "${TARGET_DEV}" "${SYMLINK}"
+      ls -l "${SYMLINK}"
+      ```
+
+      {: codeblock}
+      Where
+      `<DEV_NAME>` is the name of the block device that you found previously.
+10. Run `virt-v2v-in-place`. Note that the virtio-win.iso file copied over from an eariler step is referenced with the `VIRTIO_WIN` variable here.
+      ```bash
+      export LIBGUESTFS_BACKEND=direct
+      export VIRTIO_WIN=/root/virtio-win.iso
+      virt-v2v-in-place -i disk "${SYMLINK}" --block-driver virtio-scsi -v
+      ```
+
+      {: codeblock}
+11. Ensure the conversion was successful
     1. Check that the return code is 0. The below command should display `0` if the conversion was successful
         1. `echo $?`
     If the `virt-v2v-in-place` command was not successful, then the image on mounted boot volume will be in an indeterminate state. Check the output for any error messages. Any issue will need to be resolved first. Afterwards, the data from the source Windows virtual server will need to be re-transferred to the mounted boot volume on the worker virtual server before retrying the `virt-v2v-in-place` command.
-18. Log in to the IBM Cloud console.
-19. Create a Windows virtual server from the attached boot volume by specifying the following information:
-   1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
-   2. From the list of available resources, select **vpc-migration-vsi-win22-boot-volume**.
-   3. In the **Attached virtual server** section, click the **Detach** icon next to the name of the worker virtual server.
-   4. Wait for the worker virtual server to detach.
-   5. In the **Attached virtual server** section, click **Attach**. Within the **Attach to the virtual server** form, specify the following information:
-      1. Click **Create server**.
-      2. Click **Attach as boot volume**.
-      3. In the **Location** section, specify the following information:
-         1. For **Geography**, select **North America**.
-         2. For **Region**, select **Dallas (us-south)**.
-         3. For **Zone**, select **us-south-1**.
-         4. In the **Details** section, specify the following information:
-            1. For **Name**, enter `vpc-migration-vsi-win22`
-            2. In the **Server configuration** section, specify the following information:
-      4. For **SSH Keys**, select **vpc-migration-ssh-key**.
-      5. Click **Create a virtual server**.
-10. Get the IP of the Windows virtual server by specifying the following information:
+12. Log in to the IBM Cloud console.
+13. Create a Windows virtual server from the attached boot volume by specifying the following information:
+    1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
+    2. From the list of available resources, select **vpc-migration-vsi-win22-boot-volume**.
+    3. In the **Attached virtual server** section, click the **Detach** icon next to the name of the worker virtual server.
+    4. Wait for the worker virtual server to detach.
+    5. In the **Attached virtual server** section, click **Attach**. Within the **Attach to the virtual server** form, specify the following information:
+       1. Click **Create server**.
+       2. Click **Attach as boot volume**.
+       3. In the **Location** section, specify the following information:
+          1. For **Geography**, select **North America**.
+          2. For **Region**, select **Dallas (us-south)**.
+          3. For **Zone**, select **us-south-1**.
+          4. In the **Details** section, specify the following information:
+             1. For **Name**, enter `vpc-migration-vsi-win22`
+             2. In the **Server configuration** section, specify the following information:
+       4. For **SSH Keys**, select **vpc-migration-ssh-key**.
+       5. Click **Create a virtual server**.
+14. Get the IP of the Windows virtual server by specifying the following information:
     1. From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
     2. Search for **vpc-migration-vsi-win22**.
     3. Copy the reserved IP of the Windows virtual server from the list of results.
-21. Get the password of the Windows virtual server.
+15. Get the password of the Windows virtual server.
     1. This should be the same Administrator password as it was on the source Windows virtual server.
     2. Log in to the IBM Cloud console.
     3. Go to the VCFaaS tenant portal.
@@ -618,9 +622,9 @@ Before you can migrate the virtual server, you must install the necessary driver
          3. In the **Compute** section, click **Virtual machines**.
          4. Find **vm-win22** from the list of available virtual servers.
          5. Click **Details** > **Guest OS Customization** > **Edit**. In the **Edit Guest Properties** form the password will be listed
-         1. Copy your password.
-         2. Click **Discard**.
-22. Log in to the Windows virtual server.
+           1. Copy your password.
+           2. Click **Discard**.
+16. Log in to the Windows virtual server.
     1. Display the RDP port of the Windows virtual server through the Bastion virtual server by running the following command:
 
        `ssh -L 3389:<WINDOWS_VSI_IP>:3389 <BASTION_VSI_IP> -l root -N`
@@ -741,7 +745,7 @@ Use the following information to prepare the RHEL virtual server for migration.
        2. Add a default route through the routed VDC Network by running the following command:
 
            `ip route add default via 192.168.0.1`
- 
+
 5. Transfer the disk of the RHEL virtual server to the worker virtual server by specifying the following information:
     1. Within the Web Console window:
        1. Start the transfer of the RHEL virtual server disk by running the following command:
@@ -763,9 +767,9 @@ Use the following information to prepare the RHEL virtual server for migration.
     `sgdisk --move-second-header /dev/<DEV_NAME>`
 
     Where
- 
+
     `<DEV_NAME>` is the name of the block device that you found previously.
- 
+
 7. Flush the buffers of the attached boot volume by running the following command:
 
     `blockdev --flushbufs /dev/<DEV_NAME>`
