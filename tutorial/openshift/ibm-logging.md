@@ -1,0 +1,129 @@
+---
+
+copyright:
+  years: 2025
+lastupdated: "2026-03-06"
+
+keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
+
+subcollection: virtualization-solutions
+
+content-type: tutorial
+services: OpenShift Virtualization
+account-plan: paid
+completion-time: 60m
+use-case: ApplicationModernization
+industry: Software and platform applications
+compliance: HIPPA
+
+---
+
+{{site.data.keyword.attribute-definition-list}}
+
+# Logging for Red Hat OpenShift Virtualization
+{: #logging-rove-design}
+{: #vsphere-openshift-logging}
+{: #tutorial-observability-logging}
+{: toc-content-type="tutorial"}
+{: toc-services="OpenShift Virtualization"}
+{: toc-completion-time="60m"}
+{: toc-use-case="ApplicationModernization"}
+{: toc-industry="Software and platform applications"}
+{: toc-compliance="HIPPA"}
+
+Learn how to install and configure logging with Red Hat OpenShift Virtualization environments with IBM Cloud Logs.
+{: shortdesc}
+
+
+## Overview IBM Cloud logs with Red Hat OpenShift Virtualization
+{: #roks-virt-ibm-logs-overview}
+
+Thinking about logging for your Red Hat OpenShift Virtualization environment? IBM Cloud Logs is a fully managed logging service that provides a centralized logging solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services. 
+
+IBM Cloud Logs can be used to monitor your Red Hat OpenShift Virtualization environment, including the virtual machines, networks, and storage. IBM Cloud Logs can also be used to monitor your applications running on Red Hat OpenShift Virtualization, including the performance, availability, and security of your applications.
+
+IBM Cloud monitoring can be used to monitor your Red Hat OpenShift Virtualization environment in the following ways:
+- **Centralized logging**: IBM Cloud Logs provides a centralized logging solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services.
+- **Log analysis**: IBM Cloud Logs provides a log analysis solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services.
+- **Log management**: IBM Cloud Logs provides a log management solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services.
+{: shortdesc}
+
+
+## Pre-requisites
+{: #roks-virt-logging-prerequisites}
+{: step}
+
+1. Create a IBM Cloud Logs instance
+    1. [Provision Instance](https//cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-instance-provision&interface=ui)
+    2. [Configure Instance](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-instance-configure&interface=ui)
+    - [Configure Bucket](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-configure-data-bucket) - This is required if you want long term data retention or search. the standard Cloud Logs instance has 7 days minimum and 90 days maximum priority log retention
+      - [Create a COS bucket](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage)
+      
+2. Enable logging with ROKS cluster
+    1. [Connect ICL with ROKS](https://cloud.ibm.com/docs/openshift?topic=openshift-logging)  
+
+## IBM Cloud Monitoring
+{: #roks-virt-ibm-monitoring}
+
+IBM Cloud Monitoring provides a comprehensive monitoring solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services. IBM Cloud Monitoring can be used to monitor your Red Hat OpenShift Virtualization environment, including the virtual machines, networks, and storage. IBM Cloud Monitoring can also be used to monitor your applications running on Red Hat OpenShift Virtualization, including the performance, availability, and security of your applications.
+
+This integration requires installation of a monitoring agent on the VSIs. See [Monitoring an Ubuntu Linux VPC server instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu#ubuntu_step3) for an example installation of a monitoring agent on an Ubuntu VSI. 
+
+Additional instructions can be found under [Agent-based VSI/VM Installation Instructions](#agent-based-vsivm-installation-instructions)
+
+Beyond VSIs, IBM Cloud Monitoring supports monitoring overall VPC resource consumption and other VPC services. See [Getting started with IBM Cloud Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-getting-started) for instructions to integrate IBM Cloud VPC with IBM Cloud Monitoring. See [IBM Cloud VPC monitoring dashboards](https://cloud.ibm.com/docs/vpc?topic=vpc-ibm-monitoring) for the list of available dashboards and additional details for each.
+
+### IBM Cloud Logs
+{: #vpc-observability-logs}
+
+IBM Cloud VPC supports integration with IBM Cloud Logs. Platform events generated by IBM Cloud VPC can be routed to an IBM Cloud Logs instance using IBM Cloud Logs Routing. For more information such as the type of platform logs generated, see [Logging for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-logging). Activity tracking events can be routed to an IBM Cloud Logs instance using IBM Cloud Activity Tracker Events Routing. For more information such as the type of activity tracker events generated, see [Activity tracking events for IBM Cloud VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-at_events).
+
+To setup log forwarding to IBM Cloud Logs, steps are provided for [Linux](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-linux) and [Windows](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-windows). 
+
+
+#### IBM Cloud Monitoring
+{: #observability-design-mon}
+
+##### Installation Instructions
+{: #observability-design-install}
+{: step}
+
+Manual installation process for Sysdig on OpenShift: https://docs.sysdig.com/en/administration/onprem-manual-installation-openshift/
+
+Adding a OpenShift cluster to IBM Cloud Monitoring (using Sysdig): https://cloud.ibm.com/docs/monitoring?topic=monitoring-openshift_cluster
+
+##### Agent-based VSI/VM Installation Instructions
+{: #observability-design-install-agent}
+
+Installation process for IBM Logging Agents on Linux VPC VSIs, you can go to the `Monitoring Sources` in your `IBM Cloud Monitoring instance` details in IBM Cloud Console, and click on the `Linux` tab, which can deploy the monitoring agent on your Linux VPC VSI.
+[Linux Agent Installation](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu) for additional information.
+
+Installation process for IBM Logging Agents on Windows VPC VSIs, you need to install the exporter that will send the metrics to IBM Cloud Monitoring.
+[Windows Agent Installation](https://cloud.ibm.com/docs/monitoring?topic=monitoring-windows) for additional information.
+
+When installing the Windows agent:
+
+[Prometheus Remote Write ingestion endpoints](https://cloud.ibm.com/docs/monitoring?topic=monitoring-endpoints#prometheus_remote_write_endpoints)
+
+To get the IBM Cloud Log monitor api token:
+1. Login to your IBM Cloud Monitoring instance
+2. Access the Dashboard
+3. At the bottom left click on the user icon with the user initials
+4. In the popup, select SysDig API Tokens underneath the Secrets Management section
+5. Scroll down in the new page to find the token and select copy
+
+
+## Next steps
+{: #observability-next-steps}
+
+After implementing observability for your Red Hat OpenShift Virtualization environment, consider these next steps:
+
+- **Backup and Recovery**: Implement backup solutions for your virtual machines. See [Backup solution for Red Hat OpenShift Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-openshift-backup-solution).
+- **Migration**: Learn about migrating workloads to OpenShift Virtualization. See [Migration Toolkit for Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-openshift-migration-toolkit).
+- **Design Considerations**: Review comprehensive design guidance for production deployments:
+    - [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-openshift-compute-design)
+    - [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-openshift-networking-design)
+    - [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-openshift-storage-design)
+    - [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-openshift-security-design)
+    - [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-openshift-resiliency-design)
+- **Reference Architecture**: Explore the complete reference architecture. See [Red Hat OpenShift Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-reference-architecture-openshift).
