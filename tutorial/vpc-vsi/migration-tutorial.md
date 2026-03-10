@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-04"
+lastupdated: "2026-03-10"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -25,10 +25,10 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC). 
+The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
 {: shortdesc}
 
-{{_include-segments/objective.md}}
+
 
 ## Before you begin
 {: #virt-sol-vpc-migration-tutorial-prerequisites}
@@ -43,15 +43,7 @@ This tutorial requires the following prerequisites.
    - NAT rules
    - TGW Connection Group
 
-{{_include-segments/access.md}}
 
-{{_include-segments/create_vpc.md}}
-
-{{_include-segments/create_virtual_server.md}}
-
-{{_include-segments/create_bastion.md}}
-
-{{_include-segments/create_security_group.md}}
 
 ## Setting up networking on a VCFaaS instance
 {: #virt-sol-vpc-migration-tutorial-setup-vcfaas}
@@ -436,7 +428,7 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
 
     ```bash
     ssh -J root@<BASTION_VSI_IP> root@<WORKER_VSI_IP>
-    ``` 
+    ```
     {: codeblock}
 
     2. SCP over the virtio drivers iso file
@@ -741,7 +733,7 @@ Use the following information to prepare the RHEL virtual server for migration.
        2. Add a default route through the routed VDC Network by running the following command:
 
            `ip route add default via 192.168.0.1`
- 
+
 5. Transfer the disk of the RHEL virtual server to the worker virtual server by specifying the following information:
     1. Within the Web Console window:
        1. Start the transfer of the RHEL virtual server disk by running the following command:
@@ -763,9 +755,9 @@ Use the following information to prepare the RHEL virtual server for migration.
     `sgdisk --move-second-header /dev/<DEV_NAME>`
 
     Where
- 
+
     `<DEV_NAME>` is the name of the block device that you found previously.
- 
+
 7. Flush the buffers of the attached boot volume by running the following command:
 
     `blockdev --flushbufs /dev/<DEV_NAME>`
