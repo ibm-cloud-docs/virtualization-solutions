@@ -107,7 +107,6 @@ toc:
             navtitle: RackWare Tutorial
           - topic: tutorial/vpc-vsi/migration-tutorial.md
             navtitle: VMware Migration Tutorial - VCFaaS
-          - topic: tutorial/vpc-vsi/migration-tutorial-vcs.md
   - navgroup:
       id: howto
       topics:
