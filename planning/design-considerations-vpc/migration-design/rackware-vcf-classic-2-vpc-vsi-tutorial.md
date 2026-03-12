@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-03-12"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
 
@@ -13,7 +13,7 @@ services: OpenShift Virtualization, VMware
 account-plan: paid
 completion-time: 60m
 use-case: ApplicationModernization
-industry: SoftwareAndPlatformApplications
+industry: Software and Platform Applications
 compliance: HIPAA
 
 ---
@@ -27,7 +27,7 @@ compliance: HIPAA
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 {: toc-use-case="ApplicationModernization"}
-{: toc-industry="Software and platform applications"}
+{: toc-industry="Software and Platform Applications"}
 {: toc-compliance="HIPAA"}
 
 This tutorial focuses on using RackWare RMM (RackWare Management Module) to migrate IBM Cloud VCF-Automated Virtual Machines (VMs) to IBM Cloud VPC Virtual Server Instances. There is an associated Technical Guide that describes the technologies used.

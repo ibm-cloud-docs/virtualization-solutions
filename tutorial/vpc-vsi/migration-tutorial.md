@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-10"
+lastupdated: "2026-03-12"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -28,22 +28,32 @@ completion-time: 60m
 The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
 {: shortdesc}
 
-
+{{_include-segments/objective.md}}
 
 ## Before you begin
 {: #virt-sol-vpc-migration-tutorial-prerequisites}
 
 This tutorial requires the following prerequisites.
 
-- An available VCFaaS instance
-- Have the correct access policies to manage VCFaaS environments and make sure that you can create the following VCFaaS resources. For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?topic=vmware-service-vmaas-iam&interface=ui).
+- An available VCFaaS instance.
+- Verify that you have the correct access policies to manage VCFaaS environments so you can create the required VCFaaS resources.
    - VMs
    - Networks
    - Firewall Rules
    - NAT rules
    - TGW Connection Group
 
+For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?topic=vmware-service-vmaas-iam&interface=ui).
 
+{{../_include-segments/access.md}}
+
+{{_include-segments/create_vpc.md}}
+
+{{_include-segments/create_virtual_server.md}}
+
+{{_include-segments/create_bastion.md}}
+
+{{_include-segments/create_security_group.md}}
 
 ## Setting up networking on a VCFaaS instance
 {: #virt-sol-vpc-migration-tutorial-setup-vcfaas}
@@ -565,6 +575,7 @@ Before you can migrate the virtual server, you must install the necessary driver
     ls -l "${SYMLINK}"
     ```
     {: codeblock}
+
     Where
     `<DEV_NAME>` is the name of the block device that you found previously.
 16. Run `virt-v2v-in-place`. Note that the virtio-win.iso file copied over from an eariler step is referenced with the `VIRTIO_WIN` variable here.
@@ -574,28 +585,30 @@ Before you can migrate the virtual server, you must install the necessary driver
     virt-v2v-in-place -i disk "${SYMLINK}" --block-driver virtio-scsi -v
     ```
     {: codeblock}
+
 17. Ensure the conversion was successful
     1. Check that the return code is 0. The below command should display `0` if the conversion was successful
-        1. `echo $?`
+       1. `echo $?`
+
     If the `virt-v2v-in-place` command was not successful, then the image on mounted boot volume will be in an indeterminate state. Check the output for any error messages. Any issue will need to be resolved first. Afterwards, the data from the source Windows virtual server will need to be re-transferred to the mounted boot volume on the worker virtual server before retrying the `virt-v2v-in-place` command.
 18. Log in to the IBM Cloud console.
 19. Create a Windows virtual server from the attached boot volume by specifying the following information:
-   1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
-   2. From the list of available resources, select **vpc-migration-vsi-win22-boot-volume**.
-   3. In the **Attached virtual server** section, click the **Detach** icon next to the name of the worker virtual server.
-   4. Wait for the worker virtual server to detach.
-   5. In the **Attached virtual server** section, click **Attach**. Within the **Attach to the virtual server** form, specify the following information:
-      1. Click **Create server**.
-      2. Click **Attach as boot volume**.
-      3. In the **Location** section, specify the following information:
-         1. For **Geography**, select **North America**.
-         2. For **Region**, select **Dallas (us-south)**.
-         3. For **Zone**, select **us-south-1**.
-         4. In the **Details** section, specify the following information:
-            1. For **Name**, enter `vpc-migration-vsi-win22`
-            2. In the **Server configuration** section, specify the following information:
-      4. For **SSH Keys**, select **vpc-migration-ssh-key**.
-      5. Click **Create a virtual server**.
+    1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
+    2. From the list of available resources, select **vpc-migration-vsi-win22-boot-volume**.
+    3. In the **Attached virtual server** section, click the **Detach** icon next to the name of the worker     virtual server.
+    4. Wait for the worker virtual server to detach.
+    5. In the **Attached virtual server** section, click **Attach**. Within the **Attach to the virtual server** form, specify the following information:
+       1. Click **Create server**.
+       2. Click **Attach as boot volume**.
+       3. In the **Location** section, specify the following information:
+          1. For **Geography**, select **North America**.
+          2. For **Region**, select **Dallas (us-south)**.
+          3. For **Zone**, select **us-south-1**.
+          4. In the **Details** section, specify the following information:
+             1. For **Name**, enter `vpc-migration-vsi-win22`
+             2. In the **Server configuration** section, specify the following information:
+       4. For **SSH Keys**, select **vpc-migration-ssh-key**.
+       5. Click **Create a virtual server**.
 10. Get the IP of the Windows virtual server by specifying the following information:
     1. From the **Navigation menu**, click **Infrastructure > Compute > Virtual server instances**.
     2. Search for **vpc-migration-vsi-win22**.

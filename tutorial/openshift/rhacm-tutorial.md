@@ -21,7 +21,6 @@ compliance: HIPPA
 {{site.data.keyword.attribute-definition-list}}
 
 # Observability with Red Hat Advanced Cluster Management
-
 {: #rhacm-overview}
 {: #vsphere-openshift-rhacm}
 {: #tutorial-rhacm-overview}
@@ -240,18 +239,19 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
       - The **configmap** must be labeled with: `thanos-ruler-rule: "true"`
       - The **key** must be set to `"custom_rules.yaml"`
 
+
     The `alert_type: vm_not_running` must match the secret that you create in the next step.
 
 1. Apply the **configmap** by running `oc -n open-cluster-management-observability apply -f thanos-ruler-custom-rules.yaml`. Then, validate the output `/etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules` to confirm that the pod `observability-thanos-rule` mounts the custom rule.
 
-  ```bash
+   ```bash
       oc describe pod observability-thanos-rule-0
 
      Mounts:
 
         /etc/thanos/config/thanos-ruler-config from thanos-ruler-config (ro)
-  ```
-  {: codeblock}
+   ```
+   {: codeblock}
 
 1. Create and apply Apply the configmap to the cluster, for the custom alert rule to be applied.
 
@@ -284,7 +284,7 @@ data:
 ```
 {: codeblock}
 
-```
+```bash
    /etc/thanos/configmaps/Alertmanager-ca-bundle from Alertmanager-ca-bundle (rw)
 
    /etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules (rw)
