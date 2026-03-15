@@ -28,7 +28,7 @@ completion-time: 60m
 The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
 {: shortdesc}
 
-{{_include-segments/objective.md}}
+{{./_include-segments/objective.md}}
 
 ## Before you begin
 {: #virt-sol-vpc-migration-tutorial-prerequisites}

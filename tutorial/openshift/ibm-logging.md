@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-12"
+lastupdated: "2026-03-15"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -20,7 +20,7 @@ compliance: HIPPA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Logging for {{site.data.keyword.redhat_openshift_notm}} Virtualization
+# Logging for Red Hat Openshift Virtualization
 {: #logging-rove-design}
 {: #vsphere-openshift-logging}
 {: #tutorial-observability-logging}
