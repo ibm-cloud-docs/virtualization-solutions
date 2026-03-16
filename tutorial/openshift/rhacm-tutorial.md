@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-06"
+lastupdated: "2026-03-12"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -21,7 +21,6 @@ compliance: HIPPA
 {{site.data.keyword.attribute-definition-list}}
 
 # Observability with Red Hat Advanced Cluster Management
-
 {: #rhacm-overview}
 {: #vsphere-openshift-rhacm}
 {: #tutorial-rhacm-overview}
@@ -52,7 +51,7 @@ By default, {{site.data.keyword.redhat_openshift_notm}} provides several observa
 
 {{site.data.keyword.redhat_openshift_notm}} automatically deploys these components in the **Openshift-monitoring namespace** during the Red Hat OpenShift Container Platform deployment. You can access dashboards and configuration of these components from the **Observe** section in the **Administration view**.
 
-Alerting displays the current alerts, alerting rules, and supports viewing and adding alert silencing rules. You use the metrics page to run PromQL queries and to receive metrics data. Dashboards display graphs from a preset list. Targets are the defined list of endpoints that the metrics server calls to receive data from different components. The logs section appears after you install and configure {{site.data.keyword.redhat_openshift_notm}} Logging. For more information about the design and components, see [Monitoring stack architecture]( https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/monitoring/about-openshift-container-platform-monitoring#monitoring-stack-architecture){: external}
+Alerting displays the current alerts, alerting rules, and supports viewing and adding alert silencing rules. You use the metrics page to run PromQL queries and to receive metrics data. Dashboards display graphs from a preset list. Targets are the defined list of endpoints that the metrics server calls to receive data from different components. The logs section appears after you install and configure {{site.data.keyword.redhat_openshift_notm}} Logging. For more information about the design and components, see [Monitoring stack architecture](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/monitoring/about-openshift-container-platform-monitoring#monitoring-stack-architecture){: external}
 
 RHACM adds extra observability functions that help support multiple host clusters. RHACM expands existing Prometheus, Thanos, and Alertmanager infrastructure but with extra components.
 
@@ -160,7 +159,7 @@ For a brief overview of the metrics that are displayed in each pre-configured pr
 {: #observability-design-custom-dashboards}
 {: step}
 
-The default Grafana instance doesn't support creating dashboards. To create and customize dashboards, first create a `grafana-dev instance`. Follow the instructions that are in the [RHACM Observability documentation](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#using-grafana-dashboards){: external} to set up the instance by using the scripts that are found in [multicluster-observability-operator](https://github.com/open-cluster-management/multicluster-observability-operator){: external}.
+The default Grafana instance doesn't support creating dashboards. To create and customize dashboards, first create a `grafana-dev instance`. Follow the instructions that are in the [RHACM Observability documentation](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#using-grafana-dashboards){: external} to set up the instance by using the scripts that are found in [multicluster-observability-operator](https://github.com/stolostron/multicluster-observability-operator){: external}.
 
 To create a dashboard, use PromQL queries from a wide selection of [KubeVirt Components Metrics](https://kubevirt.io/monitoring/metrics.html){: external} and other [Kubernetes Metrics](https://kubernetes.io/docs/reference/instrumentation/metrics/){: external}.
 
@@ -235,23 +234,24 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
     Use the existing Prometheus metrics `kubevirt_vm_info` and PromQL `kubevirt_vm_info{status!="running"} > 0` to trigger an alert when any virtual server isn't in the running status.
 
     To help ensure that Thanos Ruler pods automatically mount the custom alert rules, you must meet the following conditions:
-    
+
     For scenarios that default alerting rules can't cover, you need to set up custom alert rules.
       - The **configmap** must be labeled with: `thanos-ruler-rule: "true"`
       - The **key** must be set to `"custom_rules.yaml"`
+
 
     The `alert_type: vm_not_running` must match the secret that you create in the next step.
 
 1. Apply the **configmap** by running `oc -n open-cluster-management-observability apply -f thanos-ruler-custom-rules.yaml`. Then, validate the output `/etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules` to confirm that the pod `observability-thanos-rule` mounts the custom rule.
 
-  ```bash
+   ```bash
       oc describe pod observability-thanos-rule-0
 
      Mounts:
 
         /etc/thanos/config/thanos-ruler-config from thanos-ruler-config (ro)
-  ```
-  {: codeblock}
+   ```
+   {: codeblock}
 
 1. Create and apply Apply the configmap to the cluster, for the custom alert rule to be applied.
 
@@ -284,7 +284,7 @@ data:
 ```
 {: codeblock}
 
-```
+```bash
    /etc/thanos/configmaps/Alertmanager-ca-bundle from Alertmanager-ca-bundle (rw)
 
    /etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules (rw)

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-03-03"
+lastupdated: "2026-03-12"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -16,6 +16,7 @@ subcollection: virtualization-solutions
 {: #virt-sol-vpc-migration-design-risk}
 
 
+
 The following information covers common difficulties that you might encounter after a migration and offers tips to correct the issues.
 {: shortdesc}
 
@@ -25,8 +26,9 @@ The following information covers common difficulties that you might encounter af
 The following information covers common difficulties that you might encounter after a migration.
 
 ### Risk: Network connectivity failure
-
 {: #virt-sol-vpc-migration-design-risk-common-network}
+
+
 
 Symptom: After migration, the virtual server can't communicate with other systems.
 

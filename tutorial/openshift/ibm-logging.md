@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-06"
+lastupdated: "2026-03-15"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -20,7 +20,7 @@ compliance: HIPPA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Logging for {{site.data.keyword.redhat_openshift_notm}} Virtualization
+# Logging for Red Hat Openshift Virtualization
 {: #logging-rove-design}
 {: #vsphere-openshift-logging}
 {: #tutorial-observability-logging}
@@ -62,7 +62,7 @@ Before you configure logging for your {{site.data.keyword.redhat_openshift_notm}
    - Create a Cloud Object Storage bucket that stores your long‑term log data. For more information, see [Creating a Cloud Object Storage bucket](/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage).
 
 2. Enable logging with a ROKS cluster
-   - You enable integrated logging for your {{site.data.keyword.redhat_openshift_notm}} on IBM Cloud (ROKS) cluster by connecting it to the IBM Cloud Logs. For more information, see [Connect ICL with ROKS](https://cloud.ibm.com/docs/openshift?topic=openshift-logging).
+   - You enable integrated logging for your {{site.data.keyword.redhat_openshift_notm}} on IBM Cloud (ROKS) cluster by connecting it to the IBM Cloud Logs. For more information, see [Connect ICL with ROKS](/docs/openshift?topic=openshift-logging).
 
 ## {{site.data.keyword.monitoringfull_notm}}
 {: #roks-virt-ibm-monitoring}
@@ -73,16 +73,16 @@ This integration requires that you install a monitoring agent on your virtual se
 
 For more information, see [Installing an agent-based virtual server](#agent-based-vsivm-installation-instructions).
 
-{{site.data.keyword.monitoringfull_notm}} also supports monitoring overall VPC resource consumption and other VPC services. For more information, see [Getting started with IBM Cloud Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-getting-started). 
+{{site.data.keyword.monitoringfull_notm}} also supports monitoring overall VPC resource consumption and other VPC services. For more information, see [Getting started with IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-getting-started). 
 
 ### IBM Cloud Logs
 {: #vpc-observability-logs}
 
-{{site.data.keyword.vpc_short}} supports integration with IBM Cloud Logs. IBM Cloud VPC generates platform events and routes them to an IBM Cloud Logs instance by using {{site.data.keyword.logs_routing_full}}. For more information, see [Logging for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-logging).
+{{site.data.keyword.vpc_short}} supports integration with IBM Cloud Logs. IBM Cloud VPC generates platform events and routes them to an IBM Cloud Logs instance by using {{site.data.keyword.logs_routing_full}}. For more information, see [Logging for VPC](/docs/vpc?topic=vpc-logging).
 
-IBM Cloud Activity Tracker Events Routing routes the events to an IBM Cloud Logs instance. For more information about the type of activity tracker events generated, see [Activity tracking events for IBM Cloud VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-at_events).
+IBM Cloud Activity Tracker Events Routing routes the events to an IBM Cloud Logs instance. For more information about the type of activity tracker events generated, see [Activity tracking events for IBM Cloud VPC](/docs/vpc?topic=vpc-at_events).
 
-To set up log forwarding to IBM Cloud Logs, follow the steps for [Linux](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-linux) and [Windows](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-windows).
+To set up log forwarding to IBM Cloud Logs, follow the steps for [Linux](/docs/cloud-logs?topic=cloud-logs-agent-linux) and [Windows](/docs/cloud-logs?topic=cloud-logs-agent-windows).
 
 #### IBM Cloud Monitoring
 {: #observability-design-mon}
