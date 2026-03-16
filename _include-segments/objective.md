@@ -20,4 +20,4 @@ The virtual servers that are part of this tutorial have the following constraint
 
 The following diagram illustrates what you build as part of this tutorial.
 
-![Virtualization Solutions VPC Migration Tutorial High-Level Architecture](../../images/vpc-vsi/vpc-vsi-migration-tutorial-high-level-diagram.svg){: caption="Virtualization Solutions VPC Migration Tutorial High Level Architecture" caption-side="bottom"}
+![Virtualization Solutions VPC Migration Tutorial High-Level Architecture](../images/vpc-vsi/vpc-vsi-migration-tutorial-high-level-diagram.svg){: caption="Virtualization Solutions VPC Migration Tutorial High Level Architecture" caption-side="bottom"}
