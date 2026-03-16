@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-15"
+lastupdated: "2026-03-16"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -28,7 +28,7 @@ completion-time: 60m
 The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
 {: shortdesc}
 
-{{./_include-segments/objective.md}}
+{{./../../_include-segments/objective.md}}
 
 ## Before you begin
 {: #virt-sol-vpc-migration-tutorial-prerequisites}
@@ -45,15 +45,15 @@ This tutorial requires the following prerequisites.
 
 For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?topic=vmware-service-vmaas-iam&interface=ui).
 
-{{_include-segments/access.md}}
+{{./../../_include-segments/access.md}}
 
-{{_include-segments/create_vpc.md}}
+{{./../../_include-segments/create_vpc.md}}
 
-{{_include-segments/create_virtual_server.md}}
+{{./../../_include-segments/create_virtual_server.md}}
 
-{{_include-segments/create_bastion.md}}
+{{./../../_include-segments/create_bastion.md}}
 
-{{_include-segments/create_security_group.md}}
+{{./../../_include-segments/create_security_group.md}}
 
 ## Setting up networking on a VCFaaS instance
 {: #virt-sol-vpc-migration-tutorial-setup-vcfaas}
@@ -478,7 +478,7 @@ Before you can migrate the virtual server, you must install the necessary driver
    5. Modify the Cloud-init configuration files by following the steps that are in [Customizing a virtual server](/docs/vpc?topic=vpc-create-windows-custom-image#customize-virtual-machine). **Do not** perform the `sysprep` steps, stop after modifying the files.
 7. Shut down the Windows virtual server and close the Web Console.
 
-{{_include-segments/start_netcat_server.md}}
+{{./../../_include-segments/start_netcat_server.md}}
 
 
 ## Migrating the Windows virtual server
@@ -698,7 +698,7 @@ Use the following information to prepare the RHEL virtual server for migration.
    4. Find **vm-rhel9** from the list of available virtual servers.
    5. Click **Power Off**
 
-{{_include-segments/create_boot_disk.md}}
+{{./../../_include-segments/create_boot_disk.md}}
 
 ## Migrating the RHEL virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-rhel-vm}
@@ -779,6 +779,6 @@ Use the following information to prepare the RHEL virtual server for migration.
 
     `<DEV_NAME>` is the name of the block device that you found previously.
 
-{{_include-segments/create_vsi_rhel.md}}
+{{./../../_include-segments/create_vsi_rhel.md}}
 
-{{_include-segments/next_step.md}}
+{{./../../_include-segments/next_step.md}}
