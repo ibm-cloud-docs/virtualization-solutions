@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-15"
+lastupdated: "2026-03-16"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -28,7 +28,7 @@ completion-time: 60m
 The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
 {: shortdesc}
 
-{{./_include-segments/objective.md}}
+{{./../../_include-segments/objective.md}}
 
 ## Before you begin
 {: #virt-sol-vpc-migration-tutorial-prerequisites}
@@ -45,15 +45,15 @@ This tutorial requires the following prerequisites.
 
 For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?topic=vmware-service-vmaas-iam&interface=ui).
 
-{{_include-segments/access.md}}
+{{./../../_include-segments/access.md}}
 
-{{_include-segments/create_vpc.md}}
+{{../../_include-segments/create_vpc.md}}
 
-{{_include-segments/create_virtual_server.md}}
+{{../../_include-segments/create_virtual_server.md}}
 
-{{_include-segments/create_bastion.md}}
+{{../../_include-segments/create_bastion.md}}
 
-{{_include-segments/create_security_group.md}}
+{{../../_include-segments/create_security_group.md}}
 
 ## Setting up networking on a VCFaaS instance
 {: #virt-sol-vpc-migration-tutorial-setup-vcfaas}
@@ -779,6 +779,6 @@ Use the following information to prepare the RHEL virtual server for migration.
 
     `<DEV_NAME>` is the name of the block device that you found previously.
 
-{{_include-segments/create_vsi_rhel.md}}
+{{../../_include-segments/create_vsi_rhel.md}}
 
-{{_include-segments/next_step.md}}
+{{../../_include-segments/next_step.md}}
