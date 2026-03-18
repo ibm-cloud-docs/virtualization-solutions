@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-15"
+lastupdated: "2026-03-18"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -71,7 +71,7 @@ Before you configure logging for your {{site.data.keyword.redhat_openshift_notm}
 
 This integration requires that you install a monitoring agent on your virtual servers. See [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu#ubuntu_step3) for an example installation of a monitoring agent on an Ubuntu virtual server.
 
-For more information, see [Installing an agent-based virtual server](#agent-based-vsivm-installation-instructions).
+For more information, see [Installing an agent-based virtual server](#observability-design-install-agent).
 
 {{site.data.keyword.monitoringfull_notm}} also supports monitoring overall VPC resource consumption and other VPC services. For more information, see [Getting started with IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-getting-started). 
 
