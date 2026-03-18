@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-02-26"
+lastupdated: "2026-03-18"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
@@ -27,8 +27,6 @@ completion-time: 120m
 
 Use the following tutorial as a guide to install and configure a Veeam&reg; Kasten backup solution on an {{site.data.keyword.IBM}} {{site.data.keyword.redhat_openshift_full}} cluster.
 {: shortdesc}
-
-
 
 The tutorial uses Kasten version 8.5.1. However, the Kasten version that is available at the time of use might differ. New releases might include extra features or changes to the installation process and user interface.
 
@@ -282,7 +280,7 @@ You can apply Kasten policies at a Red Hat OpenShift project level, which works 
 
 Lastly, Kasten provides option to run pre-snapshot and post-snapshot hooks (also known as blueprint actions) that you can apply before or after the snapshot completes. The hooks are useful and must be considered for application-aware backups.
 
-For more information about blueprints, see the [FAQ](#virt-sol-openshift-backup-kasten-faq). 
+For more information about blueprints, see [Blueprints](https://docs.kasten.io/latest/usage/blueprints/){: external} and [Additional Information](#virt-sol-openshift-backup-kasten-additional-information).
 
 The option to make protected data immutable is set in the location profile, not in the policy. If immutability is a requirement, you must configure it when you create location profiles.
 {: note}
@@ -379,6 +377,41 @@ Veeam Kasten provides the FileRecoverySession Custom Resource (CR) to request ne
 For more information, see [Restoring Individual Files](https://docs.kasten.io/latest/usage/restorefiles){: external}.
 
 FileRecoverySession doesn't support backups that are exported to Veeam Scale-Out Backup Repository, which can be done through Veeam Backup & Restore (VBR) server. See [Veeam documentation](https://helpcenter.veeam.com/docs/vbr/kasten_integration/guest_file_recovery.html?ver=13){: external} on limitations and [Veeam KB4759](https://www.veeam.com/kb4759){: external} on step-by-step procedure.
+{: note}
+
+
+
+## Updating Veeam Kasten
+{: #virt-sol-openshift-backup-kasten-upgrade}
+
+You can update a Veeam Kasten automatically or manually.
+
+If you select **Automatic updates** during Kasten installation, then Kasten is updates automatically when a new version is released.
+
+If **Manual** is selected, then follow the instructions that are in the [Kasten documentation](https://docs.kasten.io/latest/install/upgrade){: external} to upgrade [helm](https://docs.kasten.io/latest/install/upgrade/#upgrading-helm-installed-veeam-kasten){: external} or [operator](https://docs.kasten.io/latest/install/upgrade/#upgrading-an-operator-installed-veeam-kasten){: external}-based installations.
+
+## Uninstall Veeam Kasten
+{: #virt-sol-openshift-backup-kasten-uninstall}
+
+If Veeam Kasten was installed through OperatorHub, use the **Operators > Installed Operators > Veeam Kasten** link to uninstall it. Uninstalling deletes all k10 clusters and the Kasten operator.
+
+If Helm was used to install Kasten, then follow the instructions that are in the [Kasten documentation](https://docs.kasten.io/latest/operating/uninstall){: external} to uninstall Kasten.
+
+## Known limitations
+{: #virt-sol-openshift-backup-kasten-limitations}
+
+The Veeam Kasten known limitations for the most recent release are documented through the Kasten restrictions section of their documentation. These limitations can be reviewed for your use cases.
+[Kasten Restrictions](https://docs.kasten.io/latest/restrictions){: external}
+
+### Continuous log shipping for stateful database virtual servers that use Kasten is not supported.
+{: #virt-sol-openshift-backup-kasten-faq-log-shipping}
+
+Continuous log shipping for stateful database virtual servers is not supported with Veeam Kasten.
+
+If such a feature is required, it needs to be facilitated through agent-based backup by using a VBR server.
+
+See the following documentation that is an example for MS SQL server:
+[Agent based log shipping by using VBR](https://helpcenter.veeam.com/docs/agentforwindows/userguide/howto_sql_backup.html?ver=13){: external}.
 
 ### Virtual servers that were migrated by using the Red Hat Migration Toolkit for Virtualization
 {: #virt-sol-openshift-backup-kasten-limitations-mtv}
@@ -452,6 +485,50 @@ Make a note of the value shown in the Kasten DR tab on the Kasten UI for success
 
 For more information, see [Kasten DR documentation](https://docs.kasten.io/latest/operating/dr/#dr-enable){: external}.
 
+## Additional information
+{: #virt-sol-openshift-backup-kasten-additional-information}
+
+
+
+### The Kasten multi-cluster feature
+{: #virt-sol-openshift-backup-kasten-additional-information-multi-cluster}
+
+Veeam Kasten can set up a multi-cluster configuration where all your Kasten environments can be managed under one UI.
+Depending on the number of clusters you have, it might or might not be a beneficial feature to implement.
+
+See [Getting Started](https://docs.kasten.io/latest/multicluster/getting_started){: external} instructions on enabling the Veeam Kasten Multi-cluster feature.
+
+For the multi-cluster feature, for environments that use a root CA certificate, the CA certificate needs to be applied to Veeam Kasten.
+
+Follow the steps in [Kasten certificate management](https://docs.kasten.io/latest/install/advanced/#install-root-ca-in-veeam-kastens-namespace){: external} to install root certificates.
+
+### Learn more about Blueprints 
+{: #virt-sol-openshift-backup-kasten-additional-information-blueprints}
+
+Veeam Kasten has a tool inside the product that is known as Kanister. Kanister is a tool that allows users to write blueprints that run based on hooks in the backup or restore process. The available hooks allow blueprint actions to run before and post snapshot and export operations. These blueprints are yaml files with code inside them that define what action needs to be taken when a backup or restore operation runs.
+
+The main use case of these blueprints is to enable Kasten to conduct application-aware backups. These blueprints are used to run automated steps to help ensure that applications are correctly backed up by automation, if clicking a snapshot is not sufficient. Typical uses cases revolve around database backup.
+
+It is important to note that application-aware backups of databases are done by the available template blueprints. You can review your particular use case and update the blueprint to suit your specific needs.
+
+Veeam provides several examples in their documentation. See a PostgreSQL example at [Application Consistent PostgreSQL Backup](https://docs.kasten.io/latest/kanister/postgresql/install_app_cons){: external}.
+
+For more information, see the [Kanister documentation](https://docs.kanister.io/overview.html){: external} to understand the blueprint files.
+
+For more information, see [Blueprints documentation](https://docs.kasten.io/latest/usage/blueprints/){: external}.
+
+### Learn more about transforms 
+{: #virt-sol-openshift-backup-kasten-additional-information-transforms}
+
+Veeam Kasten has a feature that is called Transforms that allows users to automatically modify applications during restore operations.
+
+Transforms happen on restore operations only. They provide a way to transform the final state of the restored workload to conform with the landing location, by changing the metadata configuration of the restored workload. Transforms can be defined through the Kasten UI and filling out the form with the wanted configuration changes.
+
+Transforms are arranged into transform sets. A transform set contains one or more transforms. The order of the transforms defined in the transform sets determines the order that they run during execution.
+
+Each transform can have one or more command operations that are tied to the transform. Several different transform operations are available: test, add, remove, copy, move, and replace (see doc). The test command can be used as a pseudo conditional statement. For example, "if a test fails, the remaining commands in the current transform document will be skipped and processing of the next transform document will begin." Otherwise, failure of the other commands results in the failure of the transform.
+
+For more information, see [Veeam Kasten Transforms](https://docs.kasten.io/latest/api/transforms){: external}.
 
 ## Next steps
 {: #virt-sol-openshift-backup-next-steps}
