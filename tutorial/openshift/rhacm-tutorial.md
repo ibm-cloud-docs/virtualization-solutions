@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-12"
+lastupdated: "2026-03-26"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -51,7 +51,7 @@ By default, {{site.data.keyword.redhat_openshift_notm}} provides several observa
 
 {{site.data.keyword.redhat_openshift_notm}} automatically deploys these components in the **Openshift-monitoring namespace** during the Red Hat OpenShift Container Platform deployment. You can access dashboards and configuration of these components from the **Observe** section in the **Administration view**.
 
-Alerting displays the current alerts, alerting rules, and supports viewing and adding alert silencing rules. You use the metrics page to run PromQL queries and to receive metrics data. Dashboards display graphs from a preset list. Targets are the defined list of endpoints that the metrics server calls to receive data from different components. The logs section appears after you install and configure {{site.data.keyword.redhat_openshift_notm}} Logging. For more information about the design and components, see [Monitoring stack architecture](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/monitoring/about-openshift-container-platform-monitoring#monitoring-stack-architecture){: external}
+Alerting displays the current alerts, alerting rules, and supports viewing and adding alert silencing rules. You use the metrics page to run PromQL queries and to receive metrics data. Dashboards display graphs from a preset list. Targets are the defined list of endpoints that the metrics server calls to receive data from different components. The logs section appears after you install and configure {{site.data.keyword.redhat_openshift_notm}} Logging. For more information about the design and components, see [Monitoring stack architecture](https://docs.redhat.com/en/documentation/monitoring_stack_for_red_hat_openshift/4.20/html/about_monitoring/index#monitoring-stack-architecture){: external}
 
 RHACM adds extra observability functions that help support multiple host clusters. RHACM expands existing Prometheus, Thanos, and Alertmanager infrastructure but with extra components.
 
