@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-16"
+lastupdated: "2026-03-27"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -132,7 +132,7 @@ Use the following steps to create a catalog in VCFaaS and upload an Ubuntu Serve
 1. Go to [Get Ubuntu Server](https://ubuntu.com/download/server) and download the ISO of the most recent LTS version of Ubuntu Server.
 2. Log in to the IBM Cloud console.
 3. Go to the VCFaaS tenant portal.
-4. Create a Catalog
+4. Create a catalog
    1. From the side window, click **Content hub**.
    2. Click **Catalogs**.
    3. Click **New**. In the **Create catalog** form, specify the following information:
@@ -186,7 +186,7 @@ Use the following steps to create Windows and RHEL virtual servers in VCFaaS. Th
        2. Go to the Google home page.
        3. Verify that the page loads.
    2. Close the Web Console window.
-7. Create a RHEL virtual server.
+7. Create an RHEL virtual server.
    1. From the side window, click **Data centers**.
    2. From the list of available data centers, select your VDC.
    3. In the **Compute** section, click **Virtual machines**.
@@ -210,7 +210,7 @@ Use the following steps to create Windows and RHEL virtual servers in VCFaaS. Th
    3. In the **Compute** section, click **Virtual machines**.
    4. Find **vm-rhel9** from the list of available virtual servers.
    5. Click **Details**.
-   6. Click **Launch web console** and in the **Web console window**
+   6. Click **Launch web console** and in the **web console window**
        1. Log in as root with the password that you copied.
 10. Try to reach the internet from the RHEL virtual server.
     1. From the Web Console window, verify that you can resolve Google's domain name by running the following command:
@@ -223,7 +223,7 @@ Use the following steps to create Windows and RHEL virtual servers in VCFaaS. Th
 {: #virt-sol-vpc-migration-tutorial-load-virtio-iso}
 {: step}
 
-Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers. These drivers help ensure compatibility with IBM Cloud VPC. This ISO file on the Windows virtual server will be used to patch the Windows recovery image in a later step.
+Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers. These drivers help ensure compatibility with IBM Cloud VPC. This ISO file on the Windows virtual server is used to patch the Windows recovery image in a later step.
 
 1. Log in to the IBM Cloud console.
 2. Go to the VCFaaS tenant portal.
@@ -282,7 +282,7 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
             `<TEMP_RHEL_VM_IP>` is the IP of the temporary RHEL virtual server that you previously copied.
 
             When prompted whether you trust the remote server, enter **y** and enter the password of the temporary RHEL virtual server.
-11. Leave the temporary RHEL virtual server and the virtio-win.iso file in place for now as they will be needed to transfer the ISO file to the worker virtual server once network connectivity is established to the VPC in a later step.
+11. Keep the temporary RHEL virtual server and the virtio-win.iso file in place for now.They are needed to transfer the ISO file to the worker virtual server after network connectivity is established to the VPC in a later step.
 
 ## Getting the cloud-init installer for the Windows virtual server
 {: #virt-sol-vpc-migration-tutorial-load-cloud-init-installer}
@@ -297,8 +297,8 @@ The Windows virtual server also needs Cloud-init installed on it to run as a vir
 5. Download the cloud-init installer
    1. From the Web Console window:
       1. Open Microsoft Edge.
-      2. Go to [the download page for the installer](https://www.cloudbase.it/downloads/CloudbaseInitSetup_1_1_4_x64.msi) {: external}. The download starts automatically.
-   2. Close the Web Console window.
+      2. Go to [the download page for the installer](https://www.cloudbase.it/downloads/CloudbaseInitSetup_1_1_4_x64.msi){: external}. The download starts automatically.
+   2. Close the web console window.
 
 ## Setting up a transit gateway (private connection) between the VCFaaS instance and VPC
 {: #virt-sol-vpc-migration-tutorial-setup-tgw}
@@ -406,11 +406,11 @@ Use the following steps to create a transit gateway to securely connect your VCF
 
           `ping 192.168.0.1`
 
-## Getting the ISO for the Windows virtIO drivers into the Worker virtual server
+## Getting the ISO for the Windows virtIO drivers into the worker virtual server
 {: #virt-sol-vpc-migration-tutorial-load-virtio-iso-worker}
 {: step}
 
-Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers onto the worker virtual server. These drivers help ensure compatibility with IBM Cloud VPC. This ISO file on the worker virtual server will be used to facilitate disk image conversion in a later step.
+Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers onto the worker virtual server. These drivers help ensure compatibility with IBM Cloud VPC. This ISO file on the worker virtual server is used to facilitate disk image conversion in a later step.
 
 1. Log in to the IBM Cloud console.
 2. Go to the VCFaaS tenant portal.

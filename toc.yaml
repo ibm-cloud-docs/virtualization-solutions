@@ -100,6 +100,8 @@ toc:
             navtitle: Logging for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/rhacm-tutorial.md
             navtitle: Observability with Red Hat Advance Cluster Management
+          - topic: tutorial/openshift/storage-solution.md
+            navtitle: OpenShift Data Foundation for virtual machine workloads
       - topicgroup:
           label: Virtual servers on VPC
           topics:
@@ -134,3 +136,13 @@ toc:
       topics:
       - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-guide.md
         navtitle: RackWare Technical Guide
+      - topicgroup:
+          label: Known Issues
+          topics:
+          - topic: help/known-issues/known-issues-for-odf-workloads.md
+            navtitle: Known issues for ODF workloads
+      - topicgroup:
+          label: Troubleshooting
+          topics:
+          - topic: help/troubleshooting/troubleshooting-odf-workloads.md
+            navtitle: Troubleshooting ODF workloads
