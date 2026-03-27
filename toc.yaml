@@ -100,6 +100,8 @@ toc:
             navtitle: Logging for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/rhacm-tutorial.md
             navtitle: Observability with Red Hat Advance Cluster Management
+          - topic: tutorial/openshift/storage-solution.md
+            navtitle: OpenShift Data Foundation for virtual machine workloads
       - topicgroup:
           label: Virtual servers on VPC
           topics:
