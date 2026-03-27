@@ -108,10 +108,10 @@ Common causes:
 | ------------------ | ----- | --- |
 | No events, no provisioner activity | StorageClass name is misspelled or doesn't exist. | Verify with `oc get sc`. |
 | `waiting for a volume to be created` | CSI provisioner is working but slow. | Wait a few minutes. Check CSI provisioner pod logs. |
-| `ExternalProvisioning` | CSI driver is waiting on an external dependency (for example, KMS for encrypted volumes). | Check `ibm-kp-secret` and `ceph-csi-kms-token` exist (see [Encryption](docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#encryption)). |
-| `cannot create encrypted volume from unencrypted volume` (in CSI logs) | Encrypted StorageClass used for a cloned volume from an unencrypted source. | Use nonencrypted SC for root disks (see [Encryption](docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#encryption)). |
-| `ExternalProvisioning` | CSI driver is waiting on an external dependency (for example, KMS for encrypted volumes). | Check `ibm-kp-secret` and `ceph-csi-kms-token` exist (see [Encryption](docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#encryption)). |
-| `cannot create encrypted volume from unencrypted volume` (in CSI logs) | Encrypted StorageClass used for a cloned volume from an unencrypted source. | Use nonencrypted SC for root disks (see [Encryption](docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#encryption)). |
+| `ExternalProvisioning` | CSI driver is waiting on an external dependency (for example, KMS for encrypted volumes). | Check `ibm-kp-secret` and `ceph-csi-kms-token` exist (see [Encryption](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#odf-supported-encryption)). |
+| `cannot create encrypted volume from unencrypted volume` (in CSI logs) | Encrypted StorageClass used for a cloned volume from an unencrypted source. | Use nonencrypted SC for root disks (see [Encryption](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#odf-supported-encryption)). |
+| `ExternalProvisioning` | CSI driver is waiting on an external dependency (for example, KMS for encrypted volumes). | Check `ibm-kp-secret` and `ceph-csi-kms-token` exist (see [Encryption](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#odf-supported-encryption)). |
+| `cannot create encrypted volume from unencrypted volume` (in CSI logs) | Encrypted StorageClass used for a cloned volume from an unencrypted source. | Use nonencrypted SC for root disks (see [Encryption](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#odf-supported-encryption)). |
 | `node(s) did not have enough free storage` | Ceph cluster is full or nearfull. | Check `ceph df`. Add capacity or delete unused PVCs. |
 
 {: caption="Common causes of PVC stuck in Pending"}
@@ -137,7 +137,7 @@ NVMe drive failure: The underlying drive has failed. Check dmesg on the worker n
 OSD pod evicted or OOMKilled: Resource pressure on the node. Check that pod events with oc describe pod.
 Node reboot or maintenance: The OSD come back when the node returns, and Ceph automatically recovers.
 
-With rep3, a single OSD down does not cause data unavailability. I/O continues in degraded mode while Ceph rereplicates. With rep2, I/O to affected PGs is blocked until the OSD returns (see [Understanding data protection](docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#understanding-data-protection)).
+With rep3, a single OSD down does not cause data unavailability. I/O continues in degraded mode while Ceph rereplicates. With rep2, I/O to affected PGs is blocked until the OSD returns (see [Understanding data protection](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#understanding-data-protection)).
 
 ## Ceph HEALTH_WARN: nearfull
 {: #ceph-health-warn-nearfull}
@@ -212,7 +212,7 @@ oc get pvc
 
 Common causes:
 
-- PVC stuck in Pending: For more information, see [PVC stuck in pending] (#pvc-stuck-in-pending).
+- PVC stuck in Pending: For more information, see [PVC stuck in pending](#pvc-stuck-in-pending).
 - DataVolume clone failing silently: If you are using an encrypted StorageClass for the root disk, the clone from the unencrypted golden image fails without visible events. Check the CSI controller pod logs in `openshift-storage`.
 - Golden image not available: The DataSource in `openshift-virtualization-os-images` might not be ready. Check `oc get datasource -n openshift-virtualization-os-images`.
 - Insufficient node resources: The destination node might not have enough CPU or memory for the VM. Check `oc describe node` for resource pressure.
