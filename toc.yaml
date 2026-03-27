@@ -140,7 +140,7 @@ toc:
           label: Known Issues
           topics:
           - topic: help/known-issues/known-issues-for-odf-workloads.md
-            navtitle: Known Issues for ODF workloads
+            navtitle: Known issues for ODF workloads
       - topicgroup:
           label: Troubleshooting
           topics:
