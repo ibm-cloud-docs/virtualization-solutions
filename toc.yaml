@@ -136,3 +136,13 @@ toc:
       topics:
       - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-guide.md
         navtitle: RackWare Technical Guide
+      - topicgroup:
+          label: Known Issues
+          topics:
+          - topic: help/known-issues/known-issues-for-odf-workloads.md
+            navtitle: Known Issues for ODF workloads
+      - topicgroup:
+          label: Troubleshooting
+          topics:
+          - topic: help/troubleshooting/troubleshooting-odf-workloads.md
+            navtitle: Troubleshooting ODF workloads
