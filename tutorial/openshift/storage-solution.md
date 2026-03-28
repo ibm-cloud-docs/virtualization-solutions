@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-27"
+lastupdated: "2026-03-28"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, ODF, RBD
 
@@ -18,7 +18,7 @@ completion-time: 60m
 # Red Hat OpenShift Data Foundation (ODF) for virtual server workloads
 {: #odf-for-vm-workloads}
 
-{{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.redhat_openshiftlong}} (ROKS). It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
+Red Hat OpenShift Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on IBM Cloud OpenShift (ROKS). It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 
 ## Key benefits
 {: #key-benefits}
@@ -44,7 +44,7 @@ ODF provides four types of storage from the same platform:
 
 In ODF, NFS is backed by CephFS and exposed through a Ceph NFS Ganesha gateway. The gateway is managed through a CephNFS custom resource in Rook. It is not a distinct storage backend. It provides access to CephFS over the NFS protocol. The primary use case is to provide NFS access to clients outside the {{site.data.keyword.redhat_openshift_notm}} cluster, or to workloads that require NFS. NFS is not used for virtual server disks because virtual servers use block storage (RBD).
 
-On {{site.data.keyword.IBM_notm}} {{site.data.keyword.redhat_openshiftlong_notm}} (ROKS), ODF typically uses local disks on worker nodes to create a high-performance and resilient storage cluster inside {{site.data.keyword.redhat_openshift_notm}}.
+On IBM ROKS, ODF typically uses local disks on worker nodes to create a high-performance and resilient storage cluster inside {{site.data.keyword.redhat_openshift_notm}}.
 
 ## Understanding data protection
 {: #understanding-data-protection}
@@ -380,7 +380,7 @@ Use the following information to run virtual servers on ODF.
 ### Prerequisites: Install the {{site.data.keyword.redhat_openshift_notm}} virtualization operator
 {: #prerequisites-for-odf}
 
-Before using {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your {{site.data.keyword.openshift_notm}} ROKS cluster.
+Before using {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your Red Hat OpenShift on IBM Cloud (ROKS) cluster.
 
 The {{site.data.keyword.redhat_openshift_notm}} virtualization operator enables Kubernetes-native virtual server management. It also provides the required controllers, CRDs, and integrations with storage and networking components.
 
