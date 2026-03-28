@@ -18,7 +18,7 @@ completion-time: 60m
 # Red Hat OpenShift Data Foundation (ODF) for virtual server workloads
 {: #odf-for-vm-workloads}
 
-Red Hat OpenShift Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on on IBM Cloud OpenShift (ROKS). It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
+Red Hat OpenShift Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on IBM Cloud OpenShift (ROKS). It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 
 ## Key benefits
 {: #key-benefits}
