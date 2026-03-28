@@ -140,10 +140,6 @@ toc:
       id: help
       topics:
       - topicgroup:
-          label: FAQs
-          topics:
-          - topic: help/faqs/faqs-for-virtualization-solutions.md
-      - topicgroup:
           label: Known Issues
           topics:
           - topic: help/known-issues/known-issues-for-odf-workloads.md
