@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-07"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -15,13 +15,14 @@ subcollection: virtualization-solutions
 # Linux Migration Considerations
 {: #virt-sol-vpc-migration-design-linux}
 
-Linux migrations are generally simpler than Windows, but there are still important considerations.
+Linux migrations are generally simpler than Windows, but the guide describes a few important considerations to keep in mind.
 {: shortdesc}
 
 ## VirtIO Driver Verification
 {: #virt-sol-vpc-migration-design-linux-virtio}
 
 The following Linux distributions include VirtIO drivers in the kernel:
+
 - Ubuntu: 16.04 and later
 - RHEL/CentOS: 6.x and later
 - Debian: 8 and later
@@ -32,35 +33,39 @@ Use the following command to verify drivers are present.
 ```bash
 lsmod | grep virtio
 ```
+
 {: pre}
 
-You should see the following drivers:
+You see the following drivers:
+
 - `virtio_blk` - Block device driver
 - `virtio_net` - Network driver
 - `virtio_scsi` - SCSI driver
 - `virtio_pci` - PCI bus driver
 
-If these are missing, you'll need to rebuild the kernel with VirtIO support or install a newer distribution.
+If these drivers are missing, you need to rebuild the kernel with VirtIO support or install a newer distribution.
 
 ## No Sysprep Equivalent Needed
 {: #virt-sol-vpc-migration-design-linux-nosysprep}
 
-Linux doesn't bind drivers to hardware the way Windows does. The kernel detects new hardware at boot and loads appropriate drivers. This makes migration significantly easier with no special preparation typically required.
+Linux does not bind drivers to hardware like Windows. The kernel detects new hardware at boot and loads appropriate drivers, which makes migration significantly easier with no special preparation typically required.
 
 ## Network Configuration Adjustments
 {: #virt-sol-vpc-migration-design-linux-network}
 
 Common Issue: Network interface names change during migration.
 
-In VMware, your interface might be:
+In VMware your interface might be:
+
 - `ens192` (systemd predictable naming)
 - `eth0` (traditional naming)
 
-In VPC, it might become:
-- `ens3` or `ens33` (common in VirtIO environments)
-- `eth0` (if using traditional naming)
+In VPC it might become:
 
-To resolve Static IP Configuration, do the following:
+- `ens3` or `ens33` (common in VirtIO environments)
+- `eth0` (if you use traditional naming)
+
+To resolve Static IP Configuration, take the following steps:
 
 - NetworkManager-based (RHEL 7+, newer Ubuntu)
 
@@ -76,9 +81,10 @@ To resolve Static IP Configuration, do the following:
    # Restart NetworkManager
    systemctl restart NetworkManager
    ```
+
    {: codeblock}
 
-- netplan-based (Ubuntu 18.04+)
+- Netplan-based (Ubuntu 18.04+)
 
    ```yaml
    # /etc/netplan/01-netcfg.yaml
@@ -106,20 +112,22 @@ To resolve Static IP Configuration, do the following:
 
 Fix for DHCP Configuration:
 
-If using DHCP, the configuration should work automatically, but you may still need to update interface names in config files.
+If you use DHCP, the configuration works automatically, but you can still need to update interface names in config files.
 
 ## Cloud-Init Considerations
 {: #virt-sol-vpc-migration-design-linux-cloudinit}
 
-What is cloud-init: A tool for initializing cloud instances, typically used with image templates. It runs on first boot to:
-- Set hostname
+What is cloud-init: A tool for initializing cloud instances, typically used with image templates. It runs on the first boot to:
+
+- Set a hostname
 - Configure networking
 - Create users and SSH keys
 - Run custom scripts
 
 Migration Context:
 
-If cloud-init is installed on your migrated VM, VPC may treat the first boot as a "first boot," triggering:
+If cloud-init is installed on your migrated VM, VPC might treat the first boot as a "first boot," triggering:
+
 - Hostname changes
 - Network reconfiguration
 - User account changes
@@ -142,16 +150,16 @@ sudo touch /etc/cloud/cloud-init.disabled
 ### Option 2: Accept first-boot behavior
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions2}
 
-- Useful if you want VPC to auto-configure networking via DHCP
-- May require manual adjustments post-boot (hostname, users, etc.)
+- Useful if you want VPC to auto-configure networking through DHCP
+- Might require manual adjustments post-boot (hostname, users, and so on)
 
-### Option 3: Configure cloud-init 
+### Option 3: Configure cloud-init
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
 
 - Create cloud-init config that preserves your settings
 - More complex but gives you control
 
-For individual VM migrations (not template deployments), disable cloud-init to preserve existing configuration. For template-based deployments, leverage cloud-init for automatic configuration.
+For individual VM migrations (not template deployments), disable cloud-init to preserve existing configuration. For template-based deployments, use cloud-init for automatic configuration.
 {: important}
 
 ## Partition and Filesystem Considerations
@@ -159,7 +167,7 @@ For individual VM migrations (not template deployments), disable cloud-init to p
 
 Partition Table Verification:
 
-After transferring disks, use the following command to verify partition tables are intact:
+After you transfer the disks, use the following command to verify the partition tables are intact:
 
 ```bash
 # On worker VSI after transfer
@@ -168,13 +176,14 @@ fdisk -l /dev/vdb
 # For GPT
 gdisk -l /dev/vdb
 ```
+
 {: codeblock}
 
 Boot Volume Resize:
 
-If you resized the boot volume upward (from 80GB in VMware to 100GB in VPC):
+If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
 
-1. The partition table may need updating:
+1. The partition table might need to update:
 
    ```bash
    # For MBR
@@ -184,6 +193,7 @@ If you resized the boot volume upward (from 80GB in VMware to 100GB in VPC):
    # For GPT (automatic backup GPT update)
    gdisk /dev/vda
    ```
+
    {: codeblock}
 
 1. Resize filesystem:
@@ -200,11 +210,12 @@ If you resized the boot volume upward (from 80GB in VMware to 100GB in VPC):
    lvextend -l +100%FREE /dev/mapper/vg-root
    resize2fs /dev/mapper/vg-root
    ```
+
    {: codeblock}
 
 ## fstrim and Thin Provisioning
 {: #virt-sol-vpc-migration-design-linux-fstrim}
 
-In VMware, you might use `fstrim` to reclaim unused space in thin-provisioned VMDKs. In VPC, all volumes are thin-provisioned at the storage layer, but **fstrim has no effect on space reclamation** in VPC. Running it won't harm anything, but it doesn't free up storage in the way it does with VMware.
+In VMware, you might use `fstrim` to reclaim unused space in thin-provisioned VMDKs. In VPC, all volumes are thin-provisioned at the storage layer, but **fstrim has no effect on space reclamation** in VPC. Running it do not harm anything, but it doesn't free up storage in the way it does with VMware.
 
 You can leave existing fstrim cron jobs in place (they're harmless), or remove them to avoid unnecessary I/O.
