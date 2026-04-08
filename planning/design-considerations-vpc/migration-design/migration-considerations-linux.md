@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-08"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -12,16 +12,18 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Linux Migration Considerations
+# Linux migration considerations
 {: #virt-sol-vpc-migration-design-linux}
 
-Linux migrations are generally simpler than Windows, but there are still important considerations.
-{: shortdesc}
+Before you start a migration, you need to consider the following information.
 
-## VirtIO Driver Verification
+## Verify VirtIO drivers
+Linux migrations are generally simpler than Windows, but the guide describes a few important considerations to keep in mind.
+{: shortdesc}
 {: #virt-sol-vpc-migration-design-linux-virtio}
 
 The following Linux distributions include VirtIO drivers in the kernel:
+
 - Ubuntu: 16.04 and later
 - RHEL/CentOS: 6.x and later
 - Debian: 8 and later
@@ -32,37 +34,40 @@ Use the following command to verify drivers are present.
 ```bash
 lsmod | grep virtio
 ```
+
 {: pre}
 
-You should see the following drivers:
+You see the following drivers:
+
 - `virtio_blk` - Block device driver
 - `virtio_net` - Network driver
 - `virtio_scsi` - SCSI driver
 - `virtio_pci` - PCI bus driver
 
-If these are missing, you'll need to rebuild the kernel with VirtIO support or install a newer distribution.
+If these drivers are missing, you need to rebuild the kernel with VirtIO support or install a more recent distribution.
 
-## No Sysprep Equivalent Needed
+## No Sysprep equivalent needed
 {: #virt-sol-vpc-migration-design-linux-nosysprep}
 
-Linux doesn't bind drivers to hardware the way Windows does. The kernel detects new hardware at boot and loads appropriate drivers. This makes migration significantly easier with no special preparation typically required.
+Linux doesn't bind drivers to hardware. The kernel detects new hardware at boot and loads the appropriate drivers. This process makes migration simple with no preparation typically required.
 
-## Network Configuration Adjustments
+## Adjust the network configuration
+Linux does not bind drivers to hardware like Windows. The kernel detects new hardware at boot and loads appropriate drivers, which makes migration significantly easier with no special preparation typically required.
 {: #virt-sol-vpc-migration-design-linux-network}
 
-Common Issue: Network interface names change during migration.
+Common issue: Network interface names change during migration.
 
-In VMware, your interface might be:
+In VMware, your interface might be named
 - `ens192` (systemd predictable naming)
 - `eth0` (traditional naming)
 
-In VPC, it might become:
+In VPC, it might change to
 - `ens3` or `ens33` (common in VirtIO environments)
-- `eth0` (if using traditional naming)
+- `eth0` (if you use traditional naming conventions)
 
-To resolve Static IP Configuration, do the following:
+To resolve Static IP configuration, use the following information:
 
-- NetworkManager-based (RHEL 7+, newer Ubuntu)
+- NetworkManager-based (RHEL 7+ or newer Ubuntu versions)
 
    ```bash
    # Identify new interface name
@@ -76,9 +81,10 @@ To resolve Static IP Configuration, do the following:
    # Restart NetworkManager
    systemctl restart NetworkManager
    ```
+
    {: codeblock}
 
-- netplan-based (Ubuntu 18.04+)
+- Netplan-based (Ubuntu 18.04+)
 
    ```yaml
    # /etc/netplan/01-netcfg.yaml
@@ -104,28 +110,30 @@ To resolve Static IP Configuration, do the following:
    ```
    {: codeblock}
 
-Fix for DHCP Configuration:
+Fix for DHCP configuration:
 
-If using DHCP, the configuration should work automatically, but you may still need to update interface names in config files.
+If you use DHCP, the configuration is automatic, but you might need to update interface names in config files.
 
-## Cloud-Init Considerations
+## Cloud-init considerations
 {: #virt-sol-vpc-migration-design-linux-cloudinit}
 
-What is cloud-init: A tool for initializing cloud instances, typically used with image templates. It runs on first boot to:
-- Set hostname
+Cloud-init is used to initialize cloud instances, typically used with image templates. It runs on the first boot to do the following actions:
+
+- Set a hostname
 - Configure networking
 - Create users and SSH keys
 - Run custom scripts
 
-Migration Context:
+Migration context:
 
-If cloud-init is installed on your migrated VM, VPC may treat the first boot as a "first boot," triggering:
+If cloud-init is installed on your migrated virtual server, VPC might treat the first boot as a "first boot", which triggers the following actions:
+
 - Hostname changes
 - Network reconfiguration
 - User account changes
 - Execution of cloud-init scripts
 
-### Design Decisions
+### Design decisions
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions}
 
 ### Option 1: Disable cloud-init
@@ -142,24 +150,23 @@ sudo touch /etc/cloud/cloud-init.disabled
 ### Option 2: Accept first-boot behavior
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions2}
 
-- Useful if you want VPC to auto-configure networking via DHCP
-- May require manual adjustments post-boot (hostname, users, etc.)
+- Useful if you want VPC to auto-configure networking through DHCP
+- Might require manual adjustments post-boot (hostname, users)
 
-### Option 3: Configure cloud-init 
+### Option 3: Configure cloud-init
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
 
-- Create cloud-init config that preserves your settings
+- Create a cloud-init config to preserve your settings
 - More complex but gives you control
 
-For individual VM migrations (not template deployments), disable cloud-init to preserve existing configuration. For template-based deployments, leverage cloud-init for automatic configuration.
+For individual VM migrations (not template deployments), disable cloud-init to preserve existing configuration. For template-based deployments, use cloud-init for automatic configuration.
 {: important}
 
-## Partition and Filesystem Considerations
+## Partition and file system considerations
 {: #virt-sol-vpc-migration-design-linux-partitions}
 
-Partition Table Verification:
-
-After transferring disks, use the following command to verify partition tables are intact:
+Partition table verification:
+After you transfer the disks, use the following command to verify that the partition tables are intact:
 
 ```bash
 # On worker VSI after transfer
@@ -168,13 +175,14 @@ fdisk -l /dev/vdb
 # For GPT
 gdisk -l /dev/vdb
 ```
+
 {: codeblock}
 
-Boot Volume Resize:
+Boot volume resize:
+If you resized the boot volume upward (example: from 80 GB in VMware to 100 GB in VPC),
 
-If you resized the boot volume upward (from 80GB in VMware to 100GB in VPC):
-
-1. The partition table may need updating:
+1. You might need to update the partition table:
+If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
 
    ```bash
    # For MBR
@@ -184,9 +192,10 @@ If you resized the boot volume upward (from 80GB in VMware to 100GB in VPC):
    # For GPT (automatic backup GPT update)
    gdisk /dev/vda
    ```
+
    {: codeblock}
 
-1. Resize filesystem:
+1. Resize file system:
 
    ```bash
    # For ext4
@@ -200,11 +209,12 @@ If you resized the boot volume upward (from 80GB in VMware to 100GB in VPC):
    lvextend -l +100%FREE /dev/mapper/vg-root
    resize2fs /dev/mapper/vg-root
    ```
+
    {: codeblock}
 
 ## fstrim and Thin Provisioning
 {: #virt-sol-vpc-migration-design-linux-fstrim}
 
-In VMware, you might use `fstrim` to reclaim unused space in thin-provisioned VMDKs. In VPC, all volumes are thin-provisioned at the storage layer, but **fstrim has no effect on space reclamation** in VPC. Running it won't harm anything, but it doesn't free up storage in the way it does with VMware.
+In VMware, you might use `fstrim` to reclaim unused space in thin-provisioned VMDKs. In VPC, all volumes are thin-provisioned at the storage layer, but fstrim has no effect on space reclamation in VPC. Keep in mind that fstrim doesn't free up storage.
 
-You can leave existing fstrim cron jobs in place (they're harmless), or remove them to avoid unnecessary I/O.
+Existing fstrim cron jobs can stay in place or remove them to avoid unnecessary I/O.

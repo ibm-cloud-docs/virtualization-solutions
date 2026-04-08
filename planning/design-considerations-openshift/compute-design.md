@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-07"
 
 keywords: ROKS, red hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -34,7 +34,7 @@ The key compute architecture elements are shown in the following diagram.
 
 After a cluster is created, you can add more worker nodes to a pool by resizing it or by adding extra worker pools. Clusters that have a worker pool in only one zone are called single zone clusters. For high availability, you can create multizone clusters with worker pools that span multiple availability zones. You can create multizone clusters, but they are not recommended for virtualization workloads because of storage latency.
 
-IBM Cloud Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads because Red Hat supports only bare metal worker nodes for production virtualized workloads. The bare metal nodes must be provisioned with local NVMe drives so they can be used by Red Hat OpenShift Data Foundation (ODF) as backing storage.
+IBM Cloud Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads because Red Hat supports only bare metal worker nodes for production virtualized workloads. The bare metal nodes must be provisioned with local NVMe drives. So they can be used by Red Hat OpenShift Data Foundation (ODF) as backing storage.
 
 For more information, see [Red Hat OpenShift overview](/docs/openshift?topic=openshift-overview).
 
@@ -49,7 +49,7 @@ The following table lists the key features for IBM Cloud Virtual Servers for VPC
 
 | Feature | Description |
 | -------------- | -------------- |
-| Customizable profiles | Balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations |
+| Customizable profiles | Balanced, compute-optimized, memory-optimized, GPU, and high memory configurations |
 | Flexible tenancy | Shared tenancy infrastructure with optional dedicated host placement for compliance requirements |
 | Advanced networking | Integration with VPC Security Groups, Network ACLs, Load Balancers, and VPN connectivity |
 | Persistent storage | IBM Cloud Block Storage and File Storage for VPC with configurable IOPS and encryption |
@@ -75,7 +75,7 @@ The following table lists the key features for IBM Cloud Bare Metal Servers for 
 | Network performance | High-bandwidth, low-latency networking for VM traffic |
 {: caption="IBM Cloud Bare Metal Servers for VPC key features" caption-side="bottom"}
 
-Bare Metal worker nodes that are supported by ROKS varies by region and Availability Zone. For more information, see [Worker node VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
+Bare Metal worker nodes that are supported by ROKS varies by region and Availability Zone. For more information, see [worker node VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
 
 The following table shows the typical specifications for a bare metal profile.
 
@@ -96,7 +96,7 @@ For more information about bare metal servers, see [About Bare Metal Servers for
 
 Now that you understand the compute design for Red Hat OpenShift Virtualization, explore these related topics:
 
-- **Networking**: Review [networking design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) for OpenShift and OVN
-- **Storage**: Explore [storage design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) including OpenShift Data Foundation
-- **Security**: Learn about [security design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) for OpenShift workloads
-- **Migration**: Review [migration strategies](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration) using MTV
+- **Networking**: Review [networking design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) for Red Hat OpenShift and OVN.
+- **Storage**: Explore [storage design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) including Red Hat OpenShift Data Foundation.
+- **Security**: Learn about [security design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) for Red Hat OpenShift workloads.
+- **Migration**: Review [migration strategies](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration) that use MTV.

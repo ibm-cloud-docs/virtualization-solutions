@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-27"
+lastupdated: "2026-04-08"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -19,13 +19,13 @@ completion-time: 60m
 
 ---
 
-# Migrating your VMware workloads to IBM Cloud Virtual Servers for VPC
-{: #virt-sol-vpc-migration-tutorial-overview}
+# Migrating from VMware Cloud Foundation as a Service to IBM Cloud Virtual Servers for VPC
+{: #virt-sol-vcfaas-vpc-migration-tutorial-overview}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-The following tutorial describes how to migrate your workloads from a {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
+The following tutorial describes how to migrate your workloads from {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
 {: shortdesc}
 
 {{./../../_include-segments/objective.md}}
