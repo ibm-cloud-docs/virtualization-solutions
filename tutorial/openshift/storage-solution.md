@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-28"
+lastupdated: "2026-04-08"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, ODF, RBD
 
@@ -447,6 +447,41 @@ Although virtual machines can use a generic Ceph RBD StorageClass, the virtualiz
 
 Generic RBD StorageClasses remain suitable for container workloads, but virtualization-specific StorageClass is recommended for the production virtualization environments.
 
+## Separate worker pools for compute and storage
+{: #separate-compute-storage}
+
+To implement separate worker pools for compute and storage on ROKS, first plan your cluster architecture with dedicated worker pools—create a storage worker pool using storage-optimized profiles for ODF, then create one or more compute worker pools using balanced or compute-optimized profiles for application workloads; when installing the ODF add-on, specify the storage worker pool which will automatically apply taints to prevent non-storage pods or virtual machines from scheduling on those nodes from storage worker pool.
+
+1. Create a Dedicated Storage Worker Pool
+  - In IBM Cloud, create a new worker pool intended for storage nodes
+  - Select bare-metal profile optimized for storage (local disks or high I/O profiles)
+  - Add the required number of worker nodes based on capacity and resiliency needs
+
+2. Apply Taints to Storage Nodes
+  - When install ODF add-on on your ROKS cluster from IBM cloud, navigate to the Capacity and worker nodes section
+  - Specify the name of the designated storage worker pool in the Worker pools field
+  - Enable the Taint nodes option
+  
+  Upon completion of ODF add-on installation, the taint `node.ocs.openshift.io/storage=true:NoSchedule` is automatically applied to all nodes in the selected worker pool.
+
+  Note: If the Taint nodes option was not selected during ODF installation, taints can be applied manually to the storage nodes afterward using the oc adm taint command in OpenShift.
+  ```
+  oc get node -l ibm-cloud.kubernetes.io/worker-pool-name=<your storage workerpool name> -o=name  | \
+  xargs -I {} oc adm taint nodes {} node.ocs.openshift.io/storage=true:NoSchedule
+  ```
+
+3. verify that the node has tainted successfully:
+  - Go to Compute -> Nodes on Openshift
+  - Select the node to verify its status, and then click on the YAML tab
+  - In the specs section check the values of the following parameters:
+
+  ```
+  Taints:
+    Key: node.ocs.openshift.io/storage
+    Value: 'true'
+    Effect: Noschedule
+  ```
+
 ## Advanced configuration
 {: #advanced-configuration}
 
@@ -788,10 +823,12 @@ If your current VMware environment relies on CBT-based incremental backups, cons
 ## Day-2 operations
 {: #day-2-operations}
 
-After you deploy ODF on {{site.data.keyword.cloud_notm}} ROKS, focus on Day 2 operations. These operations include ongoing management, monitoring, and maintenance tasks that help keep your storage infrastructure healthy, performant, and up-to-date. This guide focuses on two critical aspects of Day 2 operations:
+After you deploy ODF on {{site.data.keyword.cloud_notm}} ROKS, focus on Day 2 operations. These operations include ongoing management, monitoring, and maintenance tasks that help keep your storage infrastructure healthy, performant, up-to-date, and adaptable to changing workload demands. This guide focuses on three critical aspects of Day 2 operations:
 
 - Monitoring
 - Upgrading
+- Expanding
+
 
 ### Monitor ODF and Ceph health
 {: #monitoring-odf}
@@ -920,6 +957,40 @@ Updating ODF on a ROKS cluster consists of two main phases, both of which are re
    - Successful PVC read and write operations by applications
 
 For more information, see [Updating ODF on VPC clusters](/docs/openshift?topic=openshift-openshift-storage-update-vpc).
+
+
+### Expanding ODF Storage on ROKS
+{: #expanding-odf}
+As your workloads grow and storage demands increase, it becomes essential to scale your storage infrastructure accordingly. Expansion in ODF is a key Day 2 operation that enables you to increase storage capacity, improve performance, and maintain resilience without disrupting running applications.
+
+In {{site.data.keyword.cloud_notm}} ROKS environments, expansion typically involves extending the storage worker pool. This operation is designed to be performed with minimal downtime, enabling seamless growth of your storage cluster.
+
+1. Expand worker node by adding worker nodes. [Adding worker nodes to VPC clusters](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc).  For prodution in which Storage cluster is configured with worker nodes across 3 racks, worker nodes should be added in count of multiples of 3 to keep the balance of replication, e.g. 3, 6 or 9.
+
+
+2. If you deployed ODF on all the worker nodes in your cluster, the worker nodes will be added to ODF storage cluster topology automatically.  If you deployed ODF on a subset of worker nodes in your cluster by specifying the private <workerNodes> parameters in your OcsCluster custom resource, you can add the node name of the new worker nodes to your ODF deployment by editing the custom resource definition. You can modify OcsCluster custom resource by following
+   - Find ocscluster
+      ```bash
+      oc get ocscluster
+      ```
+
+    - Edit ocscluster custom resource file and add new work nodes
+      ```bash
+      oc edit ocscluster <ocs cluster name> -o yaml
+      ```
+    - Save the OcsCluster custom resource file to reapply it to your cluster.
+
+3. Increase the 'numOfOsd' value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster. The adjustment to 'numOfOsd' depends on both the number of OSD disks per node and the number of nodes added. For example, if each node has 8 NVMe disks dedicated to OSDs, adding 3 nodes increases 'numOfOsd' by 8, while adding 6 nodes increases it by 16.
+
+4. Check the result by running
+
+    ```bash
+    oc exec -n openshift-storage ${TOOLS_POD} -- ceph osd tree
+    ```
+    You should observe that the new worker nodes are added and evenly distributed across each rack bucket, along with the corresponding number of OSDs assigned to each
+
+For more information see [Expanding ODF by adding worker nodes to your VPC cluster](https://cloud.ibm.com/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui#odf-vpc-add-worker-nodes) 
+
 
 ## Summary and best practices
 {: #summary-and-best-practices}
