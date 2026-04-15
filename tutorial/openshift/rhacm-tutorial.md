@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-26"
+lastupdated: "2026-04-15"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -66,28 +66,27 @@ For more information, see [RHACM Observability architecture](https://docs.redhat
 
 ## Installing Red Hat Advanced Cluster Management
 {: #roks-virt-observ-installing}
-{: step}
 
 To install Red Hat Advanced Cluster Management on an Red Hat OpenShift Container Platform instance, use the following steps.
 
+{: step}
+
 1. Log in to your Red Hat OpenShift Container Platform instance.
-1. Go to **Ecosystem > Software catalog** and select a **namespace**.
-1. Search for **Advanced cluster management for Kubernetes**.
-1. Click **Install** if it is not installed.
-1. Open the operator from **Ecosystem > Installed Operators**.
-1. In the **MultiClusterHub** tab, click **Create MultiClusterHub**.
-1. Enter an appropriate name and click **Create**.
-1. Go to **Storage > StorageClasses** and verify that the **StorageClass** is set as the **Default** for infrastructure deployment.
-1. Follow the steps to [enable the Observability modules of RHACM](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#enabling-observability){: external}.
-1. Go to the **Observability** tab under **MultiClusterHub**.
-1. In the **Observability** tab, click **Create observability**
-1. Enter an appropriate name and click **Create**
-1. After the Observability instance is created, go to the **Observability** tab and click **Observability instance**.
+2. Go to **Ecosystem > Software catalog** and select a **namespace**.
+3. Search for **Advanced cluster management for Kubernetes**.
+4. Click **Install** if it is not installed.
+5. Open the operator from **Ecosystem > Installed Operators**.
+6. In the **MultiClusterHub** tab, click **Create MultiClusterHub**.
+7. Enter an appropriate name and click **Create**.
+8. Go to **Storage > StorageClasses** and verify that the **StorageClass** is set as the **Default** for infrastructure deployment.
+9. Follow the steps to [enable the Observability modules of RHACM](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#enabling-observability){: external}.
+10. Go to the **Observability** tab under **MultiClusterHub**.
+11. In the **Observability** tab, click **Create observability**
+12. Enter an appropriate name and click **Create**
+13. After the Observability instance is created, go to the **Observability** tab and click **Observability instance**.
 
 If you use ODF, verify that the **ocs-storagecluster-ceph-rdb-virtualization** class is set as the default. If it is not, click the three dots on the **StorageClass required** and select **Set as default**.
 {: note}
-
-
 
 If you configure Thanos with IBM Cloud Object Storage, the `thanos-object-storage.yaml` looks similar to the following example.
 
@@ -108,39 +107,17 @@ stringData:
       access_key: XXXX
       secret_key: XXXX
 ```
+
 {: codeblock}
 
-Create service credentials with HMAC keys for the COS instance. Use the provided HMAC values for `access_key` and `secret_key`.
+Create service credentials with HMAC keys for the Cloud Object Storage instance. Use the provided HMAC values for `access_key` and `secret_key`.
 {: note}
 
-## Setting up and configuring Red Hat Advanced Cluster Management Observability 
+## Setting up and configuring Red Hat Advanced Cluster Management Observability
 {: #roks-virt-observ-setup-config}
 {: step}
 
 Use the following information to set up and configure Red Hat Advanced Cluster Management Observability.
-
-### System alerts overview
-{: #roks-virt-observ-setup-config-alerting-overview}
-{: step}
-
-**Default system alerts** are managed by {{site.data.keyword.redhat_openshift_notm}} built-in monitoring stack at the platform-level.
-
-- Scope: Single cluster infrastructure monitoring
-- Namespace: `openshift-monitoring` on each managed cluster
-- **Alert components**:
-   - Cluster Monitoring Operator
-   - Prometheus Operator
-   - Prometheus for cluster metrics
-   - Alertmanager for cluster alerts
-
-You can set up **Custom alerts** if default system alerts. The Red Hat Advanced Cluster Management observability stack manages these alerts and supports multi-cluster scenarios.
-
-- Scope: Multi-cluster application and custom resource monitoring
-- Namespace: `open-cluster-management-observability` on the hub cluster
-- Components:
-   - Thanos Query for a global metrics view
-   - Thanos Ruler for centralized alert evaluation
-   - Alertmanager for multi-cluster alerting
 
 ### Metrics and dashboards
 {: #roks-virt-observ-setup-config-metrics-dashboards}
@@ -155,11 +132,11 @@ ACM monitors essential metrics like CPU, memory, network, storage usage, pod, cl
 
 For a brief overview of the metrics that are displayed in each pre-configured provided by ACM and base {{site.data.keyword.redhat_openshift_notm}} observability, refer to the following information:
 
-#### Add and customize dashboards 
+#### Add and customize dashboards
 {: #observability-design-custom-dashboards}
 {: step}
 
-The default Grafana instance doesn't support creating dashboards. To create and customize dashboards, first create a `grafana-dev instance`. Follow the instructions that are in the [RHACM Observability documentation](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#using-grafana-dashboards){: external} to set up the instance by using the scripts that are found in [multicluster-observability-operator](https://github.com/stolostron/multicluster-observability-operator){: external}.
+The default Grafana instance does not support creating dashboards. To create and customize dashboards, first create a `grafana-dev instance`. Follow the instructions that are in the [RHACM Observability documentation](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#using-grafana-dashboards){: external} to set up the instance by using the scripts that are found in [multicluster-observability-operator](https://github.com/stolostron/multicluster-observability-operator){: external}.
 
 To create a dashboard, use PromQL queries from a wide selection of [KubeVirt Components Metrics](https://kubevirt.io/monitoring/metrics.html){: external} and other [Kubernetes Metrics](https://kubernetes.io/docs/reference/instrumentation/metrics/){: external}.
 
@@ -175,7 +152,56 @@ The right-sizing recommendation dashboard provides recommendations to optimize C
 
 The dashboard provides the following information:
 
-- CPU Recommendation: Recommended workload CPU allocation 
+- CPU Recommendation: Recommended workload CPU allocation
+- Memory recommendation: Recommended workload memory allocation
+- Current CPU usage: Current CPU usage for each workload
+- Current memory usage: Current memory usage for each workload
+- CPU savings: Estimated CPU savings if the recommended CPU allocation is applied
+- Memory savings: Estimated memory savings if the recommended memory allocation is applied
+
+### System alerts overview
+{: #roks-virt-observ-setup-config-alerting-overview}
+{: step}
+
+**Default system alerts** are managed by {{site.data.keyword.redhat_openshift_notm}} built-in monitoring stack at the platform-level.
+
+- Scope: Single cluster infrastructure monitoring
+- Namespace: `openshift-monitoring` on each managed cluster
+- **Alert components**:
+  - Cluster Monitoring Operator
+  - Prometheus Operator
+  - Prometheus for cluster metrics
+  - Alertmanager for cluster alerts
+
+You can set up **Custom alerts** if default system alerts. The Red Hat Advanced Cluster Management observability stack manages these alerts and supports multi-cluster scenarios.
+
+- Scope: Multi-cluster application and custom resource monitoring
+- Namespace: `open-cluster-management-observability` on the hub cluster
+- Components:
+  - Thanos Queries for global metrics view
+  - Thanos Ruler for centralized alert evaluation
+  - Alertmanager for multi-cluster alerting
+
+#### Creating system alerts
+{: #observability-design-system-alerts}
+{: step}
+
+For system alerts (handled by `openshift-monitoring` namespace), follow these steps to configure alerts. System alerts support integration with Pagerduty, Slack, email, and other notification services.
+
+1. Log in to your Red Hat OpenShift Container Platform instance.
+2. Go to **Administration > Cluster settings > Alertmanager**.
+3. Configure the existing **Receivers** that are listed at the end of the table, or click **Create receiver** and enter an appropriate name.
+4. In the **Receiver type**, select one from the receiver list.
+    1. For **PagerDuty**, provide a routing key and URL.
+    2. For **Email**, provide an SMTP server.
+    3. For **Slack**, provide the webhook URL and channel name with no @ symbol.
+5. For routing labels, select the labels that correspond to the alerts that you want to trigger a notification.
+    1. For example, **severity = critical** includes all critical alerts, and **severity = warning** includes all warning alerts.
+    2. To send notifications for all alerts, keep this field blank.
+
+Click the **Alerting rules** tab to view the existing default rules for system alerts. For example, the alerting rules for the Ceph storage cluster trigger an alert when storage usage exceeds 75%.
+
+#### Creating custom alerts
 {: #observability-design-custom-alerts}
 {: step}
 
@@ -198,9 +224,10 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
 
     {"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"kubevirt_vm_info","cluster":"local-cluster","clusterID":"110b2032-b6b9-455a-abd5-9949482b61df","container":"virt-controller","endpoint":"metrics","flavor":"small","instance":"10.129.0.198:8443","job":"kubevirt-prometheus-metrics","machine_type":"pc-q35-rhel9.6.0","name":"centos-stream9-white-mink-62","namespace":"acm-test","os":"centos-stream9","pod":"virt-controller-7744b59dd8-dk7tw","receive":"true","service":"kubevirt-prometheus-metrics","status":"running","status_group":"running","tenant_id":"2c1cf409-966c-4c2d-bd57-f24c4c5a9393","workload":"server"},"value":[1762574206.765,"1"]},{"metric":{"__name__":"kubevirt_vm_info","cluster":"local-cluster","clusterID":"110b2032-b6b9-455a-abd5-9949482b61df","container":"virt-controller","endpoint":"metrics","instance":"10.129.0.198:8443","instance_type":"u1.medium","job":"kubevirt-prometheus-metrics","machine_type":"pc-q35-rhel9.6.0","name":"rhel-10-rose-damselfly-10","namespace":"acm-test","pod":"virt-controller-7744b59dd8-dk7tw","preference":"rhel.10","receive":"true","service":"kubevirt-prometheus-metrics","status":"running","status_group":"running","tenant_id":"2c1cf409-966c-4c2d-bd57-f24c4c5a9393"},"value":[1762574206.765,"1"]}],"analysis":{}}}
      ```
+
     {: codeblock}
 
-1. To apply the custom alert rule, create and **Apply the configmap** to the cluster.
+2. To apply the custom alert rule, create and **Apply the configmap** to the cluster.
 
     ```bash
     apiVersion: v1
@@ -229,6 +256,7 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
             severity: critical
             alert_type: vm_not_running
       ```
+
       {: codeblock}
 
     Use the existing Prometheus metrics `kubevirt_vm_info` and PromQL `kubevirt_vm_info{status!="running"} > 0` to trigger an alert when any virtual server isn't in the running status.
@@ -239,21 +267,21 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
       - The **configmap** must be labeled with: `thanos-ruler-rule: "true"`
       - The **key** must be set to `"custom_rules.yaml"`
 
-
     The `alert_type: vm_not_running` must match the secret that you create in the next step.
 
-1. Apply the **configmap** by running `oc -n open-cluster-management-observability apply -f thanos-ruler-custom-rules.yaml`. Then, validate the output `/etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules` to confirm that the pod `observability-thanos-rule` mounts the custom rule.
+3. Apply the **configmap** by running `oc -n open-cluster-management-observability apply -f thanos-ruler-custom-rules.yaml`. Then, validate the output `/etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules` to confirm that the pod `observability-thanos-rule` mounts the custom rule.
 
-   ```bash
+    ```bash
       oc describe pod observability-thanos-rule-0
 
      Mounts:
 
         /etc/thanos/config/thanos-ruler-config from thanos-ruler-config (ro)
    ```
-   {: codeblock}
 
-1. Create and apply Apply the configmap to the cluster, for the custom alert rule to be applied.
+    {: codeblock}
+
+4. Create and apply Apply the configmap to the cluster, for the custom alert rule to be applied.
 
 ```bash
 apiVersion: v1
@@ -281,10 +309,11 @@ data:
         labels:
           severity: critical
           alert_type: vm_not_running
-```
-{: codeblock}
+  ```
 
-```bash
+  {: codeblock}
+
+  ```bash
    /etc/thanos/configmaps/Alertmanager-ca-bundle from Alertmanager-ca-bundle (rw)
 
    /etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules (rw)
@@ -294,92 +323,92 @@ data:
    /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-c55nd (ro)
 
    /var/thanos/rule from data (rw)
-```
-    {: codeblock}
+  ```
 
-1. Create a secret yaml file that is named `Alertmanager-config.yaml`, which configures the receiver, and Slack webhook URL, Slack channel, and so on.
+  {: codeblock}
+5. Create a secret yaml file that is named `Alertmanager-config.yaml`, which configures the receiver, Slack webhook URL, and Slack channel, and so on.
 
 Make sure that the `alert_type` matches the value that is defined in the **configmap** that you create later.
 {: important}
 
-    ```yaml
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: Alertmanager-config
-      # namespace has to be open-cluster-management-observability
-      namespace: open-cluster-management-observability
-    type: Opaque
-    stringData:
-    Alertmanager.yaml: |
-      global:
-        resolve_timeout: 5m
-        # your slack webhook url
-        slack_api_url: 'https://hooks.slack.com/services/\<replace_with_your_webhook\>'
+  ```yaml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: Alertmanager-config
+        # namespace has to be open-cluster-management-observability
+        namespace: open-cluster-management-observability
+      type: Opaque
+      stringData:
+      Alertmanager.yaml: |
+        global:
+          resolve_timeout: 5m
+          # your slack webhook url
+          slack_api_url: 'https://hooks.slack.com/services/\<replace_with_your_webhook\>'
 
-    route:
-      receiver: 'default-receiver'
-      group_by: ['alertname', 'cluster', 'namespace', 'name']
-      group_wait: 10s
-      group_interval: 5m
-      repeat_interval: 12h
+     route:
+        receiver: 'default-receiver'
+        group_by: ['alertname', 'cluster', 'namespace', 'name']
+        group_wait: 10s
+        group_interval: 5m
+        repeat_interval: 12h
 
-      # Specific sub-route for VM not running alerts
-      routes:
-        - match:
-            # ensure the alert_type is consistent with the one defined in configmap
-            alert_type: vm_not_running
-          receiver: 'slack-vm-not-running'
-          group_wait: 5s
-          repeat_interval: 10m
+        # Specific sub-route for VM not running alerts
+        routes:
+          - match:
+              # ensure the alert_type is consistent with the one defined in configmap
+              alert_type: vm_not_running
+            receiver: 'slack-vm-not-running'
+            group_wait: 5s
+            repeat_interval: 10m
 
-    receivers:
-      # default receiver (no-op)
-      - name: 'default-receiver'
+      receivers:
+        # default receiver (no-op)
+        - name: 'default-receiver'
 
-      # Slack receiver for VM not running alerts
-      - name: 'slack-vm-not-running'
-        slack_configs:
-          # slack channel name, do NOT miss "#" before you type the channel name
-          - channel: '#roks-virt-observability-alerts'   # <-- adjust to your Slack channel
-            title: '🚨 VM NOT RUNNING ALERT'
-            text: |
-              *Alert:* {{ .CommonLabels.alertname }}
-              *VM Name:* {{ .CommonLabels.name }}
-              *Namespace:* {{ .CommonLabels.namespace }}
-              *Cluster:* {{ .CommonLabels.cluster }}
-              *Severity:* {{ .CommonLabels.severity | toUpper }}
-              *Status:* {{ .Status | toUpper }}
+        # Slack receiver for VM not running alerts
+        - name: 'slack-vm-not-running'
+          slack_configs:
+            # slack channel name, do NOT miss "#" before you type the channel name
+            - channel: '#roks-virt-observability-alerts'   # <-- adjust to your Slack channel
+              title: '🚨 VM NOT RUNNING ALERT'
+              text: |
+                *Alert:* {{ .CommonLabels.alertname }}
+                *VM Name:* {{ .CommonLabels.name }}
+                *Namespace:* {{ .CommonLabels.namespace }}
+                *Cluster:* {{ .CommonLabels.cluster }}
+                *Severity:* {{ .CommonLabels.severity | toUpper }}
+                *Status:* {{ .Status | toUpper }}
 
-              {{ range .Alerts }}
-              *Description:* {{ .Annotations.description }}
-              {{ end }}
-            send_resolved: true
-            color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
-            actions:
-              - type: button
-                text: 'View in Console'
-                url: 'https://console-openshift-console.apps.{{ .CommonLabels.cluster }}/k8s/ns/{{ .CommonLabels.namespace }}/virtualmachines/{{ .CommonLabels.name }}'
-    ```
-{: codeblock}
+                {{ range .Alerts }}
+                *Description:* {{ .Annotations.description }}
+                {{ end }}
+              send_resolved: true
+              color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+              actions:
+                - type: button
+                  text: 'View in Console'
+                  url: 'https://console-openshift-console.apps.{{ .CommonLabels.cluster }}/k8s/ns/{{ .CommonLabels.namespace }}/virtualmachines/{{ .CommonLabels.name }}'
+  ```
 
-1. Apply the secret by running `oc -n open-cluster-management-observability apply -f Alertmanager-config.yaml`.
-1. Stop the virtual server by running:  virtctl stop `<vm-name>` and wait until the server stops.
-1. After the server stops, check the Slack channel for the notification of the resolved alert.
+  {: codeblock}
+6. Apply the secret by running `oc -n open-cluster-management-observability apply -f Alertmanager-config.yaml`.
+7. Stop the virtual server by running:  virtctl stop `<vm-name>` and wait until the server stops.
+8. After the server stops, check the Slack channel for the notification of the resolved alert.
 
    You can verify the generated alert through Alertmanager console. To open the Alertmanager console, run the following command:
 
    ```bash
        oc -n open-cluster-management-observability port-forward pod/observability-Alertmanager-0 9093:9093
     ```
+
    {: codeblock}
 
-   Access http://localhost:9093/#/alerts to check whether the alert is generated there. The following example shows that the `slack-vm-not-running` alert is generated.
-
-1. Run virtctl start `<vm-name>` and wait until the VM starts.
-1. Start a virtual machine by running:  virtctl start `<vm-name>`, and wait for the vm started.
-1. After the VM starts, check the Slack channel for the notification of the resolved alert.
-   You can also verify that the alert is resolved through the Alertmanager console. Access [localhost alerts](http://localhost:9093/#/alerts) to confirm whether the alert is resolved. The following example shows that the `slack-vm-not-running` alert is resolved.
+   Access [localhost alerts](http://localhost:9093/#/alerts) to check whether the alert is generated there.
+9. Run virtctl start `<vm-name>` and wait until the VM starts.
+10. Start a virtual machine by running:  virtctl start `<vm-name>`, and wait for the vm started.
+11. After the VM starts, check the Slack channel for the notification of the resolved alert.
+   You can also verify that the alert is resolved through the Alertmanager console. Access [localhost alerts](http://localhost:9093/#/alerts) to confirm whether the alert is resolved.
 
 ##### Observability references
 {: #observability-design-ref-links}
@@ -393,14 +422,14 @@ See the following links for extra Observability information.
 ## Next steps
 {: #observability-next-steps}
 
-After you implement Observability for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, consider the following information. 
+After you implement Observability for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, consider the following information.
 
 - Backup and recovery: [Implement backup solutions for your virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup)
 - Migration: [Learn about migrating workloads to Red Hat OpenShift Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design-mtv)
 - Design considerations: Review comprehensive design guidance for production deployments:
-   - [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
-   - [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)
-   - [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview)
-   - [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview)
-   - [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design)
+  - [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
+  - [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)
+  - [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview)
+  - [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview)
+  - [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design)
 - Reference architecture: [Explore the complete reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)
