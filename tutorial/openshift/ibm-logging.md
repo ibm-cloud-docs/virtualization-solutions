@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-03-18"
+lastupdated: "2026-04-15"
 
 keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -20,7 +20,7 @@ compliance: HIPPA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Logging for Red Hat Openshift Virtualization
+# Logging for Red Hat OpenShift Virtualization
 {: #logging-rove-design}
 {: #vsphere-openshift-logging}
 {: #tutorial-observability-logging}
@@ -31,13 +31,13 @@ compliance: HIPPA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPPA"}
 
-The following guide describes how to configure logging for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment. {{site.data.keyword.cloud}} Logs is a fully managed logging service that provides a centralized logging solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services.
+The following guide describes how to configure logging for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment.
 {: shortdesc}
 
 ## Overview of {{site.data.keyword.logs_full_notm}} with {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #roks-virt-ibm-logs-overview}
 
-You can use {{site.data.keyword.cloud_notm}} Logs to monitor your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, which also includes:
+{{site.data.keyword.cloud}} Logs are a fully managed logging service that provides a centralized logging solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services. You can use {{site.data.keyword.cloud_notm}} Logs to monitor your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, which also includes:
 
 - Virtual servers
 - Networks
@@ -52,11 +52,10 @@ You can use {{site.data.keyword.cloud_notm}} Logs to monitor your {{site.data.ke
 
 ## Prerequisites
 {: #roks-virt-logging-prerequisites}
-{: step}
 
 Before you configure logging for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, make sure that the following requirements are met:
 
-1. Create an IBM Cloud Logs instance.
+1. Create an IBM Cloud Logs instance
    - Provision an IBM Cloud Logs instance to start collecting and managing log data. For more information, see [Provision Instance](/docs/cloud-logs?topic=cloud-logs-instance-provision).
    - Configure a Cloud Logs bucket to enable long‑term log retention and advanced search capabilities. For more information, see [Configure Bucket](/docs/cloud-logs?topic=cloud-logs-configure-data-bucket). You need this configuration if you want long-term data retention or search. The standard Cloud Logs instance provides a minimum retention period of 7 days and a maximum retention period of 90 days for priority logs.
    - Create a Cloud Object Storage bucket that stores your long‑term log data. For more information, see [Creating a Cloud Object Storage bucket](/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage).
@@ -71,11 +70,11 @@ Before you configure logging for your {{site.data.keyword.redhat_openshift_notm}
 
 This integration requires that you install a monitoring agent on your virtual servers. See [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu#ubuntu_step3) for an example installation of a monitoring agent on an Ubuntu virtual server.
 
-For more information, see [Installing an agent-based virtual server](#observability-design-install-agent).
+For more information, see [Installing an agent-based virtual server](#installing-an-agent-based-virtual-server).
 
-{{site.data.keyword.monitoringfull_notm}} also supports monitoring overall VPC resource consumption and other VPC services. For more information, see [Getting started with IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-getting-started). 
+{{site.data.keyword.monitoringfull_notm}} also supports monitoring overall VPC resource consumption and other VPC services. For more information, see [IBM Cloud VPC monitoring dashboards](/docs/vpc?topic=vpc-ibm-monitoring).
 
-### IBM Cloud Logs
+## IBM Cloud Logs
 {: #vpc-observability-logs}
 
 {{site.data.keyword.vpc_short}} supports integration with IBM Cloud Logs. IBM Cloud VPC generates platform events and routes them to an IBM Cloud Logs instance by using {{site.data.keyword.logs_routing_full}}. For more information, see [Logging for VPC](/docs/vpc?topic=vpc-logging).
@@ -84,12 +83,7 @@ IBM Cloud Activity Tracker Events Routing routes the events to an IBM Cloud Logs
 
 To set up log forwarding to IBM Cloud Logs, follow the steps for [Linux](/docs/cloud-logs?topic=cloud-logs-agent-linux) and [Windows](/docs/cloud-logs?topic=cloud-logs-agent-windows).
 
-#### IBM Cloud Monitoring
-{: #observability-design-mon}
-
-{{site.data.keyword.monitoringfull_notm}} is a cloud-native and container-intelligence management system that you can include as part of your IBM Cloud architecture.
-
-##### Installing IBM Cloud Monitoring 
+### Installing IBM Cloud Monitoring
 {: #observability-design-install}
 {: step}
 
@@ -98,7 +92,7 @@ To install and configure IBM Cloud Monitoring for your {{site.data.keyword.redha
 1. Manually install Sysdig on your {{site.data.keyword.redhat_openshift_notm}} cluster. For more information, see the [Manual installation process for Sysdig on {{site.data.keyword.redhat_openshift_notm}}](https://docs.sysdig.com/en/administration/onprem-manual-installation-openshift/){: external}.
 2. Add your {{site.data.keyword.redhat_openshift_notm}} cluster to {{site.data.keyword.monitoringfull_notm}}. For more information, see [Adding a {{site.data.keyword.redhat_openshift_notm}} cluster to IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-openshift_cluster).
 
-##### Installing an agent-based virtual server
+### Installing an agent-based virtual server
 {: #observability-design-install-agent}
 
 To install IBM Logging Agents on a Linux VPC virtual server, go to the **Monitoring Sources** in your **IBM Cloud Monitoring instance** details in IBM Cloud Console. Then, click the **Linux** tab to deploy the monitoring agent on your Linux VPC virtual server. For more information, see
@@ -124,9 +118,9 @@ After you implement observability for your {{site.data.keyword.redhat_openshift_
 - **Backup and recovery**: Implement backup solutions for your virtual servers. For more information, see [Backup solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup).
 - **Migration**: Learn about migrating workloads to {{site.data.keyword.redhat_openshift_notm}} Virtualization. For more information, see [Migration Toolkit for Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design-mtv).
 - **Design considerations**: Review the design guidance for production deployments.
-   - Review guidance about sizing, resource allocation, and compute infrastructure planning for {{site.data.keyword.redhat_openshift_notm}} Virtualization workloads. For more information, see [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
-   - Review guidance about designing network architectures, connectivity models, and traffic flows for {{site.data.keyword.redhat_openshift_notm}} Virtualization clusters. For more information, see [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)
-   - Explore storage architecture recommendations for persistent volumes, performance needs, and data availability in virtualized workloads. For more information, see [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview)
-   - Learn best practices to secure {{site.data.keyword.redhat_openshift_notm}} Virtualization environments, which include access controls, encryption, and compliance considerations. For more information, see [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview)
-   - Understand strategies to build resilient {{site.data.keyword.redhat_openshift_notm}} Virtualization deployments that help ensure high availability and rapid workload recovery. For more information, see [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design)
+  - Review guidance about sizing, resource allocation, and compute infrastructure planning for {{site.data.keyword.redhat_openshift_notm}} Virtualization workloads. For more information, see [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
+  - Review guidance about designing network architectures, connectivity models, and traffic flows for {{site.data.keyword.redhat_openshift_notm}} Virtualization clusters. For more information, see [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)
+  - Explore storage architecture recommendations for persistent volumes, performance needs, and data availability in virtualized workloads. For more information, see [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview)
+  - Learn best practices to secure {{site.data.keyword.redhat_openshift_notm}} Virtualization environments, which include access controls, encryption, and compliance considerations. For more information, see [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview)
+  - Understand strategies to build resilient {{site.data.keyword.redhat_openshift_notm}} Virtualization deployments that help ensure high availability and rapid workload recovery. For more information, see [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design)
 - **Reference Architecture**: Explore the complete reference architecture. For more information, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture).
