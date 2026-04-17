@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 Observability in {{site.data.keyword.cloud}} provides the visibility and insights that are needed to monitor, troubleshoot, and optimize applications and infrastructure across hybrid and multicloud environments. It extends beyond traditional monitoring by offering end-to-end visibility into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
 
-{{site.data.keyword.cloud_notm}} observability solutions, including {{site.data.keyword.monitoringfull}} and {{site.data.keyword.logs_full}}, deliver a comprehensive view of system health and performance. These services help organizations ensure application reliability, maintain security compliance, and improve operational efficiency through real-time dashboards, alerting, and advanced analytics. The following diagram shows the key observability architecture elements.
-![IBM {{site.data.keyword.vpc_full}} Virtual Server Instance Observability](../../images/vpc-vsi/vpc-vsi-high-level-observability.svg "{{site.data.keyword.vpc_full}} Virtual Server Instance Observability"){: caption="{{site.data.keyword.vpc_full}} Virtual Server Instance Observability" caption-side="bottom"}
+{{site.data.keyword.cloud_notm}} observability solutions, including {{site.data.keyword.monitoringfull_notm}} and {{site.data.keyword.logs_full_notm}}, deliver a comprehensive view of system health and performance. These services help organizations ensure application reliability, maintain security compliance, and improve operational efficiency through real-time dashboards, alerting, and advanced analytics. The following diagram shows the key observability architecture elements.
+![IBM Cloud VPC VSI Observability](../../images/vpc-vsi/vpc-vsi-high-level-observability.svg "IBM Cloud VPC VSI Observability"){: caption="IBM Cloud VPC VSI Observability" caption-side="bottom"}
 
-## {{site.data.keyword.sysdigsecure_full}}
+## {{site.data.keyword.sysdigsecure_full_notm}}
 {: #virt-sol-vpc-observability-design-scc-wpp}
 
 {{site.data.keyword.sysdigsecure_full_notm}} provides security monitoring and threat detection for workloads on {{site.data.keyword.cloud_notm}}, including virtual machines on Virtual Private Cloud (VPC) and {{site.data.keyword.redhat_openshift_notm}} Virtualization environments.
@@ -42,11 +42,11 @@ This unified approach enables organizations to accelerate hybrid cloud adoption 
 
 See [Protecting Linux hosts](/docs/workload-protection?topic=workload-protection-protecting-linux-hosts) and [Managing the Workload Protection agent on Windows Servers](/docs/workload-protection?topic=workload-protection-agent-deploy-windows).
 
-For {{site.data.keyword.vpc_full}} virtual server instance with an IBM&reg;-provided Linux OS image, follow the guide in [Protecting Linux hosts](/docs/workload-protection?topic=workload-protection-protecting-linux-hosts) to install and deploy the workload protection agent and connect it to the workload protection instance.
+For {{site.data.keyword.vpc_short}} virtual server instance with an IBM&reg; provided Linux OS image, follow the guide in [Protecting Linux hosts](/docs/workload-protection?topic=workload-protection-protecting-linux-hosts) to install and deploy the workload protection agent and connect it to the workload protection instance.
 
-For {{site.data.keyword.vpc_full}} virtual server instance with an {{site.data.keyword.IBM_notm}}-provided Windows OS image, follow the guide in [Managing the workload protection agent on Windows Servers](/docs/workload-protection?topic=workload-protection-agent-deploy-windows) to complete the installation. However, some OS images that are provided by {{site.data.keyword.vpc_full}} virtual server instance have limitations. You might need to follow the best practices or workarounds to facilitate agent deployment. For images not covered in the following sections, the general guide works as expected.
+For {{site.data.keyword.vpc_short}} virtual server instance with an {{site.data.keyword.IBM_notm}} provided Windows OS image, follow the guide in [Managing the workload protection agent on Windows Servers](/docs/workload-protection?topic=workload-protection-agent-deploy-windows) to complete the installation. However, some OS images that are provided by {{site.data.keyword.vpc_short}} virtual server instance have limitations. You might need to follow the best practices or workarounds to facilitate agent deployment. For images not covered in the following sections, the general guide works as expected.
 
-For a customer-provided custom image that is uploaded to the {{site.data.keyword.vpc_full}} virtual server instance platform, first follow the default guide steps and then address any gaps individually. If necessary, open a support ticket for the workload protection instance.
+For a customer-provided custom image that is uploaded to the {{site.data.keyword.vpc_short}} virtual server instance platform, first follow the default guide steps and then address any gaps individually. If necessary, open a support ticket for the workload protection instance.
 {: note}
 
 #### ibm-centos-stream-9-amd64-13
@@ -87,7 +87,7 @@ The issue that affects Debian 13 and Debian 12 also apply to the Debian 11 OS im
 #### ibm-fedora-coreos-43-testing-1 and ibm-fedora-coreos-43-stable-1
 {: #virt-sol-vpc-observability-design-scc-vsi-coreos43}
 
-The Fedora CoreOS images that are offered by {{site.data.keyword.vpc_full}} virtual server instance use a read-only Fedora Bootc (immutable) system. According to the [Fedora CoreOS FAQ](https://docs.fedoraproject.org/en-US/fedora-coreos/faq/#_how_do_i_run_custom_applications_on_fedora_coreos){: external}.
+The Fedora CoreOS images that are offered by {{site.data.keyword.vpc_short}} virtual server instance use a read-only Fedora Bootc (immutable) system. According to the [Fedora CoreOS FAQ](https://docs.fedoraproject.org/en-US/fedora-coreos/faq/#_how_do_i_run_custom_applications_on_fedora_coreos){: external}.
 
 Fedora CoreOS is primarily targeted for containers and discourages additional installation on the base OS. As a result, SCC integrations on virtual server instances using these images are not supported.
 
@@ -195,7 +195,7 @@ The message resource is present but the message was not found in the message tab
 ```
 {: pre}
 
-## {{site.data.keyword.monitoringfull}} and Logs
+## {{site.data.keyword.monitoringfull_notm}} and Logs
 {: #virt-sol-vpc-observability-design-mon-and-logs}
 
 {{site.data.keyword.monitoringfull_notm}} and Logs provide cloud-native observability for applications and infrastructure running on the {{site.data.keyword.cloud_notm}}, including virtual machines on VPC and {{site.data.keyword.redhat_openshift_notm}} Virtualization.
