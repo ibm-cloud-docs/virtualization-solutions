@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2026, 2026
-lastupdated: "2026-04-08"
+  years: 2026
+lastupdated: "2026-04-23"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, ODF, RBD
 
@@ -788,7 +788,7 @@ VMware comparison: This example is analogous to the VMware pre-freeze and post-t
 
 Changed Block Tracking enables incremental backups by identifying only the blocks that changed since the last backup. VMware's VADP (vStorage APIs for Data Protection) uses this mechanism to provide efficient incremental backups.
 
-CBT is not available for ODF and Ceph RBD on {{site.data.keyword.redhat_openshift_notm}} Virtualization. Backups currently rely on full snapshots which might result in longer backup windows and higher storage usage.
+CBT is not available for ODF and Ceph RBD on {{site.data.keyword.redhat_openshift_notm}} Virtualization. Backups currently rely on full snapshots, which might result in longer backup windows and higher storage usage.
 
 CBT development is in progress at multiple levels:
 
@@ -823,12 +823,11 @@ If your current VMware environment relies on CBT-based incremental backups, cons
 ## Day-2 operations
 {: #day-2-operations}
 
-After you deploy ODF on {{site.data.keyword.cloud_notm}} ROKS, focus on Day 2 operations. These operations include ongoing management, monitoring, and maintenance tasks that help keep your storage infrastructure healthy, performant, up-to-date, and adaptable to changing workload demands. This guide focuses on three critical aspects of Day 2 operations:
+After you deploy ODF on {{site.data.keyword.cloud_notm}} ROKS, focus on Day-2 operations. These operations include ongoing management, monitoring, and maintenance tasks that keep your storage infrastructure healthy, performant, up-to-date, and adaptable to changing workload demands. The guide focuses on the following three critical aspects of Day-2 operations:
 
 - Monitoring
 - Upgrading
 - Expanding
-
 
 ### Monitor ODF and Ceph health
 {: #monitoring-odf}
@@ -941,8 +940,8 @@ Updating ODF on a ROKS cluster consists of two main phases, both of which are re
 
    - ODF relies on dedicated or labeled worker nodes to host storage components.
    - During a major or minor upgrade, these worker nodes must be upgraded or replaced to align with the target {{site.data.keyword.redhat_openshift_notm}} and ODF versions.
-   - This process ensures that ODF pods (such as Ceph OSDs, MONs, and managers) are rescheduled correctly and continue functioning without data loss.
-   - Ensure adequate capacity and node health before starting this step to maintain storage availability.
+   - This process helps ensure that ODF pods (such as Ceph OSDs, MONs, and managers) are rescheduled correctly and continue functioning without data loss.
+   - Ensure adequate capacity and node health before you start this step to maintain storage availability.
 
 1. Update the ODF add-on.
 
@@ -958,39 +957,45 @@ Updating ODF on a ROKS cluster consists of two main phases, both of which are re
 
 For more information, see [Updating ODF on VPC clusters](/docs/openshift?topic=openshift-openshift-storage-update-vpc).
 
-
 ### Expanding ODF Storage on ROKS
 {: #expanding-odf}
-As your workloads grow and storage demands increase, it becomes essential to scale your storage infrastructure accordingly. Expansion in ODF is a key Day 2 operation that enables you to increase storage capacity, improve performance, and maintain resilience without disrupting running applications.
 
-In {{site.data.keyword.cloud_notm}} ROKS environments, expansion typically involves extending the storage worker pool. This operation is designed to be performed with minimal downtime, enabling seamless growth of your storage cluster.
+Accordingly, as workloads grow and storage demands increase, scale your storage infrastructure. Expansion in ODF is a key Day-2 operation that increases storage capacity, improves performance, and maintains resilience without disrupting running applications.
 
-1. Expand worker node by adding worker nodes. [Adding worker nodes to VPC clusters](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc).  For prodution in which Storage cluster is configured with worker nodes across 3 racks, worker nodes should be added in count of multiples of 3 to keep the balance of replication, e.g. 3, 6 or 9.
+In {{site.data.keyword.cloud_notm}} ROKS environments, expansion typically involves extending the storage worker pool. This operation runs with minimal downtime and enables seamless growth of your storage cluster.
 
+1. Expand worker nodes by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). In production environments where the storage cluster is configured with worker nodes across 3 racks, add worker nodes in multiples of 3 to maintain replication balance, for example, 3, 6, or 9.
 
-2. If you deployed ODF on all the worker nodes in your cluster, the worker nodes will be added to ODF storage cluster topology automatically.  If you deployed ODF on a subset of worker nodes in your cluster by specifying the private <workerNodes> parameters in your OcsCluster custom resource, you can add the node name of the new worker nodes to your ODF deployment by editing the custom resource definition. You can modify OcsCluster custom resource by following
+2. If ODF runs on all of the worker nodes in your cluster, new worker nodes are added to the ODF storage cluster topology automatically. If ODF runs on only a subset of worker nodes, specify the private `<workerNodes>` parameters in your OcsCluster custom resource. Add the names of the new worker nodes to your ODF deployment by editing the custom resource definition. Modify OcsCluster custom resource as follows:
+
    - Find ocscluster
-      ```bash
-      oc get ocscluster
+
+      ```sh
+          oc get ocscluster
       ```
+      {: pre}
 
-    - Edit ocscluster custom resource file and add new work nodes
-      ```bash
-      oc edit ocscluster <ocs cluster name> -o yaml
+   - Edit ocscluster custom resource file and add new work nodes:
+
+      ```sh
+          oc edit ocscluster <ocs cluster name> -o yaml
       ```
-    - Save the OcsCluster custom resource file to reapply it to your cluster.
+      {: pre}
 
-3. Increase the 'numOfOsd' value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster. The adjustment to 'numOfOsd' depends on both the number of OSD disks per node and the number of nodes added. For example, if each node has 8 NVMe disks dedicated to OSDs, adding 3 nodes increases 'numOfOsd' by 8, while adding 6 nodes increases it by 16.
+   - Save the OcsCluster custom resource file to reapply it to your cluster.
 
-4. Check the result by running
+3. Increase the `numOfOsd` value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes, and provision additional OSDs in the storage cluster. The adjustment to `numOfOsd` depends on the number of OSD disks per node and the number of nodes added. For example, if each node has 8 NVMe disks that are dedicated to OSDs, adding nodes increases `numOfOsd` proportionally. Also, adding 3 nodes increases `numOfOsd` by 8, while adding 6 nodes increases it by 16.
 
-    ```bash
+4. Verify the result by running the followwing command:
+
+    ```sh
     oc exec -n openshift-storage ${TOOLS_POD} -- ceph osd tree
     ```
-    You should observe that the new worker nodes are added and evenly distributed across each rack bucket, along with the corresponding number of OSDs assigned to each
+    {: pre}
 
-For more information see [Expanding ODF by adding worker nodes to your VPC cluster](https://cloud.ibm.com/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui#odf-vpc-add-worker-nodes) 
+5. Verify that the new worker nodes are added and evenly distributed across each rack bucket, along with the corresponding number of OSDs assigned to each node.
 
+For more information, see [Expanding ODF by adding worker nodes to your VPC cluster](/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui#odf-vpc-add-worker-nodes).
 
 ## Summary and best practices
 {: #summary-and-best-practices}
@@ -1000,7 +1005,7 @@ For more information see [Expanding ODF by adding worker nodes to your VPC clust
 - When creating custom CephBlockPools, always set `targetSizeRatio` (for example, `0.1`) and include all required `imageFeatures` (especially `exclusive-lock`) in the StorageClass.
 - Erasure-coded pools for RBD are a developer preview feature (ODF 4.20+) and are not supported for production use. Use replicated pools (rep2 or rep3) for all production VM storage.
 - Always validate custom StorageClasses in a nonproduction environment before use.
-- Avoid to use generic RBD StorageClasses for VM disks in production environments.
+- Avoid using generic RBD StorageClasses for VM disks in production environments.
 - For encrypted VM storage, use the nonencrypted StorageClass for root disks and the encrypted variant for data disks.
 - Plan capacity to stay under 70% cluster usage, and scale ODF nodes in multiples of 3.
 - Install the QEMU guest agent in all production VMs for application-consistent snapshots.
