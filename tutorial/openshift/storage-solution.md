@@ -380,11 +380,11 @@ Use the following information to run virtual servers on ODF.
 ### Prerequisites: Install the {{site.data.keyword.redhat_openshift_notm}} virtualization operator
 {: #prerequisites-for-odf}
 
-Before you use {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your {{site.data.keyword.redhat_openshiftlong_notm}} (ROKS) cluster.
+Before you use {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your {{site.data.keyword.openshiftlong_notm}} (ROKS) cluster.
 
 The {{site.data.keyword.redhat_openshift_notm}} virtualization operator enables Kubernetes-native virtual server management. It also provides the required controllers, CRDs, and integrations with storage and networking components.
 
-For more information, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}](https://developer.ibm.com/tutorials/openshift-virtualization-ibm-cloud/).
+For more information, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}](https://developer.ibm.com/tutorials/openshift-virtualization-ibm-cloud/){: external}.
 
 ### Using ODF storage for virtual servers
 {: #using-odf-storage-for-vms}
