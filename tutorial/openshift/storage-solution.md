@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-04-23"
+lastupdated: "2026-04-24"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, ODF, RBD
 
@@ -18,7 +18,7 @@ completion-time: 60m
 # Red Hat OpenShift Data Foundation (ODF) for virtual server workloads
 {: #odf-for-vm-workloads}
 
-Red Hat OpenShift Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on IBM Cloud OpenShift (ROKS). It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
+Red Hat OpenShift Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} (ROKS). It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 
 ## Key benefits
 {: #key-benefits}
@@ -95,7 +95,7 @@ Because rep2 offers less fault tolerance than rep3, evaluate whether the storage
 ### Erasure-coded pools
 {: #erasure-coded-pools}
 
-For environments where storage capacity efficiency is a priority, ODF also supports erasure-coded (EC) pools. EC splits data into `k` data chunks and `m` parity chunks reducing  raw storage usage compared to replication while still providing fault tolerance.
+For environments where storage capacity efficiency is a priority, ODF also supports erasure-coded (EC) pools. EC splits data into `k` data chunks and `m` parity chunks reducing raw storage usage compared to replication while still providing fault tolerance.
 
 **Support status:** Erasure coding for RBD and CephFS in ODF is a developer preview feature, first introduced in ODF 4.20. Developer preview features are not supported for production use. They are also not covered by Red Hat Customer Portal case management. Before ODF 4.20, only RGW (object storage) EC was available as a developer preview (from ODF 4.16). Although the underlying Ceph storage engine supports EC overwrites for RBD since the Luminous release (2017), the ODF operator and its managed deployment model do not yet certify EC pools for production block storage workloads. Plan to use replicated pools (rep2 or rep3) for all production VM storage, and evaluate EC pools only for nonproduction environments where the developer preview limitations are acceptable.
 {: important}
@@ -145,7 +145,7 @@ A single replica pool has the following use cases.
 - Development and test environments - where data durability is not critical and storage cost savings are prioritized.
 - Applications with built-in replication - these applications manage their own data redundancy at the application layer. These applications maintain multiple copies across nodes, which means that storage-level replication is redundant.
 
-The single replica pool provides zero fault tolerance. A single OSD or node failure results in permanent, unrecoverable data loss for all data on that OSD. No second copy is available for recovery. {{site.data.keyword.cloud_notm}} documentation explicitly warns that this option increases the risk of data loss, data corruption, and potential system instability.For more information, see [Ceph documentation](https://docs.ceph.com/en/latest/architecture/#scalability-and-high-availability){: external}.
+The single replica pool provides zero fault tolerance. A single OSD or node failure results in permanent, unrecoverable data loss for all data on that OSD. No second copy is available for recovery. {{site.data.keyword.cloud_notm}} documentation explicitly warns that this option increases the risk of data loss, data corruption, and potential system instability. For more information, see [Ceph documentation](https://docs.ceph.com/en/latest/architecture/#scalability-and-high-availability){: external}.
 {: warning}
 
 Limitations:
@@ -248,7 +248,7 @@ To avoid this data loss, size your ODF cluster so that you can lose 2 nodes simu
 
 {: caption="Impact of planned maintenance plus an unplanned failure by cluster size"}
 
-For production clusters that run rep3, start with 6 nodes. This setup provides N+2 headroom with enough capacity for one node in planned maintenance and one unexpected failure without risking data availability or data loss. A 3-node cluster should be used only for development, testing, or proofs of concept where downtime and data loss are acceptable.
+For production clusters that run rep3, start with 6 nodes. This setup provides N+2 headroom with enough capacity for one node in planned maintenance and one unexpected failure without risking data availability or data loss. Use a 3-node cluster only for development, testing, or proofs of concept where downtime and data loss are acceptable.
 {: tip}
 
 You can verify rack assignments on your cluster by running the following command:
@@ -294,7 +294,7 @@ For more information, see [ODF Essentials versus Advanced](/docs/openshift?topic
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization on ROKS VPC clusters currently supports only bare metal worker nodes. Virtualized worker nodes are not supported for ODF storage clusters.
 
-Ensure that your ROKS cluster includes at least one worker pool that uses bare metal servers running Red Hat CoreOS. {{site.data.keyword.redhat_openshift_notm}}. Version 4.17 or higher is required for {{site.data.keyword.redhat_openshift_notm}} Virtualization. Supported bare metal options include `bx2d.metal.96x384`, `cx2d.metal.96x192`, and `mx2d.metal.96x768`.
+Ensure that your ROKS cluster includes at least one worker pool that uses bare metal servers that are running on Red Hat CoreOS. {{site.data.keyword.redhat_openshift_notm}}. Version 4.17 or higher is required for {{site.data.keyword.redhat_openshift_notm}} Virtualization. Supported bare metal options include `bx2d.metal.96x384`, `cx2d.metal.96x192`, and `mx2d.metal.96x768`.
 
 Deploy the ODF storage cluster on these bare metal nodes to use local NVMe disks and deliver high-performance block storage to virtual machines.
 
@@ -316,7 +316,7 @@ ODF provides three resource allocation profiles that control the CPU and memory 
 - Balanced: The default profile on ROKS. The Balanced profile provides a balance between resource consumption and performance for general-purpose workloads.
 - Performance: Allocates more CPU and memory to Ceph daemons that reduce the risk of daemon-side bottlenecks. Best for high IOPS workloads, large numbers of virtual servers, and demanding applications.
 
-The resource requirements shown in the **{{site.data.keyword.redhat_openshift_notm}} web console** during ODF installation are dynamically computed based on the cluster OSD count. Therefore, clusters with more NVMe drives require proportionally more resources. The values are not fixed. Always verify the requirements displayed in the console for your specific cluster configuration.
+The resource requirements that are shown in the **{{site.data.keyword.redhat_openshift_notm}} web console** during ODF installation are dynamically computed based on the cluster OSD count. Therefore, clusters with more NVMe drives require proportionally more resources. The values are not fixed. Always verify the requirements displayed in the console for your specific cluster configuration.
 
 The profile is selected during StorageSystem creation through the **Configure Performance** screen in the **{{site.data.keyword.redhat_openshift_notm}} web console**. Under-resourced Ceph daemons can become a hidden bottleneck, causing reduced IOPS or higher latency than the underlying storage hardware can deliver.
 
@@ -380,7 +380,7 @@ Use the following information to run virtual servers on ODF.
 ### Prerequisites: Install the {{site.data.keyword.redhat_openshift_notm}} virtualization operator
 {: #prerequisites-for-odf}
 
-Before using {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your Red Hat OpenShift on IBM Cloud (ROKS) cluster.
+Before you use {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your {{site.data.keyword.redhat_openshiftlong_notm}} (ROKS) cluster.
 
 The {{site.data.keyword.redhat_openshift_notm}} virtualization operator enables Kubernetes-native virtual server management. It also provides the required controllers, CRDs, and integrations with storage and networking components.
 
@@ -427,7 +427,7 @@ If you create customStorageClasses for virtual servers that need live migration,
 Live migration also requires:
 
 - Configuring the {{site.data.keyword.redhat_openshift_notm}} Virtualization Operator with a suitable migration policy
-- Ensuring sufficient CPU and memory are available on the destination node
+- Verifying sufficient CPU and memory are available on the destination node
 
 ### Virtualization-specific compared to generic RBD StorageClass
 {: #storageclass-comparison}
@@ -450,37 +450,46 @@ Generic RBD StorageClasses remain suitable for container workloads, but virtuali
 ## Separate worker pools for compute and storage
 {: #separate-compute-storage}
 
-To implement separate worker pools for compute and storage on ROKS, first plan your cluster architecture with dedicated worker pools—create a storage worker pool using storage-optimized profiles for ODF, then create one or more compute worker pools using balanced or compute-optimized profiles for application workloads; when installing the ODF add-on, specify the storage worker pool which will automatically apply taints to prevent non-storage pods or virtual machines from scheduling on those nodes from storage worker pool.
+To implement separate worker pools for compute and storage on ROKS, first plan your cluster architecture with dedicated worker pools. Create a storage worker pool that uses storage-optimized profiles for ODF. Then, create one or more compute worker pools that use balanced or compute-optimized profiles for application workloads.
 
-1. Create a Dedicated Storage Worker Pool
-  - In IBM Cloud, create a new worker pool intended for storage nodes
-  - Select bare-metal profile optimized for storage (local disks or high I/O profiles)
-  - Add the required number of worker nodes based on capacity and resiliency needs
+When you install the ODF add-on, specify the storage worker pool, which automatically applies taints to prevent nonstorage pods or virtual machines from scheduling on those nodes from storage worker pool.
 
-2. Apply Taints to Storage Nodes
-  - When install ODF add-on on your ROKS cluster from IBM cloud, navigate to the Capacity and worker nodes section
-  - Specify the name of the designated storage worker pool in the Worker pools field
-  - Enable the Taint nodes option
-  
-  Upon completion of ODF add-on installation, the taint `node.ocs.openshift.io/storage=true:NoSchedule` is automatically applied to all nodes in the selected worker pool.
+1. Create a dedicated storage worker pool:
 
-  Note: If the Taint nodes option was not selected during ODF installation, taints can be applied manually to the storage nodes afterward using the oc adm taint command in OpenShift.
-  ```
-  oc get node -l ibm-cloud.kubernetes.io/worker-pool-name=<your storage workerpool name> -o=name  | \
-  xargs -I {} oc adm taint nodes {} node.ocs.openshift.io/storage=true:NoSchedule
-  ```
+   - Create a new worker pool intended for storage nodes in {{site.data.keyword.cloud_notm}}.
+   - Select a bare-metal profile optimized for storage (local disks or high I/O profiles).
+   - Add the required number of worker nodes based on capacity and resiliency needs.
 
-3. verify that the node has tainted successfully:
-  - Go to Compute -> Nodes on Openshift
-  - Select the node to verify its status, and then click on the YAML tab
-  - In the specs section check the values of the following parameters:
+2. Apply taints to storage nodes:
 
-  ```
-  Taints:
-    Key: node.ocs.openshift.io/storage
-    Value: 'true'
-    Effect: Noschedule
-  ```
+   - When you install the ODF add-on on your ROKS cluster from {{site.data.keyword.cloud_notm}}, navigate to the **Capacity and worker Nodes** section.
+   - Specify the **Name** of the designated storage worker pool in the **worker Pools** field.
+   - Enable the **Taint Nodes** option.
+
+    Upon completion of ODF add-on installation, the taint `node.ocs.openshift.io/storage=true:NoSchedule` is automatically applied to all nodes in the selected worker pool.
+
+    If the **Taint Nodes** option was not selected during ODF installation, you can apply taints manually to the storage nodes afterward by using the `oc adm taint` command in {{site.data.keyword.redhat_openshift_notm}}.
+    {: note}
+
+    ```sh
+    oc get node -l ibm-cloud.kubernetes.io/worker-pool-name=<your storage workerpool  name> -o=name  | \
+    xargs -I {} oc adm taint nodes {} node.ocs.openshift.io/storage=true:NoSchedule
+    ```
+   {: pre}
+
+3. Verify that the node is successfully tainted:
+
+   - Go to **Compute > Nodes** on {{site.data.keyword.redhat_openshift_notm}}.
+   - Select the **Node** to verify the status, and then click the **YAML** tab.
+   - In the **Specs** section, check the values of the following parameters:
+
+      ```sh
+      Taints:
+        Key: node.ocs.openshift.io/storage
+        Value: 'true'
+        Effect: Noschedule
+      ```
+    {: pre}
 
 ## Advanced configuration
 {: #advanced-configuration}
@@ -737,7 +746,7 @@ VolumeSnapshots are copy-on-write and near-instant to create. You can use them t
 
 When you take a snapshot of a running virtual server, the data on disk must be in a consistent state. Without quiescing, the snapshot captures whatever is on disk at that instant, including partially written transactions, dirty buffers, and in-flight I/O. This process produces a crash-consistent snapshot, which might require application-level recovery on restore.
 
-To achieve application-consistent snapshots, freeze the guest file system before the snapshot and thaw it afterward. {{site.data.keyword.redhat_openshift_notm}} Virtualization automates this process using the QEMU guest agent.
+To achieve application-consistent snapshots, freeze the guest file system before the snapshot and thaw it afterward. {{site.data.keyword.redhat_openshift_notm}} Virtualization automates this process by using the QEMU guest agent.
 
 The snapshot controller detects the QEMU guest agent. Before taking the snapshot, it issues a `guest-fsfreeze-freeze` command that halts all file systems I/O. The VolumeSnapshot is taken while the file system is frozen. After the snapshot completes, a `guest-fsfreeze-thaw` command resumes I/O.
 
@@ -960,6 +969,12 @@ For more information, see [Updating ODF on VPC clusters](/docs/openshift?topic=o
 ### Expanding ODF Storage on ROKS
 {: #expanding-odf}
 
+Accordingly, as your workloads grow and storage demands increase, it becomes essential to scale your storage infrastructure. Expansion in ODF is a key Day 2 operation that enables you to increase storage capacity, improve performance, and maintain resilience without disrupting running applications.
+
+In {{site.data.keyword.cloud_notm}} ROKS environments, expansion typically involves extending the storage worker pool. This operation is performed with minimal downtime, enabling seamless growth of your storage cluster.
+
+1. Expand a worker node by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). For production in which a storage cluster is configured with worker nodes across 3 racks, add worker nodes in a count of multiples of 3 to keep the balance of replication, for example 3, 6, or 9.
+
 Accordingly, as workloads grow and storage demands increase, scale your storage infrastructure. Expansion in ODF is a key Day-2 operation that increases storage capacity, improves performance, and maintains resilience without disrupting running applications.
 
 In {{site.data.keyword.cloud_notm}} ROKS environments, expansion typically involves extending the storage worker pool. This operation runs with minimal downtime and enables seamless growth of your storage cluster.
@@ -968,23 +983,23 @@ In {{site.data.keyword.cloud_notm}} ROKS environments, expansion typically invol
 
 2. If ODF runs on all of the worker nodes in your cluster, new worker nodes are added to the ODF storage cluster topology automatically. If ODF runs on only a subset of worker nodes, specify the private `<workerNodes>` parameters in your OcsCluster custom resource. Add the names of the new worker nodes to your ODF deployment by editing the custom resource definition. Modify OcsCluster custom resource as follows:
 
-   - Find ocscluster
+      - Find ocscluster
 
-      ```sh
-          oc get ocscluster
-      ```
-      {: pre}
+        ```bash
+        oc get ocscluster
+        ```
 
-   - Edit ocscluster custom resource file and add new work nodes:
+      - Edit ocscluster custom resource file and add new work nodes
 
-      ```sh
-          oc edit ocscluster <ocs cluster name> -o yaml
-      ```
-      {: pre}
+        ```bash
+        oc edit ocscluster <ocs cluster name> -o yaml
+        ```
 
-   - Save the OcsCluster custom resource file to reapply it to your cluster.
+      - Save the OcsCluster custom resource file to reapply it to your cluster.
 
-3. Increase the `numOfOsd` value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes, and provision additional OSDs in the storage cluster. The adjustment to `numOfOsd` depends on the number of OSD disks per node and the number of nodes added. For example, if each node has 8 NVMe disks that are dedicated to OSDs, adding nodes increases `numOfOsd` proportionally. Also, adding 3 nodes increases `numOfOsd` by 8, while adding 6 nodes increases it by 16.
+3. Increase the 'numOfOsd' value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster.
+The adjustment to 'numOfOsd' depends on both the number of OSD disks per node and the number of nodes added. For example, if each node has 8 NVMe disks that are dedicated to OSDs, adding 3 nodes increases 'numOfOsd' by 8, while adding 6 nodes increases it by 16.
+{: note}
 
 4. Verify the result by running the followwing command:
 
@@ -1000,7 +1015,7 @@ For more information, see [Expanding ODF by adding worker nodes to your VPC clus
 ## Summary and best practices
 {: #summary-and-best-practices}
 
-- Use `ocs-storagecluster-ceph-rbd-virtualization` for most OpenShift Virtualization deployments.
+- Use `ocs-storagecluster-ceph-rbd-virtualization` for most {{site.data.keyword.redhat_openshift_notm}} Virtualization deployments.
 - Create a custom StorageClass only when specific requirements exist.
 - When creating custom CephBlockPools, always set `targetSizeRatio` (for example, `0.1`) and include all required `imageFeatures` (especially `exclusive-lock`) in the StorageClass.
 - Erasure-coded pools for RBD are a developer preview feature (ODF 4.20+) and are not supported for production use. Use replicated pools (rep2 or rep3) for all production VM storage.
