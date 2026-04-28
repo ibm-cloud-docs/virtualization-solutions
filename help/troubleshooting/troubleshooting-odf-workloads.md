@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2026, 2026
-lastupdated: "2026-03-27"
+  years: 2026
+lastupdated: "2026-04-28"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, ODF, RBD
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
 
 subcollection: virtualization-solutions
 
@@ -23,7 +23,7 @@ When working with Red Hat OpenShift Data Foundation (ODF) storage from local NVM
 ## Verification and recovery of missing NVMe disks
 {: #verification-and-recovery-of-missing-nvme-disks}
 
-Due to a known issue on ROKS bare metal nodes, some NVMe drives might not mount correctly after cluster provisioning. This procedure verifies disk visibility and recovers missing drives.
+Due to a known issue on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service bare metal nodes, some NVMe drives might not mount correctly after cluster provisioning. This procedure verifies disk visibility and recovers missing drives.
 
 This procedure removes and rescans PCI devices to temporarily take devices offline. Do not perform these steps on devices that are actively serving I/O to ODF or other workloads. Perform this procedure only during initial cluster setup or a planned maintenance window.
 {: warning}

@@ -1,9 +1,9 @@
 ---
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-28"
 
-keywords: ROKS, VPC, subnets
+keywords: Red Hat OpenShift Kubernetes Service, VPC, subnets
 
 subcollection: virtualization-solutions
 

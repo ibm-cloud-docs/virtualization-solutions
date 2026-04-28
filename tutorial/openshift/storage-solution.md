@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-04-24"
+lastupdated: "2026-04-28"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, ODF, RBD
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
 
 subcollection: virtualization-solutions
 
@@ -18,7 +18,7 @@ completion-time: 60m
 # Red Hat OpenShift Data Foundation (ODF) for virtual server workloads
 {: #odf-for-vm-workloads}
 
-Red Hat OpenShift Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} (ROKS). It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
+{{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 
 ## Key benefits
 {: #key-benefits}
@@ -26,7 +26,7 @@ Red Hat OpenShift Data Foundation (ODF) is the validated and supported storage s
 - High performance for virtual machines: Optimized block storage is designed for virtual server boot and data disks that reduce latency and delivers high IOPS.
 - Built for {{site.data.keyword.redhat_openshift_notm}} Virtualization: Native integration with {{site.data.keyword.redhat_openshift_notm}} and KubeVirt thatupports snapshots, cloning, live migration, backup/restore, and works seamlessly with the Containerized Data Importer (CDI).
 - High resilience and availability: Distributed storage with data replication across worker nodes, automatic recovery from disk or node failures, and no single point of failure for storage.
-- Optimized for ROKS bare metal infrastructure: Aggregates local NVMe and SSD disks into a shared storage pool, which eliminates reliance on external network storage.
+- Optimized for {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service bare metal infrastructure: Aggregates local NVMe and SSD disks into a shared storage pool, which eliminates reliance on external network storage.
 - Fully supported and lifecycle-managed: Installed and upgraded through {{site.data.keyword.redhat_openshift_notm}} Operators with integrated monitoring and alerting. Jointly validated and supported by {{site.data.keyword.IBM}} and Red Hat&reg;.
 - Unified storage for virtual servers and containers: ODF provides consistent storage across these workloads on a single platform.
 
@@ -44,7 +44,7 @@ ODF provides four types of storage from the same platform:
 
 In ODF, NFS is backed by CephFS and exposed through a Ceph NFS Ganesha gateway. The gateway is managed through a CephNFS custom resource in Rook. It is not a distinct storage backend. It provides access to CephFS over the NFS protocol. The primary use case is to provide NFS access to clients outside the {{site.data.keyword.redhat_openshift_notm}} cluster, or to workloads that require NFS. NFS is not used for virtual server disks because virtual servers use block storage (RBD).
 
-On IBM ROKS, ODF typically uses local disks on worker nodes to create a high-performance and resilient storage cluster inside {{site.data.keyword.redhat_openshift_notm}}.
+On IBM {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, ODF typically uses local disks on worker nodes to create a high-performance and resilient storage cluster inside {{site.data.keyword.redhat_openshift_notm}}.
 
 ## Understanding data protection
 {: #understanding-data-protection}
@@ -85,7 +85,7 @@ The time that is between losing the second copy and completing rereplication is 
 
 For rep2 pools, the progression is more aggressive. If 1 copy is lost, only 1 copy remains. With `min_size=2` (default), I/O is immediately blocked on affected PGs until the missing OSD returns or a new copy is replicated. With `min_size=1`, I/O continues on the single remaining copy, but a second failure results in permanent data loss.
 
-The ROKS ODF add-on automatically creates only rep3 pools with `ocs-storagecluster-cephblockpool`. Rep2 pools are not created by the add-on. You must manually create a custom CephBlockPool with `replicated.size: 2` and a corresponding StorageClass. For more information, see [Creating a custom StorageClass for virtualization](#creating-a-custom-storageclass-for-virtualization).
+The {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service ODF add-on automatically creates only rep3 pools with `ocs-storagecluster-cephblockpool`. Rep2 pools are not created by the add-on. You must manually create a custom CephBlockPool with `replicated.size: 2` and a corresponding StorageClass. For more information, see [Creating a custom StorageClass for virtualization](#creating-a-custom-storageclass-for-virtualization).
 
 Because rep2 offers less fault tolerance than rep3, evaluate whether the storage savings justify the increased risk for your workload.
 {: note}
@@ -124,7 +124,7 @@ The following lists show the key considerations for erasure coding.
 ### Single replica pool (Nonresilient for dev and test only)
 {: #single-replica-pool}
 
-Starting with ODF add-on version 4.14, ROKS supports a single replica (rep1) pool through the `addSingleReplicaPool` parameter. This parameter creates a Ceph nonresilient block pool with no data replication with each block of data is stored one time.
+Starting with ODF add-on version 4.14, {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service supports a single replica (rep1) pool through the `addSingleReplicaPool` parameter. This parameter creates a Ceph nonresilient block pool with no data replication with each block of data is stored one time.
 
 To enable the single replica pool when you deploy ODF, use the following command
 
@@ -218,7 +218,7 @@ oc exec -n openshift-storage $(oc get pods -n openshift-storage -l app=rook-ceph
 ### Worker node count and rack topology
 {: #number-of-worker-nodes}
 
-ROKS deploys ODF by using a Ceph rack-aware topology by default. ROKS assigns worker nodes to racks in a pattern across 3 racks (`rack0`, `rack1`, `rack2`). For optimal availability, performance, and data safety, see the following tips.
+{{site.data.keyword.redhat_openshift_notm}} Kubernetes Service deploys ODF by using a Ceph rack-aware topology by default. {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service assigns worker nodes to racks in a pattern across 3 racks (`rack0`, `rack1`, `rack2`). For optimal availability, performance, and data safety, see the following tips.
 
 - Use 3, 6, or 9 nodes for the ODF storage cluster.
 - These counts keep the topology balanced. Each rack receives the same number of nodes.
@@ -289,16 +289,16 @@ ODF supports deduplication only for object storage through the Multicloud Object
 
 For more information, see [ODF Essentials versus Advanced](/docs/openshift?topic=openshift-ocs-storage-prep&interface=cli#odf-essentials-vs-advanced).
 
-## Set up ODF on ROKS
+## Set up ODF on Red Hat OpenShift Kubernetes Service
 {: #set-up-odf-storage}
 
-{{site.data.keyword.redhat_openshift_notm}} Virtualization on ROKS VPC clusters currently supports only bare metal worker nodes. Virtualized worker nodes are not supported for ODF storage clusters.
+{{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service VPC clusters currently supports only bare metal worker nodes. Virtualized worker nodes are not supported for ODF storage clusters.
 
-Ensure that your ROKS cluster includes at least one worker pool that uses bare metal servers that are running on Red Hat CoreOS. {{site.data.keyword.redhat_openshift_notm}}. Version 4.17 or higher is required for {{site.data.keyword.redhat_openshift_notm}} Virtualization. Supported bare metal options include `bx2d.metal.96x384`, `cx2d.metal.96x192`, and `mx2d.metal.96x768`.
+Ensure that your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster includes at least one worker pool that uses bare metal servers that are running on Red Hat CoreOS. {{site.data.keyword.redhat_openshift_notm}}. Version 4.17 or higher is required for {{site.data.keyword.redhat_openshift_notm}} Virtualization. Supported bare metal options include `bx2d.metal.96x384`, `cx2d.metal.96x192`, and `mx2d.metal.96x768`.
 
 Deploy the ODF storage cluster on these bare metal nodes to use local NVMe disks and deliver high-performance block storage to virtual machines.
 
-For instructions on deploying ODF on a VPC-based ROKS cluster, see [Deploying {{site.data.keyword.redhat_openshift_notm}} Data Foundation on VPC clusters](/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui).
+For instructions on deploying ODF on a VPC-based {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster, see [Deploying {{site.data.keyword.redhat_openshift_notm}} Data Foundation on VPC clusters](/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui).
 
 ### Storage type
 {: #storage-type}
@@ -313,7 +313,7 @@ For instructions on deploying ODF on a VPC-based ROKS cluster, see [Deploying {{
 ODF provides three resource allocation profiles that control the CPU and memory that is reserved for Ceph daemons.
 
 - Lean: Minimum resource allocation. The Lean profile is suitable for resource-constrained environments, testing, development, and proofs of concept. Lean is not recommended for production virtualization workloads.
-- Balanced: The default profile on ROKS. The Balanced profile provides a balance between resource consumption and performance for general-purpose workloads.
+- Balanced: The default profile on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. The Balanced profile provides a balance between resource consumption and performance for general-purpose workloads.
 - Performance: Allocates more CPU and memory to Ceph daemons that reduce the risk of daemon-side bottlenecks. Best for high IOPS workloads, large numbers of virtual servers, and demanding applications.
 
 The resource requirements that are shown in the **{{site.data.keyword.redhat_openshift_notm}} web console** during ODF installation are dynamically computed based on the cluster OSD count. Therefore, clusters with more NVMe drives require proportionally more resources. The values are not fixed. Always verify the requirements displayed in the console for your specific cluster configuration.
@@ -380,7 +380,7 @@ Use the following information to run virtual servers on ODF.
 ### Prerequisites: Install the {{site.data.keyword.redhat_openshift_notm}} virtualization operator
 {: #prerequisites-for-odf}
 
-Before you use {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your {{site.data.keyword.openshiftlong_notm}} (ROKS) cluster.
+Before you use {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster.
 
 The {{site.data.keyword.redhat_openshift_notm}} virtualization operator enables Kubernetes-native virtual server management. It also provides the required controllers, CRDs, and integrations with storage and networking components.
 
@@ -395,7 +395,7 @@ You must specify the appropriate StorageClass for the following situations:
 
 - Virtual servers are created
 - Virtual servers are imported or cloned
-- Virtual servers are migrated to a ROKS cluster
+- Virtual servers are migrated to a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster
 
 ### Default virtualization StorageClass
 {: #default-virtualization-storageclass}
@@ -450,7 +450,7 @@ Generic RBD StorageClasses remain suitable for container workloads, but virtuali
 ## Separate worker pools for compute and storage
 {: #separate-compute-storage}
 
-To implement separate worker pools for compute and storage on ROKS, first plan your cluster architecture with dedicated worker pools. Create a storage worker pool that uses storage-optimized profiles for ODF. Then, create one or more compute worker pools that use balanced or compute-optimized profiles for application workloads.
+To implement separate worker pools for compute and storage on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, first plan your cluster architecture with dedicated worker pools. Create a storage worker pool that uses storage-optimized profiles for ODF. Then, create one or more compute worker pools that use balanced or compute-optimized profiles for application workloads.
 
 When you install the ODF add-on, specify the storage worker pool, which automatically applies taints to prevent nonstorage pods or virtual machines from scheduling on those nodes from storage worker pool.
 
@@ -462,7 +462,7 @@ When you install the ODF add-on, specify the storage worker pool, which automati
 
 2. Apply taints to storage nodes:
 
-   - When you install the ODF add-on on your ROKS cluster from {{site.data.keyword.cloud_notm}}, navigate to the **Capacity and worker Nodes** section.
+   - When you install the ODF add-on on your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster from {{site.data.keyword.cloud_notm}}, navigate to the **Capacity and worker Nodes** section.
    - Specify the **Name** of the designated storage worker pool in the **worker Pools** field.
    - Enable the **Taint Nodes** option.
 
@@ -535,7 +535,7 @@ When you create a custom StorageClass for virtualization workloads, verify that 
           name: my-custom-pool
           namespace: openshift-storage
         spec:
-        failureDomain: rack          # ROKS default — data copies spread across racks
+        failureDomain: rack          # Red Hat OpenShift Kubernetes Service default — data copies spread across racks
         deviceClass: ssd             # Match OSD device class
         enableCrushUpdates: true     # Keep CRUSH rules current on topology changes
         enableRBDStats: true         # Enable per-volume I/O monitoring
@@ -702,7 +702,7 @@ ODF supports data-at-rest encryption at multiple layers that you can enable inde
 - ODF cluster-wide encryption: All Ceph OSD disks are encrypted with dm-crypt at the device level. Enabled through `encryption.clusterWide: true` on the storage cluster CR. Protects against physical disk theft.
 - ODF per-volume encryption: Individual RBD volumes are encrypted with LUKS2, each with its own data encryption key. Provides tenant isolation and granular key management.
 
-On ROKS, ODF integrates with {{site.data.keyword.IBM_notm}} Key Protect as the external key management service for both cluster-wide and per-volume encryption. When per-volume encryption is enabled, ODF automatically creates `-encrypted` StorageClass variants (for example, `ocs-storagecluster-ceph-rbd-encrypted`).
+On {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, ODF integrates with {{site.data.keyword.IBM_notm}} Key Protect as the external key management service for both cluster-wide and per-volume encryption. When per-volume encryption is enabled, ODF automatically creates `-encrypted` StorageClass variants (for example, `ocs-storagecluster-ceph-rbd-encrypted`).
 
 #### Limitation
 {: #odf-encryption-limitation}
@@ -832,7 +832,7 @@ If your current VMware environment relies on CBT-based incremental backups, cons
 ## Day-2 operations
 {: #day-2-operations}
 
-After you deploy ODF on {{site.data.keyword.cloud_notm}} ROKS, focus on Day-2 operations. These operations include ongoing management, monitoring, and maintenance tasks that keep your storage infrastructure healthy, performant, up-to-date, and adaptable to changing workload demands. The guide focuses on the following three critical aspects of Day-2 operations:
+After you deploy ODF on {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, focus on Day-2 operations. These operations include ongoing management, monitoring, and maintenance tasks that keep your storage infrastructure healthy, performant, up-to-date, and adaptable to changing workload demands. The guide focuses on the following three critical aspects of Day-2 operations:
 
 - Monitoring
 - Upgrading
@@ -936,14 +936,14 @@ ODF integrates with the **{{site.data.keyword.redhat_openshift_notm}} web consol
 - Observe > Alerting shows automated alerts on Ceph health warnings (for example, `CephClusterNearFull`, `CephOSDDown`, `CephPGNotScrubbed`).
 - Observe > Metrics for Prometheus-based queries on Ceph metrics (for example, `ceph_osd_op_r_latency`, `ceph_osd_op_w_latency`).
 
-### Upgrading ODF on ROKS
+### Upgrading ODF on Red Hat OpenShift Kubernetes Service
 {: #upgrading-odf}
 
 The {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) addon automatically applies z-stream updates within the same minor release. These updates are managed through {{site.data.keyword.cloud_notm}}.
 
 However, major and minor version upgrades (for example, 4.18 → 4.19) are not automatic. Follow the manual upgrade procedure to ensure data safety and cluster stability.
 
-Updating ODF on a ROKS cluster consists of two main phases, both of which are required for a successful upgrade.
+Updating ODF on a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster consists of two main phases, both of which are required for a successful upgrade.
 
 1. Upgrade or replace ODF worker nodes.
 
@@ -966,18 +966,18 @@ Updating ODF on a ROKS cluster consists of two main phases, both of which are re
 
 For more information, see [Updating ODF on VPC clusters](/docs/openshift?topic=openshift-openshift-storage-update-vpc).
 
-### Expanding ODF Storage on ROKS
+### Expanding ODF Storage on Red Hat OpenShift Kubernetes Service
 {: #expanding-odf}
 
 Accordingly, as your workloads grow and storage demands increase, it becomes essential to scale your storage infrastructure. Expansion in ODF is a key Day 2 operation that enables you to increase storage capacity, improve performance, and maintain resilience without disrupting running applications.
 
-In {{site.data.keyword.cloud_notm}} ROKS environments, expansion typically involves extending the storage worker pool. This operation is performed with minimal downtime, enabling seamless growth of your storage cluster.
+In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments, expansion typically involves extending the storage worker pool. This operation is performed with minimal downtime, enabling seamless growth of your storage cluster.
 
 1. Expand a worker node by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). For production in which a storage cluster is configured with worker nodes across 3 racks, add worker nodes in a count of multiples of 3 to keep the balance of replication, for example 3, 6, or 9.
 
 Accordingly, as workloads grow and storage demands increase, scale your storage infrastructure. Expansion in ODF is a key Day-2 operation that increases storage capacity, improves performance, and maintains resilience without disrupting running applications.
 
-In {{site.data.keyword.cloud_notm}} ROKS environments, expansion typically involves extending the storage worker pool. This operation runs with minimal downtime and enables seamless growth of your storage cluster.
+In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments, expansion typically involves extending the storage worker pool. This operation runs with minimal downtime and enables seamless growth of your storage cluster.
 
 1. Expand worker nodes by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). In production environments where the storage cluster is configured with worker nodes across 3 racks, add worker nodes in multiples of 3 to maintain replication balance, for example, 3, 6, or 9.
 

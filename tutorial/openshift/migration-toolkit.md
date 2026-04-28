@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-28"
 
-keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, MTV, Migration
+keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, MTV, Migration
 
 subcollection: virtualization-solutions
 

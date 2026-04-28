@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-28"
 
-keywords: virtual servers, ROKS, ROVE, VSI, virtualization
+keywords: virtual servers, Red Hat OpenShift Kubernetes Service, ROVE, VSI, virtualization
 
 subcollection: virtualization-solutions
 

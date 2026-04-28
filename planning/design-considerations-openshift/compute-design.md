@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-07"
+lastupdated: "2026-04-28"
 
-keywords: ROKS, red hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
+keywords: Red Hat OpenShift Kubernetes Service, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
 subcollection: virtualization-solutions
 
@@ -30,7 +30,7 @@ The key compute architecture elements are shown in the following diagram.
 ## Red Hat OpenShift worker nodes
 {: #virt-sol-openshift-compute-design-workers}
 
-{{site.data.keyword.openshiftshort}} (ROKS) is a managed Kubernetes service that uses Red Hat OpenShift clusters where you can deploy and manage virtualized and containerized applications. A ROKS cluster has a managed control plane and one or more worker pools. A worker pool consists of two or more compute hosts that are called worker nodes. Worker pools contain worker nodes of the same profile of CPU, memory, operating system, attached storage, and other properties. The worker nodes are managed by the Kubernetes control plane, which controls and monitors all Kubernetes resources that are in the cluster. The Kubernetes scheduler decides which worker node to deploy resources on and accounts for deployment requirements and available capacity in the cluster.
+{{site.data.keyword.redhat_openshift_full}} Kubernetes Service is a managed service that uses {{site.data.keyword.redhat_openshift_notm}} clusters where you can deploy and manage virtualized and containerized applications. A {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster has a managed control plane and one or more worker pools. A worker pool consists of two or more compute hosts that are called worker nodes. Worker pools contain worker nodes of the same profile of CPU, memory, operating system, attached storage, and other properties. The worker nodes are managed by the Kubernetes control plane, which controls and monitors all Kubernetes resources that are in the cluster. The Kubernetes scheduler decides which worker node to deploy resources on and accounts for deployment requirements and available capacity in the cluster.
 
 After a cluster is created, you can add more worker nodes to a pool by resizing it or by adding extra worker pools. Clusters that have a worker pool in only one zone are called single zone clusters. For high availability, you can create multizone clusters with worker pools that span multiple availability zones. You can create multizone clusters, but they are not recommended for virtualization workloads because of storage latency.
 
@@ -57,7 +57,7 @@ The following table lists the key features for IBM Cloud Virtual Servers for VPC
 | Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
 {: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
 
-For more information about virtual server instance profiles that are supported by ROKS, see [IBM Cloud Docs - Worker Nodes VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
+For more information about virtual server instance profiles that are supported by {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, see [IBM Cloud Docs - Worker Nodes VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
 
 ## IBM Cloud Bare Metal Servers for VPC
 {: #virt-sol-openshift-compute-design-bms}
@@ -75,7 +75,7 @@ The following table lists the key features for IBM Cloud Bare Metal Servers for 
 | Network performance | High-bandwidth, low-latency networking for VM traffic |
 {: caption="IBM Cloud Bare Metal Servers for VPC key features" caption-side="bottom"}
 
-Bare Metal worker nodes that are supported by ROKS varies by region and Availability Zone. For more information, see [worker node VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
+Bare Metal worker nodes that are supported by {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service varies by region and Availability Zone. For more information, see [worker node VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
 
 The following table shows the typical specifications for a bare metal profile.
 

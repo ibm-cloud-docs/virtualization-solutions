@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-28"
 
-keywords: ROKS, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
+keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
 subcollection: virtualization-solutions
 
@@ -26,9 +26,9 @@ The key storage architecture elements are shown in the following diagram.
 ## Storage options
 {: #virt-sol-storage-options}
 
-OpenShift Virtualization utilizes Kubernetes PersistentVolumes (PVs) and PersistentVolumeClaims (PVCs) to manage storage for virtual machines. It supports multiple storage backends, including block storage, file storage, and local storage.
+{{site.data.keyword.redhat_openshift_full}} Virtualization utilizes Kubernetes PersistentVolumes (PVs) and PersistentVolumeClaims (PVCs) to manage storage for virtual machines. It supports multiple storage backends, including block storage, file storage, and local storage.
 
-Red Hat OpenShift on IBM Cloud offers integrated add-ons for block and file storage by leveraging IBM Cloud resources. These include support for bare metal, file storage, and block storage solutions, enabling flexible and scalable storage options for virtualized workloads. The available storage add-ons are listed below.
+{{site.data.keyword.redhat_openshift_notm}} on IBM Cloud offers integrated add-ons for block and file storage by leveraging IBM Cloud resources. These include support for bare metal, file storage, and block storage solutions, enabling flexible and scalable storage options for virtualized workloads. The available storage add-ons are listed below.
 
 ### OpenShift Data Foundation (ODF)
 {: #virt-sol-storage-odf-summary}
@@ -46,7 +46,7 @@ For more details of ODF, refer to [Understanding OpenShift Data Foundation](/doc
 
 IBM Cloud Object Storage can be used with backup solutions, or other Object Storage related use cases. COS allows backup data to be stored outside of the ODF cluster in case a disaster occurs.
 
-IBM Cloud Object Storage is a fully managed IBM Cloud service, while object storage built in the ODF clusters is self-managed on ROKS managed worker nodes. Depending on the use case, there might be a use case for either, or even both of these.
+IBM Cloud Object Storage is a fully managed IBM Cloud service, while object storage built in the ODF clusters is self-managed on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service managed worker nodes. Depending on the use case, there might be a use case for either, or even both of these.
 
 ### File Storage for VPC
 {: #virt-sol-storage-file-summary}
@@ -67,7 +67,7 @@ Regional file share classes can be a better choice for workloads that prioritize
 
 See [About File Storage for VPC](/docs/vpc?topic=vpc-file-storage-vpc-about) for the details.
 
-For NFS based file share needs for your workloads, you can also use the NFS storage built in the ODF clusters. The key differences here are that File Storage for VPC is a fully managed IBM Cloud service, while NFS storage built in the ODF clusters is self-managed on ROKS managed worker nodes. Also the IOPS and size settings are independent of your clusters. Depending on the use case, there might be a use case for either, or even both of these.
+For NFS based file share needs for your workloads, you can also use the NFS storage built in the ODF clusters. The key differences here are that File Storage for VPC is a fully managed IBM Cloud service, while NFS storage built in the ODF clusters is self-managed on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service managed worker nodes. Also the IOPS and size settings are independent of your clusters. Depending on the use case, there might be a use case for either, or even both of these.
 
 For OpenShift Virtualization workloads, keep the following considerations in mind:
 - Snapshots are not supported.
@@ -75,7 +75,7 @@ For OpenShift Virtualization workloads, keep the following considerations in min
 - A PVC can be mounted as a volume in multiple pods or VMs; however, it cannot be shared across multiple VM deployments.
 - For VMs deployment, one VM disk equals one PVC, which means one NFS share per VM disk.
 
-Deploy the File storage shares for VPC add-on on your ROKS cluster by following the instructions in the IBM Cloud documentation [Enabling the IBM Cloud File Storage for VPC cluster add-on](/docs/openshift?topic=openshift-storage-file-vpc-install).
+Deploy the File storage shares for VPC add-on on your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster by following the instructions in the IBM Cloud documentation [Enabling the IBM Cloud File Storage for VPC cluster add-on](/docs/openshift?topic=openshift-storage-file-vpc-install).
 
 The add-on automatically installs the PersistentVolume provisioner `vpc.file.csi.ibm.io` and creates a set of StorageClasses named `ibmc-vpc-file-*`, each offering different IOPS tiers as well as varying reclaim and binding policies. For the full list of available StorageClasses and detailed explanations of their parameters, refer to [Storage class reference](/docs/openshift?topic=openshift-storage-file-vpc-sc-ref).
 
@@ -100,7 +100,7 @@ The ODF add-on supports multiple layers of encryption, including:
 - In-transit encryption: Secures data as it moves between nodes, pods, and clients.
 - Storage volume encryption: Provides encryption at the level of individual PersistentVolumes or storage volumes.
 
-For instructions on setting up storage volume encryption in ROKS, refer to [Setting up encryption by using Hyper Protect Crypto Services](https://cloud.ibm.com/docs/openshift?topic=openshift-deploy-odf-classic&interface=ui#odf-create-hscrypto-classic).
+For instructions on setting up storage volume encryption in {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, refer to [Setting up encryption by using Hyper Protect Crypto Services](https://cloud.ibm.com/docs/openshift?topic=openshift-deploy-odf-classic&interface=ui#odf-create-hscrypto-classic).
 
 ## Next steps
 {: #virt-sol-storage-design-next-steps}

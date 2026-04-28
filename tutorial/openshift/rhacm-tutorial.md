@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2026, 2026
-lastupdated: "2026-04-15"
+  years: 2026
+lastupdated: "2026-04-28"
 
-keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
+keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
 subcollection: virtualization-solutions
 
@@ -34,8 +34,8 @@ compliance: HIPPA
 Learn how to implement comprehensive observability for {{site.data.keyword.redhat_openshift_full}} Virtualization environments, including monitoring, logging, alerting, and metrics collection by using Red Hat Advanced Cluster Management (ACM).
 {: shortdesc}
 
-## Introduction to {{site.data.keyword.redhat_openshift_notm}} Virtualization
-{: #roks-virt-observ-intro}
+## Introduction to Red Hat Openshift Virtualization
+{: #openshift-virt-observ-intro}
 
 With Red Hat Advanced Cluster Management (RHACM), you can manage and control multiple clusters under one {{site.data.keyword.redhat_openshift_notm}} instance. RHACM provides capabilities such as remote clustering, workloads across nodes and regions, disaster recovery, and more. Each managed cluster reports back to the designated hub cluster. Often, this configuration means that the hub cluster contains the control-plane nodes, while the managed clusters consist of worker nodes. A Klusterlet is installed on each managed cluster and controls communication with the hub cluster. The term "local cluster" refers to a hub cluster that also acts as a managed cluster.
 
@@ -65,7 +65,7 @@ The RHACM observability feature is available after you install the RHACM operato
 For more information, see [RHACM Observability architecture](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#observing-environments-intro_observability){: external}.
 
 ## Installing Red Hat Advanced Cluster Management
-{: #roks-virt-observ-installing}
+{: #openshift-virt-observ-installing}
 
 To install Red Hat Advanced Cluster Management on an Red Hat OpenShift Container Platform instance, use the following steps.
 
@@ -114,13 +114,13 @@ Create service credentials with HMAC keys for the Cloud Object Storage instance.
 {: note}
 
 ## Setting up and configuring Red Hat Advanced Cluster Management Observability
-{: #roks-virt-observ-setup-config}
+{: #openshift-virt-observ-setup-config}
 {: step}
 
 Use the following information to set up and configure Red Hat Advanced Cluster Management Observability.
 
 ### Metrics and dashboards
-{: #roks-virt-observ-setup-config-metrics-dashboards}
+{: #openshift-virt-observ-setup-config-metrics-dashboards}
 {: step}
 
 ACM provides a set of preconfigured dashboards that monitor virtual server-specific metrics. For example, in the **ACM/OpenShift Virtualization dashboards** folder, the **Executive dashboards and single virtual machine view dashboard** displays CPU, Memory, Network (Transmit and Receive, Packets Dropped), Storage (IOPS/Traffic). It also displays the file system usage for each virtual server.
@@ -160,7 +160,7 @@ The dashboard provides the following information:
 - Memory savings: Estimated memory savings if the recommended memory allocation is applied
 
 ### System alerts overview
-{: #roks-virt-observ-setup-config-alerting-overview}
+{: #openshift-virt-observ-setup-config-alerting-overview}
 {: step}
 
 **Default system alerts** are managed by {{site.data.keyword.redhat_openshift_notm}} built-in monitoring stack at the platform-level.
@@ -370,7 +370,7 @@ Make sure that the `alert_type` matches the value that is defined in the **confi
         - name: 'slack-vm-not-running'
           slack_configs:
             # slack channel name, do NOT miss "#" before you type the channel name
-            - channel: '#roks-virt-observability-alerts'   # <-- adjust to your Slack channel
+            - channel: '#openshift-virt-observability-alerts'   # <-- adjust to your Slack channel
               title: '🚨 VM NOT RUNNING ALERT'
               text: |
                 *Alert:* {{ .CommonLabels.alertname }}
