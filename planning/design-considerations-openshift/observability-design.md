@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-28"
 
-keywords: ROKS, RHACM, IBM Cloud Logs, IBM Cloud Monitoring, Workload Protection
+keywords: Red Hat OpenShift Kubernetes Service, RHACM, IBM Cloud Logs, IBM Cloud Monitoring, Workload Protection
 
 subcollection: virtualization-solutions
 

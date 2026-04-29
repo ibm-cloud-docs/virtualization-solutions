@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2026, 2026
-lastupdated: "2026-04-08"
+  years: 2026
+lastupdated: "2026-04-28"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
 subcollection: virtualization-solutions
 

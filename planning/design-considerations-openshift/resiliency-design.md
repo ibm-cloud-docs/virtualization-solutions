@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-28"
 
-keywords: ROKS, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, backup, disaster recovery
+keywords: Red Hat OpenShift Kubernetes Service, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, backup, disaster recovery
 
 subcollection: virtualization-solutions
 
@@ -29,7 +29,7 @@ The key backup and restore architecture elements are shown in the following diag
 
 Red Hat OpenShift Virtualization uses Red Hat Advanced Cluster Management (RHACM) and ODF Regional Disaster Recovery together for regional disaster recovery.
 
-ODF Regional Disaster Recovery on Red Hat OpenShift provides asynchronous data replication between two ROKS clusters that are in different IBM Cloud regions, which helps provide business continuity during regional outages.
+ODF Regional Disaster Recovery on Red Hat OpenShift provides asynchronous data replication between two {{site.data.keyword.redhat_openshift_full}} Kubernetes Service clusters that are in different IBM Cloud regions, which helps provide business continuity during regional outages.
 
 ODF Regional Disaster Recovery combines Red Hat Advanced Cluster Management and Red Hat OpenShift Data Foundation components to provide application and data mobility across Red Hat OpenShift Container Platform clusters. Red Hat OpenShift Data Foundation provides storage provisioning and management for stateful applications in Red Hat OpenShift Container Platform clusters. ODF is backed by Ceph as the storage provider, with lifecycle management provided by Rook in the ODF component stack. Ceph-CSI is used for provisioning and management of persistent volumes for stateful applications.
 

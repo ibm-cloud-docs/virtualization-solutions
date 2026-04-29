@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-28"
 
-keywords: ROKS, network, layer2, localnet
+keywords: Red Hat OpenShift Kubernetes Service, network, layer2, localnet
 
 subcollection: virtualization-solutions
 
@@ -33,19 +33,20 @@ The key network architecture elements are shown in the following diagram.
 
 You use IBM Cloud VPC networking to deploy and manage cloud resources. It provides the foundation for your workloads, including virtual servers, containers, and bare metal deployments, that can help ensure network segmentation, security, and scalability.
 
-You need to create a VPC to provision a ROKS cluster.
+You need to create a VPC to provision a {{site.data.keyword.redhat_openshift_full}} Kubernetes Service
+ cluster.
 
 ### Default private networking with subnets
 {: #virt-sol-openshift-network-design-vpc-subnets}
 
-You need to create a VPC subnet in at least one availability zone to provision a ROKS cluster. For more information, see [Default private networking with subnets](/docs/openshift?topic=openshift-vpc-subnets).
+You need to create a VPC subnet in at least one availability zone to provision a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster. For more information, see [Default private networking with subnets](/docs/openshift?topic=openshift-vpc-subnets).
 
 ### Load balancers
 {: #virt-sol-openshift-network-design-vpc-lb}
 
-A Red Hat OpenShift ingress controller is deployed to your Red Hat OpenShift Kubernetes Service (ROKS) cluster that functions as the ingress endpoint for external network traffic. In a ROKS cluster, a VPC application load balancer is automatically created per cluster to expose the ingress controller. For more information, see [Load-balancers](/docs/openshift?topic=openshift-setup_vpc_alb).
+A Red Hat OpenShift ingress controller is deployed to your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster that functions as the ingress endpoint for external network traffic. In a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster, a VPC application load balancer is automatically created per cluster to expose the ingress controller. For more information, see [Load-balancers](/docs/openshift?topic=openshift-setup_vpc_alb).
 
-ROKS does the following functions.
+{{site.data.keyword.redhat_openshift_notm}} Kubernetes Service does the following functions.
 
 * DNS service resolves the route subdomain to the VPC load balancer hostname.
 * The VPC load balancer resolves the VPC hostname to an available external IP address of an ingress controller service that was reported as operating properly.
@@ -55,7 +56,7 @@ ROKS does the following functions.
 ### Virtual private endpoints
 {: #virt-sol-openshift-network-design-vpc-vpe}
 
-Virtual Private Endpoints (VPE) in ROKS environments are primarily used to enable private connectivity between the Red Hat OpenShift cluster and IBM Cloud platform services without network traffic that traverses the public internet.
+Virtual Private Endpoints (VPE) in {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments are primarily used to enable private connectivity between the Red Hat OpenShift cluster and IBM Cloud platform services without network traffic that traverses the public internet.
 
 The following table lists all the virtual private endpoints that are automatically provisioned by IBM Cloud for essential cluster operations.
 
@@ -156,7 +157,7 @@ The following use cases are an example of what NodePorts are used for.
 ### Load balancer service
 {: #virt-sol-openshift-network-design-openshift-loadbalancer}
 
-On IBM Cloud ROKS, the load balancer service automatically provisions a VPC network load balancer or application load balancer. The load balancer service provides the following functions.
+On IBM Cloud {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, the load balancer service automatically provisions a VPC network load balancer or application load balancer. The load balancer service provides the following functions.
 
 * Automatically provisions an external load balancer
 * Assigns external IP or hostname to the service

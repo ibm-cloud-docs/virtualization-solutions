@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-28"
 
 keywords: Security
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Security design for Red Hat OpenShift Virtualization
 {: #virt-sol-openshift-security-design-overview}
 
-Security is a foundational component of any cloud architecture that includes identity and access management, data protection, network security, and compliance. {{site.data.keyword.cloud}} provides a comprehensive security framework for both Virtual Servers for VPC and Red Hat OpenShift on {{site.data.keyword.cloud_notm}} (ROKS) environments. This security implements defense-in-depth strategies across multiple layers of the infrastructure stack.
+Security is a foundational component of any cloud architecture that includes identity and access management, data protection, network security, and compliance. {{site.data.keyword.cloud}} provides a comprehensive security framework for both Virtual Servers for VPC and {{site.data.keyword.redhat_openshift_full}} on {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments. This security implements defense-in-depth strategies across multiple layers of the infrastructure stack.
 {: shortdesc}
 
 The key security architecture elements are shown in the following diagram.

@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2026, 2026
-lastupdated: "2026-04-15"
+  years: 2026
+lastupdated: "2026-04-28"
 
-keywords: ROKS, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
+keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
 subcollection: virtualization-solutions
 
@@ -31,11 +31,11 @@ compliance: HIPPA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPPA"}
 
-The following guide describes how to configure logging for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment.
+The following guide describes how to configure logging for your {{site.data.keyword.redhat_openshift_full}} Virtualization environment.
 {: shortdesc}
 
-## Overview of {{site.data.keyword.logs_full_notm}} with {{site.data.keyword.redhat_openshift_notm}} Virtualization
-{: #roks-virt-ibm-logs-overview}
+## Overview of IBM Cloud Logs with Red Hat OpenShift Virtualization
+{: #openshift-virt-ibm-logs-overview}
 
 {{site.data.keyword.cloud}} Logs are a fully managed logging service that provides a centralized logging solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services. You can use {{site.data.keyword.cloud_notm}} Logs to monitor your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, which also includes:
 
@@ -51,7 +51,7 @@ The following guide describes how to configure logging for your {{site.data.keyw
 - **Log management**: A log management solution for your cloud resources.
 
 ## Prerequisites
-{: #roks-virt-logging-prerequisites}
+{: #openshift-virt-logging-prerequisites}
 
 Before you configure logging for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, make sure that the following requirements are met:
 
@@ -60,11 +60,11 @@ Before you configure logging for your {{site.data.keyword.redhat_openshift_notm}
    - Configure a Cloud Logs bucket to enable long‑term log retention and advanced search capabilities. For more information, see [Configure Bucket](/docs/cloud-logs?topic=cloud-logs-configure-data-bucket). You need this configuration if you want long-term data retention or search. The standard Cloud Logs instance provides a minimum retention period of 7 days and a maximum retention period of 90 days for priority logs.
    - Create a Cloud Object Storage bucket that stores your long‑term log data. For more information, see [Creating a Cloud Object Storage bucket](/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage).
 
-2. Enable logging with a ROKS cluster
-   - You enable integrated logging for your {{site.data.keyword.redhat_openshift_notm}} on IBM Cloud (ROKS) cluster by connecting it to the IBM Cloud Logs. For more information, see [Connect ICL with ROKS](/docs/openshift?topic=openshift-logging).
+2. Enable logging with a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster
+   - You enable integrated logging for your {{site.data.keyword.redhat_openshift_notm}} on IBM Cloud {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster by connecting it to the IBM Cloud Logs. For more information, see [Connect ICL with {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service](/docs/openshift?topic=openshift-logging).
 
 ## {{site.data.keyword.monitoringfull_notm}}
-{: #roks-virt-ibm-monitoring}
+{: #openshift-virt-ibm-monitoring}
 
 {{site.data.keyword.monitoringfull_notm}} provides a comprehensive monitoring solution for your cloud resources. It offers a unified view of your cloud resources, including infrastructure, applications, and services. {{site.data.keyword.mon_full}} monitors your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, including virtual machines, networks, and storage. Also, it monitors your applications that are running on {{site.data.keyword.redhat_openshift_notm}} Virtualization, including the performance, availability, and security of your applications.
 

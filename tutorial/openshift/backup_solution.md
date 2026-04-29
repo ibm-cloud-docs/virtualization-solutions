@@ -1,11 +1,11 @@
 ---
 
 copyright:
-  years: 2026, 2026
-lastupdated: "2026-04-09"
+  years: 2026
+lastupdated: "2026-04-28"
 lasttested: "[{LAST_TESTED_DATE}]"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, ROKS, VSI, File Storage, Backup, Kasten, Veeam, volumes
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
 subcollection: virtualization-solutions
 
@@ -33,8 +33,8 @@ The tutorial uses Kasten version 8.5.1. However, the Kasten version that is avai
 ## Veeam Kasten prerequisites
 {: #virt-sol-openshift-backup-kasten-prereqs}
 
-Veeam Kasten is installed on an existing {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud}} (ROKS) cluster and does not configure cluster or storage resources. You must already have a ROKS cluster with Ceph block storage and the required storage classes that are created.
-Once your ROKS cluster is ready, run the Kasten prerequisite checker tool before installing Kasten.
+Veeam Kasten is installed on an existing {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster and does not configure cluster or storage resources. You must already have a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster with Ceph block storage and the required storage classes that are created.
+Once your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster is ready, run the Kasten prerequisite checker tool before installing Kasten.
 
 ### Veeam Kasten prerequisite checker
 {: #virt-sol-openshift-backup-kasten-prerequisite-checker-tool}
