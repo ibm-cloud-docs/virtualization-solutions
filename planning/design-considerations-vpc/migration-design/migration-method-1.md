@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-30"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -37,12 +37,12 @@ The following steps layout the process to migrate using image imports.
    {: pre}
 
 1. Upload to IBM Cloud Object Storage
-   1. Create a COS instance and bucket if needed
+   1. Create an {{site.data.keyword.cos_full}} instance and bucket if needed
    1. Use web upload (for smaller files) or Aspera (for large files)
    1. Configure bucket access (public read for import, or use authorized service access)
 1. Create Custom Image in VPC
    1. Navigate to VPC → Compute → Images
-   1. Create new image, point to COS URL
+   1. Create new image, point to {{site.data.keyword.cos_full_notm}} URL
    1. Select appropriate OS type (includes BYOL variants)
    1. Configure encryption (provider-managed or customer-managed)
 1. Provision virtual server instance from Custom Image

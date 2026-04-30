@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-04-30"
 
 keywords: File Storage, Block Storage, Encryption, backup, disaster recovery
 
@@ -204,7 +204,7 @@ These solutions typically support both agent-based backup for virtual server ins
 Wanclouds VPC+ DRaaS is a comprehensive SaaS-based Disaster Recovery as a Service (DRaaS) solution that enables IBM Cloud customers to backup their entire Virtual Private Cloud resources including network, compute, and storage, and restore them across different regions in IBM Cloud. This approach eliminates the need for expensive standby environments, replacing them with flexible on-demand recovery. The service is available directly from IBM Cloud Catalog. Key differentiators:
 
 * **On-Demand Recovery Model**: Instead of maintaining a constantly running replica of your production environment, you can create an on-demand disaster recovery scenario, minimizing costs and maximizing operational efficiency
-* **Single Pane of Glass**: Consolidated view of all cloud accounts and backups (VPC configs, VSIs, Data, COS buckets) under a single management interface
+* **Single Pane of Glass**: Consolidated view of all cloud accounts and backups (VPC configs, VSIs, Data,  buckets) under a single management interface
 
 Wanclouds VPC+ DRaaS can backup and restore the entire IBM Cloud Virtual Private Cloud construct, configurations, and resources including:
 
@@ -212,7 +212,7 @@ Wanclouds VPC+ DRaaS can backup and restore the entire IBM Cloud Virtual Private
 | -------------- | -------------- |
 | Network Components | - VLANs and Subnets  \n - Security Groups and Network ACLs  \n - VPN Gateways  \n - Load Balancers (ALB and NLB)  \n - Floating IPs  \n - Public Gateways  \n - Virtual Private Endpoints (VPE)
 | Compute Resources | - Virtual Server Instances (VSIs) - backup different versions of Windows and Linux OS flavors including Ubuntu, Red Hat Enterprise Linux (RHEL), Debian, and CentOS  \n - Attached Data Volumes (Block Storage)  \n - Instance configurations and metadata |
-| Storage | - Cloud Object Storage Buckets (COS Buckets) - backup data from one COS bucket to other buckets on demand  \n - Volume attachments and configurations |
+| Storage | - Cloud Object Storage Buckets ({{site.data.keyword.cos_full_notm}} Buckets) - backup data from one {{site.data.keyword.cos_full_notm}} bucket to other buckets on demand  \n - Volume attachments and configurations |
 {: caption="Wanclouds VPC+ DRaaS components" caption-side="bottom"}
 
 Wanclouds VPC+ DRaaS provides flexible restore options:
