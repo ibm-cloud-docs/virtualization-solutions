@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-04-30"
 
 keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
 
@@ -44,7 +44,7 @@ For more details of ODF, refer to [Understanding OpenShift Data Foundation](/doc
 ### IBM Cloud Object Storage
 {: #virt-sol-storage-cos-summary}
 
-IBM Cloud Object Storage can be used with backup solutions, or other Object Storage related use cases. COS allows backup data to be stored outside of the ODF cluster in case a disaster occurs.
+IBM Cloud Object Storage can be used with backup solutions, or other Object Storage related use cases. {{site.data.keyword.cos_full}} allows backup data to be stored outside of the ODF cluster in case a disaster occurs.
 
 IBM Cloud Object Storage is a fully managed IBM Cloud service, while object storage built in the ODF clusters is self-managed on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service managed worker nodes. Depending on the use case, there might be a use case for either, or even both of these.
 
