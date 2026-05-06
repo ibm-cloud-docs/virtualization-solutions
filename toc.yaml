@@ -88,14 +88,6 @@ toc:
             navtitle: Compute
           - topic: planning/design-considerations-vpc/networking-design.md
             navtitle: Networking
-  - navgroup:
-      id: tutorial
-      topics:
-      - topicgroup:
-          label: Hyper-V on IBM VPC
-          topics:
-          - topic: tutorial/hyper-v/hyper-v-on-vpc-solution.md
-            navtitle: Hyper-V on IBM VPC Solution
       - topicgroup:
           label: OpenShift Virtualization
           topics:
