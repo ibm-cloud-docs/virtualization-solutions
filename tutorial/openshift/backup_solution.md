@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-05-06"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes
@@ -128,7 +128,7 @@ After you install Veeam Kasten and annotate StorageClasses, complete the configu
 ### Validating the Red Hat OpenShift Storage Cluster configuration
 {: #virt-sol-openshift-backup-kasten-validate}
 
-You also use the same Veeam Kasten prerequisite checker tool to verify that Veeam Kasten is configured correctly. For more information, see [Veeam Kasten Primer Block Mount Check](https://docs.kasten.io/latest/operating/k10tools#primer-block-mount-check){: external}.
+You also use the same Veeam Kasten prerequisite checker tool to verify that Veeam Kasten is configured correctly. For more information, see [Veeam Kasten Primer Block Mount Check](https://docs.kasten.io/latest/operating/k10tools/#primer-block-mount-check){: external}.
 
 Run the Veeam Kasten primer tool by using the following command.
 
@@ -279,7 +279,7 @@ You can apply Kasten policies at a {{site.data.keyword.redhat_openshift_notm}} p
 
 Lastly, Kasten provides option to run pre-snapshot and post-snapshot hooks (also known as blueprint actions) that you can apply before or after the snapshot completes. The hooks are useful and must be considered for application-aware backups.
 
-For more information about blueprints, see [Blueprints](https://docs.kasten.io/latest/usage/blueprints/){: external} and [Additional Information](#virt-sol-openshift-backup-kasten-additional-information).
+For more information about blueprints, see [Blueprints](https://docs.kasten.io/latest/usage/blueprints/){: external} and [Additional Information](#additional-information).
 
 The option to make protected data immutable is set in the location profile, not in the policy. If immutability is a requirement, you must configure it when you create location profiles.
 {: note}
