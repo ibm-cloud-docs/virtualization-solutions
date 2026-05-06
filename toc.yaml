@@ -94,6 +94,7 @@ toc:
           topics:
           - topic: tutorial/hyper-v/hyper-v-on-vpc-solution.md
             navtitle: Hyper-V on IBM VPC Solution
+            tag: staging
       - topicgroup:
           label: OpenShift Virtualization
           topics:
