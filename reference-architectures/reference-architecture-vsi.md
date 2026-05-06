@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-05-06"
 
 keywords: Virtual Servers, VPC, VSI, virtual machines, compute instances, cloud infrastructure
 
@@ -87,5 +87,5 @@ Now that you understand the Virtual Servers for VPC architecture, explore the fo
 
 - **Plan your deployment**: Review the [design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-compute-design-overview) for compute, networking, storage, and security
 - **Migrate workloads**: Learn about [migration strategies from VMware to VPC](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-migration)
-- **Hands-on tutorial**: Follow the [step-by-step migration tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-tutorial-overview) to migrate your first workload
+- **Hands-on tutorial**: Follow the [VMware Cloud Foundation as a Service migration tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vcfaas-vpc-migration-tutorial-overview) to migrate your workload. Follow the [VMware Cloud Foundation for Classic](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vcs-vpc-migration-tutorial-overview) to migrate your workload.
 - **Get started**: Create your first [Virtual Server for VPC](https://cloud.ibm.com/vpc-ext/compute/vs)

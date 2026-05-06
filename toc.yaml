@@ -17,6 +17,8 @@ toc:
   - navgroup:
       id: architecture
       topics:
+      - topic: reference-architectures/reference-architecture-hyper-v-on-vpc.md
+        navtitle: Hyper-V on IBM VPC Architecture
       - topic: reference-architectures/reference-architecture-openshift.md
         navtitle: OpenShift Virtualization Architecture
       - topic: reference-architectures/reference-architecture-vsi.md
@@ -90,6 +92,11 @@ toc:
       id: tutorial
       topics:
       - topicgroup:
+          label: Hyper-V on IBM VPC
+          topics:
+          - topic: tutorial/hyper-v/hyper-v-on-vpc-solution.md
+            navtitle: Hyper-V on IBM VPC Solution
+      - topicgroup:
           label: OpenShift Virtualization
           topics:
           - topic: tutorial/openshift/migration-toolkit.md
@@ -101,7 +108,7 @@ toc:
           - topic: tutorial/openshift/rhacm-tutorial.md
             navtitle: Observability with Red Hat Advanced Cluster Management
           - topic: tutorial/openshift/storage-solution.md
-            navtitle: OpenShift Data Foundation for virtual machine workloads
+            navtitle: Red Hat OpenShift Data Foundation (ODF) for virtual server workloads
       - topicgroup:
           label: Virtual servers on VPC
           topics:
@@ -111,6 +118,10 @@ toc:
             navtitle: VMware Migration Tutorial - VCFaaS
           - topic: tutorial/vpc-vsi/migration-tutorial-vcs.md
             navtitle: VMware Migration Tutorial - VCF for Classic
+          - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-configuration.md
+            navtitle: VMware Migration Tutorial - Configuring VBR with VSI
+          - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-restore.md
+            navtitle: VMware Migration Tutorial - Restoring VSI with VBR
   - navgroup:
       id: howto
       topics:
@@ -151,3 +162,7 @@ toc:
           topics:
           - topic: help/troubleshooting/troubleshooting-odf-workloads.md
             navtitle: Troubleshooting ODF workloads
+          - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-configuration.md
+            navtitle: Why Can't I Configure Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
+          - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-restore.md
+            navtitle: Why Can't I Restore Veeam Backup & Replication Configuration on VPC Virtual Server Instances?

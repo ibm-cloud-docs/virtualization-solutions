@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-05-06"
 
 keywords: virtual servers, Red Hat OpenShift Kubernetes Service, ROVE, VSI, virtualization
 
@@ -139,7 +139,8 @@ Now that you understand the virtualization options available on IBM Cloud, explo
 
 - Review the [Virtual Servers for VPC reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vsi-architecture) to understand the complete solution design
 - Learn about [migration strategies from VMware to VPC](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-migration)
-- Follow the [hands-on migration tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-tutorial-overview) to migrate your first workload
+- Follow the [VMware Cloud Foundation as a Service migration tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vcfaas-vpc-migration-tutorial-overview) to migrate your workload
+- Follow the [VMware Cloud Foundation for Classic](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vcs-vpc-migration-tutorial-overview) to migrate your workload
 
 ### For Red Hat OpenShift Virtualization
 {: #virt-sol-overview-next-openshift}
