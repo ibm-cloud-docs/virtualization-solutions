@@ -11,7 +11,7 @@ Before you begin, make sure that you're logged in to the IBM Cloud console.
    2. In the **Location** section, specify the following information:
       - For **Geography**, select **North America**.
       - For **Region**, select **Dallas (us-south)**.
-   3. In the **Details** section, for **Name**, enter `vpc-migration`.
+   3. In the **Details** section, for **Name**, enter `vpc-migration`.<production>
    4. In the **Subnets** section, specify the following information:
       1. Delete all but the subnet in the zone **us-south-1**.
       2. Click the **edit** icon of the remaining subnet. In the Edit Subnet form that appears specify the following information:
@@ -39,3 +39,4 @@ Use the following steps to create a public gateway.
       2. Within the **Attach a floating IP** form, click **Reserve a new floating IP**.
       3. Within the **Reserve a floating IP** form, in the **Details** section, for **Name**, enter `vpc-migration-fip` and click **Reserve**.
 6. Click **Close** to close the menu.
+</production>
