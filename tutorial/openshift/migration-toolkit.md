@@ -61,6 +61,7 @@ The following network prerequisites apply across all migrations:
 
 - Network Stability: The network connections between the source environment and the OpenShift Virtualization cluster must be reliable and uninterrupted.
 - Configuration Integrity: IP addresses, VLANs, and other network configuration settings must not be changed during migration, as the VM's MAC addresses are preserved.
+- Network Address Uniqueness: If you are migrating workloads from {{site.data.keyword.cloud_notm}} classic infrastructure, connect your VPC to the classic infrastructure by using {{site.data.keyword.cloud_notm}} Transit Gateway. When you create the VPC to host your workloads, ensure that the network address prefixes do not overlap with prefixes used by other VPCs connected to your {{site.data.keyword.cloud_notm}} classic infrastructure. It is recommended that when you create your VPC, deselect the **Create a default prefix for each zone** checkbox because the default prefix remains the same across VPCs and can introduce routing conflicts. After the VPC is created, you can configure address prefixes and subnets as needed.
 - Destination Networks: If multiple source and destination networks are mapped, a network attachment definition must be created for each additional destination network.
 - Required Ports: Firewalls must permit traffic over specific ports based on the source provider:
 - VMware vSphere: TCP ports 443 (for inventory and disk transfer authentication) and 902 (for disk transfer data copy) from OpenShift nodes to VMware vCenter/ESXi hosts.

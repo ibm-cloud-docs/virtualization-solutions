@@ -154,6 +154,8 @@ toc:
           topics:
           - topic: help/known-issues/known-issues-for-odf-workloads.md
             navtitle: Known issues for ODF workloads
+          - topic: help/known-issues/known-issues-for-storage-migration.md
+            navtitle: Known issues for storage migration
       - topicgroup:
           label: Troubleshooting
           topics:
@@ -163,3 +165,5 @@ toc:
             navtitle: Why Can't I Configure Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
           - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-restore.md
             navtitle: Why Can't I Restore Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
+          - topic: help/troubleshooting/troubleshooting-storage-migration.md
+            navtitle: Troubleshooting storage migration

@@ -20,3 +20,21 @@ Create a Bastion virtual server to securely access the resources in the VPC.
       2. Select **ibm-ubuntu-24-04-3-minimal-amd64-4** from the list of results and click **Save**.
 8. For **SSH keys**, select **vpc-migration-ssh-key**.
 9. Click **Create a virtual server**.
+
+## Creating a floating IP
+{: #virt-sol-vpc-migration-tutorial-create-floating-ip}
+{: step}
+
+To access your bastion server from the internet, create a floating IP by completing the following steps.
+
+1. From the **Navigation menu**, go to **Infrastructure** > **Compute** > **Virtual server instances**.
+2. From the list of available resources, select **vpc-migration-vsi-bastion**.
+3. Click **Networking**.
+4. Click the **Menu** icon for the attached network interface.
+   1. Click **Edit floating IPs**.
+   2. In the **Edit floating IPs** form, click **Attach**
+   3. In the **Attach a floating IP** form, click **Reserve a new floating IP**.
+   4. In the **Reserve a floating IP** form, in the **Details** section:
+       1. For **Name**, enter `vpc-migration-fip`.
+       2. Click **Reserve**.
+5. Click **Close** to exit the menu.
