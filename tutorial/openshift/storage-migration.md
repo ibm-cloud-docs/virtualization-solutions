@@ -338,8 +338,8 @@ For comprehensive information about MTC and {{site.data.keyword.redhat_openshift
 - [Migration controller options](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migrating_from_version_3_to_4/#migration-controller-options_advanced-migration-options-3-4){: external}
 - [Migration workflow](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#migration-mtc-workflow_about-mtc){: external}
 - [Known issues](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#mtc-migrating-vms-known-issues_mtc-migrating-vms){: external}
-- [Known issues for storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-known-issues-storage-migration)
-- [Troubleshooting storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-troubleshooting-storage-migration)
+- [Known issues for storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-known-issues-storage-migration)
+- [Troubleshooting storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-storage-migration)
 
 ### Support
 {: #support}
