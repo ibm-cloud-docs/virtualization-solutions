@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-06"
+lastupdated: "2026-05-07"
 
 keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR
 
@@ -15,7 +15,7 @@ services: OpenShift Virtualization, VMware
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Why Can't I Confiugure Veeam Backup & Replication Restoration on VPC Virtual Server Instances?
+# Why Can't I Restore Veeam Backup & Replication Restoration on VPC Virtual Server Instances?
 {: #troubleshooting-vbr-vpc-vsi-integration-restore}
 {: troubleshoot}
 
