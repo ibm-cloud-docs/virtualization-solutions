@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-06"
+lastupdated: "2026-05-12"
 
 keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, IAM, ReFS, RDP, HMAC, SSH, RAM, CPU, IOPS, GB, DNS, SQL, GFS, RTO
 
@@ -318,7 +318,7 @@ Complete the following steps to initialize and format the attached data volumes 
 Complete the following steps to download the installation files for Veeam Backup & Replication.
 
 1. On the VBR server, open **Microsoft Edge** or **Internet Explorer**.
-2. Go to the [Veeam Downloads page](https://www.veeam.com/downloads.html){: external}.
+2. Go to the [Veeam Downloads page](https://www.veeam.com/products/downloads.html){: external}.
 3. Download Veeam Backup & Replication.
    1. Scroll to **Veeam Backup & Replication**.
    2. Click **Download** for the latest version.
@@ -775,7 +775,7 @@ After you create both backup jobs, verify that they are running correctly and th
 
 Use the following resources for additional information when you work with Veeam Backup & Replication and {{site.data.keyword.cloud_notm}} services.
 
-- [Veeam Help Center](https://www.veeam.com/documentation-guides-datasheets.html){: external}
+- [Veeam Help Center](https://helpcenter.veeam.com/){: external}
 - [{{site.data.keyword.vpc_short}} documentation](/docs/vpc)
 - [{{site.data.keyword.cos_short}} documentation](/docs/cloud-object-storage)
 - [Veeam Community Forums](https://forums.veeam.com/){: external}
@@ -798,7 +798,7 @@ After you complete this tutorial, consider the following next steps:
 
 Now that you understand how to configure Veeam Backup & Replication for {{site.data.keyword.vpc_short}} virtual servers, explore the following related topics:
 
-- [Troubleshooting Configuring VBR with VSI](docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-vbr-vpc-vsi-integration-configuration).
-[{{site.data.keyword.vpc_short}} overview](/docs/vpc?topic=vpc-about-vpc)
+- [Troubleshooting Configuring VBR with VSI](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-vbr-vpc-vsi-integration-configuration)
+- [{{site.data.keyword.vpc_short}} overview](/docs/vpc?topic=vpc-about-vpc)
 - [{{site.data.keyword.cos_short}} overview](/docs/cloud-object-storage?topic=cloud-object-storage-about-cloud-object-storage)
-- [Veeam Backup & Replication User Guide](https://helpcenter.veeam.com/docs/backup/vsphere/overview.html){: external}
+- [Veeam Backup & Replication User Guide](https://helpcenter.veeam.com/docs/vbr/userguide/overview.html){: external}
