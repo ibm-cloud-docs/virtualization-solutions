@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-05-12"
 
 keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, MTV, Migration
 
@@ -58,6 +58,7 @@ For Migration Toolkit for Virtualization (MTV) 2.9, the compatible software vers
 {: #network-requirements}
 
 The following network prerequisites apply across all migrations:
+
 - Network Stability: The network connections between the source environment and the OpenShift Virtualization cluster must be reliable and uninterrupted.
 - Configuration Integrity: IP addresses, VLANs, and other network configuration settings must not be changed during migration, as the VM's MAC addresses are preserved.
 - Destination Networks: If multiple source and destination networks are mapped, a network attachment definition must be created for each additional destination network.
@@ -69,6 +70,7 @@ The following network prerequisites apply across all migrations:
 {: #source-vm-prerequisites}
 
 Prerequisites for source VMs across all migrations include:
+
 - Media Status: ISO images and CD-ROMs must be unmounted.
 - IP Addressing: Each NIC must contain either an IPv4 address or an IPv6 address, and may utilize both.
 - OS Certification: The VM operating system must be certified and supported for conversion as a guest operating system.
@@ -78,6 +80,7 @@ Prerequisites for source VMs across all migrations include:
 {: #vm-naming}
 
 VM names must comply with these guidelines:
+
 - The name of a VM must not contain a period (`.`). MTV automatically changes any period in a VM name to a dash (`-`).
 - The VM name must be unique within the OpenShift Virtualization environment (i.e., it must not match any other VM name).
 - If a VM name fails to comply with the rules, MTV will automatically generate a new name by removing excluded characters, switching uppercase letters to lowercase, and changing any underscore (`_`) to a dash (`-`).
@@ -86,6 +89,7 @@ VM names must comply with these guidelines:
 {: #encryption-support}
 
 MTV supports the migration of VMs using the following encryption types:
+
 - Linux VMs: Linux Unified Key Setup (LUKS).
 - Windows VMs: BitLocker.
 
@@ -102,6 +106,7 @@ To utilize a pre-migration hook to access the virtual machine, VMware Tools must
 {: #vddk-image}
 
 It is strongly recommended to use the VMware Virtual Disk Development Kit (VDDK) SDK when transferring virtual disks from VMware vSphere, as it accelerates migrations.
+
 - The creation of a VDDK image is optional but highly recommended; using MTV without VDDK is generally not recommended and can significantly decrease migration speeds.
 - VM migrations will not work without VDDK when the VM is backed by VMware vSAN.
 
@@ -121,6 +126,7 @@ It is also strongly recommended to disable hibernation for all VMs because MTV d
 {: #esxi-host-configuration}
 
 If a migration plan involves migrating more than 10 VMs concurrently from a single ESXi host, you must increase the Network File Copy (NFC) service memory of that host.
+
 - This is necessary because the NFC service memory defaults to supporting only 10 parallel connections.
 - The required modification involves changing the `maxMemory` value to `1000000000` (1 GB) and restarting the `hostd` service.
 
@@ -130,7 +136,6 @@ If a migration plan involves migrating more than 10 VMs concurrently from a sing
 For warm migrations of Microsoft Windows virtual machines from VMware, the Volume Shadow Copy Service (VSS) inside the guest VM must be running.
 For more information, see [Source virtual machine prerequisites](https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.9/html/installing_and_using_the_migration_toolkit_for_virtualization/prerequisites-for-all-providers_mtv#source-vm-prerequisites_mtv).
 
-
 ## Installation and Configuration of the MTV Operator
 {: #installation-configuration}
 {: step}
@@ -138,6 +143,7 @@ For more information, see [Source virtual machine prerequisites](https://docs.re
 The MTV Operator, which includes the MTV plugin for the Red Hat OpenShift web console, can be installed using either the Red Hat OpenShift web console or the command-line interface (CLI).
 
 The following prerequisites must be met:
+
 - Red Hat OpenShift 4.19, 4.18, or 4.17 must be installed.
 - The OpenShift Virtualization Operator must be installed on the OpenShift migration target cluster.
 - The user must be logged in with cluster-admin permissions.

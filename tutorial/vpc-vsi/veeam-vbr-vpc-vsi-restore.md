@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-06"
+lastupdated: "2026-05-12"
 
 keywords: Veeam Backup & Replication, VBR, restore, recovery, IBM Cloud VPC, VSI, volume restore, disaster recovery
 
@@ -78,10 +78,10 @@ Verify that you have the following access policies:
 
 - VPC Infrastructure Services: Editor or Administrator role
 - Ability to manage:
-  - Virtual server instances
-  - Block storage volumes
-  - Security groups
-  - Floating IP addresses
+    - Virtual server instances
+    - Block storage volumes
+    - Security groups
+    - Floating IP addresses
 
 ## Restore scenario overview
 {: #veeam-vbr-vpc-restore-scenario}
@@ -210,10 +210,12 @@ Follow these steps to connect to your Windows worker virtual server instance and
    6. Enter `delete part override` to remove the selected partition.
         You can delete all partitions if needed.
         {: note}
+
 5. Initialize the new attached disk.
 
 Open the required ports on the Windows virtual server instance. For more information, see [Veeam's documentation](https://helpcenter.veeam.com/docs/vbr/userguide/used_ports.html){: external}. In this example, the Windows Firewall is disabled.
 {: note}
+
 6. Record the private address of the Windows worker virtual server instance.
 
 ## Connecting the Windows worker virtual server instance to VBR
@@ -320,7 +322,7 @@ The Linux restore process is similar to the Windows restore process but has some
 
 After you complete this tutorial, review the following related resources to strengthen your backup and recovery strategy in {{site.data.keyword.vpc_short}}. The following resources help you refine your Veeam configuration, operational practices, and validation approach.
 
-- [Troubleshooting Restoring VBR with VSI](docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-vbr-vpc-vsi-integration-restore).
+- [Troubleshooting Restoring VBR with VSI](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-vbr-vpc-vsi-integration-restore).
 - Review the [Veeam VBR configuration tutorial](/docs/vpc?topic=vpc-vsi_best_practices).
 - Explore [Veeam Backup & Replication 13 documentation](https://helpcenter.veeam.com/docs/vbr/userguide/overview.html?ver=13){: external}.
 - Learn about [{{site.data.keyword.cloud_notm}} VPC best practices](/docs/vpc?topic=vpc-best-practices-for-vpc)
