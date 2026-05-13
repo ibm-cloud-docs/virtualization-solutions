@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-12"
+lastupdated: "2026-05-13"
 
 keywords: Red Hat OpenShift Virtualization, Red Hat OpenShift Kubernetes Service, VSI, storage migration, IBM Cloud, Storage vMotion, MTC
 
@@ -65,7 +65,7 @@ Single migration plan
 
 For non-VM workloads, MTC supports migration across different clusters and namespaces. However, for {{site.data.keyword.redhat_openshift_notm}} Virtualization VMs, the same-cluster and same-namespace restrictions always apply.
 
-For more information, refer to the [official MTC documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#about-mtc){: external}.
+For more information, refer to the [official MTC documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#about-mtc){: external}.
 
 ## Prerequisites
 {: #prerequisites}
@@ -240,7 +240,7 @@ Rollback
 Even with live migration enabled, expect a brief (approximately 1-second) connection loss during the cutover phase.
 {: important}
 
-For more information on the migration workflow, see the [official workflow documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#migration-mtc-workflow_about-mtc){: external}.
+For more information on the migration workflow, see the [official workflow documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#migration-mtc-workflow_about-mtc){: external}.
 
 ## Migration hooks
 {: #migration-hooks}
@@ -266,7 +266,7 @@ Migration hooks help you customize the migration process by running scripts at d
 - Updating applications after migration
 - Running validation scripts
 
-For detailed information on how to create and use hooks, see the [Migration hooks documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#migration-hooks_advanced-migration-options-mtc){: external}.
+For detailed information on how to create and use hooks, see the [Migration hooks documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#migration-hooks_advanced-migration-options-mtc){: external}.
 
 ## Important considerations
 {: #important-considerations}
@@ -320,7 +320,7 @@ Default namespace
 Earlier versions
 :   Versions earlier than 4.17 require enabling a feature gate, which removes cluster-level support.
 
-For a complete list of known issues, see the [Known issues documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#mtc-migrating-vms-known-issues_mtc-migrating-vms){: external}.
+For a complete list of known issues, see the [Known issues documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#mtc-migrating-vms-known-issues_mtc-migrating-vms){: external}.
 
 ## Additional resources
 {: #additional-resources}
@@ -332,14 +332,14 @@ For more information about storage migration and related topics, see the followi
 
 For comprehensive information about MTC and {{site.data.keyword.redhat_openshift_notm}} Virtualization migration, refer to the following resources.
 
-- [Migration Toolkit for Containers overview](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#about-mtc){: external}
+- [Migration Toolkit for Containers overview](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#about-mtc){: external}
 - [Installing MTC](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/migration_toolkit_for_containers/installing-mtc){: external}
 - [OpenShift Virtualization live migration](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/virtualization/index#virt-configuring-live-migration){: external}
 - [Migration controller options](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migrating_from_version_3_to_4/#migration-controller-options_advanced-migration-options-3-4){: external}
-- [Migration workflow](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#migration-mtc-workflow_about-mtc){: external}
-- [Known issues](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/migration_toolkit_for_containers/index#mtc-migrating-vms-known-issues_mtc-migrating-vms){: external}
-- [Known issues for storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-known-issues-storage-migration)
-- [Troubleshooting storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-troubleshooting-storage-migration)
+- [Migration workflow](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#migration-mtc-workflow_about-mtc){: external}
+- [Known issues](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#mtc-migrating-vms-known-issues_mtc-migrating-vms){: external}
+- [Known issues for storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-known-issues-storage-migration)
+- [Troubleshooting storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-storage-migration)
 
 ### Support
 {: #support}
