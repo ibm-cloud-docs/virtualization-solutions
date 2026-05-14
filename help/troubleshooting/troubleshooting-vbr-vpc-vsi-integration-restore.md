@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-07"
+lastupdated: "2026-05-14"
 
 keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR
 
@@ -17,7 +17,7 @@ services: OpenShift Virtualization, VMware
 
 # Why Can't I Restore Veeam Backup & Replication Restoration on VPC Virtual Server Instances?
 {: #troubleshooting-vbr-vpc-vsi-integration-restore}
-{: troubleshoot}
+{: #troubleshoot}
 
 The troubleshooting section helps you identify common restore issues and provide actions to resolve them.
 
@@ -25,13 +25,13 @@ Start by checking connectivity, repository access, and the status of the tempora
 
 ## Restore process is slow
 {: #troubleshooting-vbr-vpc-vsi-integration-restore-slow}
-{: troubleshoot}
-{: support}
+{: #troubleshoot}
+{: #support}
 
 When restoring virtual server instances using Veeam Backup & Replication, the restore operation takes significantly longer than expected, impacting your recovery time objectives (RTO).
 
 ### What is happening?
-{: tsSymptoms-vbr-vpc-vsi-integration-restore-slow}
+{: #tsSymptoms-vbr-vpc-vsi-integration-restore-slow}
 
 You might experience one or more of the following symptoms:
 
@@ -42,7 +42,7 @@ You might experience one or more of the following symptoms:
 - Veeam reports low throughput rates (for example, less than 10 MB/s) when restoring from {{site.data.keyword.cos_full}}.
 
 ### Why is it happening?
-{: tsCauses-vbr-vpc-vsi-integration-restore-slow}
+{: #tsCauses-vbr-vpc-vsi-integration-restore-slow}
 
 Several factors can contribute to slow restore performance:
 
@@ -55,7 +55,7 @@ Several factors can contribute to slow restore performance:
 - Geographic distance: Large geographic distances between the Veeam server, {{site.data.keyword.cos_short}} bucket, and target virtual server instance can introduce latency that affects restore performance.
 
 ### How do you fix it?
-{: tsResolve-vbr-vpc-vsi-integration-restore-slow}
+{: #tsResolve-vbr-vpc-vsi-integration-restore-slow}
 
 Try the following solutions to improve restore performance:
 
