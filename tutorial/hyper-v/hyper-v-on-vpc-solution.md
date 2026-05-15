@@ -166,14 +166,14 @@ Complete the following steps to create bare metal servers for the Hyper-V cluste
               /ProductKey:$k `
               /AcceptEula
         } -ArgumentList $key
-        ```
+    ```
 
      Run the following command to ensure that you successfully upgraded the license:
 
      ```PowerShell
-       Invoke-Command -ComputerName $nodes -ScriptBlock {
-       Get-ComputerInfo | Select-Object WindowsProductName
-       } | Select-Object PSComputerName, WindowsProductName | Format-Table -AutoSize
+        Invoke-Command -ComputerName $nodes -ScriptBlock {
+        Get-ComputerInfo | Select-Object WindowsProductName
+           } | Select-Object PSComputerName, WindowsProductName | Format-Table -AutoSize
      ```
 
 6. From the navigation menu, go to **Infrastructure** > **Compute** > **Subnets**.
@@ -241,7 +241,7 @@ Complete the following steps to install Hyper-V on each bare metal server (steps
            -Node <Comma separated member bare metal server's computer name> `
            -ManagementPointNetworkType Distributed `
            -NoStorage
-       ```
+      ```
 
 9. After the cluster is created, run the following command to enable highly available storage by using directly attached drives on the created cluster:
 
