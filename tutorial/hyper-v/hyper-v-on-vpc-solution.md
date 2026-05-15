@@ -72,18 +72,18 @@ Complete the following steps to create a security group with inbound and outboun
 3. Click **Create**. On the displayed page, choose the same region where the {{site.data.keyword.vpc_short}} instance is deployed, and ensure that **Virtual private cloud** has the exact {{site.data.keyword.vpc_short}} instance selected.
 4. For the inbound rule, ensure that at least the following two rules are included:
 
-   | Name | Protocol | Source type | Source | Destination type |
-   | -------------- | -------------- | -------------- | -------------- | -------------- |
-   | &lt;Public network inbound rule name for icmp-tcp-udp protocol&gt; | ICMP_TCP_UDP | IP address | &lt;Public network gateway IP customer used to access the jump server&gt; | Any |
-   | &lt;Local(private) network inbound rule name for icmp-tcp-udp protocol&gt; | ICMP_TCP_UDP | CIDR block | 10.0.0.0/8 | Any |
+    | Name | Protocol | Source type | Source | Destination type |
+    | ---- | -------- | ----------- | ------ | ---------------- |
+    | `<Public network inbound rule name for icmp-tcp-udp protocol`> | ICMP_TCP_UDP | IP address | `<Public network gateway IP customer used to access the jump server>` | Any |
+    | `<Local(private) network inbound rule name for icmp-tcp-udp protocol>` | ICMP_TCP_UDP | CIDR block | 10.0.0.0/8 | Any |
+    {: caption="Inbound rules for Hyper-V servers on IBM VPC" caption-side="bottom"}
 
-5. For the outbound rule, ensure that at least the following rule is included
+5. For the outbound rule, ensure that at least the following rule is included:
 
-   | Name | Protocol | Source type | Source | Destination type |
-   | -------------- | -------------- | -------------- | -------------- | -------------- |
-   | &lt;Outbound rule name for icmp-tcp-udp protocol&gt; | ICMP_TCP_UDP | Any | 0.0.0.0/0 | Any |
-
-   {: caption="Outbound rules for Hyper-V servers on IBM VPC" caption-side="bottom"}
+    | Name | Protocol | Source type | Source | Destination type |
+    | ---- | -------- | ----------- | ------ | ---------------- |
+    | `<Outbound rule name for icmp-tcp-udp protocol>` | ICMP_TCP_UDP | Any | 0.0.0.0/0 | Any |
+    {: caption="Outbound rules for Hyper-V servers on IBM VPC" caption-side="bottom"}
 
 ## Deploy virtual servers for Active Directory and jump server use
 {: #virt-sol-hyperv-on-vpc-vsi-creation}
@@ -166,14 +166,14 @@ Complete the following steps to create bare metal servers for the Hyper-V cluste
               /ProductKey:$k `
               /AcceptEula
         } -ArgumentList $key
-        ```
+    ```
 
      Run the following command to ensure that you successfully upgraded the license:
 
      ```PowerShell
-       Invoke-Command -ComputerName $nodes -ScriptBlock {
-       Get-ComputerInfo | Select-Object WindowsProductName
-       } | Select-Object PSComputerName, WindowsProductName | Format-Table -AutoSize
+        Invoke-Command -ComputerName $nodes -ScriptBlock {
+        Get-ComputerInfo | Select-Object WindowsProductName
+           } | Select-Object PSComputerName, WindowsProductName | Format-Table -AutoSize
      ```
 
 6. From the navigation menu, go to **Infrastructure** > **Compute** > **Subnets**.
@@ -241,7 +241,7 @@ Complete the following steps to install Hyper-V on each bare metal server (steps
            -Node <Comma separated member bare metal server's computer name> `
            -ManagementPointNetworkType Distributed `
            -NoStorage
-       ```
+      ```
 
 9. After the cluster is created, run the following command to enable highly available storage by using directly attached drives on the created cluster:
 
