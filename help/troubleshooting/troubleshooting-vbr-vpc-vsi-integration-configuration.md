@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-07"
+lastupdated: "2026-05-14"
 
 keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR
 
@@ -17,7 +17,7 @@ services: OpenShift Virtualization, VMware
 
 # Why Can't I Configure Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
 {: #troubleshooting-vbr-vpc-vsi-integration-configuration}
-{: troubleshoot}
+{: #troubleshoot}
 
 Use this topic to identify and resolve common issues when you configure Veeam Backup & Replication integration for {{site.data.keyword.vpc_full}} virtual server instances.
 {: shortdesc}
@@ -30,12 +30,12 @@ If you encounter issues while configuring or running Veeam Backup & Replication 
 Use this section to troubleshoot connectivity issues between Veeam Backup & Replication and your {{site.data.keyword.cos_full_notm}} repository.
 
 ### What is happening?
-{: tsSymptoms-cos}
+{: #tsSymptoms-cos}
 
 Veeam cannot connect to {{site.data.keyword.cos_full_notm}} repository.
 
 ### Why is it happening?
-{: tsCauses-cos}
+{: #tsCauses-cos}
 
 - Repository settings are incorrect.
 - When the VBR server cannot reach the {{site.data.keyword.cos_short}} endpoint.
@@ -45,7 +45,7 @@ Veeam cannot connect to {{site.data.keyword.cos_full_notm}} repository.
 - Network restrictions.
 
 ### How do you fix it?
-{: tsResolve-cos}
+{: #tsResolve-cos}
 
 1. Verify that the hash-based message authentication code (HMAC) credentials are correct:
    - Check `access_key_id` and `secret_access_key`.
@@ -66,12 +66,12 @@ Veeam cannot connect to {{site.data.keyword.cos_full_notm}} repository.
 Use this section to review common causes of slow backup operations and identify changes that can improve performance.
 
 ### What is happening?
-{: tsSymptoms-performance}
+{: #tsSymptoms-performance}
 
 Backups take longer than expected or fail to complete within the backup window.
 
 ### Why is it happening?
-{: tsCauses-performance}
+{: #tsCauses-performance}
 
 - Limited network throughput.
 - Constrained disk performance.
@@ -82,7 +82,7 @@ Backups take longer than expected or fail to complete within the backup window.
 - Storage profile limits.
 
 ### How do you fix it?
-{: tsResolve-performance}
+{: #tsResolve-performance}
 
 1. Check network bandwidth:
    - Verify network connectivity between the VBR server and target virtual servers.
@@ -107,7 +107,7 @@ Backups take longer than expected or fail to complete within the backup window.
 Use this section to diagnose issues that prevent the Veeam agent from installing on target virtual server instances.
 
 ### Why is it happening?
-{: tsCauses-agent-fails}
+{: #tsCauses-agent-fails}
 
 - When the target system does not meet Veeam requirements.
 - When the VBR server cannot complete remote installation tasks.
@@ -117,12 +117,12 @@ Use this section to diagnose issues that prevent the Veeam agent from installing
 - Connectivity and name resolution problems.
 
 ### What is happening?
-{: tsSymptoms-agent-fails}
+{: #tsSymptoms-agent-fails}
 
 Veeam agent fails to install on a target virtual server.
 
 ### How do you fix it?
-{: tsResolve-agent-fails}
+{: #tsResolve-agent-fails}
 
 1. Verify minimum system requirements for the virtual server:
    - Ensure that the system is running with Windows Server 2012 R2 or later.
@@ -143,12 +143,12 @@ Veeam agent fails to install on a target virtual server.
 Use this section to troubleshoot backup failures that are caused by limited repository or volume capacity.
 
 ### What is happening?
-{: tsSymptoms-space}
+{: #tsSymptoms-space}
 
 Backup jobs fail because of insufficient disk space.
 
 ### Why is it happening?
-{: tsCauses-space}
+{: #tsCauses-space}
 
 - Backup repository or backup volume does not have enough available capacity for new restore points or retention operations.
 - SOBR offload settings.
@@ -156,7 +156,7 @@ Backup jobs fail because of insufficient disk space.
 - Local storage sizing.
 
 ### How do you fix it?
-{: tsResolve-space}
+{: #tsResolve-space}
 
 1. Monitor local repository space:
    - Check the available space on the `E:` drive.
