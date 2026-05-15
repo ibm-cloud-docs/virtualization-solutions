@@ -106,7 +106,7 @@ Complete the following steps to create two virtual servers for Active Directory 
     1. On the detail page, go to the **Networking** tab, and then click the ellipsis menu or 3 dots for the `eth0` VNI, and choose **Edit Floating IPs**.
     2. In the displayed dialog, click **Attach**, and then select the newly created floating IP.
     3. Click **Attach** to associate the floating IP with the jump server virtual server.
-7. Add the newly associated public floating IP and a new inbound rule to the security group that you created in the [previous section](#create-a-security-group-for-inbound-and-outbound-network-traffic). This configuration allows Remote Desktop access to the Windows server on the following bare metal servers.
+7. Add the newly associated public floating IP and a new inbound rule to the security group that you created in the [previous section](#virt-sol-hyperv-on-vpc-security-group-creation). This configuration allows Remote Desktop access to the Windows server on the following bare metal servers.
 8. Log in to both the AD virtual server and the jump virtual server. Update and rename the IPv4 private network configuration from default DHCP to a fixed IP according to your network environment (usually the IP address, gateway, and DNS are required) by using the following PowerShell command. After configuration, restart both virtual servers.
 
     To connect and log in to a {{site.data.keyword.vpc_short}} virtual server with Windows OS, see [Connecting to Windows instances](/docs/vpc?topic=vpc-vsi_is_connecting_windows).
@@ -136,7 +136,7 @@ Complete the following steps to create two virtual servers for Active Directory 
 
 A known RAID NVMe disk issue exists with the current {{site.data.keyword.vpc_short}} bare metal servers. You must create a custom image with `esxi-8` in the name to properly configure the NVMe disks in the Basic Input/Output System (BIOS) for Windows S2D support. To create the custom image, complete the following steps:
 
-1. Deploy a virtual server by using a Windows 2025 image. Follow the steps in the [previous section](#deploy-virtual-servers-for-active-directory-and-jump-server-use).
+1. Deploy a virtual server by using a Windows 2025 image. Follow the steps in the [previous section](#virt-sol-hyperv-on-vpc-vsi-creation).
 2. After you create the virtual server, log in to it. From the `cmd.exe` command prompt, run `c:\windows\system32\sysprep\sysprep.exe`.
 3. In the displayed window, select the OOBE experience, click **Generalize**, and then click **Shutdown** (do not restart).
 
@@ -183,7 +183,7 @@ Complete the following steps to create bare metal servers for the Hyper-V cluste
     4. If you don't need to associate a floating public IP address with the subnet, first create a public gateway from **Infrastructure** > **Compute** > **Public gateways**.
 7. From the navigation menu, go to **Infrastructure** > **Compute** > **Bare metal servers**, and then click the newly created bare metal server.
 8. From the detail page, go to the **Networking** tab and attach the PCI subnet that you created in the previous step.
-9. Configure the IPv4 network settings of the bare metal server from DHCP to static IP addresses for both the management and the workload subnets, similar to configuration used for the virtual servers in the [previous section](#deploy-virtual-servers-for-active-directory-and-jump-server-use).
+9. Configure the IPv4 network settings of the bare metal server from DHCP to static IP addresses for both the management and the workload subnets, similar to configuration used for the virtual servers in the [previous section](#virt-sol-hyperv-on-vpc-vsi-creation).
 10. Repeat the preceding steps for each additional bare metal server that you create.
 
 To connect and log in to a Windows bare metal server in {{site.data.keyword.vpc_short}}, see [Connecting to a Windows bare metal server](/docs/vpc?topic=vpc-bare_metal_server_connecting_windows).
@@ -195,7 +195,7 @@ To connect and log in to a Windows bare metal server in {{site.data.keyword.vpc_
 
 Complete the following steps to install Hyper-V on each bare metal server (steps 1 - 5) and configure the failover cluster on the Hyper-V nodes:
 
-1. Log in to the bare metal server that you created in the [previous section](#deploy-bare-metal-servers-for-a-hyper-v-cluster).
+1. Log in to the bare metal server that you created in the [previous section](#virt-sol-hyperv-on-vpc-bm-creation).
     1. You can connect through a Remote Desktop connection from the jump virtual server.
     2. Open a Windows PowerShell prompt window and run the command `Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart` to install and enable Hyper-V on the current Windows platform. This command automatically restarts the server.
 2. After the bare metal server restarts, log in and run the PowerShell command `Get-WindowsFeature Hyper-V` to verify that Hyper-V is enabled.
@@ -291,10 +291,10 @@ Complete the following steps to install Hyper-V on each bare metal server (steps
 {: #virt-sol-hyperv-on-vpc-vm-creation}
 {: step}
 
-Complete the following steps to create and configure a virtual machine hosted on the Hyper-V host node that is created in the [previous sections](#install-hyper-v-and-a-hyper-v-cluster-on-bare-metal-servers):
+Complete the following steps to create and configure a virtual machine hosted on the Hyper-V host node that is created in the [previous sections](#virt-sol-hyperv-on-vpc-hyperv-installation):
 
 1. Download and copy the guest OS image ISO file to a location that the bare metal server hosting the virtual machine can access. Copy the ISO file to the CSV volumes that you created previously. This set up helps ensure that during live migration, only the VM needs to be moved, without moving its storage.
-2. Run `New-VM -Name <Name> -MemoryStartupBytes <Memory> -BootDevice <BootDevice> -VHDPath <VHDPath> -Path <Path> -Generation <Generation> -Switch <SwitchName>` to create the virtual machine, where `<SwitchName>` is the virtual switch that you created in the [previous section](#install-hyper-v-and-a-hyper-v-cluster-on-bare-metal-servers). For example, `New-VM -Name TestVM1 -MemoryStartupBytes 4GB -BootDevice VHD -NewVHDPath .\VMs\Test1.vhdx -Path .\VMData1 -NewVHDSizeBytes 20GB -Generation 2 -Switch Hyper-V-PoC-Switch`. To benefit from the latest optimizations from Hyper-V, use Generation 2 VMs.
+2. Run `New-VM -Name <Name> -MemoryStartupBytes <Memory> -BootDevice <BootDevice> -VHDPath <VHDPath> -Path <Path> -Generation <Generation> -Switch <SwitchName>` to create the virtual machine, where `<SwitchName>` is the virtual switch that you created in the [previous section](#virt-sol-hyperv-on-vpc-hyperv-installation). For example, `New-VM -Name TestVM1 -MemoryStartupBytes 4GB -BootDevice VHD -NewVHDPath .\VMs\Test1.vhdx -Path .\VMData1 -NewVHDSizeBytes 20GB -Generation 2 -Switch Hyper-V-PoC-Switch`. To benefit from the latest optimizations from Hyper-V, use Generation 2 VMs.
 3. Set the guest OS ISO file path in a PowerShell variable: `$ISOPath ="<Guest OS iso file path>"`.
 4. Run the command `Add-VMDvdDrive -VMName <VM Name> -Path $ISOPath` to attach the ISO file as the VM's DVD drive.
 5. Run the following command to set the DVD drive as the first boot device:
@@ -342,7 +342,7 @@ Run the following command in Hyper-V Manager to move a running virtual machine:
 Move-VM <VM Name> <Destination Server Name> [-IncludeStorage -DestinationStoragePath <File Path where VM Storage is placed>]
 ```
 
-As described in the [previous section](#perform-planned-and-unplanned-failover-with-a-hyper-v-cluster), place the VM storage in a CSV volume when you create the VM with Hyper-V. If you follow this approach, you do not need the optional parameters `-IncludeStorage` and `-DestinationStoragePath` because only the VM configuration is migrated. Otherwise, you must specify both parameters to migrate the VM storage migration from the source server to the destination server. For the VNI configured and attached to the bare metal server from the {{site.data.keyword.cloud_notm}} console, only one of the source or destination bare metal servers must have the attached VNI. After the VM migration, the VNI automatically floats to the target host without additional configuration changes if the VM's VLAN is listed as an `allowed_vlan` on the target host.
+As described in the [previous section](#virt-sol-hyperv-on-vpc-failover-with-cluster), place the VM storage in a CSV volume when you create the VM with Hyper-V. If you follow this approach, you do not need the optional parameters `-IncludeStorage` and `-DestinationStoragePath` because only the VM configuration is migrated. Otherwise, you must specify both parameters to migrate the VM storage migration from the source server to the destination server. For the VNI configured and attached to the bare metal server from the {{site.data.keyword.cloud_notm}} console, only one of the source or destination bare metal servers must have the attached VNI. After the VM migration, the VNI automatically floats to the target host without additional configuration changes if the VM's VLAN is listed as an `allowed_vlan` on the target host.
 {: note}
 
 ## Perform planned and unplanned failover with a Hyper-V cluster
