@@ -277,7 +277,7 @@ Complete the following steps to install Hyper-V on each bare metal server (steps
                            @{N="SizeGB";E={[math]::Round($_.Size/1GB)}},
                            Usage |
                   Format-Table -AutoSize
-         ```
+       ```
 
 12. Run the following command to check fault domains of created Cluster Shared Volumes (how disks are distributed across cluster nodes):
 
