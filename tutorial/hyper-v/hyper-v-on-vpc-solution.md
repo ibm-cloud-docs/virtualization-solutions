@@ -73,7 +73,7 @@ Complete the following steps to create a security group with inbound and outboun
 4. For the inbound rule, ensure that at least the following two rules are included:
 
     | Name | Protocol | Source type | Source | Destination type |
-    | -------------- | -------------- | -------------- | -------------- | -------------- |
+    | ---- | -------- | ----------- | ------ | ---------------- |
     | &lt;Public network inbound rule name for icmp-tcp-udp protocol&gt; | ICMP_TCP_UDP | IP address | &lt;Public network gateway IP customer used to access the jump server&gt; | Any |
     | &lt;Local(private) network inbound rule name for icmp-tcp-udp protocol&gt; | ICMP_TCP_UDP | CIDR block | 10.0.0.0/8 | Any |
     {: caption="Inbound rules for Hyper-V servers on IBM VPC" caption-side="bottom"}
@@ -81,7 +81,7 @@ Complete the following steps to create a security group with inbound and outboun
 5. For the outbound rule, ensure that at least the following rule is included:
 
     | Name | Protocol | Source type | Source | Destination type |
-    | -------------- | -------------- | -------------- | -------------- | -------------- |
+    | ---- | -------- | ----------- | ------ | ---------------- |
     | &lt;Outbound rule name for icmp-tcp-udp protocol&gt; | ICMP_TCP_UDP | Any | 0.0.0.0/0 | Any |
     {: caption="Outbound rules for Hyper-V servers on IBM VPC" caption-side="bottom"}
 
