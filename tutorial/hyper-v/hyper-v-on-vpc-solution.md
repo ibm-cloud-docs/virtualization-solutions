@@ -109,7 +109,7 @@ Complete the following steps to create two virtual servers for Active Directory 
 7. Add the newly associated public floating IP and a new inbound rule to the security group that you created in the [previous section](#virt-sol-hyperv-on-vpc-security-group-creation). This configuration allows Remote Desktop access to the Windows server on the following bare metal servers.
 8. Log in to both the AD virtual server and the jump virtual server. Update and rename the IPv4 private network configuration from default DHCP to a fixed IP according to your network environment (usually the IP address, gateway, and DNS are required) by using the following PowerShell command. After configuration, restart both virtual servers.
 
-    To connect and log in to a {{site.data.keyword.vpc_short}} virtual server with Windows OS, see [Connecting to Windows instances](/docs/vpc?topic=vpc-vsi_is_connecting_windows).
+    To connect and log in to the {{site.data.keyword.vpc_short}} virtual server with Windows OS, see [Connecting to Windows instances](/docs/vpc?topic=vpc-vsi_is_connecting_windows).
 
     The virtual servers and the following bare metal servers are configured with static IP addresses. Although {{site.data.keyword.vpc_short}} DHCP consistently assigns the same IP addresses to the bare metal servers, Active Directory, S2D, and other Microsoft products require fixed IP addresses. Converting to a static IP address is straightforward and helps avoid issues and blockers when DHCP is used in a Hyper-V environment for the infrastructure.
     {: note}
@@ -271,20 +271,20 @@ Complete the following steps to install Hyper-V on each bare metal server (steps
 
        ```PowerShell
           Get-StoragePool -CimSession "<Name of the Hyper-V cluster>" `
-         >>          -FriendlyName "<Name of the storage pool to be created>" |
-         >>           Get-PhysicalDisk -CimSession "HyperV-Cluster" |
-         >>           Select-Object FriendlyName,
-         >>                   @{N="SizeGB";E={[math]::Round($_.Size/1GB)}},
-         >>                   Usage |
-        >>           Format-Table -AutoSize
+                   -FriendlyName "<Name of the storage pool to be created>" |
+                    Get-PhysicalDisk -CimSession "HyperV-Cluster" |
+                    Select-Object FriendlyName,
+                           @{N="SizeGB";E={[math]::Round($_.Size/1GB)}},
+                           Usage |
+                  Format-Table -AutoSize
          ```
 
 12. Run the following command to check fault domains of created Cluster Shared Volumes (how disks are distributed across cluster nodes):
 
      ```PowerShell
        Get-StorageFaultDomain -CimSession "<Name of the Hyper-V cluster>" |
-         >>     Select-Object FriendlyName, FaultDomainType |
-         >>     Format-Table -AutoSize
+              Select-Object FriendlyName, FaultDomainType |
+              Format-Table -AutoSize
      ```
 
 ## Create and configure a virtual machine hosted by Hyper-V
