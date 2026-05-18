@@ -17,8 +17,7 @@ services: OpenShift Virtualization, VMware
 
 # Known issues for storage migration
 {: #known-issues-storage-migration}
-{: toc-content-type="known-issues"}
-{: toc-services="OpenShift Virtualization, VMware"}
+{: toc-services="OpenShift Virtualization"}
 
 Known issues and limitations might change as capabilities are added, so check back periodically.
 
