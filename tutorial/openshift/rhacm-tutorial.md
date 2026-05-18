@@ -66,10 +66,9 @@ For more information, see [RHACM Observability architecture](https://docs.redhat
 
 ## Installing Red Hat Advanced Cluster Management
 {: #openshift-virt-observ-installing}
+{: step}
 
 To install Red Hat Advanced Cluster Management on an Red Hat OpenShift Container Platform instance, use the following steps.
-
-{: step}
 
 1. Log in to your Red Hat OpenShift Container Platform instance.
 2. Go to **Ecosystem > Software catalog** and select a **namespace**.

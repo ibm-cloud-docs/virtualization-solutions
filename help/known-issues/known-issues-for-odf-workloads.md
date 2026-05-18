@@ -9,7 +9,7 @@ keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift K
 subcollection: virtualization-solutions
 
 content-type: known-issues
-services: OpenShift Virtualization, VMware
+services: OpenShift Virtualization
 
 ---
 
@@ -18,7 +18,7 @@ services: OpenShift Virtualization, VMware
 # Known issues for Red Hat OpenShift Data Foundation workloads
 {: #known-issues-for-odf-workloads}
 {: toc-content-type="known-issues"}
-{: toc-services="OpenShift Virtualization, VMware"}
+{: toc-services="OpenShift Virtualization"}
 
 Known issues and limitations might change as capabilities are added, so check back periodically.
 
