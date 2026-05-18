@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-05-18"
 
 keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -283,20 +283,20 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
 
 4. Create and apply Apply the configmap to the cluster, for the custom alert rule to be applied.
 
-```bash
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: thanos-ruler-custom-rules
-  # need to ensure namespace is "open-cluster-management-observability"
-  namespace: open-cluster-management-observability
-  labels:
-    # need this label to ensure custom alert rules are automatically mounted into Thanos Ruler pods
-    thanos-ruler-rule: "true"
-data:
-  # name has to be custom_rules.yaml, custom alert rules are automatically mounted into Thanos Ruler pods successfully
-  custom_rules.yaml: |
-    groups:
+    ```bash
+       apiVersion: v1
+       kind: ConfigMap
+       metadata:
+       name: thanos-ruler-custom-rules
+       # need to ensure namespace is "open-cluster-management-observability"
+       namespace: open-cluster-management-observability
+       labels:
+         # need this label to ensure custom alert rules are automatically mounted into Thanos Ruler pods
+        thanos-ruler-rule: "true"
+       data:
+       # name has to be custom_rules.yaml, custom alert rules are automatically mounted into Thanos Ruler pods successfully
+      custom_rules.yaml: |
+      groups:
     - name: VirtualMachineAlerts
       interval: 30s
       rules:
@@ -309,44 +309,45 @@ data:
         labels:
           severity: critical
           alert_type: vm_not_running
-  ```
+     ```
 
-  {: codeblock}
+    {: codeblock}
 
-  ```bash
-   /etc/thanos/configmaps/Alertmanager-ca-bundle from Alertmanager-ca-bundle (rw)
+     ```bash
+        /etc/thanos/configmaps/Alertmanager-ca-bundle from Alertmanager-ca-bundle (rw)
 
-   /etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules (rw)
+        /etc/thanos/rules/thanos-ruler-custom-rules from thanos-ruler-custom-rules (rw)
 
-   /etc/thanos/rules/thanos-ruler-default-rules from thanos-ruler-default-rules (rw)
+       /etc/thanos/rules/thanos-ruler-default-rules from thanos-ruler-default-rules (rw)
 
-   /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-c55nd (ro)
+       /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-c55nd (ro)
 
-   /var/thanos/rule from data (rw)
-  ```
+       /var/thanos/rule from data (rw)
+     ```
 
-  {: codeblock}
+     {: codeblock}
+
 5. Create a secret yaml file that is named `Alertmanager-config.yaml`, which configures the receiver, Slack webhook URL, and Slack channel, and so on.
 
 Make sure that the `alert_type` matches the value that is defined in the **configmap** that you create later.
 {: important}
 
-  ```yaml
-      apiVersion: v1
-      kind: Secret
-      metadata:
-        name: Alertmanager-config
-        # namespace has to be open-cluster-management-observability
-        namespace: open-cluster-management-observability
-      type: Opaque
-      stringData:
-      Alertmanager.yaml: |
-        global:
-          resolve_timeout: 5m
-          # your slack webhook url
-          slack_api_url: 'https://hooks.slack.com/services/\<replace_with_your_webhook\>'
+      ```yaml
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: Alertmanager-config
+          # namespace has to be open-cluster-management-observability
+          namespace: open-cluster-management-observability
+        type: Opaque
+        stringData:
+        Alertmanager.yaml: |
+          global:
+            resolve_timeout: 5m
+            # your slack webhook url
+            slack_api_url: 'https://hooks.slack.com/services/\<replace_with_your_webhook\>'
 
-     route:
+       route:
         receiver: 'default-receiver'
         group_by: ['alertname', 'cluster', 'namespace', 'name']
         group_wait: 10s
@@ -388,10 +389,10 @@ Make sure that the `alert_type` matches the value that is defined in the **confi
               actions:
                 - type: button
                   text: 'View in Console'
-                  url: 'https://console-openshift-console.apps.{{ .CommonLabels.cluster }}/k8s/ns/{{ .CommonLabels.namespace }}/virtualmachines/{{ .CommonLabels.name }}'
-  ```
+                  url: 'https://console-openshift-console.apps.{{ .CommonLabels.cluster }}/k8s/ns/{{ .CommonLabels.namespace }}/virtualmachines/{{ CommonLabels.name }}'
+      ```
+      {: codeblock}
 
-  {: codeblock}
 6. Apply the secret by running `oc -n open-cluster-management-observability apply -f Alertmanager-config.yaml`.
 7. Stop the virtual server by running:  virtctl stop `<vm-name>` and wait until the server stops.
 8. After the server stops, check the Slack channel for the notification of the resolved alert.
@@ -405,6 +406,7 @@ Make sure that the `alert_type` matches the value that is defined in the **confi
    {: codeblock}
 
    Access [localhost alerts](http://localhost:9093/#/alerts) to check whether the alert is generated there.
+
 9. Run virtctl start `<vm-name>` and wait until the VM starts.
 10. Start a virtual machine by running:  virtctl start `<vm-name>`, and wait for the vm started.
 11. After the VM starts, check the Slack channel for the notification of the resolved alert.

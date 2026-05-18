@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-04-08"
+  years: 2025. 2026
+lastupdated: "2026-05-18"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -18,9 +18,10 @@ subcollection: virtualization-solutions
 Before you start a migration, you need to consider the following information.
 
 ## Verify VirtIO drivers
-Linux migrations are generally simpler than Windows, but the guide describes a few important considerations to keep in mind.
 {: shortdesc}
 {: #virt-sol-vpc-migration-design-linux-virtio}
+
+Linux migrations are generally simpler than Windows, but the guide describes a few important considerations to keep in mind.
 
 The following Linux distributions include VirtIO drivers in the kernel:
 
@@ -52,6 +53,8 @@ If these drivers are missing, you need to rebuild the kernel with VirtIO support
 Linux doesn't bind drivers to hardware. The kernel detects new hardware at boot and loads the appropriate drivers. This process makes migration simple with no preparation typically required.
 
 ## Adjust the network configuration
+{: #virt-sol-vpc-migration-design-linux-adjust-network-configuration}
+
 Linux does not bind drivers to hardware like Windows. The kernel detects new hardware at boot and loads appropriate drivers, which makes migration significantly easier with no special preparation typically required.
 {: #virt-sol-vpc-migration-design-linux-network}
 

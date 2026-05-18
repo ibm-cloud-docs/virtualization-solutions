@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-14"
+lastupdated: "2026-05-18"
 
 keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR
 
@@ -18,6 +18,8 @@ services: OpenShift Virtualization, VMware
 # Troubleshooting storage migration
 {: #troubleshooting-storage-migration}
 {: #troubleshoot}
+{: toc-content-type="troubleshooting"}
+{: toc-services="OpenShift Virtualization, VMware"}
 
 If you encounter issues during storage migration, review the following common problems and their solutions.
 

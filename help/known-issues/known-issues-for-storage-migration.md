@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-12"
+lastupdated: "2026-05-18"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
 
@@ -17,6 +17,8 @@ services: OpenShift Virtualization, VMware
 
 # Known issues for storage migration
 {: #known-issues-storage-migration}
+{: toc-content-type="known-issues"}
+{: toc-services="OpenShift Virtualization, VMware"}
 
 Known issues and limitations might change as capabilities are added, so check back periodically.
 

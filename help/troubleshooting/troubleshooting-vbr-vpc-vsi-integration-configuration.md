@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-14"
+lastupdated: "2026-05-18"
 
 keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR
 
@@ -18,6 +18,8 @@ services: OpenShift Virtualization, VMware
 # Why Can't I Configure Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
 {: #troubleshooting-vbr-vpc-vsi-integration-configuration}
 {: #troubleshoot}
+{: toc-content-type="troubleshooting"}
+{: toc-services="OpenShift Virtualization, VMware"}
 
 Use this topic to identify and resolve common issues when you configure Veeam Backup & Replication integration for {{site.data.keyword.vpc_full}} virtual server instances.
 {: shortdesc}

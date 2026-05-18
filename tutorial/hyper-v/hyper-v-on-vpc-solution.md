@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-15"
+lastupdated: "2026-05-18"
 
 keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines
 
@@ -19,6 +19,8 @@ completion-time: 60m
 
 # Deploying and configuring a Hyper-V cluster on IBM Cloud VPC
 {: #virt-sol-hyperv-on-vpc-tutorial}
+{: toc-content-type="tutorial"}
+{: toc-services="OpenShift Virtualization, VMware"}
 
 Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built into the Windows&reg; Server and Windows operating system. Hyper-V on {{site.data.keyword.vpc_short}} provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale on Windows-based environments that are hosted on bare metal servers within the {{site.data.keyword.vpc_short}} isolated and secured private cloud.
 {: shortdesc}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-05-18"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
 
@@ -17,6 +17,9 @@ completion-time: 60m
 
 # Red Hat OpenShift Data Foundation (ODF) for virtual server workloads
 {: #odf-for-vm-workloads}
+{: toc-content-type="tutorial"}
+{: toc-services="OpenShift Virtualization, VMware"}
+{: toc-completion-time="60m"}
 
 {{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 
@@ -71,10 +74,8 @@ What happens when copies are lost (rep3):
 | ---------------- | ---------- | ------------- | ---- |
 | 3 of 3 | `active+clean` | Normal operation. Reads are served from any copy. | None. |
 | 2 of 3 | `active+degraded` | I/O continues normally. Ceph immediately begins rereplicating the missing copy to another OSD to restore 3 copies. | Minimal. Data is still durable on 2 independent OSDs. Recovery occurs automatically. |
-
 | 1 of 3 | `active+degraded` or `peered` (depending on `min_size`) | With the ODF default `min_size=2`, Ceph blocks all I/O to affected Placement Groups when only 1 copy remains. Prevents extra writes that might become inconsistent. Virtual servers with data on those PGs experience I/O hang. | High. Only 1 copy of the data remains on a single remaining OSD. If it also fails before the recovery completes, the data is permanently lost. |
 | 0 of 3 | `incomplete` | I/O is blocked. No copies exist. | Data loss. The data is permanently unrecoverable. |
-
 {: caption="rep3 failure progression and I/O behaviour"}
 
 The `min_size` parameter controls the minimum number of copies that must be available before Ceph allows I/O. ODF sets `min_size=2` for rep3 pools by default and is enforced through `requireSafeReplicaSize: true`, which means that when 2 or 3 copies are available, reads and writes proceed normally. When only 1 copy is available, Ceph blocks I/O to prevent against further data inconsistency.
@@ -111,7 +112,6 @@ The following table compares all available pool types for reference.
 | ec-3-1 | k=3, m=1 | 1.33x | Survives 1 failure | 4 |
 | ec-2-2 | k=2, m=2 | 2.0x | Survives 2 failures | 4 |
 | ec-4-2 | k=4, m=2 | 1.5x | Survives 2 failures | 6 |
-
 {: caption="Pool types and their characteristics"}
 
 The following lists show the key considerations for erasure coding.
@@ -170,7 +170,6 @@ For the teams that are migrating from VMware vSAN&trade;, these Ceph pool types 
 | ec-3-1 | RAID-5, FTT=1 (3+1) | 1.33x | 1 failure | Direct equivalent for both use 3 data + 1 parity chunks. |
 | ec-2-2 | No direct equivalent | 2x | 2 failures | Dual-parity like RAID-6, but uses a 2+2 layout. More usage than vSAN RAID-6. |
 | ec-4-2 | RAID-6, FTT=2 (4+2) | 1.5x | 2 failures | Direct equivalent for both use 4 data + 2 parity chunks. |
-
 {: caption="Ceph pool types mapped to VMware vSAN equivalents"}
 
 Key differences from vSAN:
@@ -201,7 +200,6 @@ See the following example of calculations for a 3-node cluster with 8 x 3.2 TB N
 | rep2 | 2.0x | 38.4 TB | 50% |
 | ec-2-1 | 1.5x | 51.2 TB | 67% |
 | rep1 (nonresilient) | 1.0x | 76.8 TB | 100% |
-
 {: caption="Usable capacity by data protection type for a 3-node cluster"}
 
 Virtual server capacity estimation: A typical virtual server with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With rep3, that virtual server requires 390 GB of raw storage. On the preceding 3-node cluster, you might provision approximately 196 virtual servers of this size. In practice, keep Ceph usage less than 75% to maintain performance and support recovery operations.
@@ -349,6 +347,7 @@ To allow workloads to automatically use high-performance ODF-backed persistent b
    ```bash
    oc patch storageclass ocs-storagecluster-ceph-rbd -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
    ```
+
    {: codeblock}
 
 2. If needed, remove default from the previously configured default:
@@ -356,6 +355,7 @@ To allow workloads to automatically use high-performance ODF-backed persistent b
    ```bash
    oc patch storageclass <previous-default-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
    ```
+
    {: codeblock}
 
 ### ODF configuration checklist
@@ -442,7 +442,6 @@ Although virtual machines can use a generic Ceph RBD StorageClass, the virtualiz
 | Virtual server lifecycle operations | Validated for the virtual server start, stop, live migration, and snapshot workflows | Not explicitly validated for virtual server operations |
 | Supportability | Fully supported and recommended for {{site.data.keyword.redhat_openshift_notm}} Virtualization | Supported, but not recommended for VM disks |
 | Day-2 operations | Reduced risk during upgrades and migrations | More risk of unexpected performance |
-
 {: caption="Virtualization-specific vs generic RBD StorageClass comparison"}
 
 Generic RBD StorageClasses remain suitable for container workloads, but virtualization-specific StorageClass is recommended for the production virtualization environments.
@@ -475,6 +474,7 @@ When you install the ODF add-on, specify the storage worker pool, which automati
     oc get node -l ibm-cloud.kubernetes.io/worker-pool-name=<your storage workerpool  name> -o=name  | \
     xargs -I {} oc adm taint nodes {} node.ocs.openshift.io/storage=true:NoSchedule
     ```
+
    {: pre}
 
 3. Verify that the node is successfully tainted:
@@ -489,6 +489,7 @@ When you install the ODF add-on, specify the storage worker pool, which automati
         Value: 'true'
         Effect: Noschedule
       ```
+
     {: pre}
 
 ## Advanced configuration
@@ -562,7 +563,6 @@ When you create a custom StorageClass for virtualization workloads, verify that 
     | `fast-diff` | Accelerates snapshot diff and DataVolume clone operations for faster boot times. |
     | `deep-flatten` | Makes clones fully independent after they are flattened. |
     | `layering` | Enables copy-on-write cloning that is required for DataVolume cloning. |
-
     {: caption="RBD image features and their purpose"}
 
 - Map options
@@ -604,6 +604,7 @@ When you create a custom StorageClass for virtualization workloads, verify that 
     ```bash
     oc get sc ocs-storagecluster-ceph-rbd -o jsonpath='{.parameters.clusterID}'
     ```
+
     {: codeblock}
 
     For erasure-coded pools (developer preview only), see [Understanding Data Protection](#understanding-data-protection), add `dataPool` that points to the EC pool, and keep `pool` pointing to the default-replicated pool:
@@ -613,6 +614,7 @@ When you create a custom StorageClass for virtualization workloads, verify that 
       pool: ocs-storagecluster-cephblockpool   # Replicated pool for metadata
       dataPool: my-ec-pool                      # EC pool for data blocks
     ```
+
     {: codeblock}
 
 ### Compression
@@ -638,7 +640,6 @@ When you enable compression on a pool, Ceph compresses each data chunk before it
 | lz4 | Minimal–moderate | Smallest CPU cost | Use to minimize CPU usage. |
 | zlib | Moderate | Moderate | Middle ground between snappy and zstd. |
 | zstd | 36–50% | 21–66% IOPS reduction | Best compression ratio, but highest CPU cost. Not recommended for latency-sensitive workloads. |
-
 {: caption="BlueStore compression algorithms compared"}
 
 #### Compression use cases
@@ -737,6 +738,7 @@ spec:
     persistentVolumeClaimName: my-vm-data-disk
 EOF
 ```
+
 {: codeblock}
 
 VolumeSnapshots are copy-on-write and near-instant to create. You can use them to restore a virtual server to a previous state or clone a disk. {{site.data.keyword.redhat_openshift_notm}} Virtualization also provides a built-in [VM snapshot and restores API](https://kubevirt.io/user-guide/storage/snapshot_restore_api/){: external} that captures the full virtual server state including configuration and all disks, in a single operation.
@@ -757,7 +759,6 @@ The snapshot status indicates the achieved consistency level. See the following 
 | GuestAgent | The guest agent successfully froze the file system. The snapshot is application-consistent. |
 | NoGuestAgent | The guest agent was not installed or not ready. The snapshot is crash-consistent only. |
 | QuiesceFailed | File system freeze was attempted, but failed. The snapshot might not be application-consistent. |
-
 {: caption="Snapshot consistency indicators"}
 
 Installing the QEMU guest agent is recommended for all production VMs. On Linux guests, use the following command.
@@ -806,7 +807,6 @@ CBT development is in progress at multiple levels:
 | Kubernetes CSI CBT API | Alpha (Kubernetes 1.31) | Introduces a `SnapshotMetadata` CSI service to identify changed blocks between snapshots. Block volumes only. |
 | KubeVirt incremental backup | In development | [VEP 25](https://github.com/kubevirt/enhancements/issues/25){: external} targets QEMU-level CBT for incremental VM backups. Alpha planned for KubeVirt 1.7. |
 | Ceph RBD | Underlying capability exists | Ceph supports differential snapshots (`rbd diff`) natively, but the CSI CBT API integration isn'timplemented. |
-
 {: caption="Changed Block Tracking development status across the stack"}
 
 Although Ceph RBD supports the underlying `rbd diff` capability to identify changed blocks between snapshots, this capability is not yet exposed through the Kubernetes CSI Changed Block Tracking API. Until the full stack is in place (CSI CBT API + Ceph CSI driver support + KubeVirt integration), incremental backups at the block level are not available.

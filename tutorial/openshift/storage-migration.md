@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-13"
+lastupdated: "2026-05-18"
 
 keywords: Red Hat OpenShift Virtualization, Red Hat OpenShift Kubernetes Service, VSI, storage migration, IBM Cloud, Storage vMotion, MTC
 
@@ -19,6 +19,9 @@ completion-time: 60m
 
 # Storage migration for virtual machines in OpenShift Virtualization
 {: #storage-migration-vms}
+{: toc-content-type="tutorial"}
+{: toc-services="OpenShift Virtualization, VMware"}
+{: toc-completion-time="60m"}
 
 ## Overview
 {: #overview}
