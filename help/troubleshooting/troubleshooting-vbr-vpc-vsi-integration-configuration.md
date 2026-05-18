@@ -180,6 +180,6 @@ Use these log locations to review Veeam Backup & Replication activity and troubl
 
 - VBR Server Logs: `C:\ProgramData\Veeam\Backup\`
 - Agent Logs:
-  - Windows: `C:\ProgramData\Veeam\Endpoint\`
-  - Linux: `/var/log/veeam/`
+   - Windows: `C:\ProgramData\Veeam\Endpoint\`
+   - Linux: `/var/log/veeam/`
 - SQL database logs: `C:\Program Files\Microsoft SQL Server\MSSQL15.VEEAMSQL2016\MSSQL\Log\`

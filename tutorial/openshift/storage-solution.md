@@ -260,11 +260,11 @@ oc get nodes -l node-role.kubernetes.io/worker= \
 You have two deployment options.
 
 - Option A – Use the entire worker pool
-  - Specify only the worker pool name during ODF configuration.
-  - Verify that the pool contains exactly 3, 6, or 9 bare metal nodes.
+   - Specify only the worker pool name during ODF configuration.
+   - Verify that the pool contains exactly 3, 6, or 9 bare metal nodes.
 
 - Option B – Select specific nodes
-  - If the pool has more nodes, or you want to reserve some nodes for compute-only workloads, select 3, 6, or 9 nodes to participate in ODF.
+   - If the pool has more nodes, or you want to reserve some nodes for compute-only workloads, select 3, 6, or 9 nodes to participate in ODF.
 
 ### ODF subscription plans
 {: #odf-subscription-plans}
@@ -272,14 +272,14 @@ You have two deployment options.
 Choose the plan that best fits your requirements:
 
 - Essentials
-  - Reduced cost
-  - Internal-mode deployment only
-  - Does not support disaster recovery, stretch clusters, or external-mode deployments
-  - Best suited for test and development environments, proofs of concept, or small-scale deployments
+   - Reduced cost
+   - Internal-mode deployment only
+   - Does not support disaster recovery, stretch clusters, or external-mode deployments
+   - Best suited for test and development environments, proofs of concept, or small-scale deployments
 
 - Advanced
-  - Full feature set that includes disaster recovery, stretch clusters, external-mode deployment, advanced granular encryption, multi-cluster support
-  - Recommended for production virtualization workloads with virtual machines
+   - Full feature set that includes disaster recovery, stretch clusters, external-mode deployment, advanced granular encryption, multi-cluster support
+   - Recommended for production virtualization workloads with virtual machines
 
 Both plans include BlueStore compression on block pools, thin provisioning, snapshots, and cloning. The differences between the plans relate to disaster recovery, encryption granularity, and deployment flexibility rather than storage efficiency features.
 
@@ -521,30 +521,30 @@ When you create a custom StorageClass for virtualization workloads, verify that 
 
     Specify the CephBlockPool that backs the virtual server disks. You can choose one of the following options:
 
-  - Default block pool. The default 3-way replicated Ceph block pool created by ODF:
+    - Default block pool. The default 3-way replicated Ceph block pool created by ODF:
 
-    ```text
-    ocs-storagecluster-cephblockpool
-    ```
+        ```text
+        ocs-storagecluster-cephblockpool
+        ```
 
-  - Custom block pool. A user-defined CephBlockPool. The pool must include the following settings to avoid performance pitfalls:
+    - Custom block pool. A user-defined CephBlockPool. The pool must include the following settings to avoid performance pitfalls:
 
-      ```yaml
+        ```yaml
           apiVersion: ceph.rook.io/v1
           kind: CephBlockPool
           metadata:
           name: my-custom-pool
           namespace: openshift-storage
-        spec:
-        failureDomain: rack          # Red Hat OpenShift Kubernetes Service default — data copies spread across racks
-        deviceClass: ssd             # Match OSD device class
-        enableCrushUpdates: true     # Keep CRUSH rules current on topology changes
-        enableRBDStats: true         # Enable per-volume I/O monitoring
-        replicated:
-          size: 3
-          requireSafeReplicaSize: true
-          targetSizeRatio: 0.1       # CRITICAL — prevents 1-PG bottleneck
-      ```
+         spec:
+           failureDomain: rack          # Red Hat OpenShift Kubernetes Service default — data copies spread across racks
+           deviceClass: ssd             # Match OSD device class
+           enableCrushUpdates: true     # Keep CRUSH rules current on topology changes
+           enableRBDStats: true         # Enable per-volume I/O monitoring
+           replicated:
+            size: 3
+            requireSafeReplicaSize: true
+                targetSizeRatio: 0.1       # CRITICAL — prevents 1-PG bottleneck
+            ```
 
       The `targetSizeRatio` instructs the placement group autoscaler to proportionally preallocate placement groups based on the expected capacity share. Without it, the pool receives 1 PG and all I/O is funneled through a single OSD.
 
@@ -974,14 +974,10 @@ Accordingly, as your workloads grow and storage demands increase, it becomes ess
 In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments, expansion typically involves extending the storage worker pool. This operation is performed with minimal downtime, enabling seamless growth of your storage cluster.
 
 1. Expand a worker node by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). For production in which a storage cluster is configured with worker nodes across 3 racks, add worker nodes in a count of multiples of 3 to keep the balance of replication, for example 3, 6, or 9.
-
 Accordingly, as workloads grow and storage demands increase, scale your storage infrastructure. Expansion in ODF is a key Day-2 operation that increases storage capacity, improves performance, and maintains resilience without disrupting running applications.
-
 In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments, expansion typically involves extending the storage worker pool. This operation runs with minimal downtime and enables seamless growth of your storage cluster.
-
-1. Expand worker nodes by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). In production environments where the storage cluster is configured with worker nodes across 3 racks, add worker nodes in multiples of 3 to maintain replication balance, for example, 3, 6, or 9.
-
-2. If ODF runs on all of the worker nodes in your cluster, new worker nodes are added to the ODF storage cluster topology automatically. If ODF runs on only a subset of worker nodes, specify the private `<workerNodes>` parameters in your OcsCluster custom resource. Add the names of the new worker nodes to your ODF deployment by editing the custom resource definition. Modify OcsCluster custom resource as follows:
+2. Expand worker nodes by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). In production environments where the storage cluster is configured with worker nodes across 3 racks, add worker nodes in multiples of 3 to maintain replication balance, for example, 3, 6, or 9.
+3. If ODF runs on all of the worker nodes in your cluster, new worker nodes are added to the ODF storage cluster topology automatically. If ODF runs on only a subset of worker nodes, specify the private `<workerNodes>` parameters in your OcsCluster custom resource. Add the names of the new worker nodes to your ODF deployment by editing the custom resource definition. Modify OcsCluster custom resource as follows:
 
       - Find ocscluster
 
@@ -997,18 +993,17 @@ In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} 
 
       - Save the OcsCluster custom resource file to reapply it to your cluster.
 
-3. Increase the 'numOfOsd' value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster.
+4. Increase the 'numOfOsd' value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster.
 The adjustment to 'numOfOsd' depends on both the number of OSD disks per node and the number of nodes added. For example, if each node has 8 NVMe disks that are dedicated to OSDs, adding 3 nodes increases 'numOfOsd' by 8, while adding 6 nodes increases it by 16.
 {: note}
-
-4. Verify the result by running the followwing command:
+5. Verify the result by running the followwing command:
 
     ```sh
     oc exec -n openshift-storage ${TOOLS_POD} -- ceph osd tree
     ```
-    {: pre}
 
-5. Verify that the new worker nodes are added and evenly distributed across each rack bucket, along with the corresponding number of OSDs assigned to each node.
+    {: pre}
+6. Verify that the new worker nodes are added and evenly distributed across each rack bucket, along with the corresponding number of OSDs assigned to each node.
 
 For more information, see [Expanding ODF by adding worker nodes to your VPC cluster](/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui#odf-vpc-add-worker-nodes).
 

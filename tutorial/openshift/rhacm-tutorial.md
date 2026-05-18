@@ -168,19 +168,19 @@ The dashboard provides the following information:
 - Scope: Single cluster infrastructure monitoring
 - Namespace: `openshift-monitoring` on each managed cluster
 - **Alert components**:
-  - Cluster Monitoring Operator
-  - Prometheus Operator
-  - Prometheus for cluster metrics
-  - Alertmanager for cluster alerts
+   - Cluster Monitoring Operator
+   - Prometheus Operator
+   - Prometheus for cluster metrics
+   - Alertmanager for cluster alerts
 
 You can set up **Custom alerts** if default system alerts. The Red Hat Advanced Cluster Management observability stack manages these alerts and supports multi-cluster scenarios.
 
 - Scope: Multi-cluster application and custom resource monitoring
 - Namespace: `open-cluster-management-observability` on the hub cluster
 - Components:
-  - Thanos Queries for global metrics view
-  - Thanos Ruler for centralized alert evaluation
-  - Alertmanager for multi-cluster alerting
+   - Thanos Queries for global metrics view
+   - Thanos Ruler for centralized alert evaluation
+   - Alertmanager for multi-cluster alerting
 
 #### Creating system alerts
 {: #observability-design-system-alerts}
@@ -429,9 +429,9 @@ After you implement Observability for your {{site.data.keyword.redhat_openshift_
 - Backup and recovery: [Implement backup solutions for your virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup)
 - Migration: [Learn about migrating workloads to Red Hat OpenShift Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design-mtv)
 - Design considerations: Review comprehensive design guidance for production deployments:
-  - [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
-  - [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)
-  - [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview)
-  - [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview)
-  - [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design)
+   - [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
+   - [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)
+   - [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview)
+   - [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview)
+   - [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design)
 - Reference architecture: [Explore the complete reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)

@@ -118,6 +118,7 @@ Similar issues that affect CentOS 9 also apply to the SUSE Linux Enterprise Serv
 - Restart the virtual server instance.
 - Run `uname -r` to make sure that the kernel is upgraded.
 - Run `sudo zypper install kernel-devel` to install the `kernel-devel` package as a replacement for the first step in the general guide.
+
 Then, follow the remaining steps.
 
 #### ibm-sles-15-7-amd64-3

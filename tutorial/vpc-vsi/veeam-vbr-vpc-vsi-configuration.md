@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-12"
+lastupdated: "2026-05-18"
 
 keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, IAM, ReFS, RDP, HMAC, SSH, RAM, CPU, IOPS, GB, DNS, SQL, GFS, RTO
 
@@ -75,9 +75,9 @@ Use these network practices to keep backup traffic efficient, private, and predi
 
 - Use private network connectivity within VPC for all backup traffic.
 - Configure security groups to allow the following Veeam ports:
-  - `TCP 2500-3300`: Veeam Backup & Replication services
-  - `TCP 6160-6163`: Veeam Agent communication
-  - `TCP 9392-9394`: Veeam Backup Enterprise Manager (if used)
+   - `TCP 2500-3300`: Veeam Backup & Replication services
+   - `TCP 6160-6163`: Veeam Agent communication
+   - `TCP 9392-9394`: Veeam Backup Enterprise Manager (if used)
 - Ensure adequate bandwidth between the VBR server and target virtual servers. A minimum of 1 Gbps is recommended.
 - Use VPC routing to avoid using the internet gateway for backup traffic.
 
@@ -124,10 +124,10 @@ Ensure that you have the following IAM access policies:
 - VPC Infrastructure Services: Editor or Administrator role.
 - {{site.data.keyword.cos_short}}: Writer or Manager role.
 - Permission to create and manage the following resources:
-  - Virtual servers
-  - Block storage volumes
-  - Security groups
-  - Floating IPs
+   - Virtual servers
+   - Block storage volumes
+   - Security groups
+   - Floating IPs
 
 ## Architecture overview
 {: #veeam-vbr-vpc-architecture}
