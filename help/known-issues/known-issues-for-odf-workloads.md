@@ -10,6 +10,8 @@ subcollection: virtualization-solutions
 
 content-type: known-issues
 services: OpenShift Virtualization
+account-plan: paid
+completion-time: 60m
 
 ---
 

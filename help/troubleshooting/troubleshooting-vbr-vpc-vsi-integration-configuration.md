@@ -10,6 +10,8 @@ subcollection: virtualization-solutions
 
 content-type: troubleshooting
 services: OpenShift Virtualization, VMware
+account-plan: paid
+completion-time: 60m
 
 ---
 
@@ -17,6 +19,9 @@ services: OpenShift Virtualization, VMware
 
 # Why Can't I Configure Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
 {: #troubleshooting-vbr-vpc-vsi-integration-configuration}
+{: toc-content-type="troubleshooting"}
+{: toc-services="OpenShift Virtualization, VMware"}
+{: toc-completion-time="60m"}
 
 Use this topic to identify and resolve common issues when you configure Veeam Backup & Replication integration for {{site.data.keyword.vpc_full}} virtual server instances.
 {: shortdesc}

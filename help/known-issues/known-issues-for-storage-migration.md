@@ -10,6 +10,8 @@ subcollection: virtualization-solutions
 
 content-type: known-issues
 services: OpenShift Virtualization
+account-plan: paid
+completion-time: 60m
 
 ---
 
@@ -17,6 +19,9 @@ services: OpenShift Virtualization
 
 # Known issues for storage migration
 {: #known-issues-storage-migration}
+{: toc-content-type="known-issues"}
+{: toc-services="OpenShift Virtualization"}
+{: toc-completion-time="60m"}
 
 Known issues and limitations might change as capabilities are added, so check back periodically.
 

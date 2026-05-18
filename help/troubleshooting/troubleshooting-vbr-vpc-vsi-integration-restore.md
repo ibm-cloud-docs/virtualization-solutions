@@ -10,6 +10,8 @@ subcollection: virtualization-solutions
 
 content-type: troubleshooting
 services: OpenShift Virtualization, VMware
+account-plan: paid
+completion-time: 60m
 
 ---
 
@@ -17,6 +19,9 @@ services: OpenShift Virtualization, VMware
 
 # Why Can't I Restore Veeam Backup & Replication Restoration on VPC Virtual Server Instances?
 {: #troubleshooting-vbr-vpc-vsi-integration-restore}
+{: toc-content-type="troubleshooting"}
+{: toc-services="OpenShift Virtualization, VMware"}
+{: toc-completion-time="60m"}
 
 The troubleshooting section helps you identify common restore issues and provide actions to resolve them.
 
