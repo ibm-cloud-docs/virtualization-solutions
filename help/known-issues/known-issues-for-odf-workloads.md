@@ -19,6 +19,7 @@ services: OpenShift Virtualization
 {: #known-issues-for-odf-workloads}
 {: toc-content-type="known-issues"}
 {: toc-services="OpenShift Virtualization"}
+{: toc-completion-time="60m"}
 
 Known issues and limitations might change as capabilities are added, so check back periodically.
 

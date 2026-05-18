@@ -19,6 +19,7 @@ services: OpenShift Virtualization, VMware
 {: #troubleshooting-storage-migration}
 {: toc-content-type="troubleshooting"}
 {: toc-services="OpenShift Virtualization, VMware"}
+{: toc-completion-time="60m"}
 
 If you encounter issues during storage migration, review the following common problems and their solutions.
 
