@@ -8,7 +8,7 @@ keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift K
 
 subcollection: virtualization-solutions
 
-content-type: known-issues
+content-type: troubleshooting
 services: OpenShift Virtualization, VMware
 
 ---

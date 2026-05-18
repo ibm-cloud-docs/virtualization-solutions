@@ -17,7 +17,6 @@ services: OpenShift Virtualization, VMware
 
 # Troubleshooting storage migration
 {: #troubleshooting-storage-migration}
-{: #troubleshoot}
 {: toc-content-type="troubleshooting"}
 {: toc-services="OpenShift Virtualization, VMware"}
 
