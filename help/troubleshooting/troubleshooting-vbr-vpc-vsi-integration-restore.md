@@ -19,6 +19,7 @@ services: OpenShift Virtualization, VMware
 {: #troubleshooting-vbr-vpc-vsi-integration-restore}
 {: toc-content-type="troubleshooting"}
 {: toc-services="OpenShift Virtualization, VMware"}
+{: toc-completion-time="60m"}
 
 The troubleshooting section helps you identify common restore issues and provide actions to resolve them.
 

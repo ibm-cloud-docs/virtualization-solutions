@@ -984,6 +984,7 @@ In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} 
         ```
 
       - Save the OcsCluster custom resource file to reapply it to your cluster.
+
 4. Increase the 'numOfOsd' value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster.
 The adjustment to 'numOfOsd' depends on both the number of OSD disks per node and the number of nodes added. For example, if each node has 8 NVMe disks that are dedicated to OSDs, adding 3 nodes increases 'numOfOsd' by 8, while adding 6 nodes increases it by 16.
 {: note}
