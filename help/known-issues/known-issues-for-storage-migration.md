@@ -8,20 +8,12 @@ keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift K
 
 subcollection: virtualization-solutions
 
-content-type: known-issues
-services: OpenShift Virtualization
-account-plan: paid
-completion-time: 60m
-
 ---
 
 {{site.data.keyword.attribute-definition-list}}
 
 # Known issues for storage migration
 {: #known-issues-storage-migration}
-{: toc-content-type="known-issues"}
-{: toc-services="OpenShift Virtualization"}
-{: toc-completion-time="60m"}
 
 Known issues and limitations might change as capabilities are added, so check back periodically.
 

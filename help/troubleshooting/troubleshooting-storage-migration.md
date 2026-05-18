@@ -8,20 +8,12 @@ keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI,
 
 subcollection: virtualization-solutions
 
-content-type: troubleshooting
-services: OpenShift Virtualization, VMware
-account-plan: paid
-completion-time: 60m
-
 ---
 
 {{site.data.keyword.attribute-definition-list}}
 
 # Troubleshooting storage migration
 {: #troubleshooting-storage-migration}
-{: toc-content-type="troubleshooting"}
-{: toc-services="OpenShift Virtualization, VMware"}
-{: toc-completion-time="60m"}
 
 If you encounter issues during storage migration, review the following common problems and their solutions.
 

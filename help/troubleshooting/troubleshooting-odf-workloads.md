@@ -8,20 +8,12 @@ keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift K
 
 subcollection: virtualization-solutions
 
-content-type: troubleshooting
-services: OpenShift Virtualization, VMware
-account-plan: paid
-completion-time: 60m
-
 ---
 
 {{site.data.keyword.attribute-definition-list}}
 
 # Troubleshooting ODF workloads
 {: #troubleshooting-odf-workloads}
-{: toc-content-type="troubleshooting"}
-{: toc-services="OpenShift Virtualization, VMware"}
-{: toc-completion-time="60m"}
 
 When working with Red Hat OpenShift Data Foundation (ODF) storage from local NVMe drives that are in the bare metal servers, you might encounter issues. Issues, symptoms, likely causes, and resolutions are described in the following sections.
 
