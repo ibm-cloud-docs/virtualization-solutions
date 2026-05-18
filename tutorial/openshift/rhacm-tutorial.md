@@ -107,7 +107,6 @@ stringData:
       access_key: XXXX
       secret_key: XXXX
 ```
-
 {: codeblock}
 
 Create service credentials with HMAC keys for the Cloud Object Storage instance. Use the provided HMAC values for `access_key` and `secret_key`.
@@ -224,7 +223,6 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
 
     {"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"kubevirt_vm_info","cluster":"local-cluster","clusterID":"110b2032-b6b9-455a-abd5-9949482b61df","container":"virt-controller","endpoint":"metrics","flavor":"small","instance":"10.129.0.198:8443","job":"kubevirt-prometheus-metrics","machine_type":"pc-q35-rhel9.6.0","name":"centos-stream9-white-mink-62","namespace":"acm-test","os":"centos-stream9","pod":"virt-controller-7744b59dd8-dk7tw","receive":"true","service":"kubevirt-prometheus-metrics","status":"running","status_group":"running","tenant_id":"2c1cf409-966c-4c2d-bd57-f24c4c5a9393","workload":"server"},"value":[1762574206.765,"1"]},{"metric":{"__name__":"kubevirt_vm_info","cluster":"local-cluster","clusterID":"110b2032-b6b9-455a-abd5-9949482b61df","container":"virt-controller","endpoint":"metrics","instance":"10.129.0.198:8443","instance_type":"u1.medium","job":"kubevirt-prometheus-metrics","machine_type":"pc-q35-rhel9.6.0","name":"rhel-10-rose-damselfly-10","namespace":"acm-test","pod":"virt-controller-7744b59dd8-dk7tw","preference":"rhel.10","receive":"true","service":"kubevirt-prometheus-metrics","status":"running","status_group":"running","tenant_id":"2c1cf409-966c-4c2d-bd57-f24c4c5a9393"},"value":[1762574206.765,"1"]}],"analysis":{}}}
      ```
-
     {: codeblock}
 
 2. To apply the custom alert rule, create and **Apply the configmap** to the cluster.
@@ -256,7 +254,6 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
             severity: critical
             alert_type: vm_not_running
       ```
-
       {: codeblock}
 
     Use the existing Prometheus metrics `kubevirt_vm_info` and PromQL `kubevirt_vm_info{status!="running"} > 0` to trigger an alert when any virtual server isn't in the running status.
@@ -278,7 +275,6 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
 
         /etc/thanos/config/thanos-ruler-config from thanos-ruler-config (ro)
    ```
-
     {: codeblock}
 
 4. Create and apply Apply the configmap to the cluster, for the custom alert rule to be applied.
@@ -310,7 +306,6 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
           severity: critical
           alert_type: vm_not_running
      ```
-
     {: codeblock}
 
      ```bash
@@ -324,7 +319,6 @@ Consider the following scenario: Trigger a Slack alert when a virtual machine in
 
        /var/thanos/rule from data (rw)
      ```
-
      {: codeblock}
 
 5. Create a secret yaml file that is named `Alertmanager-config.yaml`, which configures the receiver, Slack webhook URL, and Slack channel, and so on.
@@ -402,7 +396,6 @@ Make sure that the `alert_type` matches the value that is defined in the **confi
    ```bash
        oc -n open-cluster-management-observability port-forward pod/observability-Alertmanager-0 9093:9093
     ```
-
    {: codeblock}
 
    Access [localhost alerts](http://localhost:9093/#/alerts) to check whether the alert is generated there.

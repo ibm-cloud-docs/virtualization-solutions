@@ -81,16 +81,13 @@ To resolve Static IP configuration, use the following information:
    ```bash
    # Identify new interface name
    ip link show
-
    # Edit connection
    nmcli con edit "System eth0"
    # Change interface-name to new name
    # Save and quit
-
    # Restart NetworkManager
    systemctl restart NetworkManager
    ```
-
    {: codeblock}
 
 - Netplan-based (Ubuntu 18.04+)
@@ -106,7 +103,6 @@ To resolve Static IP configuration, use the following information:
          nameservers:
            addresses: [8.8.8.8, 8.8.4.4]
    ```
-
    {: codeblock}
 
 - Traditional /etc/network/interfaces (Debian, older Ubuntu)
@@ -118,7 +114,6 @@ To resolve Static IP configuration, use the following information:
      netmask 255.255.255.0
      gateway 10.240.0.1
    ```
-
    {: codeblock}
 
 Fix for DHCP configuration:
@@ -127,6 +122,8 @@ If you use DHCP, the configuration is automatic, but you might need to update in
 
 ## Cloud-init considerations
 {: #virt-sol-vpc-migration-design-linux-cloudinit}
+
+
 
 Cloud-init is used to initialize cloud instances, typically used with image templates. It runs on the first boot to do the following actions:
 
@@ -158,7 +155,6 @@ sudo touch /etc/cloud/cloud-init.disabled
 
 # Or after migration via VNC console
 ```
-
 {: codeblock}
 
 ### Option 2: Accept first-boot behavior
@@ -169,6 +165,8 @@ sudo touch /etc/cloud/cloud-init.disabled
 
 ### Option 3: Configure cloud-init
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
+
+
 
 - Create a cloud-init config to preserve your settings
 - More complex but gives you control
@@ -188,7 +186,6 @@ fdisk -l /dev/vdb
 # For GPT
 gdisk -l /dev/vdb
 ```
-
 {: codeblock}
 
 Boot volume resize:
@@ -206,7 +203,6 @@ If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
    # For GPT (automatic backup GPT update)
    gdisk /dev/vda
    ```
-
    {: codeblock}
 
 1. Resize file system:
@@ -223,7 +219,6 @@ If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
    lvextend -l +100%FREE /dev/mapper/vg-root
    resize2fs /dev/mapper/vg-root
    ```
-
    {: codeblock}
 
 ## fstrim and Thin Provisioning

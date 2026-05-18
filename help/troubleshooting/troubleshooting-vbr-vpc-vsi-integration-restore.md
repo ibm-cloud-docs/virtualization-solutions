@@ -17,7 +17,6 @@ services: OpenShift Virtualization, VMware
 
 # Why Can't I Restore Veeam Backup & Replication Restoration on VPC Virtual Server Instances?
 {: #troubleshooting-vbr-vpc-vsi-integration-restore}
-{: toc-services="OpenShift Virtualization, VMware"}
 
 The troubleshooting section helps you identify common restore issues and provide actions to resolve them.
 

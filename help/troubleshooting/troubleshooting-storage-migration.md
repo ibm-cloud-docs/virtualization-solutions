@@ -17,8 +17,6 @@ services: OpenShift Virtualization, VMware
 
 # Troubleshooting storage migration
 {: #troubleshooting-storage-migration}
-{: toc-content-type="troubleshooting"}
-{: toc-services="OpenShift Virtualization, VMware"}
 
 If you encounter issues during storage migration, review the following common problems and their solutions.
 

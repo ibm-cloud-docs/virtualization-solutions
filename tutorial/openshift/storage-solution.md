@@ -243,7 +243,6 @@ To avoid this data loss, size your ODF cluster so that you can lose 2 nodes simu
 | 3 (minimum) | 1 in maintenance + 1 failure = 1 remaining | I/O blocked (`min_size=2`). Risk of data loss. |
 | 6 (recommended) | 1 in maintenance + 1 failure = 4 remaining | Ceph rereplicates to the 4 nodes. I/O continues. No data loss risk. |
 | 9 | 1 in maintenance + 1 failure = 7 remaining | Ample capacity for rereplication. Minimal performance impact. |
-
 {: caption="Impact of planned maintenance plus an unplanned failure by cluster size"}
 
 For production clusters that run rep3, start with 6 nodes. This setup provides N+2 headroom with enough capacity for one node in planned maintenance and one unexpected failure without risking data availability or data loss. Use a 3-node cluster only for development, testing, or proofs of concept where downtime and data loss are acceptable.
@@ -347,7 +346,6 @@ To allow workloads to automatically use high-performance ODF-backed persistent b
    ```bash
    oc patch storageclass ocs-storagecluster-ceph-rbd -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
    ```
-
    {: codeblock}
 
 2. If needed, remove default from the previously configured default:
@@ -355,7 +353,6 @@ To allow workloads to automatically use high-performance ODF-backed persistent b
    ```bash
    oc patch storageclass <previous-default-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
    ```
-
    {: codeblock}
 
 ### ODF configuration checklist
@@ -474,7 +471,6 @@ When you install the ODF add-on, specify the storage worker pool, which automati
     oc get node -l ibm-cloud.kubernetes.io/worker-pool-name=<your storage workerpool  name> -o=name  | \
     xargs -I {} oc adm taint nodes {} node.ocs.openshift.io/storage=true:NoSchedule
     ```
-
    {: pre}
 
 3. Verify that the node is successfully tainted:
@@ -489,7 +485,6 @@ When you install the ODF add-on, specify the storage worker pool, which automati
         Value: 'true'
         Effect: Noschedule
       ```
-
     {: pre}
 
 ## Advanced configuration
@@ -604,7 +599,6 @@ When you create a custom StorageClass for virtualization workloads, verify that 
     ```bash
     oc get sc ocs-storagecluster-ceph-rbd -o jsonpath='{.parameters.clusterID}'
     ```
-
     {: codeblock}
 
     For erasure-coded pools (developer preview only), see [Understanding Data Protection](#understanding-data-protection), add `dataPool` that points to the EC pool, and keep `pool` pointing to the default-replicated pool:
@@ -614,7 +608,6 @@ When you create a custom StorageClass for virtualization workloads, verify that 
       pool: ocs-storagecluster-cephblockpool   # Replicated pool for metadata
       dataPool: my-ec-pool                      # EC pool for data blocks
     ```
-
     {: codeblock}
 
 ### Compression
@@ -738,7 +731,6 @@ spec:
     persistentVolumeClaimName: my-vm-data-disk
 EOF
 ```
-
 {: codeblock}
 
 VolumeSnapshots are copy-on-write and near-instant to create. You can use them to restore a virtual server to a previous state or clone a disk. {{site.data.keyword.redhat_openshift_notm}} Virtualization also provides a built-in [VM snapshot and restores API](https://kubevirt.io/user-guide/storage/snapshot_restore_api/){: external} that captures the full virtual server state including configuration and all disks, in a single operation.
@@ -878,7 +870,6 @@ Health states:
 | `HEALTH_OK` | All components are working correctly, all data fully replicated. | None, normal operation. |
 | `HEALTH_WARN` | Noncritical issue. The cluster is operational, but something needs attention. | Investigate with `ceph health detail`. Common causes: almost full OSDs, degraded PGs recovering, clock skew between MONs. |
 | `HEALTH_ERR` | Critical issue. Data availability or durability might be at risk. | Investigate immediately. Common causes: OSDs down, PGs not recovering, cluster full. |
-
 {: caption="Ceph health states and recommended actions"}
 
 To see detailed warnings, use the following command:
@@ -952,7 +943,7 @@ Updating ODF on a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service
    - This process helps ensure that ODF pods (such as Ceph OSDs, MONs, and managers) are rescheduled correctly and continue functioning without data loss.
    - Ensure adequate capacity and node health before you start this step to maintain storage availability.
 
-1. Update the ODF add-on.
+2. Update the ODF add-on.
 
    - After the worker nodes are upgraded or replaced, update the ODF add-on.
    - This step upgrades the ODF operators, CSI drivers, and related components to the target version.
@@ -1001,7 +992,6 @@ The adjustment to 'numOfOsd' depends on both the number of OSD disks per node an
     ```sh
     oc exec -n openshift-storage ${TOOLS_POD} -- ceph osd tree
     ```
-
     {: pre}
 6. Verify that the new worker nodes are added and evenly distributed across each rack bucket, along with the corresponding number of OSDs assigned to each node.
 
