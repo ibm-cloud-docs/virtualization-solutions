@@ -2,14 +2,11 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-05-18"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
 
 subcollection: virtualization-solutions
-
-content-type: known-issues
-services: OpenShift Virtualization, VMware
 
 ---
 
@@ -113,7 +110,6 @@ Common causes:
 | `ExternalProvisioning` | CSI driver is waiting on an external dependency (for example, KMS for encrypted volumes). | Check `ibm-kp-secret` and `ceph-csi-kms-token` exist (see [Encryption](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#odf-supported-encryption)). |
 | `cannot create encrypted volume from unencrypted volume` (in CSI logs) | Encrypted StorageClass used for a cloned volume from an unencrypted source. | Use nonencrypted SC for root disks (see [Encryption](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads#odf-supported-encryption)). |
 | `node(s) did not have enough free storage` | Ceph cluster is full or nearfull. | Check `ceph df`. Add capacity or delete unused PVCs. |
-
 {: caption="Common causes of PVC stuck in Pending"}
 
 ## OSD down

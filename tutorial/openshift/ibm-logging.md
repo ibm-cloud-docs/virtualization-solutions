@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-06"
+lastupdated: "2026-05-18"
 
 keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
 
@@ -118,9 +118,9 @@ After you implement observability for your {{site.data.keyword.redhat_openshift_
 - **Backup and recovery**: Implement backup solutions for your virtual servers. For more information, see [Backup solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup).
 - **Migration**: Learn about migrating workloads to {{site.data.keyword.redhat_openshift_notm}} Virtualization. For more information, see [Migration Toolkit for Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design-mtv).
 - **Design considerations**: Review the design guidance for production deployments.
-  - Review guidance about sizing, resource allocation, and compute infrastructure planning for {{site.data.keyword.redhat_openshift_notm}} Virtualization workloads. For more information, see [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
-  - Review guidance about designing network architectures, connectivity models, and traffic flows for {{site.data.keyword.redhat_openshift_notm}} Virtualization clusters. For more information, see [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)
-  - Explore storage architecture recommendations for persistent volumes, performance needs, and data availability in virtualized workloads. For more information, see [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview)
-  - Learn best practices to secure {{site.data.keyword.redhat_openshift_notm}} Virtualization environments, which include access controls, encryption, and compliance considerations. For more information, see [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview)
-  - Understand strategies to build resilient {{site.data.keyword.redhat_openshift_notm}} Virtualization deployments that help ensure high availability and rapid workload recovery. For more information, see [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design)
+   - Review guidance about sizing, resource allocation, and compute infrastructure planning for {{site.data.keyword.redhat_openshift_notm}} Virtualization workloads. For more information, see [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
+   - Review guidance about designing network architectures, connectivity models, and traffic flows for {{site.data.keyword.redhat_openshift_notm}} Virtualization clusters. For more information, see [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)
+   - Explore storage architecture recommendations for persistent volumes, performance needs, and data availability in virtualized workloads. For more information, see [Storage design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview)
+   - Learn best practices to secure {{site.data.keyword.redhat_openshift_notm}} Virtualization environments, which include access controls, encryption, and compliance considerations. For more information, see [Security design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview)
+   - Understand strategies to build resilient {{site.data.keyword.redhat_openshift_notm}} Virtualization deployments that help ensure high availability and rapid workload recovery. For more information, see [Resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design)
 - **Reference Architecture**: Explore the complete reference architecture. For more information, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture).

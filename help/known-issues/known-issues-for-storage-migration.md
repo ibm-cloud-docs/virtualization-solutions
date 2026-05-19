@@ -2,14 +2,11 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-12"
+lastupdated: "2026-05-18"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
 
 subcollection: virtualization-solutions
-
-content-type: known-issues
-services: OpenShift Virtualization, VMware
 
 ---
 

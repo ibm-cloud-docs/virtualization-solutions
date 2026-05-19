@@ -1,7 +1,8 @@
 ---
 
 copyright:
-lastupdated: "2026-05-15"
+  years: 2026, 2026
+lastupdated: "2026-05-18"
 
 keywords: Hyper-V, VPC, VSI, cloud infrastructure, virtual machines
 
@@ -40,7 +41,6 @@ The following table outlines the products or services that are used in the archi
 | Active Directory | 2 virtual server instances on {{site.data.keyword.vpc_short}} | Provides virtual machines that act as Microsoft directory services to help bare metal hosts identify domain names within the Hyper-V cluster on {{site.data.keyword.vpc_short}}. Because {{site.data.keyword.vpc_short}} is primarily a Layer 3 (network layer) software-defined network, subnets do not act as a shared Layer 2 broadcast domain, so AD servers are needed. The second virtual machine is used as a backup of the first AD server to provide redundancy-based failover. |
 | Hyper-V host node | Bare metal servers on {{site.data.keyword.vpc_short}} | Provides bare metal servers with Windows Server installed as the native OS, which has built-in Hyper-V infrastructure capabilities. The network of these hosts usually has only isolated subnets that are detached from the external internet. In most cases, there is at least one subnet for management purposes and one subnet for actual workload communication. All host domain names are registered with the AD servers. |
 | Hyper-V cluster | Failover cluster on Hyper-V host nodes | Installed as a failover cluster across the Hyper-V host nodes. Cluster Shared Volumes can be added to the cluster to provide distributed cluster-wide storage and availability management. |
-
 {: caption="Hyper-V on VPC components" caption-side="bottom"}
 
 Within the reference architecture, the following 3 types of virtual network interface (VNI) are used:

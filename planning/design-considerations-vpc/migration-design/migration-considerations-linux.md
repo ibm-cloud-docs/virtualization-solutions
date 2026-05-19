@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-04-08"
+  years: 2025, 2026
+lastupdated: "2026-05-18"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -15,12 +15,15 @@ subcollection: virtualization-solutions
 # Linux migration considerations
 {: #virt-sol-vpc-migration-design-linux}
 
+
+
 Before you start a migration, you need to consider the following information.
 
 ## Verify VirtIO drivers
-Linux migrations are generally simpler than Windows, but the guide describes a few important considerations to keep in mind.
 {: shortdesc}
 {: #virt-sol-vpc-migration-design-linux-virtio}
+
+Linux migrations are generally simpler than Windows, but the guide describes a few important considerations to keep in mind.
 
 The following Linux distributions include VirtIO drivers in the kernel:
 
@@ -34,7 +37,6 @@ Use the following command to verify drivers are present.
 ```bash
 lsmod | grep virtio
 ```
-
 {: pre}
 
 You see the following drivers:
@@ -49,19 +51,26 @@ If these drivers are missing, you need to rebuild the kernel with VirtIO support
 ## No Sysprep equivalent needed
 {: #virt-sol-vpc-migration-design-linux-nosysprep}
 
+
+
 Linux doesn't bind drivers to hardware. The kernel detects new hardware at boot and loads the appropriate drivers. This process makes migration simple with no preparation typically required.
 
 ## Adjust the network configuration
+{: #virt-sol-vpc-migration-design-linux-adjust-network-configuration}
+
 Linux does not bind drivers to hardware like Windows. The kernel detects new hardware at boot and loads appropriate drivers, which makes migration significantly easier with no special preparation typically required.
-{: #virt-sol-vpc-migration-design-linux-network}
+
+
 
 Common issue: Network interface names change during migration.
 
-In VMware, your interface might be named
+In VMware, your interface might be named:
+
 - `ens192` (systemd predictable naming)
 - `eth0` (traditional naming)
 
-In VPC, it might change to
+In VPC, it might change to:
+
 - `ens3` or `ens33` (common in VirtIO environments)
 - `eth0` (if you use traditional naming conventions)
 
@@ -72,16 +81,13 @@ To resolve Static IP configuration, use the following information:
    ```bash
    # Identify new interface name
    ip link show
-
    # Edit connection
    nmcli con edit "System eth0"
    # Change interface-name to new name
    # Save and quit
-
    # Restart NetworkManager
    systemctl restart NetworkManager
    ```
-
    {: codeblock}
 
 - Netplan-based (Ubuntu 18.04+)
@@ -117,6 +123,8 @@ If you use DHCP, the configuration is automatic, but you might need to update in
 ## Cloud-init considerations
 {: #virt-sol-vpc-migration-design-linux-cloudinit}
 
+
+
 Cloud-init is used to initialize cloud instances, typically used with image templates. It runs on the first boot to do the following actions:
 
 - Set a hostname
@@ -124,9 +132,7 @@ Cloud-init is used to initialize cloud instances, typically used with image temp
 - Create users and SSH keys
 - Run custom scripts
 
-Migration context:
-
-If cloud-init is installed on your migrated virtual server, VPC might treat the first boot as a "first boot", which triggers the following actions:
+Migration context: If cloud-init is installed on your migrated virtual server, VPC might treat the first boot as a "first boot", which triggers the following actions:
 
 - Hostname changes
 - Network reconfiguration
@@ -136,8 +142,12 @@ If cloud-init is installed on your migrated virtual server, VPC might treat the 
 ### Design decisions
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions}
 
+
+
 ### Option 1: Disable cloud-init
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions1}
+
+
 
 ```bash
 # Before migration
@@ -156,6 +166,8 @@ sudo touch /etc/cloud/cloud-init.disabled
 ### Option 3: Configure cloud-init
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
 
+
+
 - Create a cloud-init config to preserve your settings
 - More complex but gives you control
 
@@ -165,8 +177,7 @@ For individual VM migrations (not template deployments), disable cloud-init to p
 ## Partition and file system considerations
 {: #virt-sol-vpc-migration-design-linux-partitions}
 
-Partition table verification:
-After you transfer the disks, use the following command to verify that the partition tables are intact:
+Partition table verification: After you transfer the disks, use the following command to verify that the partition tables are intact:
 
 ```bash
 # On worker VSI after transfer
@@ -175,13 +186,13 @@ fdisk -l /dev/vdb
 # For GPT
 gdisk -l /dev/vdb
 ```
-
 {: codeblock}
 
 Boot volume resize:
 If you resized the boot volume upward (example: from 80 GB in VMware to 100 GB in VPC),
 
 1. You might need to update the partition table:
+
 If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
 
    ```bash
@@ -192,7 +203,6 @@ If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
    # For GPT (automatic backup GPT update)
    gdisk /dev/vda
    ```
-
    {: codeblock}
 
 1. Resize file system:
@@ -209,7 +219,6 @@ If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
    lvextend -l +100%FREE /dev/mapper/vg-root
    resize2fs /dev/mapper/vg-root
    ```
-
    {: codeblock}
 
 ## fstrim and Thin Provisioning

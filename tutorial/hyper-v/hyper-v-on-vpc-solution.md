@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-15"
+lastupdated: "2026-05-18"
 
 keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines
 
@@ -19,6 +19,9 @@ completion-time: 60m
 
 # Deploying and configuring a Hyper-V cluster on IBM Cloud VPC
 {: #virt-sol-hyperv-on-vpc-tutorial}
+{: toc-content-type="tutorial"}
+{: toc-services="Hyper-V, VPC VSI, VPC Bare-metal"}
+{: toc-completion-time="60m"}
 
 Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built into the Windows&reg; Server and Windows operating system. Hyper-V on {{site.data.keyword.vpc_short}} provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale on Windows-based environments that are hosted on bare metal servers within the {{site.data.keyword.vpc_short}} isolated and secured private cloud.
 {: shortdesc}
@@ -51,13 +54,13 @@ To plan for the installation of a typical Hyper-V cluster on {{site.data.keyword
 This tutorial requires the following prerequisites.
 
 - Confirm that the {{site.data.keyword.vpc_short}} instance is available in the target {{site.data.keyword.cloud_notm}} account. Also, verify that you are familiar with {{site.data.keyword.vpc_short}} concepts and operations and have administrator privileges to provision the following infrastructure components within the {{site.data.keyword.vpc_short}} instance:
-  - Bare-metal server
-  - Virtual server instance
-  - Subnet
-  - Virtual network interface (VNI)
-  - Public gateway
-  - Floating IP
-  - Security group
+    - Bare-metal server
+    - Virtual server instance
+    - Subnet
+    - Virtual network interface (VNI)
+    - Public gateway
+    - Floating IP
+    - Security group
 - Create a management subnet in the {{site.data.keyword.vpc_short}} instance and attach a public gateway to enable internet access.
 - Because Hyper-V requires Windows Server 2025 due to the latest NVMe support, you must use the Bring Your Own License (BYOL) model for Windows 2025 Datacenter edition until IBM&reg; offers a Datacenter edition license for bare metal servers.
 

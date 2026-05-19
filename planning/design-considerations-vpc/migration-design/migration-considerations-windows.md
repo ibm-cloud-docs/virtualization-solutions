@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-04-07"
+lastupdated: "2026-05-18"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -50,7 +50,6 @@ The following is the process for `sysprep`:
    ```cmd
    C:\Windows\System32\Sysprep\sysprep.exe /generalize /oobe /shutdown
    ```
-
    {: codeblock}
 
 1. Export and migrate by using any of the [migration methods](/docs/virtualization-solutions?group=virtual-servers-on-vpc), except for VDDK Direct Extraction, which is only for vCenter.
@@ -100,7 +99,6 @@ The following is the process for `virt-v2v` driver injection:
    ```bash
    virt-v2v -i disk windows-vm.img -o disk -os /target --block-driver virtio-scsi
    ```
-
    {: codeblock}
 
    Parameters:
@@ -114,7 +112,6 @@ The following is the process for `virt-v2v` driver injection:
    ln -fs /dev/vdb /target/windows-vm-sda
    virt-v2v -i disk windows-vm.img -o disk -os /target --block-driver virtio-scsi
    ```
-
    {: codeblock}
 
 Advantages of virt-v2v:
@@ -181,7 +178,6 @@ scp /tmp/windows-sda ubuntu-worker:/tmp/
 # On Ubuntu worker (has SCSI support)
 virt-v2v -i disk /tmp/windows-sda -o disk -os /target --block-driver virtio-scsi
 ```
-
 {: codeblock}
 
 ## Windows Storage Driver Architecture in VPC
@@ -216,7 +212,6 @@ Locating WinRE:
 ```cmd
 reagentc /info
 ```
-
 {: pre}
 
 This might report a recovery volume, but the actual WinRE image might be at:
@@ -224,7 +219,6 @@ This might report a recovery volume, but the actual WinRE image might be at:
 ```cmd
 C:\Windows\System32\Recovery\winre.wim
 ```
-
 {: pre}
 
 Installing Drivers in WinRE:
@@ -245,6 +239,7 @@ Installing Drivers in WinRE:
 GPT Partition Considerations:
 
 If your Windows disk uses GPT (not MBR):
+
 - Use `list volume` and `select volume` instead of `list partition`
 - Setting volume IDs differs:
    - Data volume: `set id=ebd0a0a2-b9e5-4433-87c0-68b6b72699c7`
