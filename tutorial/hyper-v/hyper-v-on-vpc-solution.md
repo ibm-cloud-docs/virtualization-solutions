@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-05-19"
 
 keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines
 
@@ -100,7 +100,7 @@ Complete the following steps to create two virtual servers for Active Directory 
    1. Select **Windows Server 2025 Standard Edition (amd64)** as the image.
    2. Select an **x3** profile for all virtual servers that you deploy. Install Windows Admin Center (WAC) and System Center Virtual Machine Manager (SCVMM) on the jump server to manage Hyper-V cluster hosts that require additional resources. If multiple remote desktop sessions are expected on the jump server, use a profile such as `cx3d-16x40` to improve scalability and performance.
    3. In the **Storage** section, change the boot volume profile to SDP.
-   4. In the **Networking** section, ensure that **Virtual private cloud** has the exact {{site.data.keyword.vpc_short}} instance that is selected and that the **Virtual network interface** is selected as the **Network interface type**. Verify that the VNI is attached to the management subnet specified in the prerequisites.
+   4. In the **Networking** section, ensure that the **Virtual private cloud** has the exact {{site.data.keyword.vpc_short}} instance that is selected and that the **Virtual network interface** is selected as the **Network interface type**. Verify that the VNI is attached to the management subnet specified in the prerequisites.
    5. Complete the remaining fields as required, and then click **Create virtual server** on the side panel.
 
 4. After you create the jump server virtual server instance, from the navigation menu, select **Infrastructure** > **Network** > **Floating IPs**, and then click **Reserve**. In the displayed dialog, select the region where the jump server resides, enter a name, and then click **Reserve**.
@@ -290,13 +290,13 @@ Complete the following steps to install Hyper-V on each bare metal server (steps
               Format-Table -AutoSize
      ```
 
-## Create and configure a virtual machine hosted by Hyper-V
+## Create and configure a virtual machine that is hosted by Hyper-V
 {: #virt-sol-hyperv-on-vpc-vm-creation}
 {: step}
 
 Complete the following steps to create and configure a virtual machine hosted on the Hyper-V host node that is created in the [previous sections](#virt-sol-hyperv-on-vpc-hyperv-installation):
 
-1. Download and copy the guest OS image ISO file to a location that the bare metal server hosting the virtual machine can access. Copy the ISO file to the CSV volumes that you created previously. This set up helps ensure that during live migration, only the VM needs to be moved, without moving its storage.
+1. Download and copy the guest OS image ISO file to a location that the bare metal server hosting the virtual machine can access. Copy the ISO file to the CSV volumes that you created previously. This set-up helps ensure that during live migration, only the VM needs to be moved, without moving its storage.
 2. Run `New-VM -Name <Name> -MemoryStartupBytes <Memory> -BootDevice <BootDevice> -VHDPath <VHDPath> -Path <Path> -Generation <Generation> -Switch <SwitchName>` to create the virtual machine, where `<SwitchName>` is the virtual switch that you created in the [previous section](#virt-sol-hyperv-on-vpc-hyperv-installation). For example, `New-VM -Name TestVM1 -MemoryStartupBytes 4GB -BootDevice VHD -NewVHDPath .\VMs\Test1.vhdx -Path .\VMData1 -NewVHDSizeBytes 20GB -Generation 2 -Switch Hyper-V-PoC-Switch`. To benefit from the latest optimizations from Hyper-V, use Generation 2 VMs.
 3. Set the guest OS ISO file path in a PowerShell variable: `$ISOPath ="<Guest OS iso file path>"`.
 4. Run the command `Add-VMDvdDrive -VMName <VM Name> -Path $ISOPath` to attach the ISO file as the VM's DVD drive.
@@ -327,7 +327,7 @@ Complete the following steps to create and configure a virtual machine hosted on
    4. Log in to the bare metal server and run the command `Set-VMNetworkAdapterVlan -VMName "<VM Name>" -Access -VlanId <Vlan Id specified in IBM console>` to enable VLAN identification in the VM based on the VLAN configuration in the {{site.data.keyword.cloud_notm}} console.
    5. Return to the bare metal server and access the VM through the VM console. Change the guest OS network configuration from DHCP to a static IPv4 configuration. This configuration typically includes the IPv4 address, IP mask, default gateway, and IPv4 DNS servers. After updating the configuration, restart the network connection for the changes to take effect. Open a command prompt window in the guest OS and ping an external website, or open a browser to confirm that the VM has internet access. Follow the guest OS documentation to complete the IP configuration. Configuration steps can vary between Windows and Linux OS, as well as among different Linux distributions. However, the overall goal is to configure the guest OS with a static IP address.
 
-Use and share the same VLAN ID for the same subnet and different VLAN IDs for different subnets.
+Use and share VLAN ID for the same subnet and different VLAN IDs for different subnets.
 {: note}
 
 ## Perform live migration of virtual machine between Hyper-V hosts without failover clustering
@@ -386,7 +386,7 @@ Complete the following steps to create a highly available VM and perform planned
        During an unplanned failover test, stopping one node causes all cluster-wide resources on that node to migrate. If other workloads are still running, move those resources to another node first to avoid unexpected disruptions.
        {: note}
 
-7. When the unplanned fail-over test completes, run the below PwoerScript to restart the stopped node:
+7. When the unplanned fail-over test completes, run the following PwoerScript to restart the stopped node:
 
    ```PowerShell
    Start-ClusterNode -Name <Server Name Originally Owning the VM>

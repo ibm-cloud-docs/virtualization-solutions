@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-26"
+lastupdated: "2026-05-19"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -55,7 +55,7 @@ A VMware environment relies on either local VMDK files on vSAN or NFS storage th
 - All storage is network-attached block volumes. Virtual servers don't have local disks.
 - Storage performance is defined by IOPS tiers. You select a profile (such as `5iops-tier` or `10iops-tier`) that helps maintain performance per GB.
 - Network bandwidth is shared between virtual server networking and storage input and output in a 3:1 ratio by default. Keep this ratio in mind when you size your instances.
-- VPC doesn't use shared data stores. In a VMware environment, IOPS is shared across all virtual servers. This sharing creates "noisy neighbor" issues when one virtual server inputs and outputs affects other virtual servers. In the IBM Cloud VPC environment, each volume has its own dedicated performance allocation that helps prevent noisy neighbors. 
+- VPC doesn't use shared data stores. In a VMware environment, IOPS is shared across all virtual servers. This sharing creates "noisy neighbor" issues when one virtual server inputs and outputs affect other virtual servers. In the IBM Cloud VPC environment, each volume has its own dedicated performance allocation that helps prevent noisy neighbors. 
 
 
 - Boot volume scenarios that need 10 - 250 GB of storage must use `general-purpose` profile that exist in a linked-clone relationship with the source image.
@@ -105,6 +105,6 @@ For extra information, see the following links.
 - [Transit gateway](/docs/transit-gateway)
 - [VPC solution tutorials](/docs?tab=solutions)
 
-- [libguestfs and virt-v2v](https://libguestfs.org/){: external}
+- [Libguestfs and virt-v2v](https://libguestfs.org/){: external}
 - [Red Hat Migration Toolkit for virtualization](https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.11){: external}
 - [VMware VDDK documentation](https://developer.broadcom.com/sdks/vmware-virtual-disk-development-kit-vddk/7.0){: external}

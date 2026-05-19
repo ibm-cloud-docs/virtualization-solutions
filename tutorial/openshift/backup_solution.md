@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-06"
+lastupdated: "2026-05-19"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes
@@ -34,14 +34,14 @@ The tutorial uses Kasten version 8.5.1. However, the Kasten version that is avai
 {: #virt-sol-openshift-backup-kasten-prereqs}
 
 Veeam Kasten is installed on an existing {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster and does not configure cluster or storage resources. You must already have a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster with Ceph block storage and the required storage classes that are created.
-Once your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster is ready, run the Kasten prerequisite checker tool before installing Kasten.
+Once your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster is ready, run the Kasten prerequisite checker tool before you install Kasten.
 
 ### Veeam Kasten prerequisite checker
 {: #virt-sol-openshift-backup-kasten-prerequisite-checker-tool}
 
 Veeam Kasten provides a prerequisite checker, Veeam Kasten Primer, that you use to verify that the Kubernetes cluster and StorageClasses meet the installation requirements. If a Container Storage Interface (CSI) provisioner exists, it conducts a basic validation check.
 
-The download location includes a path to the version that you want to install. Version 8.5.1 is used in this example. Change these values to a specific version or use the value `latest`. The primer tool also expects the helm package to be installed on your system with the Veeam Kasten Helm charts repository. For more information, see [Veeam Kasten documentation](https://docs.kasten.io/latest/install/requirements/#install-prereqs){: external}.
+The download location includes a path to the version that you want to install. Version 8.5.1 is used in this example. Change these values to a specific version or use the value `latest`. The primer tool also expects the helm package to be installed on your system with the Veeam Kasten Helm charts repository. For more information, see the [Veeam Kasten documentation](https://docs.kasten.io/latest/install/requirements/#install-prereqs){: external}.
 {: note}
 
 To start the Pre-Flight checker, run the following command after you create a command line session to the {{site.data.keyword.redhat_openshift_notm}} cluster:
@@ -102,7 +102,7 @@ Run the following commands from the command line session to the {{site.data.keyw
 
 After you install Veeam Kasten and annotate StorageClasses, complete the configuration by deploying and configuring more Veeam Kasten pods into the environment.
 
-1. From the {{site.data.keyword.redhat_openshift_notm}} Container Platform web console, go to **Operators > Installed Operators > Kasten** and verify that Project: **All projects** or **kasten-io** is selected.
+1. From the {{site.data.keyword.redhat_openshift_notm}} Container Platform web console, go to **Operators > Installed Operators > Kasten** and verify that **All projects** or **kasten-io** is selected.
 2. Click **Veeam Kasten**.
 3. Click the **K10** tab in the Veeam Kasten Operator.
 4. Click **Create K10**.
@@ -194,7 +194,7 @@ Enable the object-locking option on the IBM Cloud Object Storage bucket. This op
 Creating an NFS location profile requires the following prerequisites:
 
 - An existing NFS share with a networking path for access from Veeam Kasten on {{site.data.keyword.redhat_openshift_notm}}.
-- The name of the PersistentVolumeClaim (PVC) mounting the NFS export location. For setup instructions, see [Veeam Kasten documentation](https://docs.kasten.io/latest/usage/configuration/#filestore-location-profile){: external}.
+- The name of the PersistentVolumeClaim (PVC) mounting the NFS export location. For setup instructions, see the [Veeam Kasten documentation](https://docs.kasten.io/latest/usage/configuration/#filestore-location-profile){: external}.
 - A path suffix to use inside the NFS export path (optional unless supplemental groups are set).
 - A supplemental group that has access to the path (optional).
 
@@ -408,12 +408,12 @@ Continuous log shipping for stateful database virtual servers is not supported b
 If such a feature is required, it needs to be facilitated through agent-based backup by using a VBR server.
 
 See the following documentation that is an example for MS SQL server:
-[Agents based log shipping by using VBR](https://helpcenter.veeam.com/docs/agentforwindows/userguide/howto_sql_backup.html?ver=13){: external}.
+[Agents-based log shipping by using VBR](https://helpcenter.veeam.com/docs/agentforwindows/userguide/howto_sql_backup.html?ver=13){: external}.
 
 ### Virtual servers that were migrated by using the Red Hat Migration Toolkit for Virtualization
 {: #virt-sol-openshift-backup-kasten-limitations-mtv}
 
-If you use Kasten to back up and restore virtual servers, some issues can occur. These issues occur for virtual servers that are migrated by using the Red Hat Migration Toolkit for Virtualization, if the migration plan is not archived and deleted after the migration. These issues can also occur because of references to storage resources that are not released after the migration. It is documented in [PVCs are stuck in a stopping state](https://access.redhat.com/solutions/7018107) {: external}
+If you use Kasten to back up and restore virtual servers, some issues can occur. These issues occur for virtual servers that are migrated by using the Red Hat Migration Toolkit for Virtualization, if the migration plan is not archived and deleted after the migration. These issues can also occur because of references to storage resources that are not released after the migration. For more information, see [PVCs are stuck in a stopping state](https://access.redhat.com/solutions/7018107) {: external}.
 
 ### Federal Information Processing Standard (FIPS)
 {: #virt-sol-openshift-backup-kasten-limitations-fips}
@@ -469,7 +469,7 @@ For more information, see [Setting Up Immutable Backup Protection](https://docs.
 ### Use Kasten Disaster Recovery (DR) to backup configurations
 {: #virt-sol-openshift-backup-kasten-best-practices-kasten-dr}
 
-Kasten can help back up and restore Kasten configuration through Kasten DR feature, which can be configured as part of best practices to recover your Kasten instance from any unintended actions.
+Kasten can help back up and restore Kasten configuration through the Kasten DR feature, which can be configured as part of best practices to recover your Kasten instance from any unintended actions.
 
 Kasten cannot be recovered without a few pieces of information that enable an administrator to restore the Kasten environment.
 
@@ -480,7 +480,7 @@ Kasten cannot be recovered without a few pieces of information that enable an ad
 Make a note of the value shown in the Kasten DR tab on the Kasten UI for successful recovery.
 {: tip}
 
-For more information, see [Kasten DR documentation](https://docs.kasten.io/latest/operating/dr/#dr-enable){: external}.
+For more information, see the [Kasten DR documentation](https://docs.kasten.io/latest/operating/dr/#dr-enable){: external}.
 
 ## Additional information
 {: #additional-information}
@@ -510,7 +510,7 @@ Veeam provides several examples in their documentation. See a PostgreSQL example
 
 For more information, see the [Kanister documentation](https://docs.kanister.io/overview.html){: external} to understand the blueprint files.
 
-For more information, see [Blueprints documentation](https://docs.kasten.io/latest/usage/blueprints/){: external}.
+For more information, see the [Blueprints documentation](https://docs.kasten.io/latest/usage/blueprints/){: external}.
 
 ### Transforms
 {: #additional-information-transforms}

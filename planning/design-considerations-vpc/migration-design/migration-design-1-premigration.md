@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-26"
+lastupdated: "2026-05-19"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -194,5 +194,5 @@ IBM Cloud offers different licensing options for operating systems.
 Licensing considerations:
 
 - BYOL requires custom images
-- License portability rules vary by vendor—verify compliance
+- License portability rules vary by vendor - verify compliance
 - IBM Cloud-provided licenses include OS support

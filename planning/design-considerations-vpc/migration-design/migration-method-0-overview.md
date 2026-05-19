@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-09"
+lastupdated: "2026-05-19"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -36,7 +36,7 @@ There are four primary methods for migrating VMware virtual machines to VPC virt
 | Windows driver injection | Manual | ✓ (virt-v2v) | ✓ (virt-v2v) | ✓ Built-in |
 | Parallel migration | ✓ | ✓ | ✓ Excellent | ✓ |
 | Setup complexity | Low | Medium | Medium-High | High |
-| Per-virtual machine complexity | Low | Medium | Medium | Low (once setup) |
+| Per-virtual machine complexity | Low | Medium | Medium | Low (once set up) |
 | Automation potential | Medium | High | High | Very High |
 | Template reuse | ✓ Excellent | Limited | Limited | Limited |
 | Image proliferation | ✗ High | ✓ Avoids | ✓ Avoids | ✓ Avoids |

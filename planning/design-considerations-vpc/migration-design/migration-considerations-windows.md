@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-05-19"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -39,21 +39,21 @@ Microsoft's `sysprep` utility "generalizes" a Windows installation, resetting it
 - Removes computer-specific information
 - Prepares the image for redeployment
 
-The following is the process for `sysprep`:
+Complete the following process for `sysprep`:
 
 1. Install VirtIO drivers in your Windows virtual machine while still hosted in VMware:
-   1. Download virtio-win ISO from an RHEL VSI (`/usr/share/virtio-win`)
-   1. Mount ISO, run `virtio-win-gt-x64.exe`, and `virtio-win-guest-tools.exe`
-   1. Install drivers for both OS and recovery partition
-1. Run sysprep:
+   1. Download virtio-win ISO from an RHEL VSI (`/usr/share/virtio-win`).
+   1. Mount ISO, run `virtio-win-gt-x64.exe`, and `virtio-win-guest-tools.exe`.
+   1. Install drivers for both OS and recovery partition.
+2. Run sysprep:
 
    ```cmd
    C:\Windows\System32\Sysprep\sysprep.exe /generalize /oobe /shutdown
    ```
    {: codeblock}
 
-1. Export and migrate by using any of the [migration methods](/docs/virtualization-solutions?group=virtual-servers-on-vpc), except for VDDK Direct Extraction, which is only for vCenter.
-1. First boot in VPC:
+3. Export and migrate by using any of the [migration methods](/docs/virtualization-solutions?group=virtual-servers-on-vpc), except for VDDK Direct Extraction, which is only for vCenter.
+4. First boot in VPC:
    - Windows runs mini-setup wizard (OOBE)
    - Detects new hardware, loads VirtIO drivers
    - Might require reentering product key
@@ -78,7 +78,7 @@ Design Decision: Use sysprep for template-based deployments or when you migrate 
 
 The libguestfs `virt-v2v` tool can inject VirtIO drivers into a Windows installation without running sysprep. It:
 
-- Mounts the Windows filesystem (without booting Windows)
+- Mounts the Windows file system (without booting Windows)
 - Injects VirtIO drivers into the driver store
 - Modifies registry to force Windows to load these drivers
 - Preserves machine identity, domain membership, and application state
@@ -274,5 +274,5 @@ The following table is the design decision matrix for Windows
 | Domain-joined production servers | virt-v2v (avoids domain rejoin) |
 | Template-based deployments | Sysprep (appropriate for templates) |
 | Servers with licensing that is tied to hardware ID | virt-v2v + careful license review |
-| Very old Windows (2003, 2008 non-R2) | Not supported for migration |
+| Old Windows (2003, 2008 non-R2) | Not supported for migration |
 {: caption="Design Decision Matrix for Windows" caption-side="bottom"}

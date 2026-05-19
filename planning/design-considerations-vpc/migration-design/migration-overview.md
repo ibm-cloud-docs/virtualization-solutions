@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-05-19"
 
 keywords: VSI, Migration, virtual server migration, vmware virtual server migration, vmware migration
 
@@ -16,7 +16,7 @@ subcollection: virtualization-solutions
 {: #virt-sol-vpc-migration-design-migration}
 
 For the VMware to Virtual Servers on VPC migration, you have three migration options: a service provider, RackWare RMM, and DIY.
-{: shordesc}
+{: shortdesc}
 
 - A service provider such as WanClouds or PrimaryIO can manage your migration. For more information, see the documentation for your chosen service.
 - RackWare RMM - for more information about using Rackware RMM to migrate, see [Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Technical Guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide).
