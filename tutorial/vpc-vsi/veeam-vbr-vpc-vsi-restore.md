@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-12"
+lastupdated: "2026-05-20"
 
 keywords: Veeam Backup & Replication, VBR, restore, recovery, IBM Cloud VPC, VSI, volume restore, disaster recovery
 
@@ -325,5 +325,5 @@ After you complete this tutorial, review the following related resources to stre
 - [Troubleshooting Restoring VBR with VSI](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-vbr-vpc-vsi-integration-restore).
 - Review the [Veeam VBR configuration tutorial](/docs/vpc?topic=vpc-vsi_best_practices).
 - Explore [Veeam Backup & Replication 13 documentation](https://helpcenter.veeam.com/docs/vbr/userguide/overview.html?ver=13){: external}.
-- Learn about [{{site.data.keyword.cloud_notm}} VPC best practices](/docs/vpc?topic=vpc-best-practices-for-vpc)
-- Set up [automated backup testing and validation](https://helpcenter.veeam.com/docs/vbr/userguide/surebackup_hiw.html?ver=13){: external}.
+- Learn about [{{site.data.keyword.cloud_notm}} VPC best practices](/docs/vpc?topic=vpc-vsi_best_practices)
+- Set up [automated backup testing and validation](https://helpcenter.veeam.com/docs/vbr/userguide/surebackup_hiw.html?ver=13){: external}
