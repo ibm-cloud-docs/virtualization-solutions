@@ -13,7 +13,8 @@ toc:
   - navgroup:
       id: overview
       topics:
-      - overview/overview.md
+      - topic: overview/overview.md
+        navtitle: Enable flexible workload deployments with IBM Cloud Virtualization
   - navgroup:
       id: architecture
       topics:
