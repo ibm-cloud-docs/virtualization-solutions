@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-05-22"
 
 keywords: Red Hat OpenShift Virtualization, Red Hat OpenShift Kubernetes Service, VSI, storage migration, IBM Cloud, Storage vMotion, MTC
 
@@ -23,8 +23,8 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-## Overview
-{: #overview}
+## Overview of the guide
+{: #overview-of-the-guide}
 
 This solution guide explains how to perform storage migrations for virtual machines (VMs) that run in {{site.data.keyword.redhat_openshift_notm}} Virtualization using the Migration Toolkit for Containers (MTC) operator. For users who are familiar with VMware&reg;, this feature is equivalent to Storage vMotion.
 {: shortdesc}
