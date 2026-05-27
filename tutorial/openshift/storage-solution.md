@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-05-27"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
 
@@ -15,7 +15,7 @@ completion-time: 60m
 
 ---
 
-# Red Hat OpenShift Data Foundation (ODF) for virtual server workloads
+# Red Hat OpenShift Data Foundation (ODF) for virtual machine workloads
 {: #odf-for-vm-workloads}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
@@ -26,7 +26,7 @@ completion-time: 60m
 ## Key benefits
 {: #key-benefits}
 
-- High performance for virtual machines: Optimized block storage is designed for virtual server boot and data disks that reduce latency and delivers high IOPS.
+- High performance for virtual machines: Optimized block storage is designed for virtual machine workload boot and data disks that reduce latency and delivers high IOPS.
 - Built for {{site.data.keyword.redhat_openshift_notm}} Virtualization: Native integration with {{site.data.keyword.redhat_openshift_notm}} and KubeVirt thatupports snapshots, cloning, live migration, backup/restore, and works seamlessly with the Containerized Data Importer (CDI).
 - High resilience and availability: Distributed storage with data replication across worker nodes, automatic recovery from disk or node failures, and no single point of failure for storage.
 - Optimized for {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service bare metal infrastructure: Aggregates local NVMe and SSD disks into a shared storage pool, which eliminates reliance on external network storage.
@@ -40,12 +40,12 @@ ODF is a software-defined storage solution that is built for {{site.data.keyword
 
 ODF provides four types of storage from the same platform:
 
-- Block storage (RBD) – for virtual server disks
+- Block storage (RBD) – for virtual machine workload disks
 - File storage (CephFS) – for shared file systems
 - Object storage (RGW and S3-compatible) – for object workloads
 - NFS (CephFS-backed) – NFS exports for traditional or external clients
 
-In ODF, NFS is backed by CephFS and exposed through a Ceph NFS Ganesha gateway. The gateway is managed through a CephNFS custom resource in Rook. It is not a distinct storage backend. It provides access to CephFS over the NFS protocol. The primary use case is to provide NFS access to clients outside the {{site.data.keyword.redhat_openshift_notm}} cluster, or to workloads that require NFS. NFS is not used for virtual server disks because virtual servers use block storage (RBD).
+In ODF, NFS is backed by CephFS and exposed through a Ceph NFS Ganesha gateway. The gateway is managed through a CephNFS custom resource in Rook. It is not a distinct storage backend. It provides access to CephFS over the NFS protocol. The primary use case is to provide NFS access to clients outside the {{site.data.keyword.redhat_openshift_notm}} cluster, or to workloads that require NFS. NFS is not used for virtual machine workload disks because virtual servers use block storage (RBD).
 
 On IBM {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, ODF typically uses local disks on worker nodes to create a high-performance and resilient storage cluster inside {{site.data.keyword.redhat_openshift_notm}}.
 
@@ -54,9 +54,9 @@ On IBM {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, ODF typic
 
 Before you plan and deploy your ODF cluster, it is important to understand how ODF protects your data. The data protection strategy that you choose affects storage capacity, performance characteristics, fault tolerance, and the minimum number of nodes required.
 
-A single ODF cluster can run multiple Ceph pools simultaneously, each with a different data protection policy. Each pool is exposed to workloads through its own StorageClass. When you create a virtual server, select the StorageClass for each disk. For example, a virtual server might use a rep3 StorageClass for its root disk and a different StorageClass that is backed by a rep2 pool for a less critical data disk. This model is not a cluster-wide, all-or-nothing choice.
+A single ODF cluster can run multiple Ceph pools simultaneously, each with a different data protection policy. Each pool is exposed to workloads through its own StorageClass. When you create a virtual machine workload, select the StorageClass for each disk. For example, a virtual machine workload might use a rep3 StorageClass for its root disk and a different StorageClass that is backed by a rep2 pool for a less critical data disk. This model is not a cluster-wide, all-or-nothing choice.
 
-For VMware teams, this model is similar to vSAN storage policies. In vSAN, you assign a storage policy (for example, RAID-1 FTT=1, RAID-5) per virtual server or per VMDK. In ODF, you assign a StorageClass that maps to a Ceph pool per PVC. The concept is the same but different workloads on the same cluster can have different protection levels.
+For VMware teams, this model is similar to vSAN storage policies. In vSAN, you assign a storage policy (for example, RAID-1 FTT=1, RAID-5) per virtual machine workload or per VMDK. In ODF, you assign a StorageClass that maps to a Ceph pool per PVC. The concept is the same but different workloads on the same cluster can have different protection levels.
 
 ODF supports the following data protection strategies for Ceph block pools:
 
@@ -153,7 +153,7 @@ Limitations:
 - Block storage only: File storage is not supported by a single replica.
 - Requires extra disks: At least one extra usable NVMe disk per node beyond what the replica-3 pool uses. Without this extra disk, the replica-1 OSDs do not start and the storage cluster remains in a progressing state.
 - One pool per failure domain: ODF creates one nonresilient CephBlockPool per failure domain, with volumes that are bound by using `WaitForFirstConsumer` to validate data locality.
-- Not recommended for virtual server root disks: If the OSD that hosts a root disk fails, the virtual server is permanently lost. Use the nonresilient pool for only disposable data disks in dev or test virtual servers.
+- Not recommended for virtual machine workload root disks: If the OSD that hosts a root disk fails, the virtual machine workload is permanently lost. Use the nonresilient pool for only disposable data disks in dev or test virtual machine workloads.
 
 For production virtualization workloads, always use replica-3 (or at minimum replica-2) pools.
 
@@ -202,7 +202,7 @@ See the following example of calculations for a 3-node cluster with 8 x 3.2 TB N
 | rep1 (nonresilient) | 1.0x | 76.8 TB | 100% |
 {: caption="Usable capacity by data protection type for a 3-node cluster"}
 
-Virtual server capacity estimation: A typical virtual server with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With rep3, that virtual server requires 390 GB of raw storage. On the preceding 3-node cluster, you might provision approximately 196 virtual servers of this size. In practice, keep Ceph usage less than 75% to maintain performance and support recovery operations.
+Virtual machine workload capacity estimation: A typical virtual machine workload with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With rep3, that virtual machine workload requires 390 GB of raw storage. On the preceding 3-node cluster, you might provision approximately 196 virtual machine workloads of this size. In practice, keep Ceph usage less than 75% to maintain performance and support recovery operations.
 
 Ceph performance degrades as cluster usage increases. ODF fires the `CephOSDNearFull` Prometheus alert when any OSD exceeds 75% usage. At 85%, Ceph sets the native `nearfull` OSD flag (`mon_osd_nearfull_ratio`) and ODF fires the `CephOSDCriticallyFull` alert. At 90%, Ceph stops backfill and recovery operations to the affected OSD (`mon_osd_backfillfull_ratio`). At 95%, Ceph marks the OSD `full` (`mon_osd_full_ratio`), blocks all writes, and issues `HEALTH_ERR`. Plan your capacity so that usage stays under 70% during normal operations, allowing headroom for data recovery and rebalancing during node maintenance or failures.
 
@@ -302,7 +302,7 @@ For instructions on deploying ODF on a VPC-based {{site.data.keyword.redhat_open
 
 - Select **Local storage**.
 - Local storage uses the local NVMe instance storage available on bare metal worker nodes.
-- NVMe drives provide reduced latency and high IOPS performance that is required for virtual server disks.
+- NVMe drives provide reduced latency and high IOPS performance that is required for virtual machine workload disks.
 
 ### ODF resource profile
 {: #odf-resource-profile}
@@ -374,16 +374,16 @@ To allow workloads to automatically use high-performance ODF-backed persistent b
 
 Use the following information to run virtual servers on ODF.
 
-### Prerequisites: Install the {{site.data.keyword.redhat_openshift_notm}} virtualization operator
+### Prerequisites: Install the Red Hat OpenShift virtualization operator
 {: #prerequisites-for-odf}
 
 Before you use {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, verify that the {{site.data.keyword.redhat_openshift_notm}} virtualization operator is installed in your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster.
 
-The {{site.data.keyword.redhat_openshift_notm}} virtualization operator enables Kubernetes-native virtual server management. It also provides the required controllers, CRDs, and integrations with storage and networking components.
+The {{site.data.keyword.redhat_openshift_notm}} virtualization operator enables Kubernetes-native virtual machine workload management. It also provides the required controllers, CRDs, and integrations with storage and networking components.
 
 For more information, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}](https://developer.ibm.com/tutorials/openshift-virtualization-ibm-cloud/){: external}.
 
-### Using ODF storage for virtual servers
+### Using ODF storage for virtual machine workloads
 {: #using-odf-storage-for-vms}
 
 {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) provides persistent, software-defined storage for virtualization workloads that run on {{site.data.keyword.redhat_openshift_notm}}. When you use ODF as the storage backend for virtual machines, selecting the correct StorageClass is critical to ensure performance, stability, and full feature compatibility.
@@ -412,9 +412,9 @@ For most use cases, use this StorageClass without modification.
 ### Live migration storage requirements
 {: #live-migration-storage}
 
-Live migration moves a running virtual server from one worker node to another without downtime. For a successful live migration, the storage must be accessible from both the source and destination nodes simultaneously. Live migration requires the following configurations.
+Live migration moves a running virtual machine workload from one worker node to another without downtime. For a successful live migration, the storage must be accessible from both the source and destination nodes simultaneously. Live migration requires the following configurations.
 
-- `ReadWriteMany` access mode on virtual server PVCs. Ceph RBD supports RWX in block mode, which is the default configuration for the ODF virtualization StorageClass.
+- `ReadWriteMany` access mode on virtual machine workload PVCs. Ceph RBD supports RWX in block mode, which is the default configuration for the ODF virtualization StorageClass.
 - The `ocs-storagecluster-ceph-rbd-virtualization` StorageClass is pre-configured with `ReadWriteMany` support through RBD block mode. Virtual servers that use this StorageClass can live migrate without extra configuration.
 - The generic `ocs-storagecluster-ceph-rbd` StorageClass uses the `ReadWriteOnce` access mode by default. Virtual servers that use RWO PVCs cannot perform live migration. The migration fails because the PVC cannot be mounted on the destination node while attached to the source.
 
@@ -429,14 +429,14 @@ Live migration also requires:
 ### Virtualization-specific compared to generic RBD StorageClass
 {: #storageclass-comparison}
 
-Although virtual machines can use a generic Ceph RBD StorageClass, the virtualization-specific StorageClass is optimized for the unique I/O and lifecycle characteristics of virtual server workloads.
+Although virtual machines can use a generic Ceph RBD StorageClass, the virtualization-specific StorageClass is optimized for the unique I/O and lifecycle characteristics of virtual machine workload disks.
 
 | Aspect | Virtualization-specific StorageClass | Generic RBD StorageClass |
 | ------ | ------------------------------------ | ------------------------ |
-| Workload optimization | Tuned for virtual server disk access patterns | Optimized for containerized workloads |
+| Workload optimization | Tuned for virtual machine workload disk access patterns | Optimized for containerized workloads |
 | Kernel RBD mapping | Uses VM-friendly RBD-mapping options (for example, `krbd:rxbounce`) | Might use default-mapping options |
 | Performance consistency | More predictable latency for guest OS I/O | Potentially more latency |
-| Virtual server lifecycle operations | Validated for the virtual server start, stop, live migration, and snapshot workflows | Not explicitly validated for virtual server operations |
+| Virtual machine workload lifecycle operations | Validated for the virtual machine workload start, stop, live migration, and snapshot workflows | Not explicitly validated for virtual machine workload operations |
 | Supportability | Fully supported and recommended for {{site.data.keyword.redhat_openshift_notm}} Virtualization | Supported, but not recommended for VM disks |
 | Day-2 operations | Reduced risk during upgrades and migrations | More risk of unexpected performance |
 {: caption="Virtualization-specific vs generic RBD StorageClass comparison"}
@@ -514,7 +514,7 @@ When you create a custom StorageClass for virtualization workloads, verify that 
 
 - Storage pool
 
-    Specify the CephBlockPool that backs the virtual server disks. You can choose one of the following options:
+    Specify the CephBlockPool that backs the virtual machine workload disks. You can choose one of the following options:
 
     - Default block pool. The default 3-way replicated Ceph block pool created by ODF:
 
@@ -613,7 +613,7 @@ When you create a custom StorageClass for virtualization workloads, verify that 
 ### Compression
 {: #compression}
 
-ODF supports BlueStore inline compression on Ceph block pools, which can reduce the raw storage that is used by the disks. Compression is applied transparently at the OSD layer, so the virtual server and its guest OS are unaware that data is compressed.
+ODF supports BlueStore inline compression on Ceph block pools, which can reduce the raw storage that is used by the disks. Compression is applied transparently at the OSD layer, so the virtual machine workload and its guest OS are unaware that data is compressed.
 
 #### How it works
 {: #how-compression-works}
@@ -703,7 +703,7 @@ On {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, ODF integrate
 
 Consider the following limitation.
 
-The Ceph CSI driver cannot create an encrypted volume from a snapshot of an unencrypted volume. This limitation directly affects virtual server creation. {{site.data.keyword.redhat_openshift_notm}} Virtualization boots virtual servers by cloning root disks from precached golden images, which are stored as unencrypted volumes. If you select the encrypted StorageClass for a root disk, the clone fails silently and the virtual server remains stuck in `Provisioning`.
+The Ceph CSI driver cannot create an encrypted volume from a snapshot of an unencrypted volume. This limitation directly affects virtual machine workload creation. {{site.data.keyword.redhat_openshift_notm}} Virtualization boots virtual machine workloads by cloning root disks from precached golden images, which are stored as unencrypted volumes. If you select the encrypted StorageClass for a root disk, the clone fails silently and the virtual machine workload remains stuck in `Provisioning`.
 
 To overcome this limitation, use the nonencrypted StorageClass for your root disks (cluster-wide encryption still protects the data at the physical layer). For data disks that require per-volume encryption, add a second disk that uses the encrypted StorageClass. Alternatively, you can import the operating system image directly into an encrypted PVC by using `source: registry`, which bypasses the clone path, and create a reusable encrypted data source from a snapshot of that PVC.
 
@@ -733,12 +733,12 @@ EOF
 ```
 {: codeblock}
 
-VolumeSnapshots are copy-on-write and near-instant to create. You can use them to restore a virtual server to a previous state or clone a disk. {{site.data.keyword.redhat_openshift_notm}} Virtualization also provides a built-in [VM snapshot and restores API](https://kubevirt.io/user-guide/storage/snapshot_restore_api/){: external} that captures the full virtual server state including configuration and all disks, in a single operation.
+VolumeSnapshots are copy-on-write and near-instant to create. You can use them to restore a virtual machine workload to a previous state or clone a disk. {{site.data.keyword.redhat_openshift_notm}} Virtualization also provides a built-in [VM snapshot and restores API](https://kubevirt.io/user-guide/storage/snapshot_restore_api/){: external} that captures the full virtual machine workload state including configuration and all disks, in a single operation.
 
-### Quiescing virtual servers for application-consistent snapshots
+### Quiescing virtual machine workloads for application-consistent snapshots
 {: #quiescing-vms}
 
-When you take a snapshot of a running virtual server, the data on disk must be in a consistent state. Without quiescing, the snapshot captures whatever is on disk at that instant, including partially written transactions, dirty buffers, and in-flight I/O. This process produces a crash-consistent snapshot, which might require application-level recovery on restore.
+When you take a snapshot of a running virtual machine workload, the data on disk must be in a consistent state. Without quiescing, the snapshot captures whatever is on disk at that instant, including partially written transactions, dirty buffers, and in-flight I/O. This process produces a crash-consistent snapshot, which might require application-level recovery on restore.
 
 To achieve application-consistent snapshots, freeze the guest file system before the snapshot and thaw it afterward. {{site.data.keyword.redhat_openshift_notm}} Virtualization automates this process by using the QEMU guest agent.
 
@@ -767,7 +767,7 @@ sudo systemctl enable --now qemu-guest-agent
 
 For Windows guests, install the VirtIO drivers package, which includes the QEMU guest agent service.
 
-Custom freeze/thaw hooks for applications: For databases and other stateful applications that require extra quiescing beyond file system freeze, place custom hook scripts inside the guest virtual server at `/etc/qemu-ga/fsfreeze-hook.d/`. These scripts are automatically run by the guest agent with a `freeze` argument before the file system is frozen and a `thaw` argument after the file system is thawed. Hook execution logs are written to `/var/log/qga-fsfreeze-hook.log`.
+Custom freeze/thaw hooks for applications: For databases and other stateful applications that require extra quiescing beyond file system freeze, place custom hook scripts inside the guest virtual machine workload at `/etc/qemu-ga/fsfreeze-hook.d/`. These scripts are automatically run by the guest agent with a `freeze` argument before the file system is frozen and a `thaw` argument after the file system is thawed. Hook execution logs are written to `/var/log/qga-fsfreeze-hook.log`.
 
 For example, the following PostgreSQL freeze hook can be placed at `/etc/qemu-ga/fsfreeze-hook.d/postgresql.sh`:
 
@@ -918,7 +918,7 @@ oc exec -n openshift-storage ${TOOLS_POD} -- ceph osd pool stats
 
 This command outputs real-time I/O statistics per pool, which help identify which pools are under load.
 
-#### Monitor through the {{site.data.keyword.redhat_openshift_notm}} web console
+#### Monitor through the Red Hat OpenShift web console
 {: #monitoring-web-console}
 
 ODF integrates with the **{{site.data.keyword.redhat_openshift_notm}} web console** to provide the following information.
