@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026, 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-05-29"
 
 keywords: Hyper-V, VPC, VSI, cloud infrastructure, virtual machines
 
@@ -52,7 +52,7 @@ Within the reference architecture, the following 3 types of virtual network inte
 For high-availability networking in Hyper-V on VPC, networking interfaces and uplinks must be configured without using any Hyper-V vSwitch SET bonding or any other network NIC bonding or LAG high availability strategy. From the VPC perspective, the SmartNICs in the host have dual physical ports and provide built-in high availability. The SmartNIC handles all of the redundancy and fail-over automatically and does not expose it to the host OS. As a result, the Windows platform is unaware and Hyper-V remain unaware of the failover process. This configuration maintains high availability but does not support configuring SET team switch setups or other bonding configurations that are provided by the Windows OS and Hyper-V infrastructure. As a Hyper-V on VPC user, you can configure up to 8 PCI interfaces for a VPC bare metal server, and rely on each PCI interface for full redundancy and high availability to the switch fabric without requiring any configuration in Windows.
 {: note}
 
-The Hyper-V on {{site.data.keyword.vpc_short}} solution currently supports only Storage Spaces Direct(S2D) storage. Block storage and NFS-based file storage that is shared by customers are not recognized or supported by bare metal servers or by Hyper-V that is installed on those servers.
+The Hyper-V on {{site.data.keyword.vpc_short}} feature currently supports only Storage Spaces Direct technology. Block storage and NFS-based file storage that is shared by customers are not recognized or supported by bare metal servers or by Hyper-V that is installed on those servers.
 {: note}
 
 ## Next steps

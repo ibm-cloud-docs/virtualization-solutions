@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-19"
+lastupdated: "2026-05-29"
 
 keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines
 
@@ -37,7 +37,7 @@ Currently, Hyper-V on {{site.data.keyword.vpc_short}} follows the Bring Your Own
 ## Key benefits
 {: #virt-sol-hyperv-on-vpc-key-benefits}
 
-Deploying Hyper-V on {{site.data.keyword.vpc_short}} provides several advantages for organizations that require enterprise-grade virtualization capabilities in the cloud. The following section highlights why this solution is effective for running enterprise virtualized workloads:
+Deploying Hyper-V on {{site.data.keyword.vpc_short}} provides several advantages for organizations that require enterprise-grade virtualization capabilities in the cloud. The following section highlights why this feature is effective for running enterprise virtualized workloads:
 
 - Cost efficiency and savings: Hyper-V is included with Windows Server, Windows 10, or 11 Pro+, eliminating extra licensing fees for the hypervisor itself. It reduces hardware, power, cooling, and data center space costs through server consolidation.
 - High availability and business continuity: Features such as failover clustering and Hyper-V replica help ensure that services remain available, providing redundancy and minimizing downtime during maintenance or failures.
