@@ -95,8 +95,8 @@ toc:
       - topicgroup:
           label: Hyper-V on IBM VPC
           topics:
-          - topic: tutorial/hyper-v/hyper-v-on-vpc-solution.md
-            navtitle: Hyper-V on IBM VPC Solution
+          - topic: tutorial/hyper-v/hyper-v-on-vpc-feature.md
+            navtitle: Hyper-V on IBM VPC
       - topicgroup:
           label: OpenShift Virtualization
           topics:
