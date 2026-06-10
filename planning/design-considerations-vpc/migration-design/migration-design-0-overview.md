@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-05-19"
+lastupdated: "2026-06-10"
 
 keywords: VSI, File Storage, Block Storage, Encryption, Migration
 
@@ -53,12 +53,37 @@ IBM Cloud VPC is a Layer 3 software-defined network. While your VPC virtual serv
 A VMware environment relies on either local VMDK files on vSAN or NFS storage that is accessed by ESXi hosts, while IBM Cloud VPC uses network-attached storage. The following items describe IBM Cloud VPC storage solutions for IBM Cloud VPC.
 
 - All storage is network-attached block volumes. Virtual servers don't have local disks.
-- Storage performance is defined by IOPS tiers. You select a profile (such as `5iops-tier` or `10iops-tier`) that helps maintain performance per GB.
+- Storage performance is defined by volume profiles. You can choose between traditional tiered profiles (3iops-tier, 5iops-tier, 10iops-tier) or the newer SDP (Defined Performance) profile that offers custom capacity (1-32,000 GB), IOPS (up to 64,000), and throughput (125-1024 MBps).
 - Network bandwidth is shared between virtual server networking and storage input and output in a 3:1 ratio by default. Keep this ratio in mind when you size your instances.
-- VPC doesn't use shared data stores. In a VMware environment, IOPS is shared across all virtual servers. This sharing creates "noisy neighbor" issues when one virtual server inputs and outputs affect other virtual servers. In the IBM Cloud VPC environment, each volume has its own dedicated performance allocation that helps prevent noisy neighbors. 
+- VPC doesn't use shared data stores. In a VMware environment, IOPS is shared across all virtual servers. This sharing creates "noisy neighbor" issues when one virtual server inputs and outputs affect other virtual servers. In the IBM Cloud VPC environment, each volume has its own dedicated performance allocation that helps prevent noisy neighbors.
+- Boot volumes are automatically created during instance provisioning with capacity ranging from 10 GB to 32,000 GB `sdp` profile or 10-250 GB `general-purpose` profile. Boot volumes larger than 250 GB cannot be used to create custom images.
 
+#### Choosing SDP over general-purpose block storage profiles
+{: #virt-sol-vpc-migration-design-design-overview-vpc-storage-sdp}
 
-- Boot volume scenarios that need 10 - 250 GB of storage must use `general-purpose` profile that exist in a linked-clone relationship with the source image.
+When migrating to VPC, it's important to understand why sdp (Defined Performance) block storage is the recommended choice over general-purpose profiles:
+
+**Modern VPC Architecture (Key Reason)**
+
+- **SDP block storage** is native to IBM Cloud VPC and designed specifically for modern cloud-native architectures
+- **General-purpose block storage** belongs to the classic infrastructure and is not integrated with VPC
+
+**Predictable Performance with IOPS Profiles**
+
+- **SDP**: Offers predefined performance tiers that are tied to volume size, providing predictable and consistent performance for your workloads
+- **General-purpose**: Performance scales linearly with size, which may require larger volumes to achieve desired performance levels
+
+**Better Security & Isolation**
+
+SDP block storage provides enhanced security features through native VPC integration:
+
+- **SDP** runs inside VPC and integrates seamlessly with:
+  - Security groups for fine-grained access control
+  - Private networking for isolated communication
+  - IAM-based access for centralized identity and access management
+- **General-purpose** relies on classic VLAN-based segmentation, which offers less granular security controls
+
+For new migrations to VPC virtual servers, **SDP block storage is the recommended choice** due to its modern architecture, better security integration, and predictable performance characteristics.
 
 #### Shared block storage not supported
 {: #virt-sol-vpc-migration-design-design-overview-vpc-block}

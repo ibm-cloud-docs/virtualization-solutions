@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-04-30"
+lastupdated: "2026-06-10"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes
 
@@ -644,6 +644,20 @@ Use the following information to prepare the RHEL virtual server for migration.
     2. Use your preferred Remote Desktop client to connect to the Windows virtual server. Use `localhost` as the IP address and log in as Administrator with the password of the Windows virtual server.
 
 {{./../../_include-segments/create_boot_disk.md}}
+
+## Understanding Block Storage for VPC volumes
+{: #virt-sol-vpc-migration-tutorial-block-storage}
+{: step}
+
+Before migrating the RHEL virtual server, it's important to understand the Block Storage for VPC volumes that are being used in this migration:
+
+- **Boot volumes**: The volumes created in this tutorial are boot volumes that contain the operating system. Boot volumes are automatically attached during instance creation and can range from 10 GB to 32,000 GB depending on the profile used.
+- **Volume profiles**: This tutorial uses Block Storage for VPC volumes. You can choose between traditional tiered profiles (3iops-tier, 5iops-tier, 10iops-tier) or the SDP (Defined Performance) profile for custom IOPS and throughput.
+- **Volume encryption**: All volumes are encrypted by default with IBM-managed encryption. You can optionally use customer-managed encryption with your own root keys.
+- **Volume limits**: Each account can create up to 300 volumes per region, and each virtual server instance can have up to 12 data volumes attached (plus one boot volume).
+- **Performance**: Each volume has dedicated performance allocation, eliminating "noisy neighbor" issues common in shared storage environments.
+
+For more information, see [About Block Storage for VPC](/docs/vpc?topic=vpc-block-storage-about).
 
 ## Migrating the RHEL virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-rhel-vm}
