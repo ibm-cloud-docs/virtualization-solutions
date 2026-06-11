@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-10"
+lastupdated: "2026-06-11"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: Red Hat OpenShift Virtualization, ROKS, VPC, Layer 2 Primary, CUDN, UDN, OVN, BGP, FRR, Layer 2 primary network OpenShift, CUDN OpenShift virtualization, User-Defined Network tutorial, OVN-Kubernetes Layer 2, BGP routing OpenShift, three-tier application OpenShift, VPC routing OpenShift, namespace networking, FRR BGP configuration, ClusterUserDefinedNetwork, three-tier application tutorial, FRR configuration, VPC static routes
@@ -27,12 +27,12 @@ completion-time: 60m
 ## Overview
 {: #layer2-primary-overview}
 
-Create a three-tier application using CUDN layer 2 primary networks on OpenShift Virtualization with BGP route advertisement and {{site.data.keyword.vpc_short}} static routing.
+Create a three-tier application that uses CUDN layer 2 primary networks on OpenShift Virtualization with BGP route advertisement and {{site.data.keyword.vpc_short}} static routing.
 {: shortdesc}
 
-This tutorial shows how to create an example three-tier application by using Cluster-User-Defined Network (CUDN) layer 2 primary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on {{site.data.keyword.containerlong_notm}}. The example demonstrates how to attach virtual servers running on {{site.data.keyword.redhat_openshift_notm}} Virtualization to layer 2 primary networks. The tutorial also shows how Border Gateway Protocol (BGP) advertises pod subnets back into the {{site.data.keyword.vpc_short}} using static {{site.data.keyword.vpc_short}} routes. For more information on network types, see [Open Virtual Network (OVN) networking in Red Hat OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
+This tutorial shows you how to create an example three-tier application by using Cluster-User-Defined Network (CUDN) layer 2 primary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on {{site.data.keyword.containerlong_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization to layer 2 primary networks. The tutorial also shows how Border Gateway Protocol (BGP) advertises pod subnets back into {{site.data.keyword.vpc_short}} by using static {{site.data.keyword.vpc_short}} routes. For more information about network types, see [Open Virtual Network (OVN) networking in Red Hat OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
 
-The example deploys a three-tier application with two layer 2 primary networks, each in its own namespace. The `green` namespace hosts the web and database tiers on one layer 2 network, and the `white` namespace hosts the application tier on a separate layer 2 network. BGP route advertisements from OVN-Kubernetes combined with static {{site.data.keyword.vpc_short}} routes that point the CUDN subnets at the worker node IP addresses provide routing between the cluster networks and the rest of the {{site.data.keyword.vpc_short}}.
+The example deploys a three-tier application with two layer 2 primary networks, each in its own namespace. The `green` namespace hosts the web and database tiers on one layer 2 network, and the `white` namespace hosts the application tier on a separate layer 2 network. BGP route advertisements from OVN-Kubernetes combined with static {{site.data.keyword.vpc_short}} routes that point the CUDN subnets to the worker node IP addresses provide routing between the cluster networks and the rest of {{site.data.keyword.vpc_short}}.
 
 ### Network, namespace, and virtual server details
 {: #layer2-primary-network-details}
@@ -56,11 +56,11 @@ Each code block in this tutorial can be copied to a file and applied with `oc ap
 ## Step 0: Review network prerequisites
 {: #layer2-primary-review-network-prerequisites}
 
-If you are using the {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, review [Red Hat OpenShift Kubernetes Service OVN UDN/CUDN network prerequisites](/docs/virtualization-solutions?topic=virtualization-solutions-udn-prerequisites) before you begin. {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.vpc_short}} includes this configuration by default.
+If you use {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, review [Red Hat OpenShift Kubernetes Service OVN UDN/CUDN network prerequisites](/docs/virtualization-solutions?topic=virtualization-solutions-udn-prerequisites) before you begin. {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.vpc_short}} includes this configuration by default.
 
 ## Step 1: Create a BGP peering or placeholder
 {: #layer2-primary-step-1-bgp}
-This example uses a placeholder BGP peer. You can peer this configuration with a {{site.data.keyword.vpc_short}} hosted firewall or router as needed. Save the following manifest to a file and apply it with `oc apply -f step0-frr.yml`.
+This example uses a placeholder BGP peer. You can peer this configuration with a {{site.data.keyword.vpc_short}}-hosted firewall or router as needed. Save the following manifest to a file and apply it by running `oc apply -f step0-frr.yml`.
 
 ```yaml
 # Placeholder Free Range Routing (FRR) configuration that enables the route advertisement
@@ -89,7 +89,7 @@ spec:
 
 Layer 2 primary networks have specific requirements for their namespaces. The namespace requires an immutable label `k8s.ovn.org/primary-user-defined-network`. You cannot add this label after you create the namespace or remove it later. Namespaces with this label require a primary network to operate. Without a primary network in the namespace, the system cannot deploy pods and virtual servers. Primary networks always require Dynamic Host Configuration Protocol (DHCP) addressing. You cannot make static IP assignments; however, all leases persist and do not change for the life of the virtual server.
 
-Create the `green` namespace and the `green-net` network. Save the following manifest to a file and apply it with `oc apply -f step2.yml`.
+Create the `green` namespace and the `green-net` network. Save the following manifest to a file and apply it by running `oc apply -f step2.yml`.
 
 ```yaml
 ---
@@ -128,7 +128,7 @@ spec:
 ## Step 3: Create another namespace and CUDN Layer 2 primary network for the `white` tier
 {: #layer2-primary-step-3-white-namespace}
 
-Create the `white` namespace and the `white-net` network. Save the following manifest to a file and apply it with `oc apply -f step3.yml`.
+Create the `white` namespace and the `white-net` network. Save the following manifest to a file and apply it by running `oc apply -f step3.yml`.
 
 ```yaml
 ---
@@ -167,7 +167,7 @@ spec:
 ## Step 4: Create VPC routes for each Layer 2 primary network
 {: #layer2-primary-step-4-vpc-routes}
 
-Create {{site.data.keyword.vpc_short}} routes that send traffic for each Layer 2 primary network to the worker node's egress IP address.
+Create {{site.data.keyword.vpc_short}} routes that send traffic for each layer 2 primary network to the worker node egress IP address.
 
 First, identify your {{site.data.keyword.vpc_short}} name and worker node IP addresses.
 
@@ -201,7 +201,7 @@ ibmcloud is vpc-routing-table-route-create mountain-climber udn-l2-routes --name
 ```
 {: pre}
 
-Attach the routing table to every zone from which you need to use the route. For example, if you are in one zone and need to access the network from another zone, attach the route in the other zone as well.
+Attach the routing table to every zone from which you need to use the route. For example, if you are in one zone and need to access the network from another zone, attach the route to the other zone as well.
 {: note}
 
 For example:
@@ -253,7 +253,7 @@ The following manifests create the example three-tier application: four virtual 
 Update each manifest with a new password and `ssh_authorized_keys` value. The system allows logins by SSH public key only.
 {: important}
 
-Apply each manifest with `oc apply -f <file-name>.yml`. Use the following links to jump directly to each manifest.
+Apply each manifest by running `oc apply -f <file-name>.yml`. Use the following links to jump directly to each manifest.
 
 - [Virtual server `factory-web00` in the `green` namespace](/docs/virtualization-solutions?topic=virtualization-solutions-layer-2-primary-udn-examples-for-red-hat-openshift-virtualization#layer2-primary-vm-factory-web00)
 - [Virtual server `factory-web01` in the `green` namespace](/docs/virtualization-solutions?topic=virtualization-solutions-layer-2-primary-udn-examples-for-red-hat-openshift-virtualization#layer2-primary-vm-factory-web01)
@@ -840,7 +840,7 @@ factory-web01   4h7m   Running   10.203.0.12   test-d77u31s20hu1mbcloaag-magicfa
 ```
 {: pre}
 
-SSH into each virtual server by using the public key that you specify in the virtual server setup.
+Use SSH to connect to each virtual server by using the public key that you specified in the virtual server setup.
 
 You must configure an SSH forwarding agent or use a new key on the jumphost. Do not copy your private key around.
 {: important}
@@ -882,7 +882,7 @@ Run the following tests to verify the network setup. All tests must work as expe
 ### Apply a network policy and rerun the tests
 {: #layer2-primary-network-policy}
 
-Next, apply a network policy that allows only TCP port 8080. Save the following manifest to a file named `my-policy.yml` and apply it with `oc apply -f my-policy.yml`.
+Next, apply a network policy that allows only TCP port 8080. Save the following manifest to a file named `my-policy.yml` and apply it by running `oc apply -f my-policy.yml`.
 
 ```yaml
 ---
@@ -911,4 +911,4 @@ spec:
 
 Rerun the preceding tests. Test 6 no longer completes successfully, and ping no longer works.
 
-Remove the policy with `oc delete -f my-policy.yml` to restore connectivity. The tests work again.
+Remove the policy by running `oc delete -f my-policy.yml` to restore connectivity. The tests work again.
