@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-10"
+lastupdated: "2026-06-11"
 
-keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines
+keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines, Hyper-V deployment tutorial, VPC bare metal servers, Hyper-V failover cluster, Storage Spaces Direct, Active Directory VPC, Cluster Shared Volumes, live migration Hyper-V, Windows Server 2025, BYOL Hyper-V, Hyper-V cluster configuration
 
 subcollection: virtualization-solutions
 
@@ -23,8 +23,10 @@ completion-time: 60m
 {: toc-services="Hyper-V, VPC VSI, VPC Bare-metal"}
 {: toc-completion-time="60m"}
 
-Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built into the Windows&reg; Server and Windows operating system. Hyper-V on {{site.data.keyword.vpc_short}} provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale on Windows-based environments that are hosted on bare metal servers within the {{site.data.keyword.vpc_short}} isolated and secured private cloud.
+Tutorial: Deploy Hyper-V cluster on VPC bare metal servers with failover clustering, Storage Spaces Direct, Active Directory integration, and VM migration.
 {: shortdesc}
+
+Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built into the Windows&reg; Server and Windows operating system. Hyper-V on {{site.data.keyword.vpc_short}} provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale on Windows-based environments that are hosted on bare metal servers within the {{site.data.keyword.vpc_short}} isolated and secured private cloud.
 
 ## Overview
 {: #virt-sol-hyperv-on-vpc-overview}

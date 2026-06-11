@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-10"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes, VMware VCS to VPC migration, virtual machine disk transfer, virt-v2v conversion tool, transit gateway VCS VPC, virtIO drivers Windows RHEL, NSX firewall configuration, Ubuntu live boot migration, netcat disk transfer, cloud-init configuration, VMware workload migration
+
 
 subcollection: virtualization-solutions
 
@@ -23,12 +24,10 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-This tutorial describes how to migrate your workloads from {{site.data.keyword.vmwaresolutions_full}} environment to {{site.data.keyword.vpc_full}}.
+Migrate VMs from VMware Cloud Foundation to IBM Cloud VPC: configure transit gateway, transfer disks with netcat, convert with virt-v2v, and deploy on VPC.
 {: shortdesc}
 
-
 {{./../../_include-segments/objective.md}}
-
 
 ## Before you begin
 {: #virt-sol-vpc-migration-tutorial-prerequisites}

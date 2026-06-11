@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-05-19"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, migration governance framework, change management migration, migration runbook templates, stakeholder communication plan, migration documentation requirements, lessons learned retrospective, migration tracking spreadsheet, troubleshooting guide migration, wave approval process, post-migration retrospective
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Migration methods for virtual servers
 {: #virt-sol-vpc-migration-design-methods}
 
-There are four primary methods for migrating VMware virtual machines to VPC virtual server instance, each with distinct design implications, advantages, and constraints. Your choice depends on virtual machine characteristics, source environment access, team expertise, and scale requirements.
+Establish migration governance with change management processes, runbook templates, stakeholder communication plans, documentation standards, and retrospectives.
 {: shortdesc}
 
 * Method 1: [Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1)

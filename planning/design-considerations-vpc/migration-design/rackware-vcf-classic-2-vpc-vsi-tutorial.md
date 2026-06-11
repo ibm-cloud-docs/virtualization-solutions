@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-03-12"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM, RackWare RMM tutorial, VCF-Automated migration tutorial, bridge server configuration, RMM wave creation, delta sync migration, SSH key setup, Direct Sync tutorial, RackWare Passthrough setup, migration cutover process, hands-on RMM migration
+
 
 subcollection: virtualization-solutions
 
@@ -30,7 +31,7 @@ compliance: HIPAA
 {: toc-industry="Software and Platform Applications"}
 {: toc-compliance="HIPAA"}
 
-This tutorial focuses on using RackWare RMM (RackWare Management Module) to migrate IBM Cloud VCF-Automated Virtual Machines (VMs) to IBM Cloud VPC Virtual Server Instances. There is an associated Technical Guide that describes the technologies used.
+Step-by-step tutorial: migrate VCF-Automated VMs to VPC using RackWare RMM with bridge server setup, wave creation, delta syncs, and cutover procedures.
 {: shortdesc}
 
 While RMM has an auto-provision feature to automatically provision an IBM Cloud VPC virtual server instance, appropriately sized, this feature was not used in this tutorial. Therefore, in this guide we manually provision the target virtual server instances and associated data disk.

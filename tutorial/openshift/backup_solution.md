@@ -2,10 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-19"
+lastupdated: "2026-06-11"
 lasttested: "[{LAST_TESTED_DATE}]"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes, Veeam Kasten backup tutorial, OpenShift Virtualization backup, Kasten data protection, immutable backups OpenShift, snapshot policies Kasten, location profiles, Kasten restore points, S3 backup OpenShift, NFS backup location, Kasten blueprints
 
 subcollection: virtualization-solutions
 
@@ -25,7 +25,7 @@ completion-time: 120m
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="120m"}
 
-Use the following tutorial as a guide to install and configure a Veeam&reg; Kasten backup solution on an {{site.data.keyword.IBM}} {{site.data.keyword.redhat_openshift_full}} cluster.
+Install and configure Veeam Kasten on OpenShift: create snapshot policies, configure S3/NFS backup locations, enable immutable backups, and restore VMs.
 {: shortdesc}
 
 The tutorial uses Kasten version 8.5.1. However, the Kasten version that is available at the time of use might differ. New releases might include extra features or changes to the installation process and user interface.

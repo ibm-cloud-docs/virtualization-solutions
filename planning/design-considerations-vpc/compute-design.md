@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption
+keywords: VSI, File Storage, Block Storage, Encryption, VPC virtual server profiles, IBM Cloud VSI compute, instance profiles VPC, balanced compute profiles, memory-optimized instances, compute-optimized VPC, GPU instances VPC, dedicated host VPC, auto-scaling instance groups, VPC compute design
+
 
 subcollection: virtualization-solutions
 
@@ -14,6 +15,9 @@ subcollection: virtualization-solutions
 
 # Compute Design for VPC virtual servers
 {: #virt-sol-vpc-compute-design-overview}
+
+Design VPC compute with virtual server profiles: balanced, compute-optimized, memory-optimized, and GPU options with flexible scaling and dedicated hosts.
+{: shortdesc}
 
 IBM Cloud VPC provides a comprehensive portfolio of compute options designed to support diverse workloads, from traditional applications to modern cloud-native solutions. These offerings deliver flexibility, scalability, and enterprise-grade security, enabling organizations to deploy workloads across virtualized, containerized, and bare metal environments.
 

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-06-11"
 
-keywords:
+keywords: VPC security design, IBM Cloud IAM, security groups VPC, network ACLs, data encryption VPC, Key Protect, Hyper Protect Crypto Services, Security and Compliance Center, VPC Flow Logs, compliance monitoring
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Security design for VPC virtual servers
 {: #virt-sol-vpc-security-design-overview}
 
-Security is a foundational component of any cloud architecture, encompassing identity and access management, data protection, network security, and compliance. IBM Cloud provides a comprehensive security framework for both VPC Virtual Server Instances, implementing defense-in-depth strategies across multiple layers of the infrastructure stack.
+Design VPC security across identity (IAM), data encryption (BYOK/KYOK), network controls (security groups/ACLs), and compliance with Security Center.
 {: shortdesc}
 
 The key security architecture elements are shown in the following diagram.

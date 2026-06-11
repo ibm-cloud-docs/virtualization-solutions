@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-22"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Virtualization, Red Hat OpenShift Kubernetes Service, VSI, storage migration, IBM Cloud, Storage vMotion, MTC
+keywords: Red Hat OpenShift Virtualization, Red Hat OpenShift Kubernetes Service, VSI, storage migration, IBM Cloud, Storage vMotion, MTC, VM storage migration tutorial, Migration Toolkit Containers MTC, OpenShift Virtualization storage, live migration VMs, storage class conversion, PVC migration OpenShift, Storage vMotion equivalent, MigCluster configuration, stage cutover rollback, persistent volume migration
+
 
 subcollection: virtualization-solutions
 
@@ -26,7 +27,7 @@ completion-time: 60m
 ## Overview of the guide
 {: #overview-of-the-guide}
 
-This solution guide explains how to perform storage migrations for virtual machines (VMs) that run in {{site.data.keyword.redhat_openshift_notm}} Virtualization using the Migration Toolkit for Containers (MTC) operator. For users who are familiar with VMware&reg;, this feature is equivalent to Storage vMotion.
+Migrate VM storage between storage classes in OpenShift Virtualization: install MTC operator, create migration plans, and perform live storage migrations.
 {: shortdesc}
 
 Storage migration helps you move VM disk data between storage classes within the same {{site.data.keyword.redhat_openshift_notm}} cluster and namespace, enabling you to:

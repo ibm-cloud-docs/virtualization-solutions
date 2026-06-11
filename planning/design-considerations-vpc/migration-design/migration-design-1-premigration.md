@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-05-19"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, pre-migration planning VPC, workload assessment migration, VMware discovery tools, Transit Gateway connectivity, instance profile selection, VPC storage profiles, migration re-IP planning, security group migration, RVTools VMware inventory, BYOL VPC migration
+
 
 subcollection: virtualization-solutions
 
@@ -12,11 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-
 # Pre-migration design
 {: #virt-sol-vpc-migration-design-premigration}
 
-Before you begin a migration, you have several tasks that you need to complete.
+Plan VMware to VPC migrations with workload assessment, Transit Gateway connectivity, instance profile selection, storage planning, and security group configuration.
 {: shortdesc}
 
 ## Workload assessment and categorization

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-19"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, Windows migration IBM Cloud, VirtIO drivers Windows, sysprep Windows migration, virt-v2v Windows, migrate Windows to VPC, Windows Server migration, VMware to IBM Cloud Windows, Windows driver injection, virtio-win drivers, Windows domain migration
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Windows Migration Considerations
 {: #virt-sol-vpc-migration-design-windows}
 
-Windows migrations require extra attention due to driver binding and licensing considerations.
+Migrate Windows VMs to IBM Cloud VPC using sysprep for template deployments or virt-v2v for production servers with VirtIO driver injection and identity preservation.
 {: shortdesc}
 
 ## The Driver Challenge

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-30"
+lastupdated: "2026-06-11"
 
-keywords: File Storage, Block Storage, Encryption, backup, disaster recovery
+keywords: File Storage, Block Storage, Encryption, backup, disaster recovery, VPC resiliency design, Block Storage snapshots, Backup for VPC, disaster recovery VPC, cross-region snapshots, IBM Cloud Backup Recovery, Veeam VPC backup, Wanclouds DRaaS, RackWare disaster recovery, VPC backup solutions
 
 subcollection: virtualization-solutions
 
@@ -14,6 +14,9 @@ subcollection: virtualization-solutions
 
 # Resiliency Design for VPC virtual servers
 {: #virt-sol-vpc-vpc-resiliency-design}
+
+Design VPC resiliency with Block Storage snapshots, Backup for VPC, cross-region DR, IBM Cloud Backup and Recovery, Veeam, Wanclouds DRaaS, and RackWare solutions.
+{: shortdesc}
 
 See the [Resiliency in IBM Cloud](/docs/resiliency?topic=resiliency-resiliency-overview) Solution Guide which is general guide on resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. This guide focuses on specific information for VPC VSIs.
 

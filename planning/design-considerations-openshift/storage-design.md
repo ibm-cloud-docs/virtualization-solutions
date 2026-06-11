@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
+keywords: OpenShift virtualization storage, Red Hat OpenShift Data Foundation, ODF storage, Ceph storage OpenShift, NVMe storage bare metal, PersistentVolumes OpenShift, File Storage VPC, IBM Cloud Object Storage, block storage encryption, storage classes OpenShift
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Storage design for Red Hat OpenShift Virtualization
 {: #virt-sol-openshift-storage-design-overview}
 
-IBM Cloud offers a range of storage solutions that are designed to meet diverse workload requirements, from high-performance computing to long-term archival. Block storage and file storage options provide flexibility, scalability, and enterprise-grade security for hybrid and multicloud environments.
+Deploy OpenShift virtualization storage using Red Hat OpenShift Data Foundation with NVMe, File Storage for VPC, and IBM Cloud Object Storage for persistent volumes.
 {: shortdesc}
 
 The key storage architecture elements are shown in the following diagram.

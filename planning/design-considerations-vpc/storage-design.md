@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-30"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
+keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, VPC storage design, Block Storage for VPC, File Storage for VPC, IBM Cloud Object Storage, VPC storage profiles, IOPS tiers, storage encryption VPC, Key Protect encryption, NFS storage VPC, persistent volumes VPC
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Storage design for VPC virtual servers
 {: #virt-sol-storage-design-overview}
 
-IBM Cloud offers a range of storage solutions designed to meet diverse workload requirements, from high-performance computing to long-term archival. These options provide flexibility, scalability, and enterprise-grade security for hybrid and multicloud environments.
+Design VPC storage: Block Storage with IOPS profiles (3-48K), File Storage with NFS support (up to 32TB), and Object Storage for backups and archival data.
 {: shortdesc}
 
 The key storage architecture elements are shown in the following diagram.

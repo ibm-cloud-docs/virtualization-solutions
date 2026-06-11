@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-10"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes
+keywords: VMware Cloud Foundation migration, VCFaaS to VPC, VMware to IBM Cloud tutorial, virtual server migration tutorial, VPC migration guide, VMware workload migration, cloud migration tutorial, VCFaaS migration, IBM Cloud VPC tutorial, VCFaaS to VPC migration, VMware workload migration VPC, netcat disk transfer tutorial, virt-v2v Windows conversion, transit gateway VCFaaS VPC, virtIO drivers Windows RHEL, cloud-init VPC configuration, VMware Cloud Director migration, VCFaaS VPC connectivity, Windows RHEL VPC migration
+
 
 subcollection: virtualization-solutions
 
@@ -25,7 +26,7 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-The following tutorial describes how to migrate your workloads from {{site.data.keyword.vmwaresolutions_short}} environment to {{site.data.keyword.vpc_full}} (VPC).
+Migrate Windows and RHEL VMs from VCFaaS to IBM Cloud VPC: transfer disks with netcat, convert with virt-v2v, configure transit gateway connectivity.
 {: shortdesc}
 
 {{./../../_include-segments/objective.md}}

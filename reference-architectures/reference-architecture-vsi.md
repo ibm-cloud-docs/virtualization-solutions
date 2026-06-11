@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-05-06"
+lastupdated: "2026-06-11"
 
-keywords: Virtual Servers, VPC, VSI, virtual machines, compute instances, cloud infrastructure
+keywords: keywords: VPC virtual servers, IBM Cloud VSI, virtual server architecture, VPC compute instances, VMware to VPC migration, virtual machine infrastructure, cloud VM deployment, VPC virtualization, virtual server reference architecture, IBM Cloud virtual machines
 
 subcollection: virtualization-solutions
 
@@ -20,7 +20,7 @@ production: false
 # Virtual Servers for VPC
 {: #virt-sol-vpc-vsi-architecture}
 
-{{site.data.keyword.vsi_is_full}} provide compute instances within an isolated virtual private cloud environment to deliver flexible, scalable compute resources with integrated networking, storage, and security capabilities when you deploy virtual server-based workloads on {{site.data.keyword.cloud_notm}}. {{site.data.keyword.vsi_is_full}} offer a wide range of compute profiles that include balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations. These virtual servers are shared tenancy with optional dedicated host placement for compliance and licensing requirements.
+Deploy virtual machines on IBM Cloud VPC with flexible compute profiles, integrated networking, and enterprise security. Ideal for migrating VMware workloads to cloud infrastructure with minimal changes.
 {: shortdesc}
 
 The platform includes networking features such as security groups, network ACLs, VPN connectivity, and load balancers. These options provide network isolation and security controls.

@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
+keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs, RHACM observability tutorial, multi-cluster monitoring OpenShift, Grafana dashboard configuration, custom alert rules Prometheus, Thanos metrics collection, Alertmanager notification setup, OpenShift Virtualization monitoring, VM metrics dashboards, Slack alert integration, right-sizing recommendations
+
 
 subcollection: virtualization-solutions
 
@@ -31,7 +32,7 @@ compliance: HIPPA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPPA"}
 
-Learn how to implement comprehensive observability for {{site.data.keyword.redhat_openshift_full}} Virtualization environments, including monitoring, logging, alerting, and metrics collection by using Red Hat Advanced Cluster Management (ACM).
+Configure RHACM observability for OpenShift Virtualization: set up Grafana dashboards, create custom alerts, integrate Slack notifications, and monitor VM metrics.
 {: shortdesc}
 
 ## Introduction to Red Hat Openshift Virtualization

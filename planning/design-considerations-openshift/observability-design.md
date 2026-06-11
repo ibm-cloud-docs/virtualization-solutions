@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, RHACM, IBM Cloud Logs, IBM Cloud Monitoring, Workload Protection
+keywords: OpenShift virtualization observability, Prometheus monitoring OpenShift, Grafana dashboards OpenShift, IBM Cloud Monitoring, IBM Cloud Logs, RHACM observability, Loki logging OpenShift, Alertmanager OpenShift, OpenTelemetry tracing, distributed tracing OpenShift
 
 subcollection: virtualization-solutions
 
@@ -14,6 +14,9 @@ subcollection: virtualization-solutions
 
 # Observability Design for OpenShift Virtualization
 {: #virt-sol-openshift-openshift-observability-design-overview}
+
+Monitor OpenShift virtualization with Prometheus metrics, Grafana dashboards, Loki logging, and IBM Cloud Monitoring for comprehensive observability across clusters using RHACM.
+{: shortdesc}
 
 Observability in IBM Cloud provides the visibility and insights needed to monitor, troubleshoot, and optimize applications and infrastructure across hybrid and multicloud environments. It goes beyond traditional monitoring by offering end-to-end visibility into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
 

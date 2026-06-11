@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift, OpenShift Virtualization, KubeVirt, Red Hat OpenShift Kubernetes Service, virtualization, containers
+keywords: keywords: OpenShift virtualization, Red Hat OpenShift virtualization IBM Cloud, KubeVirt IBM, container virtualization, Kubernetes virtual machines, OpenShift VM workloads, VMware to OpenShift migration, hybrid virtualization platform, OpenShift Data Foundation, ROKS virtualization
 
 subcollection: virtualization-solutions # Use deployable-reference-architectures, or the subcollection value from your toc.yaml file if docs-only.
 authors:
@@ -19,7 +19,7 @@ production: false
 # Red Hat OpenShift Virtualization
 {: #virt-sol-rove-architecture}
 
-{{site.data.keyword.redhat_openshift_full}} Virtualization on {{site.data.keyword.cloud}} is used to run virtual server workloads alongside containerized applications that are within a unified Kubernetes environment. Red Hat OpenShift Virtualization is based on the KubeVirt Kubernetes operator, which means that you can deploy both new and existing virtual server workloads on a single, managed platform on {{site.data.keyword.cloud_notm}}.
+Run virtual machines alongside containers on Red Hat OpenShift using KubeVirt technology. Modernize VMware workloads with Kubernetes orchestration while maintaining VM compatibility on IBM Cloud.
 {: shortdesc}
 
 Red Hat OpenShift Virtualization servers run on bare metal servers within {{site.data.keyword.cloud_notm}} VPC, which helps provide high performance, security, and network isolation.

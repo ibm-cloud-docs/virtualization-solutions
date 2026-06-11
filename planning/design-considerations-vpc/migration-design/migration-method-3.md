@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-09"
+lastupdated: "2026-06-11"
 
-keywords: virtual server instance, File Storage, Block Storage, Encryption, Migration
+keywords: virtual server instance, File Storage, Block Storage, Encryption, Migration, live network transfer, Transit Gateway migration, live ISO migration, netcat streaming, parallel migration VPC, no export migration, compressed disk transfer, virt-p2v migration, large-scale migration, network bandwidth migration
+
 
 subcollection: virtualization-solutions
 
@@ -15,7 +16,7 @@ subcollection: virtualization-solutions
 # Live network transfer (Recommended for Scale)
 {: #virt-sol-vpc-migration-design-method3}
 
-For Large-scale migrations, minimizing downtime, maximum efficiency, scenarios where exporting VMDKs is impractical, you can migrate to a virtual server using live network transfer. Instead of shutting down your virtual machine, exporting it, transferring the export, and converting it, you boot the source virtual machine from a live ISO (like a rescue disk), read its disks from within this live environment, and stream them directly over the network to your worker virtual server instance in VPC.
+Stream VMware VM disks directly to VPC over Transit Gateway using live ISO, netcat, and compression for large-scale migrations without export overhead.
 {: shortdesc}
 
 ## Architecture Components

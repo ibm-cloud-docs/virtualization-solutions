@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-27"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD, OpenShift Data Foundation ODF, Ceph storage virtual machines, ODF storage classes configuration, VM live migration storage, replicated pools erasure coding, RBD block storage VMs, ODF capacity planning, snapshot backup VMs, bare metal NVMe storage, vSAN migration ODF
+
 
 subcollection: virtualization-solutions
 
@@ -20,6 +21,9 @@ completion-time: 60m
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
+
+Deploy {{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) for VM workloads: configure Ceph storage pools, set up storage classes, enable live migration, and implement backup solutions.
+{: shortdesc}
 
 {{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 

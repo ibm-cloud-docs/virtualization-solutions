@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-20"
+lastupdated: "2026-06-11"
 
-keywords: Veeam Backup & Replication, VBR, restore, recovery, IBM Cloud VPC, VSI, volume restore, disaster recovery
+keywords: Veeam Backup & Replication, VBR, restore, recovery, IBM Cloud VPC, VSI, volume restore, disaster recovery, Veeam VBR volume restore VPC, disaster recovery VSI tutorial, boot volume restore Windows Linux, worker instance restore workflow, preserved volume recovery VPC, Veeam agent volume-level restore, temporary VSI restore operations, VPC instance recreation tutorial, Windows Linux disaster recovery, Veeam VBR IBM Cloud restore
+
 
 subcollection: virtualization-solutions
 
@@ -23,9 +24,7 @@ completion-time: 90m
 {: toc-services="vpc"}
 {: toc-completion-time="90m"}
 
-This tutorial provides step-by-step instructions for restoring {{site.data.keyword.vpc_full}} virtual server instances by using Veeam Backup & Replication (VBR) 13 with agents.
-
-It simulates a disaster recovery scenario where the original virtual server instance is deleted, its volumes are preserved, and a temporary virtual server instance is used to restore the data to the original volumes.
+Restore VPC virtual servers with Veeam VBR: attach preserved volumes to worker instance, perform volume-level restore, recreate VSI with recovered data.
 {: shortdesc}
 
 ## Objectives

@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-10"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, VMware to VPC migration, migrate VMware to IBM Cloud, VPC migration design, VMware workload migration, hypervisor differences VPC, VPC networking Layer 3, VPC storage migration, migration methods comparison, virt-v2v migration, VDDK migration VPC
+
 
 subcollection: virtualization-solutions
 
@@ -15,7 +16,7 @@ subcollection: virtualization-solutions
 # Migration design overview
 {: #virt-sol-vpc-migration-design-design-overview}
 
-The following guide is an overview of the design considerations to consider before you migrate your VMware workloads to IBM Cloud VPC. It assumes that you have other design considerations documents that describe compute, networking, storage, security, resiliency, and observability in your target VPC environment.
+Plan VMware to IBM Cloud VPC migrations by understanding hypervisor, networking, and storage differences, then choosing the right migration method for your workloads.
 {: shortdesc}
 
 ## Understanding the destination: VPC virtual server instances for VMware administrators

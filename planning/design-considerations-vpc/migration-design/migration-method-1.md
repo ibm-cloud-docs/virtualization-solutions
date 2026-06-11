@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-05-19"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, image import migration, template-based migration VPC, QCOW2 conversion, OVF export VMware, custom image VPC, Cloud Object Storage migration, qemu-img convert, single-disk migration, VMDK to QCOW2, VPC custom image creation
+
 
 subcollection: virtualization-solutions
 
@@ -15,7 +16,7 @@ subcollection: virtualization-solutions
 # Image Import (Template-Based Migration)
 {: #virt-sol-vpc-migration-design-method1}
 
-For single-disk virtual machines, template reuse scenarios, and simple migrations, you can migrate to a virtual server by using the image import migration method, which is the most VMware-familiar approach. You export a virtual machine, convert it to a format VPC understands (QCOW2), upload it to Cloud Object Storage, and create a custom image. You then boot a virtual server instance from this custom image, much like deploying from a template in VMware.
+Migrate single-disk VMware VMs to VPC by exporting to OVF, converting to QCOW2, uploading to Cloud Object Storage, and creating custom images for deployment.
 {: shortdesc}
 
 ## Overview of the migration process

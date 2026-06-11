@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-06-11"
 
-keywords: Security
+keywords: OpenShift virtualization security, IBM Cloud IAM, Key Protect encryption, Hyper Protect Crypto Services, RBAC OpenShift, data encryption at rest, network security OpenShift, compliance GDPR HIPAA, security groups VPC, Workload Protection
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Security design for Red Hat OpenShift Virtualization
 {: #virt-sol-openshift-security-design-overview}
 
-Security is a foundational component of any cloud architecture that includes identity and access management, data protection, network security, and compliance. {{site.data.keyword.cloud}} provides a comprehensive security framework for both Virtual Servers for VPC and {{site.data.keyword.redhat_openshift_full}} on {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments. This security implements defense-in-depth strategies across multiple layers of the infrastructure stack.
+Secure OpenShift virtualization with IBM Cloud IAM, Key Protect encryption, RBAC, security groups, and compliance controls for GDPR, HIPAA, and SOC2 requirements.
 {: shortdesc}
 
 The key security architecture elements are shown in the following diagram.

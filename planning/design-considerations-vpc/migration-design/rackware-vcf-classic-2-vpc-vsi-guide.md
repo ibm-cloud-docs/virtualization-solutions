@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-06"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM, RackWare RMM migration, VCF-Automated to VPC, Direct Sync migration, RackWare Passthrough, bridge server NAT, reverse SSH tunnel migration, RackWare microkernel, isolated network migration, IP address retention, VMware to VPC VSI
+
 
 subcollection: virtualization-solutions
 
@@ -14,6 +15,9 @@ subcollection: virtualization-solutions
 
 # Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Technical Guide
 {: #virt-sol-vpc-migration-design-rmm-guide}
+
+Migrate VCF-Automated VMs to VPC VSIs using RackWare RMM with Direct Sync, Passthrough mode, and bridge server NAT for isolated network connectivity.
+{: shortdesc}
 
 This guide focuses on using RackWare RMM (RackWare Management Module) to migrate IBM Cloud VCF-Automated Virtual Machines (VMs) to IBM Cloud VPC Virtual Server Instances (VSIs). There is an associated tutorial that steps through the process.
 

@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-06-11"
 
-keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR
+keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, storage migration troubleshooting OpenShift, Calico network policy rollback error, live migration size mismatch, MTC migration toolkit errors, KubeVirt live migration failures, PVC size mismatch migration, calico-tier-getter permissions, bandwidthPerMigration configuration, OpenShift VM storage migration, migration rollback RBAC issues
+
 
 subcollection: virtualization-solutions
 
@@ -14,6 +15,9 @@ subcollection: virtualization-solutions
 
 # Troubleshooting storage migration
 {: #troubleshooting-storage-migration}
+
+Resolve storage migration errors: fix Calico network policy rollback failures and live migration size mismatches. Includes RBAC fixes and capacity checks.
+{: shortdesc}
 
 If you encounter issues during storage migration, review the following common problems and their solutions.
 

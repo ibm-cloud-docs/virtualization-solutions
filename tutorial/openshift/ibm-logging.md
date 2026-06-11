@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs
+keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs, IBM Cloud Logs tutorial, OpenShift Virtualization logging, Sysdig agent installation, centralized logging OpenShift, log forwarding configuration, Cloud Logs bucket setup, log retention policies, OpenShift cluster logging, IBM Cloud Monitoring integration, virtual machine log analysis
 
 subcollection: virtualization-solutions
 
@@ -31,7 +31,7 @@ compliance: HIPPA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPPA"}
 
-The following guide describes how to configure logging for your {{site.data.keyword.redhat_openshift_full}} Virtualization environment.
+Configure IBM Cloud Logs for OpenShift Virtualization: install Sysdig agents, set up log forwarding, configure Cloud Logs buckets, and enable log retention.
 {: shortdesc}
 
 ## Overview of IBM Cloud Logs with Red Hat OpenShift Virtualization
