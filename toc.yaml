@@ -113,19 +113,19 @@ toc:
       - topicgroup:
           label: OpenShift Networking
           topics:
-          - topic: tutorial/OpenShift Networking/network-options.md
+          - topic: tutorial/openshift/network-options.md
             navtitle: OVN networking in OpenShift for vSphere administrators
             tag: staging
-          - topic: tutorial/OpenShift Networking/network-option-layer2-primary.md
+          - topic: tutorial/openshift/network-option-layer2-primary.md
             navtitle: Layer 2 primary UDN examples for Red Hat OpenShift Virtualization
             tag: staging
-          - topic: tutorial/OpenShift Networking/network-option-layer2-secondary.md
+          - topic: tutorial/openshift/network-option-layer2-secondary.md
             navtitle: Layer 2 secondary UDN examples for Red Hat OpenShift Virtualization
             tag: staging
-          - topic: tutorial/OpenShift Networking/network-option-localnet.md
+          - topic: tutorial/openshift/network-option-localnet.md
             navtitle: Localnet UDN examples for Red Hat OpenShift Virtualization
             tag: staging
-          - topic: tutorial/OpenShift Networking/network-prerequisites.md
+          - topic: tutorial/openshift/network-prerequisites.md
             navtitle: UDN Prerequisites for Red Hat OpenShift Virtualization
             tag: staging
       - topicgroup:
