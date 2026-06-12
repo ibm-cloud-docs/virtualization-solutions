@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD, ODF troubleshooting OpenShift, NVMe disk recovery bare metal, PVC stuck pending Ceph, OSD down recovery procedures, Ceph nearfull alert resolution, VM storage performance issues, live migration RWX requirements, CSI provisioner troubleshooting, Ceph cluster capacity management, OpenShift Data Foundation problems
+
 
 subcollection: virtualization-solutions
 
@@ -14,6 +15,9 @@ subcollection: virtualization-solutions
 
 # Troubleshooting ODF workloads
 {: #troubleshooting-odf-workloads}
+
+Troubleshoot ODF storage issues: recover missing NVMe disks, resolve PVC pending states, fix OSD failures, address nearfull alerts, optimize VM performance.
+{: shortdesc}
 
 When working with Red Hat OpenShift Data Foundation (ODF) storage from local NVMe drives that are in the bare metal servers, you might encounter issues. Issues, symptoms, likely causes, and resolutions are described in the following sections.
 

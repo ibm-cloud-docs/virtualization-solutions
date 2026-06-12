@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-02-09"
+lastupdated: "2026-06-11"
 
-keywords: virtual server instance, File Storage, Block Storage, Encryption, Migration
+keywords: virtual server instance, File Storage, Block Storage, Encryption, Migration, VDDK migration, vCenter API migration, VMware VDDK extraction, libguestfs VDDK, nbdkit VDDK plugin, automated vCenter migration, single-command migration, vSphere API migration, virt-v2v VDDK, programmatic VM extraction
+
 
 subcollection: virtualization-solutions
 
@@ -15,7 +16,7 @@ subcollection: virtualization-solutions
 # VDDK Direct Extraction (vCenter Only)
 {: #virt-sol-vpc-migration-design-method4}
 
-For vCenter environments only, automation-first migrations, scenarios where you need a single-command migration process, you can migrate to a virtual server using VDDK direct extraction (vCenter only). VMware's Virtual Disk Development Kit (VDDK) allows programmatic access to virtual machine disks through vCenter and vSphere APIs. The `virt-v2v` tool from the libguestfs project can leverage VDDK to connect directly to vCenter, locate a virtual machine, stream its disks to your worker virtual server instance, and perform transformations (like driver injection) in one integrated operation.
+Automate vCenter VM migrations using VMware VDDK with virt-v2v for single-command extraction, transformation, and driver injection directly from vCenter API.
 {: shortdesc}
 
 ## Architecture Components

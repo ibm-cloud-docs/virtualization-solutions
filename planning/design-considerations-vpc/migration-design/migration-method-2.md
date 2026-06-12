@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-05-19"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, virtual server instance
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, virtual server instance, volume copy migration, multi-disk migration VPC, virt-v2v driver injection, worker VM migration, ephemeral instance VPC, direct volume copy, qemu-img raw conversion, network transfer migration, libguestfs tools, VPC volume attachment
+
 
 subcollection: virtualization-solutions
 
@@ -15,7 +16,7 @@ subcollection: virtualization-solutions
 # Copying direct volume (multi-disk method)
 {: #virt-sol-vpc-migration-design-method2}
 
-For multi-disk virtual machines where you want to avoid image proliferation and scenarios that require precise control over volume configuration, migrate to a virtual server by using the direct volume copy (multi-disk migration) migration method. Instead of importing a virtual machine as an image, you instead create empty volumes with the exact specifications you need. You then directly write your virtual machine's contents to those volumes.
+Migrate multi-disk VMware VMs to VPC by creating target volumes, using worker VMs for conversion with virt-v2v, and provisioning from existing boot volumes.
 {: shortdesc}
 
 ## Architecture Components

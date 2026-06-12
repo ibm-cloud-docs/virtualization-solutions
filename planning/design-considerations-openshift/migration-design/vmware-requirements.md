@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-06-11"
 
-keywords:
+keywords: keywords: VMware to OpenShift migration requirements, VMware vSphere 6.5 migration, ESXi host migration prerequisites, VMware Tools requirements, VM naming conventions OpenShift, IBM Cloud VMware migration, vCenter migration checklist, OpenShift virtualization prerequisites, NFC service memory ESXi, virtual machine migration requirements
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # VMware migration requirements
 {: #virt-sol-openshift-migration-design-migration-vmware}
 
-If you migrate from a VMware environment to Red Hat OpenShift, you must meet the following requirements before you migrate.
+Verify VMware vSphere 6.5+ compatibility, VMware Tools installation, VM naming conventions, and ESXi host configuration before migrating to IBM Cloud OpenShift Virtualization.
 {: shortdesc}
 
 VMware environment requirements:

@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-06-11"
 
-keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, IAM, ReFS, RDP, HMAC, SSH, RAM, CPU, IOPS, GB, DNS, SQL, GFS, RTO
+keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, IAM, ReFS, RDP, HMAC, SSH, RAM, CPU, IOPS, GB, DNS, SQL, GFS, RTO, Veeam Backup Replication VPC, VBR agent deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, Veeam protection groups VSI, HMAC credentials COS integration, Windows Linux backup agents, VPC backup configuration guide, Veeam VBR IBM Cloud
+
 
 subcollection: virtualization-solutions
 
@@ -23,7 +24,7 @@ completion-time: 120m
 {: toc-services="vpc, cloud object storage"}
 {: toc-completion-time="120m"}
 
-This tutorial provides detailed step-by-step instructions for deploying and configuring Veeam Backup & Replication (VBR) with agents on {{site.data.keyword.vpc_full}} (VPC) virtual servers.
+Deploy Veeam Backup & Replication on VPC: configure SOBR with ReFS and Cloud Object Storage, install agents, create protection groups, automate backups.
 {: shortdesc}
 
 ## Objectives

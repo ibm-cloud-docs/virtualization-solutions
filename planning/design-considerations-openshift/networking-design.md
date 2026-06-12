@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, network, layer2, localnet
+keywords: Red Hat OpenShift Kubernetes Service, network, layer2, localnet, OpenShift virtualization networking, OVN-Kubernetes networking, VPC networking OpenShift, Virtual Private Endpoints OpenShift, layer2 networking OpenShift, localnet networking, network attachment definitions, IBM Cloud VPC subnets, OpenShift load balancers, virt-launcher pod networking
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Network design for Red Hat OpenShift Virtualization
 {: #virt-sol-openshift-network-design}
 
-IBM Cloud® Virtual Private Cloud (VPC) is a virtual network that is linked to your account. It gives you cloud security, with the ability to scale dynamically, by providing fine-grained control over your virtual infrastructure and your network traffic segmentation.
+Design OpenShift virtualization networking using VPC subnets, OVN-Kubernetes for pod networking, and layer2 or localnet options for VM connectivity with Virtual Private Endpoints.
 {: shortdesc}
 
 The network design in Red Hat OpenShift Virtualization on IBM Cloud VPC has the following distinct layers.

@@ -1,14 +1,18 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
-keywords: IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection
+lastupdated: "2026-06-11"
+keywords: IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection, VPC observability design, IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection agent, monitoring metrics, log collection, vulnerability scanning, threat detection, unified agent, compliance monitoring
+
 subcollection: virtualization-solutions
 ---
 {{site.data.keyword.attribute-definition-list}}
 
 # Observability design for Virtual Private Cloud (VPC) virtual server instances
 {: #virt-sol-vpc-observability-design-overview}
+
+Design VPC observability with IBM Cloud Monitoring for metrics, IBM Cloud Logs for log collection, and Workload Protection for security and compliance.
+{: shortdesc}
 
 Observability in {{site.data.keyword.cloud}} provides the visibility and insights that are needed to monitor, troubleshoot, and optimize applications and infrastructure across hybrid and multicloud environments. It extends beyond traditional monitoring by offering end-to-end visibility into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
 

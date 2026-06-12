@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-03-12"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, migration risk mitigation, migration rollback strategy, network connectivity failure, data corruption prevention, performance degradation troubleshooting, migration rollback procedures, VPC migration troubleshooting, application startup failure, security group configuration, source VM preservation
+
 
 subcollection: virtualization-solutions
 
@@ -15,9 +16,7 @@ subcollection: virtualization-solutions
 # Risk mitigation and rollback strategies
 {: #virt-sol-vpc-migration-design-risk}
 
-
-
-The following information covers common difficulties that you might encounter after a migration and offers tips to correct the issues.
+Mitigate VMware to VPC migration risks with troubleshooting guidance for network, application, data, and performance issues, plus rollback procedures.
 {: shortdesc}
 
 ## Common migration risks

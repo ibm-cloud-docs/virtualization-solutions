@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-05-06"
+lastupdated: "2026-06-11"
 
-keywords: virtual servers, Red Hat OpenShift Kubernetes Service, ROVE, VSI, virtualization
+keywords: keywords: IBM Cloud virtualization, virtualization solutions, OpenShift virtualization, VPC virtual servers, VMware migration, hybrid cloud virtualization, container virtualization, virtual machine migration, cloud virtualization platform, Kubernetes virtualization
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Enable flexible workload deployments with IBM Cloud Virtualization
 {: #overview}
 
-Virtualization on {{site.data.keyword.cloud}} provides enterprises with a scalable and secure foundation for running their virtualized workloads in a public cloud environment.
+Deploy virtualized workloads on {{site.data.keyword.cloud_notm}} using OpenShift Virtualization for container-native applications or VPC Virtual Servers for traditional VMs. Migrate from VMware with comprehensive tools and guidance.
 {: shortdesc}
 
 By abstracting physical resources into virtualized environments, organizations can optimize their infrastructure usage, reduce operational complexity, and accelerate application delivery.

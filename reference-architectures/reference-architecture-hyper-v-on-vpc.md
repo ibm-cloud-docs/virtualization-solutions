@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2026, 2026
-lastupdated: "2026-05-29"
+  years: 2026
+lastupdated: "2026-06-11"
 
-keywords: Hyper-V, VPC, VSI, cloud infrastructure, virtual machines
+keywords: Hyper-V, VPC, VSI, cloud infrastructure, virtual machines, Hyper-V on VPC, VPC bare metal servers, Hyper-V cluster, failover cluster VPC, Cluster Shared Volumes, Active Directory VPC, Windows Server VPC, type-1 hypervisor, Hyper-V reference architecture, BYOL virtualization
 
 subcollection: virtualization-solutions
 
@@ -12,7 +12,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Hyper-V on IBM Cloud VPC reference architecture
+# Hyper-V on IBM Cloud VPC
 {: #virt-sol-hyperv-on-vpc-architecture}
 
 This reference architecture describes how to deploy Microsoft&reg; Hyper-V as a type-1 hypervisor on {{site.data.keyword.cloud_notm}} {{site.data.keyword.vpc_short}} bare metal servers to run virtualized workloads. The architecture includes jump servers for access, Active Directory servers for domain services, Hyper-V host nodes on bare metal servers, and a failover cluster configuration with Cluster Shared Volumes for high availability and distributed storage management.

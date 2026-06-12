@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-09"
+lastupdated: "2026-06-11"
 
-keywords: migration, warm migration, cold migration, mtv, red hat openShift migration toolkit for virtualization, migration toolkit for virtualization
+keywords: migration, warm migration, cold migration, mtv, red hat openShift migration toolkit for virtualization, migration toolkit for virtualization, mtv OpenShift, warm migration openShift, cold migration openShift, vmware to openShift migration, ova migration, IBM Cloud OpenShift migration, vCenter to OpenShift, virtual machine migration toolkit
 
 subcollection: virtualization-solutions
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Red Hat OpenShift Migration Toolkit for Virtualization (MTV)
 {: #virt-sol-openshift-migration-design-mtv}
 
-**The Migration Toolkit for Virtualization (MTV)** on Red Hat OpenShift Container Platform helps you migrate virtual servers from traditional hypervisors such as VMware vSphere, Red Hat Virtualization, or OpenStack into Red Hat OpenShift Virtualization, by consolidating virtual servers and containers into a single Kubernetes-native platform.
+Migrate VMs from VMware vSphere, Red Hat Virtualization, or OpenStack to IBM Cloud OpenShift Virtualization using warm or cold migration with minimal downtime.
 {: shortdesc}
 
 MTV provides a web UI and API for discovery, planning, and execution of migrations that uses persistent volume cloning or streaming for disk data while it maintains virtual server configuration and networking. MTV integrates with Red Hat OpenShift Virtualization to run migrated virtual servers alongside containers by using Kubernetes-native storage and networking constructs.

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, backup, disaster recovery
+keywords: OpenShift virtualization disaster recovery, RHACM disaster recovery, ODF regional DR, OADP backup OpenShift, Velero backup, IBM Cloud Backup and Recovery, high availability OpenShift, business continuity virtualization, Ceph mirroring, multiregion disaster recovery
 
 subcollection: virtualization-solutions
 
@@ -14,6 +14,9 @@ subcollection: virtualization-solutions
 
 # Resiliency design for Red Hat OpenShift Virtualization
 {: #virt-sol-openshift-resiliency-design}
+
+Protect OpenShift virtualization workloads with RHACM regional disaster recovery, OADP backup, ODF data replication, and IBM Cloud Backup and Recovery for business continuity.
+{: shortdesc}
 
 Red Hat Advanced Cluster Management (RHACM) enables disaster recovery solutions for Red Hat OpenShift Data Foundation clusters. RHACM provides multi-cluster management and application lifecycle orchestration, serving as the control plane in a multi-cluster environment.
 {: shortdesc}

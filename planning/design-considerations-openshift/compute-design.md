@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption
+keywords: Red Hat OpenShift Kubernetes Service, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, OpenShift virtualization compute, bare metal servers OpenShift, IBM Cloud bare metal VPC, OpenShift worker nodes, NVMe storage OpenShift, Red Hat OpenShift Data Foundation, virtual servers OpenShift, multizone cluster OpenShift, compute profiles VPC, OpenShift Kubernetes Service compute
+
 
 subcollection: virtualization-solutions
 
@@ -15,7 +16,7 @@ subcollection: virtualization-solutions
 # Compute design for Red Hat OpenShift virtualization
 {: #virt-sol-openshift-compute-design}
 
-{{site.data.keyword.cloud}} provides compute options that support diverse workloads, from traditional applications to modern cloud-native solutions. These offerings deliver flexibility, scalability, and enterprise-grade security, that help you deploy diverse workloads.
+Choose IBM Cloud bare metal servers with NVMe storage or virtual servers for OpenShift virtualization worker nodes with flexible compute profiles and multizone deployment.
 {: shortdesc}
 
 IBM Cloud VPC offers two compute options:

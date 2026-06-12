@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-06-11"
 
-keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR
+keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, Veeam restore performance troubleshooting, slow restore VBR VPC, worker instance restore bottlenecks, COS archive tier retrieval, SOBR restore performance issues, network throughput restore optimization, VBR recovery time objectives RTO, temporary worker VSI resources, Veeam restore job failures, VPC restore connectivity problems
+
 
 subcollection: virtualization-solutions
 
@@ -14,6 +15,9 @@ subcollection: virtualization-solutions
 
 # Why Can't I Restore Veeam Backup & Replication Restoration on VPC Virtual Server Instances?
 {: #troubleshooting-vbr-vpc-vsi-integration-restore}
+
+Troubleshoot slow Veeam restore operations on VPC: optimize network throughput, resolve SOBR bottlenecks, configure COS tiers, upgrade worker instance resources.
+{: shortdesc}
 
 The troubleshooting section helps you identify common restore issues and provide actions to resolve them.
 

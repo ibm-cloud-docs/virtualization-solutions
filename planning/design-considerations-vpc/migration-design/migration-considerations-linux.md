@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, Linux migration IBM Cloud, VirtIO drivers Linux, migrate Linux to VPC, cloud-init migration, Linux network configuration, VMware to IBM Cloud Linux, RHEL migration VPC, Ubuntu migration VPC, Linux partition migration, Linux file system migration
+
 
 subcollection: virtualization-solutions
 
@@ -17,7 +18,10 @@ subcollection: virtualization-solutions
 
 
 
-Before you start a migration, you need to consider the following information.
+Plan Linux migrations to IBM Cloud VPC by verifying VirtIO drivers, configuring cloud-init, adjusting network settings, and managing partition tables.
+{: shortdesc}
+
+Before you start a migration, consider the following information.
 
 ## Verify VirtIO drivers
 {: shortdesc}

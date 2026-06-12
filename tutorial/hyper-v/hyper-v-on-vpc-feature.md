@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-29"
+lastupdated: "2026-06-11"
 
-keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines
+keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines, Hyper-V deployment tutorial, VPC bare metal servers, Hyper-V failover cluster, Storage Spaces Direct, Active Directory VPC, Cluster Shared Volumes, live migration Hyper-V, Windows Server 2025, BYOL Hyper-V, Hyper-V cluster configuration
 
 subcollection: virtualization-solutions
 
@@ -23,8 +23,10 @@ completion-time: 60m
 {: toc-services="Hyper-V, VPC VSI, VPC Bare-metal"}
 {: toc-completion-time="60m"}
 
-Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built into the Windows&reg; Server and Windows operating system. Hyper-V on {{site.data.keyword.vpc_short}} provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale on Windows-based environments that are hosted on bare metal servers within the {{site.data.keyword.vpc_short}} isolated and secured private cloud.
+Tutorial: Deploy Hyper-V cluster on VPC bare metal servers with failover clustering, Storage Spaces Direct, Active Directory integration, and VM migration.
 {: shortdesc}
+
+Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built into the Windows&reg; Server and Windows operating system. Hyper-V on {{site.data.keyword.vpc_short}} provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale on Windows-based environments that are hosted on bare metal servers within the {{site.data.keyword.vpc_short}} isolated and secured private cloud.
 
 ## Overview
 {: #virt-sol-hyperv-on-vpc-overview}
@@ -137,13 +139,13 @@ Complete the following steps to create two virtual servers for Active Directory 
 {: #virt-sol-hyperv-on-vpc-bm-creation}
 {: step}
 
-A known RAID NVMe disk issue exists with the current {{site.data.keyword.vpc_short}} bare metal servers. You must create a custom image with `esxi-8` in the name to properly configure the NVMe disks in the Basic Input/Output System (BIOS) for Windows S2D support. To create the custom image, complete the following steps:
+It is highly recommended to install Windows Server 2025 on bare metal servers to benefit from latest Hyper-V feature support. Both built-in image `ibm-windows-server-2025-full-standard-amd64-13` as well a custom image of Windows Server 2025 can be used here. If you choose to create a custom image, complete the following steps:
 
 1. Deploy a virtual server by using a Windows 2025 image. Follow the steps in the [previous section](#virt-sol-hyperv-on-vpc-vsi-creation).
 2. After you create the virtual server, log in to it. From the `cmd.exe` command prompt, run `c:\windows\system32\sysprep\sysprep.exe`.
 3. In the displayed window, select the OOBE experience, click **Generalize**, and then click **Shutdown** (do not restart).
 
-After the virtual server shuts down, use the virtual server option to create an image. Confirm that the image name includes `esxi-8`. The image is saved in the custom image list for the current {{site.data.keyword.cloud_notm}} account.
+After the virtual server shuts down, use the virtual server option to create an image. The image is saved in the custom image list for the current {{site.data.keyword.cloud_notm}} account.
 {: note}
 
 Complete the following steps to create bare metal servers for the Hyper-V cluster installation.

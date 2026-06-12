@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-19"
+lastupdated: "2026-06-11"
 
-keywords: Migration, post migration, after migration
+keywords: Migration, post-migration validation VPC, migration performance testing, right-sizing VPC instances, cloud-native optimization, VPC monitoring integration, migration functional validation, instance profile optimization, storage tier optimization, VPC autoscale configuration, managed services migration
+
 
 subcollection: virtualization-solutions
 
@@ -15,7 +16,7 @@ subcollection: virtualization-solutions
 # Post-migration validation and optimization
 {: #virt-sol-vpc-migration-design-post}
 
-After each migration wave, validate success and identify optimization opportunities. 
+Validate VMware to VPC migrations with functional testing, performance benchmarking, right-sizing analysis, and cloud-native optimization for IBM Cloud services.
 {: shortdesc}
 
 ## Functional validation checklist

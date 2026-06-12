@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-01-09"
+lastupdated: "2026-06-11"
 
-keywords:
+keywords: keywords: OpenShift migration workflow, Migration Toolkit for Virtualization workflow, MTV custom resources, OpenShift Operator migration, NetworkMapping MTV, StorageMapping MTV, migration plan OpenShift, IBM Cloud OpenShift migration process, vCenter migration workflow, network attachment definitions OpenShift
 
 subcollection: virtualization-solutions
 
@@ -13,8 +13,12 @@ subcollection: virtualization-solutions
 {{site.data.keyword.attribute-definition-list}}
 
 
+
 # Red Hat OpenShift Migration Workflow
 {: #virt-sol-openshift-migration-design-migration-workflow}
+
+Configure Migration Toolkit for Virtualization custom resources including NetworkMapping, StorageMapping, Provider, Plan, and Migration for OpenShift migration workflow.
+{: shortdesc}
 
 The Migration Toolkit for Virtualization (MTV) is provided as an Red Hat OpenShift Operator.
 

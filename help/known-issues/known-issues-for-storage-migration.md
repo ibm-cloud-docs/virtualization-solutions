@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-19"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD, storage migration known issues, MigPlan existing plan error, MTV migration toolkit problems, nodeSelector migration warnings, volume capacity mismatch migration, OpenShift storage class migration, namespace migration plan conflicts, storage migration troubleshooting, PVC migration issues OpenShift, migration plan deletion workflow
+
 
 subcollection: virtualization-solutions
 
@@ -14,6 +15,9 @@ subcollection: virtualization-solutions
 
 # Known issues for storage migration
 {: #known-issues-storage-migration}
+
+Common storage migration issues: existing MigPlan conflicts, nondefault nodeSelector warnings, and volume capacity mismatches. Includes workarounds for each.
+{: shortdesc}
 
 Known issues and limitations might change as capabilities are added, so check back periodically.
 

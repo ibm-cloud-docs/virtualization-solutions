@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-05-12"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, MTV, Migration
+keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, MTV, Migration, Migration Toolkit Virtualization, VMware vSphere migration, OpenShift Virtualization migration, MTV tutorial, VDDK image setup, warm migration cold migration, vCenter ESXi migration, VM migration prerequisites, migration plan configuration, VMware to OpenShift
 
 subcollection: virtualization-solutions
 
@@ -30,7 +30,7 @@ compliance: HIPAA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPAA"}
 
-This document provides a comprehensive guide to migrating virtual machines from VMware vSphere to OpenShift Virtualization using the Migration Toolkit for Virtualization (MTV), including prerequisites, installation, and step-by-step migration processes.
+Migrate VMs from VMware vSphere to OpenShift Virtualization with MTV: install operator, configure VDDK, create migration plans, and execute warm/cold migrations.
 {: shortdesc}
 
 ## Migration Toolkit for Virtualization

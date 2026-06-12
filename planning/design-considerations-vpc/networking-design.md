@@ -1,9 +1,9 @@
 ---
 copyright:
   years: 2025, 2026
-lastupdated: "2026-04-28"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Kubernetes Service, VPC, subnets
+keywords: Red Hat OpenShift Kubernetes Service, VPC, subnets, VPC networking design, VPC subnets, security groups VPC, network ACLs, Application Load Balancer, Network Load Balancer, Virtual Private Endpoints, Transit Gateway, Direct Link VPC, VPN for VPC
 
 subcollection: virtualization-solutions
 
@@ -13,6 +13,9 @@ subcollection: virtualization-solutions
 
 # Network Design for VPC virtual servers
 {: #virt-sol-network-design}
+
+Design VPC networking with subnets, security groups, load balancers (ALB/NLB), Virtual Private Endpoints, Transit Gateway, and Direct Link connectivity.
+{: shortdesc}
 
 Networking is the backbone of any cloud architecture and plays a critical role in enabling secure, reliable, and high-performance connectivity for workloads. In IBM Cloud, networking services provide the foundation for virtualization, container orchestration, and hybrid cloud integration, ensuring that applications and data can move seamlessly across environments.
 

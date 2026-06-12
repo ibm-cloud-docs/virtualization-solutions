@@ -2,9 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-02-17"
+lastupdated: "2026-06-11"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration
+keywords: VSI, File Storage, Block Storage, Encryption, Migration, migration wave planning, VMware migration waves, pilot migration VPC, cutover window planning, migration dependency mapping, parallel migration VPC, migration rollback strategy, migration velocity estimation, subnet migration planning, application stack migration
+
 
 subcollection: virtualization-solutions
 
@@ -15,7 +16,7 @@ subcollection: virtualization-solutions
 # Migration wave and execution plan
 {: #virt-sol-vpc-migration-design-wave}
 
-Successfully migrating dozens or hundreds of virtual servers requires structured wave planning.
+Execute VMware to VPC migrations with structured wave planning, dependency mapping, pilot testing, cutover windows, rollback strategies, and parallel migration.
 {: shortdesc}
 
 ## Dependency planning
@@ -115,7 +116,7 @@ Parallel migration capabilities:
 - Limited by network bandwidth and worker virtual server instance resources
 - Typical: 4-8 concurrent migrations per worker virtual server instance
 
-### Test wave example structure 
+### Test wave example structure
 {: #virt-sol-vpc-migration-example-wave-structure}
 
 The following example shows a 50 virtual server migration.

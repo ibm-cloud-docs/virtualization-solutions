@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-18"
+lastupdated: "2026-06-11"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD
+keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD, OpenShift Data Foundation ODF issues, NVMe drive mounting problems, ROKS cluster provisioning NVMe, bare metal NVMe disk visibility, ODF storage node troubleshooting, NVMe disk recovery OpenShift, cluster provisioning storage issues, OpenShift NVMe configuration, ODF bare metal known issues, NVMe drive verification ROKS
+
 
 subcollection: virtualization-solutions
 
@@ -14,6 +15,9 @@ subcollection: virtualization-solutions
 
 # Known issues for Red Hat OpenShift Data Foundation workloads
 {: #known-issues-for-odf-workloads}
+
+NVMe drives may fail to mount after ROKS cluster provisioning. Verify disk visibility on each bare metal host and recover missing NVMe disks as needed.
+{: shortdesc}
 
 Known issues and limitations might change as capabilities are added, so check back periodically.
 
