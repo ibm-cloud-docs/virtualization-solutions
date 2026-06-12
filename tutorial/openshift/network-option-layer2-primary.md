@@ -60,7 +60,8 @@ If you use {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, revie
 
 ## Step 1: Create a BGP peering or placeholder
 {: #layer2-primary-step-1-bgp}
-This example uses a placeholder BGP peer. You can peer this configuration with a {{site.data.keyword.vpc_short}}-hosted firewall or router as needed. Save the following manifest to a file and apply it by running `oc apply -f step0-frr.yml`.
+
+This example uses a placeholder BGP peer. You can peer this configuration with the {{site.data.keyword.vpc_short}} hosted firewall or router as needed. Save the following manifest to a file and apply it by running `oc apply -f step0-frr.yml`.
 
 ```yaml
 # Placeholder Free Range Routing (FRR) configuration that enables the route advertisement
