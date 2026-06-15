@@ -650,11 +650,11 @@ Use the following information to prepare the RHEL virtual server for migration.
 
 Before you migrate the RHEL virtual server, understand the Block Storage for {{site.data.keyword.vpc_short}} volumes that this migration uses:
 
-* Boot volumes: The volumes that are created in this tutorial are boot volumes that contain the operating system. Boot volumes are attached automatically when you create the instance and can range from 10 GB to 32,000 GB, depending on the profile that you use.
-* Volume profiles: This tutorial uses Block Storage for {{site.data.keyword.vpc_short}} volumes. You can choose from traditional tiered profiles (3iops-tier, 5iops-tier, 10iops-tier) or the SDP (defined performance) profile for custom IOPS and throughput.
-* Volume encryption: All volumes are encrypted by default with IBM-managed encryption. You can also use customer-managed encryption with your own root keys.
-* Volume limits: Each account can create up to 300 volumes per region, and each virtual server instance can have up to 12 attached data volumes, plus one boot volume.
-* Performance: Each volume has dedicated performance allocation, which helps prevent noisy neighbor issues that are common in shared storage environments.
+- Boot volumes: The volumes that are created in this tutorial are boot volumes that contain the operating system. Boot volumes are attached automatically when you create the instance and can range from 10 GB to 32,000 GB, depending on the profile that you use.
+- Volume profiles: This tutorial uses Block Storage for {{site.data.keyword.vpc_short}} volumes. You can choose from traditional tiered profiles (3iops-tier, 5iops-tier, 10iops-tier) or the SDP (defined performance) profile for custom IOPS and throughput.
+- Volume encryption: All volumes are encrypted by default with IBM-managed encryption. You can also use customer-managed encryption with your own root keys.
+- Volume limits: Each account can create up to 300 volumes per region, and each virtual server instance can have up to 12 attached data volumes, plus one boot volume.
+- Performance: Each volume has dedicated performance allocation, which helps prevent noisy neighbor issues that are common in shared storage environments.
 
 For more information, see [About Block Storage for VPC](/docs/vpc?topic=vpc-block-storage-about).
 
