@@ -709,10 +709,10 @@ Before you migrate the RHEL virtual server, understand the Block Storage for {{s
 
 - Boot volumes: The volumes that this tutorial creates are boot volumes that contain the operating system. Boot volumes attach automatically when you create the instance and can range from 10 GB to 32,000 GB, depending on the profile that you use.
 - Volume profiles: This tutorial uses Block Storage for {{site.data.keyword.vpc_short}} volumes. You can choose from traditional tiered profiles (3iops-tier, 5iops-tier, and 10iops-tier) or the SDP (defined performance) profile for custom IOPS and throughput.
-Volume encryption: All volumes are encrypted by default with IBM-managed encryption. You can also use customer-managed encryption with your own root keys.
-Volume limits: Each account can create up to 300 volumes per region, and each virtual server instance can have up to 12 attached data volumes, plus one boot volume.
-Performance: Each volume has dedicated performance allocation, which helps prevent "noisy neighbor" issues that are common in shared storage environments.
-Volume expansion: After migration, you can increase volume capacity, but you cannot decrease it. Plan your initial sizing carefully.
+- Volume encryption: All volumes are encrypted by default with IBM-managed encryption. You can also use customer-managed encryption with your own root keys.
+- Volume limits: Each account can create up to 300 volumes per region, and each virtual server instance can have up to 12 attached data volumes, plus one boot volume.
+- Performance: Each volume has dedicated performance allocation, which helps prevent "noisy neighbor" issues that are common in shared storage environments.
+- Volume expansion: After migration, you can increase volume capacity, but you cannot decrease it. Plan your initial sizing carefully.
 
 For more information, see [About Block Storage for VPC](/docs/vpc?topic=vpc-block-storage-about).
 

@@ -6,8 +6,6 @@ lastupdated: "2026-06-15"
 
 keywords: VMware migration, IBM Cloud VPC, VPC virtual server instances, migration design, block storage, network migration, workload migration, VMware to VPC, encryption, VSI, File Storage, Block Storage, Encryption, Migration, VMware to VPC migration, migrate VMware to IBM Cloud, VPC migration design, VMware workload migration, hypervisor differences VPC, VPC networking Layer 3, VPC storage migration, migration methods comparison, virt-v2v migration, VDDK migration VPC
 
-
-
 subcollection: virtualization-solutions
 
 ---
@@ -66,16 +64,19 @@ A VMware environment uses local virtual machine disk (VMDK) files on VMware vSph
 When you migrate to {{site.data.keyword.vpc_short}}, SDP (defined performance) block storage is recommended over general-purpose profiles for the following reasons:
 
 ##### Modern VPC architecture
+{: #virt-sol-vpc-migration-design-design-overview-modern-vpc-architecture}
 
 - SDP block storage is native to {{site.data.keyword.vpc_short}} and is designed for modern cloud-native architectures.
 - General-purpose block storage belongs to the classic infrastructure and is not integrated with {{site.data.keyword.vpc_short}}.
 
 ##### Predictable performance with IOPS profiles
+{: #virt-sol-vpc-migration-design-design-overview-iops-profiles}
 
 - SDP: Uses predefined performance tiers that are tied to volume size, which provide predictable and consistent performance for your workloads.
 - General-purpose: Uses performance that scales linearly with size, which might require larger volumes to achieve the required performance levels.
 
 ##### Better security and isolation
+{: #virt-sol-vpc-migration-design-design-overview-security-isolation}
 
 SDP block storage provides enhanced security features through native {{site.data.keyword.vpc_short}} integration:
 
