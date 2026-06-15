@@ -749,7 +749,7 @@ For more information, see [About Block Storage for VPC](/docs/vpc?topic=vpc-bloc
        3. Wait for the language selection screen to load.
        4. Choose **Help**.
        5. Choose **Enter shell**.
-4. Configure networking on the Ubuntu Server that is running on the RHEL virtual server
+4. Configure networking on the Ubuntu Server that is running on the RHEL virtual server:
     1. Within the Web Console window, specify the following information:
        1. Add an IP to the primary network interface by running the following command:
 
