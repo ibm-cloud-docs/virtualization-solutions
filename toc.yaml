@@ -58,6 +58,8 @@ toc:
           topics:
           - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
             navtitle: Overview VMware to Virtual Servers on VPC migration
+          - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
+            navtitle: Overview Virtual Servers migration design
           - topicgroup:
               label: Workload Migration
               topics:
@@ -110,24 +112,6 @@ toc:
             navtitle: Storage migration for virtual machines in OpenShift Virtualization
           - topic: tutorial/openshift/storage-solution.md
             navtitle: Red Hat OpenShift Data Foundation (ODF) for virtual machine workloads
-      - topicgroup:
-          label: OpenShift Networking
-          topics:
-          - topic: tutorial/OpenShift Networking/network-options.md
-            navtitle: OVN networking in OpenShift for vSphere administrators
-            tag: staging
-          - topic: tutorial/OpenShift Networking/network-option-layer2-primary.md
-            navtitle: Layer 2 primary UDN examples for Red Hat OpenShift Virtualization
-            tag: staging
-          - topic: tutorial/OpenShift Networking/network-option-layer2-secondary.md
-            navtitle: Layer 2 secondary UDN examples for Red Hat OpenShift Virtualization
-            tag: staging
-          - topic: tutorial/OpenShift Networking/network-option-localnet.md
-            navtitle: Localnet UDN examples for Red Hat OpenShift Virtualization
-            tag: staging
-          - topic: tutorial/OpenShift Networking/network-prerequisites.md
-            navtitle: UDN Prerequisites for Red Hat OpenShift Virtualization
-            tag: staging
       - topicgroup:
           label: Virtual servers on VPC
           topics:
