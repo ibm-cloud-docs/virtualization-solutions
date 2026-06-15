@@ -6,8 +6,6 @@ lastupdated: "2026-06-15"
 
 keywords: VMware migration, IBM Cloud VPC, VPC virtual server instances, migration design, block storage, network migration, workload migration, VMware to VPC, encryption, VSI, File Storage, Block Storage, Encryption, Migration, VMware to VPC migration, migrate VMware to IBM Cloud, VPC migration design, VMware workload migration, hypervisor differences VPC, VPC networking Layer 3, VPC storage migration, migration methods comparison, virt-v2v migration, VDDK migration VPC
 
-
-
 subcollection: virtualization-solutions
 
 ---

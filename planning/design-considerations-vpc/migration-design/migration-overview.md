@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025, 2026
-lastupdated: "2026-06-11"
+  years: 2026
+lastupdated: "2026-06-15"
 
-keywords: keywords: VMware to IBM Cloud migration, VMware VPC migration, virtual server migration IBM, migrate VMware to VPC, VMware Cloud Foundation migration, VCF to VPC, VMware workload migration, cloud migration strategy, RackWare migration, VMware alternatives, VCFaaS migration
+keywords: VMware to IBM Cloud migration, VMware VPC migration, virtual server migration IBM, migrate VMware to VPC, VMware Cloud Foundation migration, VCF to VPC, VMware workload migration, cloud migration strategy, RackWare migration, VMware alternatives, VCFaaS migration
 
 subcollection: virtualization-solutions
 
