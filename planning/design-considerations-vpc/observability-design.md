@@ -1,7 +1,8 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-17"
+
 keywords: IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection, VPC observability design, IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection agent, monitoring metrics, log collection, vulnerability scanning, threat detection, unified agent, compliance monitoring
 
 subcollection: virtualization-solutions

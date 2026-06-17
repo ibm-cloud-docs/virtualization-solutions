@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-17"
 
-keywords: keywords: VPC virtual servers, IBM Cloud VSI, virtual server architecture, VPC compute instances, VMware to VPC migration, virtual machine infrastructure, cloud VM deployment, VPC virtualization, virtual server reference architecture, IBM Cloud virtual machines
+keywords: VPC virtual servers, IBM Cloud VSI, virtual server architecture, VPC compute instances, VMware to VPC migration, virtual machine infrastructure, cloud VM deployment, VPC virtualization, virtual server reference architecture, IBM Cloud virtual machines
 
 subcollection: virtualization-solutions
 

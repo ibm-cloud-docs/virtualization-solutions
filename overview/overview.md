@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-17"
 
-keywords: keywords: IBM Cloud virtualization, virtualization solutions, OpenShift virtualization, VPC virtual servers, VMware migration, hybrid cloud virtualization, container virtualization, virtual machine migration, cloud virtualization platform, Kubernetes virtualization
+keywords: IBM Cloud virtualization, virtualization solutions, OpenShift virtualization, VPC virtual servers, VMware migration, hybrid cloud virtualization, container virtualization, virtual machine migration, cloud virtualization platform, Kubernetes virtualization
 
 subcollection: virtualization-solutions
 
