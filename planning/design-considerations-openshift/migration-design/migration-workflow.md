@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-17"
 
-keywords: keywords: OpenShift migration workflow, Migration Toolkit for Virtualization workflow, MTV custom resources, OpenShift Operator migration, NetworkMapping MTV, StorageMapping MTV, migration plan OpenShift, IBM Cloud OpenShift migration process, vCenter migration workflow, network attachment definitions OpenShift
+keywords: OpenShift migration workflow, Migration Toolkit for Virtualization workflow, MTV custom resources, OpenShift Operator migration, NetworkMapping MTV, StorageMapping MTV, migration plan OpenShift, IBM Cloud OpenShift migration process, vCenter migration workflow, network attachment definitions OpenShift
 
 subcollection: virtualization-solutions
 

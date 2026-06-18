@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-17"
 
-keywords: keywords: VMware to OpenShift migration requirements, VMware vSphere 6.5 migration, ESXi host migration prerequisites, VMware Tools requirements, VM naming conventions OpenShift, IBM Cloud VMware migration, vCenter migration checklist, OpenShift virtualization prerequisites, NFC service memory ESXi, virtual machine migration requirements
+keywords: VMware to OpenShift migration requirements, VMware vSphere 6.5 migration, ESXi host migration prerequisites, VMware Tools requirements, VM naming conventions OpenShift, IBM Cloud VMware migration, vCenter migration checklist, OpenShift virtualization prerequisites, NFC service memory ESXi, virtual machine migration requirements
 
 subcollection: virtualization-solutions
 

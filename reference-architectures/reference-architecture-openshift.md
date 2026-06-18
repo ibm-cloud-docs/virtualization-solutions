@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-17"
 
-keywords: keywords: OpenShift virtualization, Red Hat OpenShift virtualization IBM Cloud, KubeVirt IBM, container virtualization, Kubernetes virtual machines, OpenShift VM workloads, VMware to OpenShift migration, hybrid virtualization platform, OpenShift Data Foundation, ROKS virtualization
+keywords: OpenShift virtualization, Red Hat OpenShift virtualization IBM Cloud, KubeVirt IBM, container virtualization, Kubernetes virtual machines, OpenShift VM workloads, VMware to OpenShift migration, hybrid virtualization platform, OpenShift Data Foundation, ROKS virtualization
 
 subcollection: virtualization-solutions # Use deployable-reference-architectures, or the subcollection value from your toc.yaml file if docs-only.
 authors:
