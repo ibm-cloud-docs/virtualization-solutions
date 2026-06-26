@@ -24,7 +24,7 @@
       "title": "Red Hat OpenShift Virtualization Service",
       "description": "OpenShift Virtualization cluster on IBM Cloud is a new service offering",
       "href": "https://cloud.ibm.com/containers/cluster-management/rovs/create",
-      "type": "product",
+      "type": "article",
       "recommended": true
     }
   ],
