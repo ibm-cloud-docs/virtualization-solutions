@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-17"
+lastupdated: "2026-06-26"
 
 keywords: OpenShift migration workflow, Migration Toolkit for Virtualization workflow, MTV custom resources, OpenShift Operator migration, NetworkMapping MTV, StorageMapping MTV, migration plan OpenShift, IBM Cloud OpenShift migration process, vCenter migration workflow, network attachment definitions OpenShift
 
@@ -16,6 +16,9 @@ subcollection: virtualization-solutions
 
 # Red Hat OpenShift Migration Workflow
 {: #virt-sol-openshift-migration-design-migration-workflow}
+
+[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.
+{: important}
 
 Configure Migration Toolkit for Virtualization custom resources including NetworkMapping, StorageMapping, Provider, Plan, and Migration for OpenShift migration workflow.
 {: shortdesc}

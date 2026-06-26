@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-17"
+lastupdated: "2026-06-26"
 
 keywords: OpenShift virtualization, Red Hat OpenShift virtualization IBM Cloud, KubeVirt IBM, container virtualization, Kubernetes virtual machines, OpenShift VM workloads, VMware to OpenShift migration, hybrid virtualization platform, OpenShift Data Foundation, ROKS virtualization
 
@@ -16,8 +16,11 @@ production: false
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Red Hat OpenShift Virtualization
+# Red Hat OpenShift Virtualization Service
 {: #virt-sol-rove-architecture}
+
+[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.
+{: important}
 
 Run virtual machines alongside containers on Red Hat OpenShift using KubeVirt technology. Modernize VMware workloads with Kubernetes orchestration while maintaining VM compatibility on IBM Cloud.
 {: shortdesc}
@@ -69,9 +72,9 @@ The following table outlines the products or services that are used in the archi
 ## Next steps
 {: #virt-sol-rove-next-steps}
 
-Now that you understand the Red Hat OpenShift Virtualization architecture, explore the following resources:
+Now that you understand the {{site.data.keyword.redhat_openshift_notm}} Virtualization architecture, explore the following resources:
 
 - **Plan your deployment**: Review the [design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design) for compute, networking, storage, and security
 - **Migrate workloads**: Follow the [Migration Toolkit for Virtualization tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration) to migrate from VMware
 - **Implement backup**: Set up [backup solutions with Veeam Kasten](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup)
-- **Get started**: Deploy your first [Red Hat OpenShift cluster on IBM Cloud](https://cloud.ibm.com/containers/cluster-management/catalog/create?platformType=openshift)
+- **Get started**: Deploy your first [Red Hat OpenShift Virtualization Service cluster on IBM Cloud](https://cloud.ibm.com/containers/cluster-management/rovs/create){: external}

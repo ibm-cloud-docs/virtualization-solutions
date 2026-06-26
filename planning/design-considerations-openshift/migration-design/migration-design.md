@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-26"
 
 keywords: openShift virtualization migration, migrate VMware to OpenShift, Migration Toolkit for Virtualization, MTV OpenShift, VMware vSphere to OpenShift, IBM Cloud migration services, Red Hat migration consulting, OVA file migration, RHOSP to OpenShift, virtual machine migration OpenShift
 
@@ -16,6 +16,9 @@ subcollection: virtualization-solutions
 
 # Red Hat OpenShift Migration Infrastructure Design
 {: #virt-sol-openshift-migration-design-infrastructure}
+
+[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.
+{: important}
 
 Migrate virtual machines from VMware vSphere, Red Hat platforms, or OpenShift clusters to IBM Cloud OpenShift Virtualization using Migration Toolkit for Virtualization.
 {: shortdesc}

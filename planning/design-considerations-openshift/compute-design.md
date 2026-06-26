@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-26"
 
 keywords: Red Hat OpenShift Kubernetes Service, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, OpenShift virtualization compute, bare metal servers OpenShift, IBM Cloud bare metal VPC, OpenShift worker nodes, NVMe storage OpenShift, Red Hat OpenShift Data Foundation, virtual servers OpenShift, multizone cluster OpenShift, compute profiles VPC, OpenShift Kubernetes Service compute
 
@@ -37,7 +37,7 @@ After a cluster is created, you can add more worker nodes to a pool by resizing 
 
 IBM Cloud Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads because Red Hat supports only bare metal worker nodes for production virtualized workloads. The bare metal nodes must be provisioned with local NVMe drives. So they can be used by Red Hat OpenShift Data Foundation (ODF) as backing storage.
 
-For more information, see [Red Hat OpenShift overview](/docs/openshift?topic=openshift-overview).
+For more information, see [Red Hat OpenShift Virtualization Service overview](/docs/openshift?topic=openshift-virt-overview).
 
 ## IBM Cloud Virtual Servers for VPC
 {: #virt-sol-openshift-compute-design-vsi}

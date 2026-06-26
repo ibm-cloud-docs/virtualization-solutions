@@ -133,6 +133,9 @@ toc:
           topics:
           - topic: planning/design-considerations-openshift/migration-design/migration-workflow.md
             navtitle: Migration Workflow
+          - link:
+              label: Red Hat OpenShift Virtualization Service
+              href: https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview
       - topicgroup:
           label: Virtual servers on VPC
           topics:
