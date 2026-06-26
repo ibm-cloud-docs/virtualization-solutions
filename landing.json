@@ -10,8 +10,8 @@
         "href": "/docs/vpc?topic=vpc-getting-started"
       },
       {
-        "title": "Getting started with Red Hat OpenShift on IBM Cloud",
-        "href": "/docs/openshift?topic=openshift-getting-started"
+        "title": "Getting started with Red Hat OpenShift Virtualization Service on IBM Cloud",
+        "href": "https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview"
       },
       {
         "title": "Installing the OpenShift Virtualization Operator on Red Hat OpenShift on IBM Cloud clusters",
@@ -19,7 +19,14 @@
       }
     ]
   },
-  "section_highlights": [],
+  "section_highlights": [
+    {
+      "title": "Red Hat OpenShift Virtualization Service",
+      "description": "OpenShift Virtualization cluster on IBM Cloud is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.",
+      "href": "https://cloud.ibm.com/containers/cluster-management/rovs/create",
+      "recommended": true
+    }
+  ],
   "section_architectures": [
     {
       "title": "OpenShift Virtualization Reference Architecture",

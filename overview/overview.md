@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-17"
+lastupdated: "2026-06-26"
 
 keywords: IBM Cloud virtualization, virtualization solutions, OpenShift virtualization, VPC virtual servers, VMware migration, hybrid cloud virtualization, container virtualization, virtual machine migration, cloud virtualization platform, Kubernetes virtualization
 
@@ -15,7 +15,7 @@ subcollection: virtualization-solutions
 # Enable flexible workload deployments with IBM Cloud Virtualization
 {: #overview}
 
-Deploy virtualized workloads on {{site.data.keyword.cloud_notm}} using OpenShift Virtualization for container-native applications or VPC Virtual Servers for traditional VMs. Migrate from VMware with comprehensive tools and guidance.
+Deploy virtualized workloads on {{site.data.keyword.cloud}} using {{site.data.keyword.redhat_openshift_full}} Virtualization for container-native applications or VPC Virtual Servers for traditional VMs. Migrate from VMware with comprehensive tools and guidance.
 {: shortdesc}
 
 By abstracting physical resources into virtualized environments, organizations can optimize their infrastructure usage, reduce operational complexity, and accelerate application delivery.
@@ -23,9 +23,9 @@ By abstracting physical resources into virtualized environments, organizations c
 {{site.data.keyword.cloud_notm}} offers two primary virtualization services.
 
 - **{{site.data.keyword.cloud_notm}} Virtual Servers for VPC** – {{site.data.keyword.cloud_notm}} Virtual Servers for VPC offer fast-provisioning compute capacity with the highest network speeds and most secure software-defined networking resources available on {{site.data.keyword.cloud_notm}}. Built on the {{site.data.keyword.vpc_full}} (VPC), this developer-friendly infrastructure helps drive modern workloads with pre-set instance profiles, rapid deployment, and private network control in an agile public cloud environment. Pay-as-you-use by the hour or reserve your capacity in advance for reduced costs. For more information, see [IBM Cloud Virtual Servers for VPC](https://www.ibm.com/products/virtual-servers).
-- **Red Hat OpenShift&reg; Virtualization on {{site.data.keyword.cloud_notm}}** – Red Hat OpenShift on {{site.data.keyword.cloud_notm}} is a fully managed Red Hat OpenShift cloud service that is designed with built-in security to help you efficiently build, deploy, and scale critical applications. The service is highly available and integrated with {{site.data.keyword.cloud_notm}} to bring your team the full power of the platform. For more information, see [Red Hat OpenShift on IBM Cloud](https://www.ibm.com/products/openshift).
+- **{{site.data.keyword.redhat_openshift_notm}} Virtualization Service on {{site.data.keyword.cloud_notm}}** – {{site.data.keyword.redhat_openshift_notm}} Virtualization Service on {{site.data.keyword.cloud_notm}} is a fully managed cloud service that is designed with built-in security to help you efficiently build, deploy, and scale critical applications. The service is highly available and integrated with {{site.data.keyword.cloud_notm}} to bring your team the full power of the platform. For more information, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization Service on IBM Cloud](https://www.ibm.com/products/openshift-virtualization){: external}.
 
-## {{site.data.keyword.cloud_notm}} Virtual Servers for VPC
+## IBM Cloud Virtual Servers for VPC
 {: #virt-sol-overview-vsi}
 
 [Virtual Servers for VPC]{: tag-blue}
@@ -78,8 +78,11 @@ The following table details the high-level, key responsibilities for {{site.data
 
 For a comprehensive list of responsibilities, see [Understanding your responsibilities when you use Virtual Private Cloud](/docs/vpc?topic=vpc-responsibilities-vpc).
 
-## Red Hat OpenShift Virtualization on {{site.data.keyword.cloud_notm}}
+## Red Hat OpenShift Virtualization on IBM Cloud
 {: #virt-sol-overview-rove}
+
+[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.
+{: important}
 
 [Red Hat OpenShift Virtualization]{: tag-red}
 
