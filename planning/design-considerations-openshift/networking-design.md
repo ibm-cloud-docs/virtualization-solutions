@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-29"
 
 keywords: Red Hat OpenShift Kubernetes Service, network, layer2, localnet, OpenShift virtualization networking, OVN-Kubernetes networking, VPC networking OpenShift, Virtual Private Endpoints OpenShift, layer2 networking OpenShift, localnet networking, network attachment definitions, IBM Cloud VPC subnets, OpenShift load balancers, virt-launcher pod networking
 
@@ -195,6 +195,8 @@ Red Hat OpenShift Routes expose services to external network traffic by mapping 
 
 ## Open Virtual Networking (OVN)
 {: #virt-sol-openshift-network-design-ovn}
+
+For administrators familiar with VMware vSphere and NSX-T, see [OVN networking in OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview) for a mapping of OVN concepts to their vSphere equivalents.
 
 The **OVN-Kubernetes** CNI (Container Network Interface) plug-in is the recommended networking option for Red Hat OpenShift Virtualization that supports virtual server networking use cases that run alongside traditional pod networking. OVN-Kubernetes is based on OVN and uses Open vSwitch (OVS) on every worker node. It supports multi-tenancy, NetworkPolicies, and hybrid virtual server and pod networking. Red Hat OpenShift on IBM Cloud VPC supports OVN-Kubernetes as the default networking plug-in.
 
