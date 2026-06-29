@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-26"
+lastupdated: "2026-06-29"
 
 keywords: OpenShift virtualization, Red Hat OpenShift virtualization IBM Cloud, KubeVirt IBM, container virtualization, Kubernetes virtual machines, OpenShift VM workloads, VMware to OpenShift migration, hybrid virtualization platform, OpenShift Data Foundation, ROKS virtualization
 
@@ -63,7 +63,7 @@ The following table outlines the products or services that are used in the archi
 | | {{site.data.keyword.cloud_notm}} Key Protect | Provision and store encrypted keys that are used on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service worker nodes and storage. |
 | [**Compute**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design) | Red Hat OpenShift Kubernetes Service worker nodes | Worker nodes can be bare metal or virtual servers. A bare metal is needed to use Red Hat OpenShift Virtualization. |
 | | Bare metal and virtual servers | Bare metal servers are recommended to host Red Hat OpenShift Virtualization. Red Hat supports only bare metal servers for production workloads. \n  You can use virtual servers for container-based workloads. |
-| [**Networking**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) | Open Virtual Networking (OVN), OVN-Kubernetes | Software-defined networking that is used by Red Hat OpenShift. |
+| [**Networking**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) | Open Virtual Networking (OVN), OVN-Kubernetes | Software-defined networking that is used by Red Hat OpenShift. For vSphere administrators, see [OVN networking in OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview). |
 | | Cluster (CUDN) and user-defined networks (UDN) | CUDNs create a network across multiple namespaces. \n A UDN creates a network within a namespace. |
 | | {{site.data.keyword.cloud_notm}} networking | VPC networking, Direct Link, Transit gateways, and VPNs |
 | | Virtual Network Functions (VNFs) | Virtual firewalls that run on virtual servers. |
