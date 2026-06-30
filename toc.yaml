@@ -110,6 +110,8 @@ toc:
             navtitle: Observability with Red Hat Advanced Cluster Management
           - topic: tutorial/openshift/storage-migration.md
             navtitle: Storage migration for virtual machines in OpenShift Virtualization
+          - topic: tutorial/openshift/nfs-storage-solution.md
+            navtitle: NFS Storage Solution
           - topic: tutorial/openshift/storage-solution.md
             navtitle: Red Hat OpenShift Data Foundation (ODF) for virtual machine workloads
       - topicgroup:
