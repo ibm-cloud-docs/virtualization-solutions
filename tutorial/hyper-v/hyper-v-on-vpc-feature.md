@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-13"
 
 keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines, Hyper-V deployment tutorial, VPC bare metal servers, Hyper-V failover cluster, Storage Spaces Direct, Active Directory VPC, Cluster Shared Volumes, live migration Hyper-V, Windows Server 2025, BYOL Hyper-V, Hyper-V cluster configuration
 
@@ -204,7 +204,7 @@ Complete the following steps to install Hyper-V on each bare metal server (steps
     1. You can connect through a Remote Desktop connection from the jump virtual server.
     2. Open a Windows PowerShell prompt window and run the command `Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart` to install and enable Hyper-V on the current Windows platform. This command automatically restarts the server.
 2. After the bare metal server restarts, log in and run the PowerShell command `Get-WindowsFeature Hyper-V` to verify that Hyper-V is enabled.
-3. Download Windows Admin Center from [https://aka.ms/WACDownload](https://aka.ms/WACDownload){: external} and install it on the bare metal server.
+3. Download Windows Admin Center from [https://aka.ms/WACDownload](https://download.microsoft.com/download/5e854024-dcf1-4e86-9546-7389fd08a34b/WindowsAdminCenter2606.exe){: external} and install it on the bare metal server.
 4. Run the following PowerShell command to install failover cluster capability on the bare metal server. If you specify the comma-separated names of all the bare metal servers you configured, you need to run the command once only without running it again on other servers.
 
      ```PowerShell

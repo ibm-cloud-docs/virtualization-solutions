@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-13"
 
 keywords: OpenShift virtualization observability, Prometheus monitoring OpenShift, Grafana dashboards OpenShift, IBM Cloud Monitoring, IBM Cloud Logs, RHACM observability, Loki logging OpenShift, Alertmanager OpenShift, OpenTelemetry tracing, distributed tracing OpenShift
 
@@ -113,7 +113,7 @@ The agent provides the following capabilities:
 
 This unified approach enables organizations to accelerate hybrid cloud adoption while addressing security and regulatory compliance requirements across cloud, on-premises, virtual machines, containers, and Kubernetes environments.
 
-See [Managing the Workload Protection agent in Red Hat OpenShift by using a HELM chart](/docs/workload-protection?topic=workload-protection-agent-deploy-openshift-helm), [Protecting Linux hosts](/docs/workload-protection?topic=workload-protection-protecting-linux-hosts) and [Managing the Workload Protection agent on Windows Servers](/docs/workload-protection?topic=workload-protection-agent-deploy-windows)
+See [Managing the Workload Protection agent in Red Hat OpenShift by using a HELM chart](/docs/workload-protection?topic=workload-protection-agent-deploy-openshift-helm), [Managing the Workload Protection agent in Linux on Power Virtual Server](/docs/workload-protection?topic=workload-protection-agent-deploy-linux-powervs) and [Managing the Workload Protection agent on Windows Servers](/docs/workload-protection?topic=workload-protection-agent-deploy-windows)
 
 ## IBM Cloud Monitoring and Logs
 {: #virt-sol-openshift-observability-design-mon-and-logs}
