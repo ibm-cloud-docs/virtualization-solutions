@@ -2,14 +2,14 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-30"
+lastupdated: "2026-07-13"
 
 keywords: Red Hat OpenShift Virtualization, Red Hat OpenShift Kubernetes Service, VSI, NFS, storage, File Storage for VPC, IBM Cloud
 
 subcollection: virtualization-solutions
 
 content-type: tutorial
-services: OpenShift Virtualization, VMware
+services: OpenShift Virtualization, VMWare
 account-plan: paid
 completion-time: 60m
 
@@ -21,6 +21,7 @@ completion-time: 60m
 {: #file-storage-vpc-virtualization}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMWare"}
+{: toc-account-plan="paid"}
 {: toc-completion-time="60m"}
 
 
