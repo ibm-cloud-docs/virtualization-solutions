@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-06-17"
+lastupdated: "2026-07-13"
 
 keywords: IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection, VPC observability design, IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection agent, monitoring metrics, log collection, vulnerability scanning, threat detection, unified agent, compliance monitoring
 
@@ -45,9 +45,9 @@ The following table details the capabilities that the agent provides.
 
 This unified approach enables organizations to accelerate hybrid cloud adoption while meeting security and regulatory compliance requirements across cloud, on-premises, virtual machines, containers, and Kubernetes environments.
 
-See [Protecting Linux hosts](/docs/workload-protection?topic=workload-protection-protecting-linux-hosts) and [Managing the Workload Protection agent on Windows Servers](/docs/workload-protection?topic=workload-protection-agent-deploy-windows).
+See [Managing the Workload Protection agent in Linux on Power Virtual Server](/docs/workload-protection?topic=workload-protection-agent-deploy-linux-powervs) and [Managing the Workload Protection agent on Windows Servers](/docs/workload-protection?topic=workload-protection-agent-deploy-windows).
 
-For {{site.data.keyword.vpc_short}} virtual server instance with an IBM&reg; provided Linux OS image, follow the guide in [Protecting Linux hosts](/docs/workload-protection?topic=workload-protection-protecting-linux-hosts) to install and deploy the workload protection agent and connect it to the workload protection instance.
+For {{site.data.keyword.vpc_short}} virtual server instance with an IBM&reg; provided Linux OS image, follow the guide in [Managing the Workload Protection agent in Linux on Power Virtual Server](/docs/workload-protection?topic=workload-protection-agent-deploy-linux-powervs) to install and deploy the workload protection agent and connect it to the workload protection instance.
 
 For {{site.data.keyword.vpc_short}} virtual server instance with an {{site.data.keyword.IBM_notm}} provided Windows OS image, follow the guide in [Managing the workload protection agent on Windows Servers](/docs/workload-protection?topic=workload-protection-agent-deploy-windows) to complete the installation. However, some OS images that are provided by {{site.data.keyword.vpc_short}} virtual server instance have limitations. You might need to follow the best practices or workarounds to facilitate agent deployment. For images not covered in the following sections, the general guide works as expected.
 

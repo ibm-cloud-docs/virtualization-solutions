@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-29"
+lastupdated: "2026-07-13"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: Red Hat OpenShift Virtualization, ROKS, VPC, Layer 2 Primary, CUDN, UDN, OVN, BGP, FRR, Layer 2 primary network OpenShift, CUDN OpenShift virtualization, User-Defined Network tutorial, OVN-Kubernetes Layer 2, BGP routing OpenShift, three-tier application OpenShift, VPC routing OpenShift, namespace networking, FRR BGP configuration, ClusterUserDefinedNetwork, three-tier application tutorial, FRR configuration, VPC static routes
@@ -858,14 +858,14 @@ You must configure an SSH forwarding agent or use a new key on the jumphost. Do 
 {: important}
 
 ```sh
-$ ssh admin@10.203.0.5
+ssh admin@10.203.0.5
 ```
 {: pre}
 
 From another terminal session:
 
 ```sh
-$ ssh admin@10.203.0.12
+ssh admin@10.203.0.12
 ```
 {: pre}
 
