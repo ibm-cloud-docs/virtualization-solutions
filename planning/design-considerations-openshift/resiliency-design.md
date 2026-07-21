@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
 keywords: OpenShift virtualization disaster recovery, RHACM disaster recovery, ODF regional DR, OADP backup OpenShift, Velero backup, IBM Cloud Backup and Recovery, high availability OpenShift, business continuity virtualization, Ceph mirroring, multiregion disaster recovery
 
@@ -12,14 +12,13 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Resiliency design for Red Hat OpenShift Virtualization
+# Designing resilient Red Hat OpenShift virtualization on IBM Cloud
 {: #virt-sol-openshift-resiliency-design}
 
-Protect OpenShift virtualization workloads with RHACM regional disaster recovery, OADP backup, ODF data replication, and IBM Cloud Backup and Recovery for business continuity.
+Design resiliency for Red Hat OpenShift Virtualization on IBM Cloud using RHACM and ODF Regional Disaster Recovery for cross-region failover.
 {: shortdesc}
 
 Red Hat Advanced Cluster Management (RHACM) enables disaster recovery solutions for Red Hat OpenShift Data Foundation clusters. RHACM provides multi-cluster management and application lifecycle orchestration, serving as the control plane in a multi-cluster environment.
-{: shortdesc}
 
 See the [Resiliency in IBM Cloud](/docs/resiliency?topic=resiliency-resiliency-overview) Guide that is an overview about resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. The following guide provides specific information for Red Hat OpenShift on VPC.
 
@@ -34,7 +33,7 @@ Red Hat OpenShift Virtualization uses Red Hat Advanced Cluster Management (RHACM
 
 ODF Regional Disaster Recovery on Red Hat OpenShift provides asynchronous data replication between two {{site.data.keyword.redhat_openshift_full}} Kubernetes Service clusters that are in different IBM Cloud regions, which helps provide business continuity during regional outages.
 
-ODF Regional Disaster Recovery combines Red Hat Advanced Cluster Management and Red Hat OpenShift Data Foundation components to provide application and data mobility across Red Hat OpenShift Container Platform clusters. Red Hat OpenShift Data Foundation provides storage provisioning and management for stateful applications in Red Hat OpenShift Container Platform clusters. ODF is backed by Ceph as the storage provider, with lifecycle management provided by Rook in the ODF component stack. Ceph-CSI is used for provisioning and management of persistent volumes for stateful applications.
+OpenShift Data Foundation (ODF) Regional Disaster Recovery combines Red Hat Advanced Cluster Management and Red Hat OpenShift Data Foundation components to provide application and data mobility across Red Hat OpenShift Container Platform clusters. Red Hat OpenShift Data Foundation provides storage provisioning and management for stateful applications in Red Hat OpenShift Container Platform clusters. ODF is backed by Ceph as the storage provider, with lifecycle management provided by Rook in the ODF component stack. Ceph Container Storage Interface (CSI) is used for provisioning and management of persistent volumes for stateful applications.
 
 Red Hat OpenShift DR provides orchestrators to configure and manage stateful applications across peer Red Hat OpenShift clusters that are managed by RHACM. It offers cloud-native interfaces to orchestrate the lifecycle of an application's state on persistent volumes, which include the following actions:
 
@@ -42,7 +41,7 @@ Red Hat OpenShift DR provides orchestrators to configure and manage stateful app
    * Failing over an application and its state to a peer cluster
    * Relocating an application and its state to the previously deployed cluster
 
-Red Hat OpenShift API for Data Protection (OADP) provides backup and restore capabilities for non-PVC cluster resources and application metadata. OADP is the Red Hat operator for Velero, the open source Kubernetes backup tool.
+Red Hat OpenShift API for Data Protection (OADP) provides backup and restore capabilities for non-PVC cluster resources and application metadata. OADP is the Red Hat operator for Velero, the open-source Kubernetes backup tool.
 
 ### RHACM and ODF architecture components
 {: #virt-sol-openshift-resiliency-design-rhacm-components}
@@ -57,18 +56,18 @@ The following table details the architecture components of each solution.
 {: summary="This table provides architecture components for Red Hat Advanced Cluster Management (RHACM)."}
 {: #openshift-rhacm}
 {: tab-title="Red Hat Advanced Cluster Management (RHACM)"}
-{: tab-group="resilency-architecture-components"}
+{: tab-group="resiliency-architecture-components"}
 
 | Architecture component | Description |
 | -------------- | -------------- |
-| Red Hat OpenShift Data Foundation | Enables RBD block pools for mirroring across Red Hat OpenShift Data Foundation instances. \n - Mirror specific images within RBD block pools. \n - Provide csi-addons to manage per Persistent Volume Claim (PVC) mirroring |
-| Red Hat OpenShift DR | The ODF Multicluster Orchestrator is installed on the multi-cluster control plane (RHACM Hub) to orchestrate configuration and peering of Red Hat OpenShift Data Foundation clusters for metro and regional DR relationships. n\ - Red Hat OpenShift DR Hub Operator - Automatically installs as part of ODF Multicluster Orchestrator to orchestrate failover or relocation of DR-enabled applications. \n - Red Hat OpenShift DR Cluster Operator - Automatically installs on each managed cluster in a metro or regional DR relationship to manage the lifecycle of all PVCs for an application. |
+| Red Hat OpenShift Data Foundation | Enables RADOS Block Device (RBD) block pools for mirroring across Red Hat OpenShift Data Foundation instances. \n - Mirror specific images within RBD block pools. \n - Provide csi-addons to manage per Persistent Volume Claim (PVC) mirroring |
+| Red Hat OpenShift DR | The ODF Multicluster Orchestrator is installed on the multi-cluster control plane (RHACM Hub) to orchestrate configuration and peering of Red Hat OpenShift Data Foundation clusters for metro and regional DR relationships. \n - Red Hat OpenShift DR Hub Operator - Automatically installs as part of ODF Multicluster Orchestrator to orchestrate failover or relocation of DR-enabled applications. \n - Red Hat OpenShift DR Cluster Operator - Automatically installs on each managed cluster in a metro or regional DR relationship to manage the lifecycle of all PVCs for an application. |
 | Red Hat OpenShift API for Data Protection (OADP) | Manages the following items: \n - Kubernetes objects and custom resources (deployments, services, routes, ConfigMaps, secrets). \n - Cluster-scoped resources and namespaced resources. \n - Application metadata and configuration. \n - Resource relationships and dependencies |
 {: caption="ODF Regional Disaster Recovery architecture components" caption-side="bottom"}
 {: summary="This table provides architecture components for ODF Regional Disaster Recovery."}
 {: #openshift-odf}
 {: tab-title="ODF Regional Disaster Recovery"}
-{: tab-group="resilency-architecture-components"}
+{: tab-group="resiliency-architecture-components"}
 
 OADP works with Red Hat OpenShift DR to provide comprehensive data protection. While Red Hat OpenShift DR provides PVC replication and application mobility between clusters, OADP helps make sure that all supporting Kubernetes resources and configurations are backed up and can be restored. OADP backs up data to S3-compatible object storage such as IBM Cloud Object Storage or NooBaa Multi-Cloud Gateway. NooBaa Multi-Cloud Gateway is included with Red Hat OpenShift Data Foundation, and can use ODF storage or external object storage that enables both cluster-local recovery and cross-cluster disaster recovery scenarios.
 
@@ -100,7 +99,7 @@ The following table details the architecture components of IBM Cloud Backup and 
 | -------------- | -------------- |
 | IBM Cloud Backup and Recovery service | Managed by IBM. You can access the backup and recovery service from a web browser to manage your backup policies and download agents and restoration files. |
 | VPE Gateway | To improve performance, use a VPE gateway to access the service instead of the native connection. To create one or more VPE gateways use the IBM Cloud catalog to order a VPC gateway and configure it to use the backup and recovery service. |
-| Data Source Connector | Install one or more (install at least two for high availability) data connectors and increase as needed to backup throughput. Data source connectors are used to establish connectivity between your source virtual server and the backup and recovery service. The data source connectors also interact with the IBM Cloud Object Storage bucket where the backups are located. This bucket is managed by the provider and is not contained within your account. |
+| Data Source Connector | Install one or more (install at least two for high availability) data connectors and increase as needed to increase backup throughput. Data source connectors are used to establish connectivity between your source virtual server and the backup and recovery service. The data source connectors also interact with the IBM Cloud Object Storage bucket where the backups are located. This bucket is managed by the provider and is not contained within your account. |
 | Agent | IBM Cloud Backup and Recovery software that interacts locally with the operating system and protected source data. The agent communicates with the Data Source Connector and backup and recovery instance during backup and recovery operations. Windows and Linux agents are currently available. |
 {: caption="IBM Cloud Backup and Recovery architecture components" caption-side="bottom"}
 
@@ -111,7 +110,7 @@ For more information, see [Getting started with Backup and Recovery](/docs/backu
 ## Veeam Kasten K10
 {: #virt-sol-openshift-resiliency-design-kasten}
 
-Veeam Kasten K10 delivers secure, Kubernetes-native data protection and application mobility at scale across a range of distributions and platforms, including Red Hat OpenShift environments. Kasten provides unified backup and recovery for virtual servers that are migrating to and running on Red Hat OpenShift Virtualization. Which enable consistent protection for the virtual server data alongside containerized workloads through a single policy engine. Kasten K10 is available from the IBM Cloud catalog tile with a BYOL model.
+Veeam Kasten K10 delivers secure, Kubernetes-native data protection and application mobility at scale across a range of distributions and platforms, including Red Hat OpenShift environments. Kasten provides unified backup and recovery for virtual servers that are migrating to and running on Red Hat OpenShift Virtualization, which enables consistent protection for the virtual server data alongside containerized workloads through a single policy engine. Kasten K10 is available from the IBM Cloud catalog tile with a bring-your-own-license (BYOL) model.
 
 See the following list of Veeam Kasten K10 key capabilities:
 
@@ -122,9 +121,9 @@ See the following list of Veeam Kasten K10 key capabilities:
 * **Automated disaster recovery** - Simplified DR orchestration and testing
 * **Granular restore capabilities** - File-level, application-level, and namespace-level restore options
 
-**Integration with Veeam Backup and Replication (VBR):**
+**Integration with Veeam Backup & Replication (VBR):**
 
-You can integrate Kasten K10 with Veeam Backup and Replication (VBR) by providing extra recovery granularity beyond normal pod/VM restore functions.
+You can integrate Kasten K10 with Veeam Backup & Replication (VBR) to provide extra recovery granularity beyond normal pod and virtual server restore functions.
 
 * Granular virtual server file recovery without a full virtual server restoration.
 * Integrates with Veeam Explorers for application-specific recovery (SQL Server, Exchange, Active Directory).
@@ -133,7 +132,7 @@ You can integrate Kasten K10 with Veeam Backup and Replication (VBR) by providin
 ## Red Hat OpenShift API for Data Protection (OADP)
 {: #virt-sol-openshift-resiliency-design-oadp}
 
-Red Hat OpenShift API for Data Protection (OADP) is an operator that provides backup and restore capabilities for Red Hat OpenShift cluster resources and application data. OADP is based on the open source Velero project and extends with Red Hat support, extra features, and seamless integration with Red Hat OpenShift environments.
+Red Hat OpenShift API for Data Protection (OADP) is an operator that provides backup and restore capabilities for Red Hat OpenShift cluster resources and application data. OADP is based on the open-source Velero project and extends with Red Hat support, extra features, and seamless integration with Red Hat OpenShift environments.
 
 OADP enables comprehensive protection for Red Hat OpenShift workloads that include containerized applications, virtual servers that are running on Red Hat OpenShift Virtualization, and cluster configuration resources. OADP provides a unified backup solution for both application metadata and persistent data.
 
@@ -146,7 +145,7 @@ The following table details the architecture components of the OADP solution.
 | Restic or Kopia | File-level backup tools that are used for backing up persistent volume data. OADP supports both Restic and Kopia as data movers for PVC backup. Subsequent backups by using Restic or Kopia capture only changed data, reducing storage consumption and backup time. |
 | Container Storage Interface (CSI) Snapshots | OADP can use CSI snapshot capabilities for efficient, storage-native snapshots of persistent volumes when supported by the underlying storage provider. |
 | Object Storage Backend | OADP requires S3-compatible object storage for storing backups. Supported backends include:  \n - IBM Cloud Object Storage. \n NooBaa Multi-Cloud Gateway (included with Red Hat OpenShift Data Foundation, which can use ODF's underlying Ceph storage or act as a gateway to external object storage) |
-{: caption="Red Hat OpenShift for API Data Protection architecture components" caption-side="bottom"}
+{: caption="Red Hat OpenShift API for Data Protection architecture components" caption-side="bottom"}
 
 The following table details the backup capabilities that OADP provides for Red Hat OpenShift environments:
 
@@ -161,7 +160,7 @@ The following table details the backup capabilities that OADP provides for Red H
 ## Third-party backup options
 {: #virt-sol-openshift-resiliency-design-3rd-party}
 
-Third-party backup options provide alternatives for Red Hat OpenShift VM backup. The following options are available as self-managed with bring-your-own-license (BYOL) models.
+Third-party backup options provide alternatives for Red Hat OpenShift virtual server backup. The following options are available as self-managed with bring-your-own-license (BYOL) models.
 
 * **Commvault** - Enterprise backup and recovery with application-aware capabilities
 * **Rubrik** - Cloud data management and ransomware protection

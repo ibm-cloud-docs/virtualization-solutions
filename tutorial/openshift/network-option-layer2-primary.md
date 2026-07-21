@@ -2,10 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-16"
+lastupdated: "2026-07-21"
 lasttested: "[{LAST_TESTED_DATE}]"
 
-keywords: Red Hat OpenShift Virtualization, ROKS, VPC, Layer 2 Primary, CUDN, UDN, OVN, BGP, FRR, Layer 2 primary network OpenShift, CUDN OpenShift virtualization, User-Defined Network tutorial, OVN-Kubernetes Layer 2, BGP routing OpenShift, three-tier application OpenShift, VPC routing OpenShift, namespace networking, FRR BGP configuration, ClusterUserDefinedNetwork, three-tier application tutorial, FRR configuration, VPC static routes
+keywords: Layer 2 primary network OpenShift, CUDN OpenShift Virtualization, User-Defined Network tutorial, OVN-Kubernetes Layer 2, BGP routing OpenShift, three-tier application OpenShift, namespace networking, FRR BGP configuration, ClusterUserDefinedNetwork, FRR configuration, static routes
 
 subcollection: virtualization-solutions
 
@@ -18,17 +18,19 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Layer 2 primary User-Defined Network (UDN) examples for Red Hat OpenShift Virtualization
+# Layer 2 primary user-defined network (UDN) examples for Red Hat OpenShift Virtualization
 {: #layer-2-primary-udn-examples-for-red-hat-openshift-virtualization}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
+Configure CUDN Layer 2 primary networks on Red Hat OpenShift Virtualization on IBM Cloud, with BGP route advertisement to VPC subnets.
+{: shortdesc}
+
 ## Overview
 {: #layer2-primary-overview}
 
 Create a three-tier application that uses CUDN layer 2 primary networks on OpenShift Virtualization with BGP route advertisement and {{site.data.keyword.vpc_short}} static routing.
-{: shortdesc}
 
 This tutorial shows you how to create an example three-tier application by using Cluster-User-Defined Network (CUDN) layer 2 primary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on {{site.data.keyword.containerlong_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization to layer 2 primary networks. The tutorial also shows how Border Gateway Protocol (BGP) advertises pod subnets back into {{site.data.keyword.vpc_short}} by using static {{site.data.keyword.vpc_short}} routes. For more information about network types, see [Open Virtual Network (OVN) networking in Red Hat OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
 

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM, RackWare RMM tutorial, VCF-Automated migration tutorial, bridge server configuration, RMM wave creation, delta sync migration, SSH key setup, Direct Sync tutorial, RackWare Passthrough setup, migration cutover process, hands-on RMM migration
+keywords: RackWare RMM tutorial, VCF-Automated migration tutorial, bridge server configuration, RMM wave creation, delta sync migration, SSH key setup, Direct Sync tutorial, RackWare Passthrough setup, migration cutover process, hands-on RMM migration
 
 
 subcollection: virtualization-solutions
@@ -21,7 +21,7 @@ compliance: HIPAA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Tutorial
+# Migrate IBM Cloud VMware VCF Classic to VPC virtual servers with RackWare RMM
 {: #virt-sol-vpc-migration-design-rmm-tutorial}
 {: #tutorial-rackware-rmm}
 {: toc-content-type="tutorial"}
@@ -31,10 +31,10 @@ compliance: HIPAA
 {: toc-industry="Software and Platform Applications"}
 {: toc-compliance="HIPAA"}
 
-Step-by-step tutorial: migrate VCF-Automated VMs to VPC using RackWare RMM with bridge server setup, wave creation, delta syncs, and cutover procedures.
+Migrate IBM Cloud VMware VCF Classic VMs to VPC virtual servers with RackWare RMM using a bridge server and Transit Gateway connection.
 {: shortdesc}
 
-While RMM has an auto-provision feature to automatically provision an IBM Cloud VPC virtual server instance, appropriately sized, this feature was not used in this tutorial. Therefore, in this guide we manually provision the target virtual server instances and associated data disk.
+While RMM has an auto-provision feature to automatically provision an IBM Cloud VPC virtual server instance, appropriately sized, this feature was not used in this tutorial. Therefore, this guide manually provisions the target virtual server instances and associated data disk.
 
 RackWare's RMM Server Migration solution provides an easy, automated, and simplified process to migrate existing IBM Cloud VMware VCF-Automated virtual machines (VM) from their current location to IBM Cloud VPC virtual server instances.
 
@@ -64,9 +64,9 @@ The RackWare Management Module (RMM) migration solution provides a seamless virt
 ## Before you begin
 {: #virt-sol-vpc-migration-design-rmm-before-you-begin}
 
-In this tutorial we migrate an Ubuntu virtual machine and a Microsoft Windows 2019 virtual machine. This tutorial assumes that you have:
+This tutorial migrates an Ubuntu virtual machine and a Microsoft Windows 2019 virtual machine. This tutorial assumes that you have:
 
-1. Read [Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Technical Guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide).
+1. Read [Migrating from IBM Cloud VMware VCF-Automated to VPC virtual servers with RackWare RMM Technical Guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide).
 1. Have existing IBM Cloud VMware-Automated instance and hosting virtual machines on NSX overlay segments. These overlay segments do not have native access to the IBM Cloud Classic private network.
 1. Created one or more resource groups.
 1. Created a VPC with prefixes that cover your required networks.
@@ -147,7 +147,7 @@ Use the VPC product documentation to:
 1. In the RMM server, change the default password, create users, and create an SSH key.
 1. Upload the SSH key to IBM Cloud VPC.
 
-You may need to update the RMM version, if so via email to RackWare, request access to their FTP repository and instructions to upgrade
+You might need to update the RMM version. If so, email RackWare to request access to their FTP repository and instructions to upgrade.
 
 ## Obtain Licensing from RackWare
 {: #virt-sol-vpc-migration-design-rmm-tutorial-rackware-license}
@@ -162,7 +162,7 @@ You may need to update the RMM version, if so via email to RackWare, request acc
    ```
    {: codeblock}
 
-   Example output is shown below, please note that RackWare recommend installing RMM on RHEL or Rocky 8.x servers:
+   Example output is shown. RackWare recommends installing RMM on RHEL or Rocky 8.x servers:
 
    ```text
    CentOS Linux release 7.9.2009 (Core)
@@ -172,7 +172,7 @@ You may need to update the RMM version, if so via email to RackWare, request acc
    WARNING: This command will generate a new preinstall file, but will also INVALIDATE the existing license on next RMM restart.
    If you wish to continue using RMM till you get the new license, DO NOT STOP RMM after running this command.
    Do you wish to continue? (Y/N)  [N]: Y
-   PreInstall file generated at /etc/rackware/rwlicense_preinstall_1765474883. Please email this file to licensing@rackwareinc.com to get the license.
+   PreInstall file generated at /etc/rackware/rwlicense_preinstall_1765474883. Email this file to licensing@rackwareinc.com to get the license.
    ```
    {: screen}
 
@@ -183,7 +183,7 @@ You may need to update the RMM version, if so via email to RackWare, request acc
    ```
    {: pre}
 
-1. After receiving a valid license, download the license file to `/etc/rackware` and restart the services to apply the license by running the following command, note your filename will be different:
+1. After you receive a valid license, download the license file to `/etc/rackware` and restart the services to apply the license by running the following command. The filename in your environment will differ from the example:
 
    ```bash
    scp -i ~/.ssh/sno3 /Work/2025/RMM/rwlicense_1765474883_uk_ibm_POC_Mig root@161.156.171.81:/etc/rackware/
@@ -249,7 +249,7 @@ A virtual machine was deployed on the IBM Cloud VCF-Automated instance with the 
 - IP address 1: 192.168.10.254
 - IP address 2: 10.134.54.62
 
-1. To access your Ubuntu virtual machine via SSH you may need to configure SSH:
+1. To access your Ubuntu virtual machine via SSH, you might need to configure SSH:
 
    1. Use the following command to configure SSH.
 
@@ -353,7 +353,7 @@ This example uses an Ubuntu virtual machine hosted on the IBM Cloud VCF-Automate
       ```
       {: pre}
 
-      Here is an example of what you might see with that command
+      Here is an example of what you can see with that command
 
       ```text
       ens192: Source VM network (192.168.10.0/24) - "inside" interface
@@ -378,14 +378,14 @@ This example uses an Ubuntu virtual machine hosted on the IBM Cloud VCF-Automate
       # Destination NAT (DNAT): Incoming traffic to 10.194.177.82 goes to 192.168.10.11
       sudo iptables -t nat -A PREROUTING -i ens224 -d 10.194.177.82 -j DNAT --to-destination 192.168.10.11
 
-      # Source NAT (SNAT): Outgoing traffic from 192.168.10.11 appears as 10.194.177.82
+      # Source NAT (SNAT): Outgoing traffic from 192.168.10.11 is translated to 10.194.177.82
       sudo iptables -t nat -A POSTROUTING -o ens224 -s 192.168.10.11 -j SNAT --to-source 10.194.177.82
 
       # Static NAT for VM1 (192.168.10.12 <-> 10.194.177.83)
       # Destination NAT (DNAT): Incoming traffic to 10.194.177.83 goes to 192.168.10.12
       sudo iptables -t nat -A PREROUTING -i ens224 -d 10.194.177.83 -j DNAT --to-destination 192.168.10.12
 
-      # Source NAT (SNAT): Outgoing traffic from 192.168.10.12 appears as 10.194.177.83
+      # Source NAT (SNAT): Outgoing traffic from 192.168.10.12 is translated to 10.194.177.83
       sudo iptables -t nat -A POSTROUTING -o ens224 -s 192.168.10.12 -j SNAT --to-source 10.194.177.83
 
       # Allow forwarding between interfaces for these specific IPs
@@ -442,7 +442,7 @@ This example uses an Ubuntu virtual machine hosted on the IBM Cloud VCF-Automate
 {: #virt-sol-vpc-migration-design-rmm-tutorial-source-vm-info}
 {: step}
 
-While RMM allows auto-provisioning, where the RMM server will create the target servers in the IBM Cloud VPC with the CPU, RAM, and disk that matches the source server specifications, we are manually creating the target virtual server instance in the IBM Cloud VPC in this tutorial. Collect the source virtual machine specifications and especially the IP address and assigned NAT IP address. For example:
+While RMM supports auto-provisioning, where the RMM server creates the target servers in IBM Cloud VPC with CPU, RAM, and disk specifications that match the source server, this tutorial manually creates the target virtual server instance in IBM Cloud VPC. Collect the source virtual machine specifications, including the IP address and assigned NAT IP address. For example:
 
 | Hostname | OS | IP Address | NAT IP Address |
 | --- | --- | --- | --- |
@@ -455,14 +455,14 @@ While RMM allows auto-provisioning, where the RMM server will create the target 
 {: step}
 
 1. Follow the IBM Cloud instructions to create the required subnet in the VPC, the CIDR should match the CIDR of the source network.
-1. Follow the IBM Cloud instructions to create the required security group in the VPC for the target virtual server instances. Ensure that SSH is allowed from the RMM to the target virtual server instances. For the Windows virtual server instance we will also need to include RDP so that we can connect to the virtual server instance to configure it ready for use by RMM
-1. Follow the IBM Cloud instructions to create the required SSH keys in the VPC for the target virtual server instances. As we are provisioning the Ubuntu Target virtual server instance manually, we will need to upload the RMM public key we created earlier and include this when we provision the virtual server instance. This enables RMM to use password-less SSH. For the Windows virtual server instance, this key is used to encrypt the password
+1. Follow the IBM Cloud instructions to create the required security group in the VPC for the target virtual server instances. Ensure that SSH is allowed from the RMM to the target virtual server instances. For the Windows virtual server instance, also include RDP to connect to the virtual server instance and configure it for use by RMM.
+1. Follow the IBM Cloud instructions to create the required SSH keys in the VPC for the target virtual server instances. Because this tutorial provisions the Ubuntu target virtual server instance manually, upload the RMM public key that was created earlier and include it when you provision the virtual server instance. This enables RMM to use password-less SSH. For the Windows virtual server instance, this key is used to encrypt the password.
 1. With the information gathered in the previous step and using the IBM Cloud documentation order the IBM Cloud VPC virtual server instance servers and associated data volumes.
 
 ### Ubuntu Target virtual server instance
 {: #virt-sol-vpc-migration-design-rmm-tutorial-step11-ubuntu}
 
-As we are provisioning the Ubuntu Target virtual server instance manually, ensure you have uploaded the RMM public key we created earlier and include this when we provision the virtual server instance. This enables RMM to use password-less SSH.
+Because this tutorial provisions the Ubuntu target virtual server instance manually, ensure that you have uploaded the RMM public key that was created earlier and included it when you provisioned the virtual server instance. This enables RMM to use password-less SSH.
 
 ### Windows Target virtual server instance
 {: #virt-sol-vpc-migration-design-rmm-tutorial-step11-windows}
@@ -470,7 +470,7 @@ As we are provisioning the Ubuntu Target virtual server instance manually, ensur
 The RMM replicates and syncs Windows servers without requiring a windows password. This is referred to as SSH-Only. To properly configure SSH on Windows the RMM provides a small MSI that needs to be installed on the source virtual machine and target virtual server instance.
 The RMM should ssh to the Windows servers as the `SYSTEM` user, this is the user most commonly used by RackWare customers, and should be considered the default choice
 
-The RMM SSHD msi installer package can be run either from a web browser or directly on the Windows virtual server instance. After adding the route to the RMM server, we can use `https://<your-RMM-IP-or-FQDN-Address>/windows/RWSSHDService_x64.msi` e.g. `https://10.68.70.11/windows/RWSSHDService_x64.msi`.
+The RMM SSHD msi installer package can be run either from a web browser or directly on the Windows virtual server instance. After adding the route to the RMM server, use `https://<your-RMM-IP-or-FQDN-Address>/windows/RWSSHDService_x64.msi` (for example, `https://10.68.70.11/windows/RWSSHDService_x64.msi`).
 
 For the Target virtual server instance, you will need to get the password after it has been provisioned to install the SSHD. Use the CLI command after logging in, `ibmcloud is in-init <target_VSI_name> --private-key @<private_key_location>` e.g. `ibmcloud is in-init rmm-source2-tgt --private-key @~/.ssh/sno3`
 
@@ -487,13 +487,13 @@ New-NetFirewallRule `
 ```
 {: codeblock}
 
-To install Rackware SSHD Service in the target virtual server instance:
+To install RackWare SSHD Service in the target virtual server instance:
 
-1. Once the “Welcome to the Rackware SSHD Service Setup Wizard” page is displayed, press Next to begin the installation.
-1. Read and accept the “License Agreement”, press Next, and the Installation Folder window will be shown.
-1. Then press the ‘Next’ button. The SSHD Configuration window will be shown.
+1. When the **Welcome to the RackWare SSHD Service Setup Wizard** page is displayed, click **Next** to begin the installation.
+1. Read and accept the License Agreement, click **Next**, and the Installation Folder window is displayed.
+1. Click **Next**. The SSHD Configuration window is displayed.
 1. On the SSHD Configuration window:
-1. As RMM will be accessing the Windows host as the SYSTEM user, then the username field should show SYSTEM.
+1. Because RMM accesses the Windows host as the SYSTEM user, the username field shows SYSTEM.
 1. Enter the RMM’s public SSH key, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
 1. Then press Next and the Confirm Installation screen will be shown.
 1. Press Next to begin the installation.
@@ -615,7 +615,7 @@ The RMM must be able to ssh without using a password to the source server:
    {: codeblock}
 
 1. Paste the contents of the RMM public key file created earlier into the source host’s authorized_keys file for the rackware user.
-1. You may need to enable RSA keys in some Linux distros e.g. Ubuntu 22.04 by editing the SSH server config:
+1. You might need to enable RSA keys in some Linux distributions (for example, Ubuntu 22.04) by editing the SSH server config:
 
    ```bash
    sudo nano /etc/ssh/sshd_config
@@ -644,7 +644,7 @@ The RMM must be able to ssh without using a password to the source server:
 The RMM replicates and syncs Windows servers without requiring a windows password. This is referred to as SSH-Only. To properly configure SSH on Windows the RMM provides a small MSI that needs to be installed on the source virtual machine and target virtual server instance.
 The RMM should ssh to the Windows servers as the `SYSTEM` user, this is the user most commonly used by RackWare customers, and should be considered the default choice
 
-The RMM SSHD msi installer package can be run either from a web browser or directly on the Windows virtual machine. After adding the route to the RMM server, we can use `https://<your-RMM-IP-or-FQDN-Address>/windows/RWSSHDService_x64.msi` e.g. `https://10.68.70.11/windows/RWSSHDService_x64.msi`.
+The RMM SSHD msi installer package can be run either from a web browser or directly on the Windows virtual machine. After adding the route to the RMM server, use `https://<your-RMM-IP-or-FQDN-Address>/windows/RWSSHDService_x64.msi` (for example, `https://10.68.70.11/windows/RWSSHDService_x64.msi`).
 
 On the source virtual machine you will need to add a static route, use the following syntax `route add destination_network MASK subnet_mask gateway_ip metric_cost` where:
 
@@ -672,13 +672,13 @@ New-NetFirewallRule `
 ```
 {: codeblock}
 
-To install Rackware SSHD Service in the source virtual machine:
+To install RackWare SSHD Service in the source virtual machine:
 
-1. Once the “Welcome to the Rackware SSHD Service Setup Wizard” page is displayed, press Next to begin the installation.
-1. Read and accept the “License Agreement”, press Next, and the Installation Folder window will be shown.
-1. Then press the ‘Next’ button. The SSHD Configuration window will be shown.
+1. When the **Welcome to the RackWare SSHD Service Setup Wizard** page is displayed, click **Next** to begin the installation.
+1. Read and accept the License Agreement, click **Next**, and the Installation Folder window is displayed.
+1. Click **Next**. The SSHD Configuration window is displayed.
 1. On the SSHD Configuration window:
-1. As RMM will be accessing the Windows host as the SYSTEM user, then the username field should show SYSTEM.
+1. Because RMM accesses the Windows host as the SYSTEM user, the username field shows SYSTEM.
 1. Enter the RMM’s public SSH key, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
 1. Then press Next and the Confirm Installation screen will be shown.
 1. Press Next to begin the installation.
@@ -726,11 +726,11 @@ RackWare RMM follows a phased approach that minimizes downtime through delta syn
 1. Initial Replication - Non-disruptive to the origin system; production servers continue running
 1. Verification Phase - Test and verify applications in the target environment
 1. Delta Sync(s) - Multiple delta syncs can be performed to keep target up-to-date with only changed files
-1. Final Sync/Cutover - The actual cutover with minimal downtime. It is recommended that any applications are quiesced, while performing the final delta sync
+1. Final Sync/Cutover - The actual cutover with minimal downtime. Quiesce any applications before you perform the final delta sync.
 
    Once the source virtual machines has been prepared and the RMM can ssh to them, and the information for the target virtual server instances has been obtained, the virtual machine's workload can be migrated from the source virtual machines to the target virtual server instances using the RMM GUI.
 
-   You can migrate servers one by one or run multiple, simultaneous migrations. If you are running multiple, simultaneous migrations, then download the CSV template from the RMM server and populate the appropriate fields. In this tutorial we will not be using this method.
+   You can migrate servers one by one or run multiple, simultaneous migrations. If you are running multiple, simultaneous migrations, download the CSV template from the RMM server and populate the appropriate fields. This tutorial does not use this method.
 
 1. To bring up the GUI, point a web browser at the Floating IP address of the RMM server.
 1. Use `admin` as the Username. `rackware` is the default Password. If you have not already changed the password for the `admin` user, do so by using the standard Linux ‘passwd’ command. Press the Login button. The RMM home page will then be shown.

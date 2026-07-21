@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-26"
+lastupdated: "2026-07-21"
 
-keywords: openShift virtualization migration, migrate VMware to OpenShift, Migration Toolkit for Virtualization, MTV OpenShift, VMware vSphere to OpenShift, IBM Cloud migration services, Red Hat migration consulting, OVA file migration, RHOSP to OpenShift, virtual machine migration OpenShift
+keywords: OpenShift virtualization migration, migrate VMware to OpenShift, Migration Toolkit for Virtualization, MTV OpenShift, VMware vSphere to OpenShift, Red Hat migration consulting, OVA file migration, RHOSP to OpenShift, virtual machine migration OpenShift
 
 subcollection: virtualization-solutions
 
@@ -14,18 +14,15 @@ subcollection: virtualization-solutions
 
 
 
-# Red Hat OpenShift Migration Infrastructure Design
+# Designing the migration infrastructure for Red Hat OpenShift Virtualization on IBM Cloud
 {: #virt-sol-openshift-migration-design-infrastructure}
 
-[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.
-{: important}
-
-Migrate virtual machines from VMware vSphere, Red Hat platforms, or OpenShift clusters to IBM Cloud OpenShift Virtualization using Migration Toolkit for Virtualization.
+Design the network and Domain Name Service (DNS) infrastructure needed to connect VMware source environments to Red Hat OpenShift Virtualization using the Migration Toolkit for Virtualization (MTV).
 {: shortdesc}
 
-When you migrate workloads with the Migration Toolkit for Virtualization, you need a reliable, high-bandwidth connectivity between the source environment (for example, vCenter/ESXi or RHV) and Red Hat OpenShift workers nodes on the target cluster. It help ensure uninterrupted data transfer. If firewalls are in place, the necessary ports for vCenter and ESXi communication must be opened. In addition to the basic network connectivity, Domain Name Service (DNS) resolution is required between the environments.
+When you migrate workloads with the Migration Toolkit for Virtualization (MTV), you need a reliable, high-bandwidth connectivity between the source environment (for example, vCenter/ESXi or Red Hat Virtualization (RHV)) and Red Hat OpenShift worker nodes on the target cluster. It helps ensure uninterrupted data transfer. If firewalls are in place, the necessary ports for vCenter and ESXi communication must be opened. In addition to the basic network connectivity, DNS resolution is required between the environments.
 
-## Infrastructure Design for migrating from Classic Infrastructure
+## Infrastructure design for migrating from Classic infrastructure
 {: #virt-sol-openshift-migration-design-classic}
 
 When you migrate from {{site.data.keyword.vmwaresolutions_full}} to {{site.data.keyword.openshiftlong_notm}}, customers can use {{site.data.keyword.tg_full}} to establish private connectivity between the VMware (source) platform and a new target {{site.data.keyword.openshiftlong_notm}} Virtualization environment. The following example presents a high-level overview of the infrastructure design for a migration. In the VPC hosting {{site.data.keyword.openshiftlong_notm}}, {{site.data.keyword.dns_full_notm}} and DNS Custom Resolvers can be used for this purpose.

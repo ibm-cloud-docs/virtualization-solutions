@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: File Storage, Block Storage, Encryption, backup, disaster recovery, VPC resiliency design, Block Storage snapshots, Backup for VPC, disaster recovery VPC, cross-region snapshots, IBM Cloud Backup Recovery, Veeam VPC backup, Wanclouds DRaaS, RackWare disaster recovery, VPC backup solutions
+keywords: VPC resiliency design, Block Storage snapshots, Backup for VPC, disaster recovery VPC, cross-region snapshots, IBM Cloud Backup Recovery, Veeam VPC backup, Wanclouds DRaaS, RackWare disaster recovery, VPC backup solutions
 
 subcollection: virtualization-solutions
 
@@ -12,17 +12,17 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Resiliency Design for VPC virtual servers
+# Designing resilient VPC virtual servers on IBM Cloud
 {: #virt-sol-vpc-vpc-resiliency-design}
 
-Design VPC resiliency with Block Storage snapshots, Backup for VPC, cross-region DR, IBM Cloud Backup and Recovery, Veeam, Wanclouds DRaaS, and RackWare solutions.
+Design backup and disaster recovery for IBM Cloud VPC virtual servers using block storage snapshots, Veeam, and cross-region DR options.
 {: shortdesc}
 
-See the [Resiliency in IBM Cloud](/docs/resiliency?topic=resiliency-resiliency-overview) Solution Guide which is general guide on resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. This guide focuses on specific information for VPC VSIs.
+See the [Resiliency in IBM Cloud](/docs/resiliency?topic=resiliency-resiliency-overview) Solution Guide which is a general guide on resiliency in IBM Cloud. The guide focuses on the perspective of IBM clients, their solution planners, architects, and builders and the resilient solutions that they create on the IBM Cloud platform. This guide focuses on specific information for VPC virtual server instances.
 
 The key backup and restore architecture elements are shown in the following diagram.
 
-![IBM Cloud VPC VSI Backup and Restore](../../images/vpc-vsi/vpc-vsi-high-level-resiliency.svg "IBM Cloud VPC VSI Backup and Restore"){: caption="IBM Cloud VPC VSI Backup and Restore" caption-side="bottom"}
+![IBM Cloud VPC virtual server backup and restore](../../images/vpc-vsi/vpc-vsi-high-level-resiliency.svg "IBM Cloud VPC virtual server backup and restore"){: caption="IBM Cloud VPC virtual server backup and restore" caption-side="bottom"}
 
 
 ## IBM Cloud VPC Block Storage Snapshots
@@ -30,7 +30,7 @@ The key backup and restore architecture elements are shown in the following diag
 
 IBM Cloud VPC Block Storage Snapshots provide point-in-time copies of Block Storage volumes attached to virtual server instances. Snapshots are stored regionally in IBM Cloud Object Storage and can be used for data protection, disaster recovery, and creating new volumes from a known good state.
 
-The following tables lists the key capabilities for IBM Cloud VPC Block Storage Snapshots.
+The following table lists the key capabilities for IBM Cloud VPC Block Storage Snapshots.
 
 | Feature | Description |
 | -------------- | -------------- |
@@ -75,7 +75,7 @@ The following table details each backup policy component for IBM Cloud Backup fo
 | Backup jobs | Automated execution of snapshot operations based on defined schedules |
 {: caption="IBM Cloud Backup for VPC backup policy components" caption-side="bottom"}
 
-The following tables lists the key capabilities for IBM Cloud Backup for VPC.
+The following table lists the key capabilities for IBM Cloud Backup for VPC.
 
 | Feature | Description |
 | -------------- | -------------- |
@@ -95,9 +95,9 @@ The use cases applicable to these features include the following.
 * Multi-volume application backups using consistency groups
 * Geographic disaster recovery with cross-region snapshot copies
 
-**Comparison with Manual Snapshots:**
+**Comparison with manual snapshots:**
 
-| Feature | Manual Snapshots | Backup for VPC |
+| Feature | Manual snapshots | Backup for VPC |
 | --------- | ------------------ | ---------------- |
 | **Automation** | Manual or external scripting | Policy-based automation |
 | **Scheduling** | External orchestration required | Built-in cron-based scheduling |
@@ -105,7 +105,7 @@ The use cases applicable to these features include the following.
 | **Volume targeting** | Direct volume selection | Tag-based automatic targeting |
 | **Use case** | Ad-hoc backups, golden images | Ongoing operational backups |
 | **Management** | Per-snapshot management | Policy-driven centralized management |
-{: caption="Comparison with Manual Snapshots" caption-side="bottom"}
+{: caption="Comparison with manual snapshots" caption-side="bottom"}
 
 The following list is the best practice for IBM Cloud Backup for VPC.
 
@@ -127,8 +127,8 @@ See [About Backup for VPC](/docs/vpc?topic=vpc-backup-service-about&interface=ui
 | -------------- | -------------- |
 | IBM Cloud Backup and Recovery service | Managed by IBM, once provisioned via the IBM Cloud catalog, you access via a web browser to manage your backup policies, download the agents and restore. |
 | VPE Gateway | To improve performance it is recommended to use a VPE gateway to access the service instead of the native connection. To create one or more VPE gateways use the IBM Cloud catalog to order a VPC gateway and configure it to use the Backup and Recovery service. |
-| Data Source Connector | Installed via the IBM Cloud Catalog which install a VSI in your VPC. Install one or more (at least two recommended for HA) data connectors and increase as need to increase backup throughput. Data source connectors are used to establish connectivity between your source VSI and the service. The data source connectors also interacts with the service's IBM Cloud Object Service bucket where the backups are located. This bucket is managed by the provider and is not contained within your account. |
-| Agent | An agent is IBM Cloud Backup and Recovery software installed on the VSI that interacts locally with the operating system and source data being protected. The agent communicates with the Data Source Connector and Backup and Recovery instance during backup and recovery operations. Windows and Linux agents are currently available, with support for additional agent types planned for the future. |
+| Data Source Connector | Installed through the IBM Cloud catalog, which deploys a virtual server instance in your VPC. Install one or more (at least two recommended for high availability) data connectors and increase as needed to increase backup throughput. Data source connectors are used to establish connectivity between your source virtual server instance and the service. The data source connectors also interact with the service's IBM Cloud Object Storage bucket where the backups are located. This bucket is managed by the provider and is not contained within your account. |
+| Agent | An agent is IBM Cloud Backup and Recovery software installed on the virtual server instance that interacts locally with the operating system and source data being protected. The agent communicates with the data source connector and Backup and Recovery instance during backup and recovery operations. Windows and Linux agents are currently available, with support for additional agent types planned for the future. |
 {: caption="IBM Cloud Backup and Recovery services" caption-side="bottom"}
 
 The following list is the key capabilities for IBM Cloud Backup and Recovery.
@@ -150,11 +150,11 @@ For more information, see [Getting started with Backup and Recovery](/docs/backu
 ## Veeam Backup & Replication with Agent-Based Backup
 {: #virt-sol-vpc-vpc-resiliency-design-veeam-vbr}
 
-Veeam Backup & Replication (VBR) is an enterprise-grade backup and disaster recovery solution that provides comprehensive data protection for physical servers, virtual machines, and cloud workloads. For IBM Cloud VPC Virtual Server Instances, Veeam utilizes agent-based backup to provide application-aware, image-level backup and recovery capabilities.
+Veeam Backup & Replication (VBR) is an enterprise-grade backup and disaster recovery solution that provides comprehensive data protection for physical servers, virtual machines, and cloud workloads. For IBM Cloud VPC virtual server instances, Veeam uses agent-based backup to provide application-aware, image-level backup and recovery capabilities.
 
 Veeam Backup & Replication with agents delivers centralized management, flexible recovery options, and advanced data protection features including immutable backups, ransomware protection, and cloud-native integration with IBM Cloud Object Storage.
 
-Veeam is not available directly in the IBM Cloud catalog, however, you can use Veeam software to back up your data on a VPC VSI and protect the following resources:
+Veeam is not available directly in the IBM Cloud catalog, however, you can use Veeam software to back up your data on a VPC virtual server instance and protect the following resources:
 
 * Individual volumes
 * Folders and files
@@ -162,9 +162,9 @@ Veeam is not available directly in the IBM Cloud catalog, however, you can use V
 
 | Service | Description |
 | -------------- | -------------- |
-| Veeam Licenses | You can order a Veeam license for the use of Veeam Agent and Veeam Backup and Replication software through the Veeam website or through the process described at [Ordering Veeam stand-alone licenses from the IBM Cloud console](/docs/vpc?topic=vpc-ordering-veeam-licenses#ordering-veeam-license-procedure). |
-| Veeam Backup Server | The core component that serves as the configuration and control center for the entire backup infrastructure. The backup server manages job scheduling, resource allocation, and centralized administration of all backup operations.  \n The Veeam Backup and Replication software can be installed only on a Microsoft Windows operating system. See [Installing and operating the Veeam Backup and Replication software](/docs/vpc?topic=vpc-using-veeam-backup-replication-software). |
-| Veeam Agents | Lightweight software installed on protected computers that perform data backup operations such as creating volume snapshots, reading backed-up data, and transferring data to target locations. Supported Linux® distributions include CentOS, RHEL, Ubuntu, and Debian. With the Veeam Agent for Linux® and the Veeam Agent for Microsoft™ Windows™ you can create backups and perform restores, see [Installing and operating the Veeam Agent](/docs/vpc?topic=vpc-using-veeam-agent). |
+| Veeam Licenses | You can order a Veeam license for the use of Veeam Agent and Veeam Backup & Replication software through the Veeam website or through the process described at [Ordering Veeam stand-alone licenses from the IBM Cloud console](/docs/vpc?topic=vpc-ordering-veeam-licenses#ordering-veeam-license-procedure). |
+| Veeam Backup Server | The core component that serves as the configuration and control center for the entire backup infrastructure. The backup server manages job scheduling, resource allocation, and centralized administration of all backup operations.  \n Veeam Backup & Replication can be installed only on a Microsoft Windows operating system. See [Installing and operating the Veeam Backup and Replication software](/docs/vpc?topic=vpc-using-veeam-backup-replication-software). |
+| Veeam Agents | Lightweight software installed on protected computers that perform data backup operations such as creating volume snapshots, reading backed-up data, and transferring data to target locations. Supported Linux® distributions include CentOS, Red Hat Enterprise Linux (RHEL), Ubuntu, and Debian. With the Veeam Agent for Linux® and the Veeam Agent for Microsoft™ Windows™ you can create backups and perform restores, see [Installing and operating the Veeam Agent](/docs/vpc?topic=vpc-using-veeam-agent). |
 {: caption="Veeam services" caption-side="bottom"}
 
 For more information, see [About Veeam](/docs/vpc?topic=vpc-about-veeam).
@@ -186,13 +186,13 @@ For more information, see [About Veeam](/docs/vpc?topic=vpc-about-veeam).
 | Application-Aware Processing | - For Windows-based computers, Veeam Agent leverages Microsoft VSS technology to create VSS snapshots for transactionally consistent backups  \n - Support for VSS-aware applications including Microsoft SQL Server, Exchange, Active Directory, and Oracle databases  \n - For Linux systems, support for Oracle, MySQL, and PostgreSQL database processing to create transactionally consistent backups  \n - Application item-level restore (database, mailbox, Active Directory objects) |
 | Advanced Data Protection | - Immutable, direct-to-object storage backups that naturally scale with needs  \n - Inline malware detection during backup operations  \n - Encryption in-flight and at-rest with AES-256  \n - Built-in deduplication and compression to reduce backup file sizes and data traffic  \n - WAN acceleration for remote site backups |
 | Flexible Backup Targets | - Local backup repositories (fast local recovery)  \n - IBM Cloud Object Storage for long-term retention and offsite protection  \n - Copy jobs to create secondary backup copies (3-2-1 rule compliance) |
-| Granular Recovery | - File-level restore from image-level backups without full system restore. Note image-level means the OS image, not the VSI image.  \n - Application item-level restore including databases, mailboxes, and specific application objects  \n - Volume-level restore for partial system recovery  \n - Restore to original or alternate locations |
+| Granular recovery | - File-level restore from image-level backups without full system restore. Note: image-level refers to the OS image, not the virtual server instance image.  \n - Application item-level restore including databases, mailboxes, and specific application objects  \n - Volume-level restore for partial system recovery  \n - Restore to original or alternate locations |
 {: caption="Veeam features" caption-side="bottom"}
 
-## Third-Party Backup Solutions
+## Third-party backup solutions
 {: #virt-sol-vpc-vpc-resiliency-design-3rd-party}
 
-Various third-party backup solutions provide alternatives for VPC VSIs backup, available as self-managed with bring-your-own-license (BYOL) models. Additional third-party backup solutions compatible with IBM Cloud VPC include:
+Various third-party backup solutions provide alternatives for backing up VPC virtual server instances, available as self-managed with bring-your-own-license (BYOL) models. Additional third-party backup solutions compatible with IBM Cloud VPC include:
 
 * **Commvault** - Enterprise backup and recovery with application-aware capabilities
 * **Rubrik** - Cloud data management and ransomware protection
@@ -201,20 +201,20 @@ Various third-party backup solutions provide alternatives for VPC VSIs backup, a
 
 These solutions typically support both agent-based backup for virtual server instances, providing flexibility based on organizational requirements and existing tool investments.
 
-## Wanclouds VPC+ DRaaS (Disaster Recovery as a Service)
+## Wanclouds VPC+ DRaaS (disaster recovery as a service)
 {: #virt-sol-vpc-component-design-wanclouds-draas}
 
-Wanclouds VPC+ DRaaS is a comprehensive SaaS-based Disaster Recovery as a Service (DRaaS) solution that enables IBM Cloud customers to backup their entire Virtual Private Cloud resources including network, compute, and storage, and restore them across different regions in IBM Cloud. This approach eliminates the need for expensive standby environments, replacing them with flexible on-demand recovery. The service is available directly from IBM Cloud Catalog. Key differentiators:
+Wanclouds VPC+ DRaaS is a comprehensive software as a service (SaaS)-based Disaster Recovery as a Service (DRaaS) solution that enables IBM Cloud customers to backup their entire Virtual Private Cloud resources including network, compute, and storage, and restore them across different regions in IBM Cloud. This approach eliminates the need for expensive standby environments, replacing them with flexible on-demand recovery. The service is available directly from IBM Cloud Catalog. Key differentiators:
 
 * **On-Demand Recovery Model**: Instead of maintaining a constantly running replica of your production environment, you can create an on-demand disaster recovery scenario, minimizing costs and maximizing operational efficiency
-* **Single Pane of Glass**: Consolidated view of all cloud accounts and backups (VPC configs, VSIs, Data,  buckets) under a single management interface
+* **Single pane of glass**: Consolidated view of all cloud accounts and backups (VPC configurations, virtual server instances, data, and buckets) under a single management interface
 
 Wanclouds VPC+ DRaaS can backup and restore the entire IBM Cloud Virtual Private Cloud construct, configurations, and resources including:
 
 | Component | Description |
 | -------------- | -------------- |
 | Network Components | - VLANs and Subnets  \n - Security Groups and Network ACLs  \n - VPN Gateways  \n - Load Balancers (ALB and NLB)  \n - Floating IPs  \n - Public Gateways  \n - Virtual Private Endpoints (VPE)
-| Compute Resources | - Virtual Server Instances (VSIs) - backup different versions of Windows and Linux OS flavors including Ubuntu, Red Hat Enterprise Linux (RHEL), Debian, and CentOS  \n - Attached Data Volumes (Block Storage)  \n - Instance configurations and metadata |
+| Compute resources | - Virtual server instances - back up different versions of Windows and Linux OS flavors including Ubuntu, Red Hat Enterprise Linux (RHEL), Debian, and CentOS  \n - Attached data volumes (block storage)  \n - Instance configurations and metadata |
 | Storage | - Cloud Object Storage Buckets ({{site.data.keyword.cos_full_notm}} Buckets) - backup data from one {{site.data.keyword.cos_full_notm}} bucket to other buckets on demand  \n - Volume attachments and configurations |
 {: caption="Wanclouds VPC+ DRaaS components" caption-side="bottom"}
 
@@ -241,42 +241,42 @@ For more information, see [IBM documentation](https://docs.wanclouds.net/ibm/) a
 ## RackWare DR
 {: #virt-sol-vpc-component-design-rackware-dr}
 
-## RackWare RMM for VPC VSI Cross-Region Disaster Recovery
+## RackWare RMM for VPC virtual server cross-region disaster recovery
 {: #virt-sol-component-design-rackware-vpc-dr}
 
 RackWare Management Module (RMM) platform integrates with IBM Cloud VPC to enable intelligent provisioning, workload mobility, and cross-region DR planning. RackWare enables both hot and warm standby deployments with rapid failover and rollback capabilities across IBM Cloud VPC with policy-driven DR strategies.
 
 The RackWare Management Module (RMM) is deployed in IBM Cloud VPC and provides a centralized interface for managing, scheduling, and automating migration and disaster recovery tasks. The following list includes the features of RMM.
 
-* Deployed as VSI in IBM Cloud VPC
+* Deployed as a virtual server instance in IBM Cloud VPC
 * Uses Floating IP for external GUI access
-* SSH connectivity to source VSIs (primary region)
+* SSH connectivity to source virtual server instances (primary region)
 * API access to IBM Cloud VPC for auto-provision in DR region
 * Available in IBM Cloud Catalog with seamless deployment
 * Agentless approach supporting any current version of Windows and Linux
 * Autoprovision capabilities with matching source specifications
-* TNG sync for improved RPO
+* TNG sync for improved recovery point objective (RPO)
 * Policy-driven automation for failover and failback
-* GUI-based management with real-time monitoring
+* GUI (graphical user interface)-based management with real-time monitoring
 
 The following tables lists the disaster recovery configuration models.
 
 | Disaster recovery configuration model | Description |
 | -------------- | -------------- |
-| Passthrough where RMM acts as proxy between source and target servers  \n - enabled by default | - Source and target VSIs cannot communicate directly  \n - Cross-region networking not configured  \n - Additional security layer desired  \n - Centralized traffic monitoring required  \n No direct connectivity required between regions  \n Centralized control and monitoring  \n - Simplified firewall rules  \n All data flows through RMM  \n RMM bandwidth becomes bottleneck for large datasets  \n Additional network hop adds latency |
-| Direct Mode | - Source and target VSIs both use Floating IPs  \n - Transit Gateway configured between regions  \n - High-bandwidth requirements  \n - Minimize network latency  \n - Better performance for large datasets  \n - Reduced load on RMM server  \n - Lower latency for data transfer  \n - Network connectivity between regions (Transit Gateway or Floating IPs)  \n - Firewall rules allowing SSH between source and target  \n - Security considerations for cross-region traffic |
+| Passthrough where RMM acts as proxy between source and target servers  \n - enabled by default | - Source and target virtual server instances cannot communicate directly  \n - Cross-region networking not configured  \n - Additional security layer desired  \n - Centralized traffic monitoring required  \n No direct connectivity required between regions  \n Centralized control and monitoring  \n - Simplified firewall rules  \n All data flows through RMM  \n RMM bandwidth becomes bottleneck for large datasets  \n Additional network hop adds latency |
+| Direct mode | - Source and target virtual server instances both use floating IPs  \n - Transit Gateway configured between regions  \n - High-bandwidth requirements  \n - Minimize network latency  \n - Better performance for large datasets  \n - Reduced load on RMM server  \n - Lower latency for data transfer  \n - Network connectivity between regions (Transit Gateway or floating IPs)  \n - Firewall rules allowing SSH between source and target  \n - Security considerations for cross-region traffic |
 {: caption="RMM disaster recovery configuration models" caption-side="bottom"}
 
 RackWare provides flexible scheduling with options for hot and cold standby of replicated workloads.
 
 | Aspect | Hot Standby | Warm Standby |
 | -------- | ------------- | -------------- |
-| **DR VSIs State** | Running continuously | Powered off |
+| **DR virtual server instances state** | Running continuously | Powered off |
 | **Failover Time** | Minutes | 5-15 minutes (boot time) |
 | **Cost** | Higher (running compute) | Lower (storage only) |
 | **Use Cases** | Mission-critical, RTO < 5 min | Important workloads, RTO < 30 min |
-| **Sync Impact** | Faster (VSI already running) | Must boot before final sync |
-{: caption="Rackware capabilities" caption-side="bottom"}
+| **Sync impact** | Faster (virtual server instance already running) | Must boot before final sync |
+{: caption="RackWare capabilities" caption-side="bottom"}
 
 For more information, see the following:
 

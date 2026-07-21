@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-08"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, ODF, OpenShift Data Foundation, RBD, Ceph storage virtual machines, ODF storage classes configuration, VM live migration storage, replicated pools erasure coding, RBD block storage VMs, ODF capacity planning, snapshot backup VMs, bare metal NVMe storage, vSAN migration ODF
+
+keywords: OpenShift Data Foundation ODF, Ceph storage virtual machines, ODF storage classes configuration, VM live migration storage, replicated pools erasure coding, RBD block storage VMs, ODF capacity planning, snapshot backup VMs, bare metal NVMe storage, vSAN migration ODF
 
 
 subcollection: virtualization-solutions
@@ -16,15 +17,15 @@ completion-time: 60m
 
 ---
 
+# Using Red Hat OpenShift Data Foundation (ODF) for virtual machine workloads
 {{site.data.keyword.attribute-definition-list}}
-
-# Red Hat OpenShift Data Foundation (ODF) for virtual machine workloads
 {: #odf-for-vm-workloads}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-Deploy and configure {{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) to provide high-performance, resilient block storage for virtual machine workloads on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service.
+
+Configure Red Hat OpenShift Data Foundation (ODF) as the storage backend for VM workloads on IBM Cloud OpenShift Virtualization.
 {: shortdesc}
 
 {{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. Use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
@@ -46,10 +47,10 @@ ODF is a software-defined storage solution that is built for {{site.data.keyword
 
 ODF provides four types of storage from the same platform:
 
-- Block storage (RBD) – for virtual machine workload disks
+- Block storage (RADOS Block Device (RBD)) – for virtual machine workload disks
 - File storage (CephFS) – for shared file systems
 - Object storage (RGW and S3-compatible) – for object workloads
-- NFS (CephFS-backed) – NFS exports for traditional or external clients
+- Network File System (NFS) (CephFS-backed) – NFS exports for traditional or external clients
 
 In ODF, NFS is backed by CephFS and exposed through a Ceph NFS Ganesha gateway. The gateway is managed through a CephNFS custom resource in Rook. NFS is not a distinct storage backend; it provides access to CephFS over the NFS protocol. The primary use case is to provide NFS access to clients outside the {{site.data.keyword.redhat_openshift_notm}} cluster, or to workloads that require NFS. NFS is not used for virtual machine workload disks because virtual servers use block storage (RBD).
 
@@ -78,12 +79,11 @@ What happens when copies are lost (`replica-3`):
 
 | Copies that remain | Ceph state | I/O behavior | Risk |
 | ---------------- | ---------- | ------------- | ---- |
-| 3 of 3 | `active+clean` | Normal operation. Any copy can serve reads. | None. |
-| 2 of 3 | `active+degraded` | I/O continues normally. Ceph immediately begins replicating the missing copy to another OSD (Object Storage Daemon) to restore 3 copies. | Minimal. Data is still durable on 2 independent OSDs. Recovery occurs automatically. |
-| 1 of 3 | `active+degraded` or `peered` (depending on `min_size`) | With the ODF default `min_size=2`, Ceph blocks all I/O to affected placement groups when only 1 copy remains, to maintain data consistency. Virtual servers with data on those PGs experience an I/O hang. | High. Only 1 copy of the data remains on a single OSD. If that OSD also fails before recovery completes, the data is permanently lost. |
-| 0 of 3 | `incomplete` | Ceph blocks all I/O. No copies exist. | Data loss. The data is permanently unrecoverable. |
-{: caption="replica-3 failure progression and expected I/O behavior"}
-{: summary="This table has four rows that describe what happens as the number of available data copies in a replica-3 pool decreases from 3 to 0. The first column shows the number of copies that remain. The remaining columns describe the Ceph state, the I/O behavior, and the risk at each level."}
+| 3 of 3 | `active+clean` | Normal operation. Reads are served from any copy. | None. |
+| 2 of 3 | `active+degraded` | I/O continues normally. Ceph immediately begins rereplicating the missing copy to another OSD to restore 3 copies. | Minimal. Data is still durable on 2 independent OSDs. Recovery occurs automatically. |
+| 1 of 3 | `active+degraded` or `peered` (depending on `min_size`) | With the ODF default `min_size=2`, Ceph blocks all I/O to affected Placement Groups when only 1 copy remains. Prevents extra writes that can become inconsistent. Virtual servers with data on those PGs experience I/O hang. | High. Only 1 copy of the data remains on a single remaining OSD. If it also fails before the recovery completes, the data is permanently lost. |
+| 0 of 3 | `incomplete` | I/O is blocked. No copies exist. | Data loss. The data is permanently unrecoverable. |
+{: caption="rep3 failure progression and I/O behaviour"}
 
 The `min_size` parameter controls the minimum number of copies that must be available before Ceph allows I/O. ODF sets `min_size=2` for replica-3 pools by default, which is enforced through `requireSafeReplicaSize: true`. When two or three copies are available, reads and writes proceed normally. When only one copy is available, Ceph blocks I/O to maintain data consistency.
 
@@ -216,6 +216,8 @@ Virtual machine workload capacity estimation: A typical virtual machine workload
 
 Ceph performance degrades as cluster usage increases. The following thresholds apply:
 
+Virtual machine workload capacity estimation: A typical virtual machine workload with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With rep3, that virtual machine workload requires 390 GB of raw storage. On the preceding 3-node cluster, you can provision approximately 196 virtual machine workloads of this size. In practice, keep Ceph usage less than 75% to maintain performance and support recovery operations.
+
 - At 75% OSD usage, ODF fires the `CephOSDNearFull` Prometheus alert.
 - At 85%, Ceph sets the native `nearfull` OSD flag (`mon_osd_nearfull_ratio`) and ODF fires the `CephOSDCriticallyFull` alert.
 - At 90%, Ceph stops backfill and recovery operations to the affected OSD (`mon_osd_backfillfull_ratio`).
@@ -310,7 +312,8 @@ For instructions on deploying ODF on a VPC-based {{site.data.keyword.redhat_open
 
 - Select **Local storage**.
 - Local storage uses the local NVMe instance storage available on bare metal worker nodes.
-- NVMe drives provide reduced latency and high IOPS performance that are required for virtual machine workload disks.
+
+- NVMe drives provide reduced latency and high IOPS (input/output operations per second) performance that is required for virtual machine workload disks.
 
 ### ODF resource profile
 {: #odf-resource-profile}
@@ -515,7 +518,8 @@ When you create a custom StorageClass for virtualization workloads, verify that 
 
 - Provisioner
 
-    The StorageClass must use the Ceph RBD CSI provisioner that is provided by ODF:
+
+    The StorageClass must use the Ceph RBD Container Storage Interface (CSI) provisioner-provided by ODF:
 
     ```text
     openshift-storage.rbd.csi.ceph.com

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-26"
+lastupdated: "2026-07-21"
 
-keywords: OpenShift virtualization migration, migrate VMware to OpenShift, Migration Toolkit for Virtualization, MTV OpenShift, VMware vSphere to OpenShift, IBM Cloud migration services, Red Hat migration consulting, OVA file migration, RHOSP to OpenShift, virtual machine migration OpenShift
+keywords: OpenShift virtualization migration, migrate VMware to OpenShift, Migration Toolkit for Virtualization, MTV OpenShift, VMware vSphere to OpenShift, Red Hat migration consulting, OVA file migration, RHOSP to OpenShift, virtual machine migration OpenShift
 
 subcollection: virtualization-solutions
 
@@ -14,16 +14,14 @@ subcollection: virtualization-solutions
 
 
 
-# Migration Workloads to Red Hat OpenShift Virtualization
+# Migrating VMware workloads to Red Hat OpenShift Virtualization on IBM Cloud
 {: #virt-sol-openshift-migration-design}
 
-[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.
-{: important}
 
-Migrate virtual machines from VMware vSphere, Red Hat platforms, or OpenShift clusters to IBM Cloud OpenShift Virtualization using Migration Toolkit for Virtualization.
+Migrate VMs to Red Hat OpenShift Virtualization on IBM Cloud using the Migration Toolkit for Virtualization (MTV) or IBM Consulting services.
 {: shortdesc}
 
-For migrations, customers can self-serve or they can use offerings and services from either IBM Consulting, Red Hat Consulting or other IBM Cloud’s migration services partners. To migrate virtual machines from an external provider such as VMware vSphere, Red Hat OpenStack Platform (RHOSP), Red Hat Virtualization, or another OpenShift Container Platform cluster, you can use the Migration Toolkit for Virtualization (MTV). Open Virtual Appliance (OVA) files created by VMware vSphere can also be migrated using the same tool.
+For migrations, customers can self-serve or they can use offerings and services from either IBM Consulting, Red Hat Consulting or other IBM Cloud's migration services partners. To migrate virtual machines from an external provider such as VMware vSphere, Red Hat OpenStack Platform (RHOSP), Red Hat Virtualization, or another Red Hat OpenShift Container Platform (OCP) cluster, you can use the Migration Toolkit for Virtualization (MTV). Open Virtual Appliance (OVA) files created by VMware vSphere can also be migrated using the same tool.
 
 The key migration architecture elements are shown in the following diagram.
 

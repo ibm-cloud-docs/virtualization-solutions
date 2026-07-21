@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-29"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Kubernetes Service, network, layer2, localnet, OpenShift virtualization networking, OVN-Kubernetes networking, VPC networking OpenShift, Virtual Private Endpoints OpenShift, layer2 networking OpenShift, localnet networking, network attachment definitions, IBM Cloud VPC subnets, OpenShift load balancers, virt-launcher pod networking
+keywords: OpenShift virtualization networking, OVN-Kubernetes networking, VPC networking OpenShift, Virtual Private Endpoints OpenShift, layer2 networking OpenShift, localnet networking, network attachment definitions, OpenShift load balancers, virt-launcher pod networking
 
 subcollection: virtualization-solutions
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Network design for Red Hat OpenShift Virtualization
+# Designing your network for Red Hat OpenShift virtualization on IBM Cloud VPC
 {: #virt-sol-openshift-network-design}
 
-Design OpenShift virtualization networking using VPC subnets, OVN-Kubernetes for pod networking, and layer2 or localnet options for VM connectivity with Virtual Private Endpoints.
+Design the network for Red Hat OpenShift Virtualization on IBM Cloud VPC, covering VPC networking, OpenShift Software-Defined Networking (SDN), and Open Virtual Networking (OVN) User-Defined Networks.
 {: shortdesc}
 
 The network design in Red Hat OpenShift Virtualization on IBM Cloud VPC has the following distinct layers.
@@ -95,7 +95,7 @@ The following example describes the default pod networking in Red Hat OpenShift 
 
 Pod networks (Cluster network)
 
-* Each pod receives a private IP address from the cluster network CIDR
+* Each pod receives a private IP address from the cluster network Classless Inter-Domain Routing (CIDR)
 * Provides pod-to-pod communication across nodes
 * Pods communicate directly by using their private IPs within the cluster
 * Network policies control pod-to-pod traffic at layer 3/4
@@ -103,9 +103,9 @@ Pod networks (Cluster network)
 * No NAT between pods (direct pod-to-pod communication)
 * Network policies provide segmentation and security
 * DNS-based service discovery within cluster
-* When a virtual server runs inside the virt-launcher pod the IP is NATed with the virt-launcher pod's IP
+* When a virtual server runs inside the virt-launcher pod the IP is network address translated (NATed) with the virt-launcher pod's IP
 
-IP masquerading (SNAT)
+IP masquerading (source NAT (SNAT))
 
 * When pods initiate outbound connections to external networks, the source IP is masqueraded
 * The source IP address of the request packet is changed to the IP address of the worker node where the pod runs
@@ -145,7 +145,7 @@ The following example shows the NodePort traffic flow.
 * External client connects to `<WorkerNodeIP>:<NodePort>`
 * Nodes forward traffic to the ClusterIP service
 * The service balances the load to backend pods
-* Response follows the reverse path with SNAT
+* Response follows the reverse path with SNAT (source network address translation)
 
 The following use cases are an example of what NodePorts are used for.
 
@@ -181,7 +181,7 @@ The following use cases are an example of what load balancers are used for.
 ### Red Hat OpenShift routes
 {: #virt-sol-openshift-network-design-openshift-routes}
 
-Red Hat OpenShift Routes expose services to external network traffic by mapping FQDNs to backend services, which makes applications accessible outside of the cluster. The following list shows key features of Red Hat OpenShift Routes.
+Red Hat OpenShift Routes expose services to external network traffic by mapping fully qualified domain names (FQDNs) to backend services, which makes applications accessible outside of the cluster. The following list shows key features of Red Hat OpenShift Routes.
 
 * Layer 7 routing - HTTP/HTTPS traffic with host name-based routing
 * Automatic DNS - routes use cluster subdomain: `<route-name>-<namespace>`.apps.`<cluster-domain>`
@@ -196,14 +196,15 @@ Red Hat OpenShift Routes expose services to external network traffic by mapping 
 ## Open Virtual Networking (OVN)
 {: #virt-sol-openshift-network-design-ovn}
 
-For administrators familiar with VMware vSphere and NSX-T, see [OVN networking in OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview) for a mapping of OVN concepts to their vSphere equivalents.
 
-The **OVN-Kubernetes** CNI (Container Network Interface) plug-in is the recommended networking option for Red Hat OpenShift Virtualization that supports virtual server networking use cases that run alongside traditional pod networking. OVN-Kubernetes is based on OVN and uses Open vSwitch (OVS) on every worker node. It supports multi-tenancy, NetworkPolicies, and hybrid virtual server and pod networking. Red Hat OpenShift on IBM Cloud VPC supports OVN-Kubernetes as the default networking plug-in.
+The **OVN-Kubernetes** Container Network Interface (CNI) plug-in is the recommended networking option for Red Hat OpenShift Virtualization that supports virtual server networking use cases that run alongside traditional pod networking. OVN-Kubernetes is based on Open Virtual Networking (OVN) and uses Open vSwitch (OVS) on every worker node. It supports multi-tenancy, NetworkPolicies, and hybrid virtual server and pod networking. Red Hat OpenShift on IBM Cloud VPC supports OVN-Kubernetes as the default networking plug-in.
+
+For administrators familiar with VMware vSphere and NSX-T, see [OVN networking in OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview) for a mapping of OVN concepts to their vSphere equivalents.
 
 In Red Hat OpenShift with OVN, the following three networking topologies provide secondary network connectivity to pods and virtual servers.
 
 * Layer 2 (L2) - Software-defined L2 broadcast domains by using Geneve encapsulation
-* Layer 3 (L3) - Routed network segments with custom IP subnets. An L3 network has a separate CIDR per node.
+* Layer 3 (L3) - Routed network segments with custom IP subnets. An L3 network has a separate CIDR (Classless Inter-Domain Routing) per node.
 * Localnet - Direct access to underlying physical network VLANs
 
 In Red Hat OpenShift Virtualization on IBM Cloud, **OVN layer 2** and **OVN localnet** are the two primary topologies that are used with User-Defined Networks (UDN).
@@ -249,7 +250,7 @@ Attachment method
 
 Network topology
 
-   * Layer 2 - Software-defined L2 broadcast domain by using Geneve encapsulation that enables ARP-based discovery and MAC-to-MAC communication
+   * Layer 2 - Software-defined L2 broadcast domain by using Geneve encapsulation that enables Address Resolution Protocol (ARP)-based discovery and MAC-to-MAC communication
    * Layer 3 - Routed network segments with custom IP subnets and gateways
    * Localnet - Direct VLAN access to underlying VPC subnets by using Virtual Network Interface (VNI) attachments
 
@@ -266,7 +267,7 @@ The following items are key characteristics of Layer 2 networks.
 
 * Provide Layer 2 broadcast domains that are created by OVN with IPAM, MAC assignment, and connectivity
 * No built-in DNS resolution for pod names on secondary networks
-* Traffic from the primary Layer 2 network is source NATed when you egress the virtual server and is also routed access to the Layer 2 network that can be configured by using `FRR-K8s` and VPC routes
+* Traffic from the primary Layer 2 network is source network address translated (NATed) when you egress the virtual server and is also routed access to the Layer 2 network that can be configured by using `FRR-K8s` and VPC routes
 * Secondary Layer 2 networks are isolated by default with no direct internet access unless explicitly configured
 * Suitable for virtual server-to-virtual server communication within the cluster and multicast-dependent applications
 
@@ -280,7 +281,7 @@ With VLAN attachments, you can directly attach virtual servers that run on Red H
 Localnet networking requires that each virtual server NIC that is attached to a VPC subnet needs the following requirements:
 
 * A Virtual Network Interface (VNI) resource that defines an IP address that is reserved from the VPC subnet and one or more security groups that control inbound and outbound traffic to the VNI.
-* A bare metal server VLAN attachment. This VLAN attachment defines floating capability whether the attachment can move between worker nodes needs to be enabled for the virtual server to Live Motion to another worker node.
+* A bare metal server VLAN attachment. The floating capability of this VLAN attachment, which determines whether the attachment can move between worker nodes, must be enabled for the virtual server to live migrate to another worker node.
 * A VLAN ID. The VLAN tag associates the PCI interface on the worker nodes. Typically this association is a one-to-one mapping between VLAN ID and VPC subnet.
 
 When you design security group rules for localnet networks, consider that some network switching occurs within OVS on the worker node and never reaches the VPC infrastructure. Security group rules are applied only to traffic that traverses the VPC network fabric. Traffic between virtual servers on the same worker node can bypass VPC security controls.

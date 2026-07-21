@@ -1,6 +1,9 @@
-## Creating a security group
+## Configuring security groups for bastion virtual servers in VPC
 {: #virt-sol-vpc-migration-tutorial-create-security-group}
 {: step}
+
+Learn how to create and configure security groups for bastion virtual servers in a Virtual Private Cloud to enhance security and enable SSH connections.
+{: shortdesc}
 
 Security groups allow SSH connections to the Bastion virtual server.
 

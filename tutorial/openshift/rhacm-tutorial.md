@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs, RHACM observability tutorial, multi-cluster monitoring OpenShift, Grafana dashboard configuration, custom alert rules Prometheus, Thanos metrics collection, Alertmanager notification setup, OpenShift Virtualization monitoring, VM metrics dashboards, Slack alert integration, right-sizing recommendations
+keywords: RHACM observability tutorial, multi-cluster monitoring OpenShift, Grafana dashboard configuration, custom alert rules Prometheus, Thanos metrics collection, Alertmanager notification setup, OpenShift Virtualization monitoring, VM metrics dashboards, Slack alert integration, right-sizing recommendations
 
 
 subcollection: virtualization-solutions
@@ -21,7 +21,7 @@ compliance: HIPPA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Observability with Red Hat Advanced Cluster Management
+# Implementing observability with Red Hat Advanced Cluster Management (RHACM)
 {: #rhacm-overview}
 {: #vsphere-openshift-rhacm}
 {: #tutorial-rhacm-overview}
@@ -32,7 +32,7 @@ compliance: HIPPA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPPA"}
 
-Configure RHACM observability for OpenShift Virtualization: set up Grafana dashboards, create custom alerts, integrate Slack notifications, and monitor VM metrics.
+Set up Red Hat Advanced Cluster Management (RHACM) observability for Red Hat OpenShift Virtualization on IBM Cloud, including Grafana dashboards and custom Prometheus alert rules.
 {: shortdesc}
 
 ## Introduction to Red Hat Openshift Virtualization
@@ -45,7 +45,7 @@ However, RHACM installs through a separate operator on a {{site.data.keyword.red
 By default, {{site.data.keyword.redhat_openshift_notm}} provides several observability options. Without extra operators, you can access basic alerting, monitoring, and logging. {{site.data.keyword.redhat_openshift_notm}} provides a Prometheus-based platform that focuses on critical cluster functions and expands through customization. The following components support observability:
 
 - Cluster Monitoring Operator (CMO) - Manages the observability components
-- Prometheus - Monitors data that is received from the CMO and creates a database engine for metrics
+- Prometheus - Monitors data that is received from the CMO and creates a database engine for metrics.
 - Metrics server - Collects metrics and set up the API service for Thanos
 - Thanos Querier - Provides an interface to collect query metrics
 - Alertmanager - Receives alerts from Prometheus and sends them to external systems

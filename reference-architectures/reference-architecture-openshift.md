@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-29"
+lastupdated: "2026-07-21"
 
-keywords: OpenShift virtualization, Red Hat OpenShift virtualization IBM Cloud, KubeVirt IBM, container virtualization, Kubernetes virtual machines, OpenShift VM workloads, VMware to OpenShift migration, hybrid virtualization platform, OpenShift Data Foundation, ROKS virtualization
+keywords: OpenShift virtualization reference architecture, KubeVirt, container virtualization, Kubernetes virtual machines, OpenShift VM workloads, VMware to OpenShift migration, OpenShift Data Foundation, ROKS virtualization
 
 subcollection: virtualization-solutions # Use deployable-reference-architectures, or the subcollection value from your toc.yaml file if docs-only.
 authors:
@@ -16,13 +16,11 @@ production: false
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Red Hat OpenShift Virtualization Service
+
+# Unified Kubernetes environment for OpenShift for virtualization
 {: #virt-sol-rove-architecture}
 
-[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.
-{: important}
-
-Run virtual machines alongside containers on Red Hat OpenShift using KubeVirt technology. Modernize VMware workloads with Kubernetes orchestration while maintaining VM compatibility on IBM Cloud.
+Deploy virtual machines (VMs) alongside containers on Red Hat OpenShift Virtualization on IBM Cloud Virtual Private Cloud (VPC), using Red Hat OpenShift Data Foundation (ODF) storage and Red Hat Advanced Cluster Management (RHACM) for multi-cluster management.
 {: shortdesc}
 
 Red Hat OpenShift Virtualization servers run on bare metal servers within {{site.data.keyword.cloud_notm}} VPC, which helps provide high performance, security, and network isolation.
@@ -51,7 +49,7 @@ The following table outlines the products or services that are used in the archi
 | [**Security**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) | 3rd party Virtual network functions | 3rd party firewalls |
 | | IBM Cloud Key Protect | IBM Key Protect for IBM Cloud® service helps you provision and store encrypted keys for apps across IBM Cloud services, so you can see and manage data encryption and the entire key lifecycle from one central location. |
 | | IBM Cloud Security and Compliance Center Workload Protection | IBM Cloud Security and Compliance Center Workload Protection to find and prioritize software vulnerabilities, detect and respond to threats, and manage configurations, permissions, and compliance. |
-| [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design) | Red Hat Advanced Cluster Management (RHACM), OADP, and ODF | RHACM, OADP, and ODF are combined to provide disaster recovery replication of persistent volumes and required cluster resources. |
+| [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design) | Red Hat Advanced Cluster Management (RHACM), Red Hat OpenShift API for Data Protection (OADP), and Red Hat OpenShift Data Foundation (ODF) | RHACM, OADP, and ODF are combined to provide disaster recovery replication of persistent volumes and required cluster resources. |
 | | 3rd-party backup options | Self-managed backup options with Red Hat OpenShift Virtualization such as Veeam Kasten K10. |
 | [**Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-openshift-observability-design-overview) | Red Hat Advanced Cluster Management (RHACM) | Visibility and control over a hybrid cloud from a single console. |
 | | Red Hat OpenShift Observability | Information about the performance and health of Red Hat OpenShift Cluster. |
@@ -59,13 +57,13 @@ The following table outlines the products or services that are used in the archi
 | | {{site.data.keyword.cloud_notm}} Monitoring and logs | Agents that are deployed within virtual servers that send logs and metrics to {{site.data.keyword.cloud_notm}} logging and monitoring services. |
 | [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) | Red Hat OpenShift Data Foundation (ODF) | Software-defined storage that provides block, file, and object storage. |
 | | {{site.data.keyword.cloud_notm}} Object Storage | Designed for unstructured data such as backup, archiving, big data analytics, and application data storage. |
-| | {{site.data.keyword.cloud_notm}} File Storage | Persistent, fast, and flexible network-attached, NFS-based File Storage for VPC |
+| | {{site.data.keyword.cloud_notm}} File Storage | Persistent, fast, and flexible network-attached, Network File System (NFS)-based File Storage for VPC |
 | | {{site.data.keyword.cloud_notm}} Key Protect | Provision and store encrypted keys that are used on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service worker nodes and storage. |
 | [**Compute**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design) | Red Hat OpenShift Kubernetes Service worker nodes | Worker nodes can be bare metal or virtual servers. A bare metal is needed to use Red Hat OpenShift Virtualization. |
 | | Bare metal and virtual servers | Bare metal servers are recommended to host Red Hat OpenShift Virtualization. Red Hat supports only bare metal servers for production workloads. \n  You can use virtual servers for container-based workloads. |
 | [**Networking**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) | Open Virtual Networking (OVN), OVN-Kubernetes | Software-defined networking that is used by Red Hat OpenShift. For vSphere administrators, see [OVN networking in OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview). |
 | | Cluster (CUDN) and user-defined networks (UDN) | CUDNs create a network across multiple namespaces. \n A UDN creates a network within a namespace. |
-| | {{site.data.keyword.cloud_notm}} networking | VPC networking, Direct Link, Transit gateways, and VPNs |
+| | {{site.data.keyword.cloud_notm}} networking | VPC networking, Direct Link, Transit gateways, and virtual private networks (VPNs) |
 | | Virtual Network Functions (VNFs) | Virtual firewalls that run on virtual servers. |
 {: caption="Reference Architecture OpenShift Components" caption-side="bottom"}
 

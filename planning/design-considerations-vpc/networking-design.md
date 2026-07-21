@@ -1,9 +1,9 @@
 ---
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Kubernetes Service, VPC, subnets, VPC networking design, VPC subnets, security groups VPC, network ACLs, Application Load Balancer, Network Load Balancer, Virtual Private Endpoints, Transit Gateway, Direct Link VPC, VPN for VPC
+keywords: VPC networking design, VPC subnets, security groups VPC, network ACLs, Application Load Balancer, Network Load Balancer, Virtual Private Endpoints, Transit Gateway, Direct Link VPC, VPN for VPC
 
 subcollection: virtualization-solutions
 
@@ -11,17 +11,17 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Network Design for VPC virtual servers
+# Designing a secure network for IBM Cloud VPC virtual servers
 {: #virt-sol-network-design}
 
-Design VPC networking with subnets, security groups, load balancers (ALB/NLB), Virtual Private Endpoints, Transit Gateway, and Direct Link connectivity.
+Design networking for IBM Cloud Virtual Private Cloud (VPC) virtual servers, covering subnets, security groups, load balancers, Virtual Private Endpoints (VPEs), and external connectivity.
 {: shortdesc}
 
 Networking is the backbone of any cloud architecture and plays a critical role in enabling secure, reliable, and high-performance connectivity for workloads. In IBM Cloud, networking services provide the foundation for virtualization, container orchestration, and hybrid cloud integration, ensuring that applications and data can move seamlessly across environments.
 
 For workload migration and deployment, robust networking capabilities are essential to maintain application availability, security, and compliance. IBM Cloud offers advanced networking features such as Virtual Private Cloud (VPC), subnets, security groups, load balancing, and Direct Link for private connectivity to on-premises environments. These services enable organizations to design architectures that support scalable deployments, multi-zone resilience, and secure interconnectivity across hybrid and multicloud landscapes.
 
-By leveraging IBM Cloud networking, businesses can confidently deploy and migrate workloads while maintaining performance and governance, paving the way for modernization and innovation.
+By using IBM Cloud networking, businesses can confidently deploy and migrate workloads while maintaining performance and governance, paving the way for modernization and innovation.
 
 The key network architecture elements are shown in the following diagram.
 
@@ -42,13 +42,13 @@ See the architecture diagram in [About networking for VPC](/docs/vpc?topic=vpc-a
 ### Load-balancers
 {: #virt-sol-network-design-vpc-networking-lb}
 
-IBM Cloud provides two families of load balancers for VPC: Application Load Balancer (ALB) and Network Load Balancer (NLB), each designed for different use cases and operating at different layers of the OSI model.
+IBM Cloud provides two families of load balancers for VPC: Application Load Balancer (ALB) and Network Load Balancer (NLB), each designed for different use cases and operating at different layers of the Open Systems Interconnection (OSI) model.
 
 **Application Load Balancer (ALB)**
 Application Load Balancer provides layer 7 and layer 4 load balancing on IBM Cloud, but ALBs are primarily intended for layer 7, web-based workloads. ALBs support public and private configurations with Secure Sockets Layer (SSL) offloading capabilities. Key features:
 
 * Layer 7 (application) and Layer 4 (transport) load balancing
-* SSL/TLS termination and offloading
+* Secure Sockets Layer (SSL)/Transport Layer Security (TLS) termination and offloading
 * Content-based routing and URL-based routing
 * HTTP/HTTPS protocol support
 * Cookie-based session affinity
@@ -65,10 +65,10 @@ Choose Application Load Balancer when:
 * Multi-zone high availability with DNS-based failover is acceptable
 
 **Network Load Balancer (NLB)**
-Network Load Balancer provides only layer 4 load balancing on IBM Cloud and does not support SSL offloading  NLB uses Direct Server Return (DSR), where information processed by backend targets is sent directly back to the client, minimizing latency and optimizing throughput performance. Key features:
+Network Load Balancer provides only layer 4 load balancing on IBM Cloud and does not support SSL offloading. NLB uses Direct Server Return (DSR), where information processed by backend targets is sent directly back to the client, minimizing latency and optimizing throughput performance. Key features:
 
 * Layer 4 (transport) load balancing
-* TCP and UDP protocol support
+* Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) protocol support
 * Single, highly available virtual IP (VIP) that can be used directly, instead of through an assigned fully qualified domain name (FQDN)
 * Direct Server Return (DSR) for high-performance data transfer
 * Lower latency compared to ALB

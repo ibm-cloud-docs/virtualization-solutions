@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, IAM, ReFS, RDP, HMAC, SSH, RAM, CPU, IOPS, GB, DNS, SQL, GFS, RTO, Veeam Backup Replication VPC, VBR agent deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, Veeam protection groups VSI, HMAC credentials COS integration, Windows Linux backup agents, VPC backup configuration guide, Veeam VBR IBM Cloud
+keywords: Veeam Backup Replication VPC, VBR agent deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, Veeam protection groups VSI, HMAC credentials COS integration, Windows Linux backup agents, VPC backup configuration guide
 
 
 subcollection: virtualization-solutions
@@ -18,13 +18,13 @@ completion-time: 120m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Configuring Veeam Backup & Replication for IBM Cloud VPC Virtual Servers
+# Configuring Veeam Backup & Replication for IBM Cloud VPC virtual servers
 {: #veeam-vbr-vpc-vsi-configuration}
 {: toc-content-type="tutorial"}
 {: toc-services="vpc, cloud object storage"}
 {: toc-completion-time="120m"}
 
-Deploy Veeam Backup & Replication on VPC: configure SOBR with ReFS and Cloud Object Storage, install agents, create protection groups, automate backups.
+Deploy and configure Veeam Backup & Replication agents on IBM Cloud VPC virtual servers, with IBM Cloud Object Storage as the backup repository.
 {: shortdesc}
 
 ## Objectives
@@ -36,7 +36,7 @@ You learn how to build a production-ready backup infrastructure that combines lo
 
 - Provision a Windows® virtual server for Veeam Backup & Replication server.
 - Install and configure Veeam Backup & Replication.
-- Set up {{site.data.keyword.cos_full_notm}} (COS) as a backup repository.
+- Set up {{site.data.keyword.cos_full_notm}} (Cloud Object Storage, COS) as a backup repository.
 - Configure local disk repositories with Resilient File System (ReFS).
 - Create a scale-out backup repository (SOBR) for tiered storage.
 - Deploy Veeam agents on target virtual servers.
@@ -49,7 +49,7 @@ You learn how to build a production-ready backup infrastructure that combines lo
 Before you begin, ensure that you meet the following prerequisites:
 
 - An {{site.data.keyword.cloud_notm}} account with {{site.data.keyword.vpc_short}} access.
-- Appropriate IBM Cloud Identity and Access Management (IAM) permissions to create and manage VPC resources.
+- Appropriate IBM Cloud Identity and Access Management (IAM) permissions to create and manage virtual private cloud (VPC) resources.
 - A valid Veeam Backup & Replication license (trial or purchased).
 - A basic understanding of backup and recovery concepts.
 - Familiarity with Windows Server administration.
@@ -75,7 +75,7 @@ Use these storage recommendations to improve repository efficiency, reduce conte
 Use these network practices to keep backup traffic efficient, private, and predictable across your VPC environment.
 
 - Use private network connectivity within VPC for all backup traffic.
-- Configure security groups to allow the following Veeam ports:
+- Configure security groups to allow the following Veeam Transmission Control Protocol (TCP) ports:
    - `TCP 2500-3300`: Veeam Backup & Replication services
    - `TCP 6160-6163`: Veeam Agent communication
    - `TCP 9392-9394`: Veeam Backup Enterprise Manager (if used)

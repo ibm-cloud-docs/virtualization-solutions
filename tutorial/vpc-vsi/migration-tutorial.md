@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-15"
+lastupdated: "2026-07-21"
 
-keywords: VMware Cloud Foundation migration, VCFaaS to VPC, VMware to IBM Cloud tutorial, virtual server migration tutorial, VPC migration guide, VMware workload migration, cloud migration tutorial, VCFaaS migration, IBM Cloud VPC tutorial, VCFaaS to VPC migration, VMware workload migration VPC, netcat disk transfer tutorial, virt-v2v Windows conversion, transit gateway VCFaaS VPC, virtIO drivers Windows RHEL, cloud-init VPC configuration, VMware Cloud Director migration, VCFaaS VPC connectivity, Windows RHEL VPC migration
+keywords: VMware Cloud Foundation migration, VCFaaS to VPC, virtual server migration tutorial, VPC migration guide, VMware workload migration, VCFaaS migration, VCFaaS to VPC migration, netcat disk transfer tutorial, virt-v2v Windows conversion, transit gateway VCFaaS VPC, virtIO drivers Windows RHEL, cloud-init VPC configuration, VMware Cloud Director migration, VCFaaS VPC connectivity, Windows RHEL VPC migration
 
 
 subcollection: virtualization-solutions
@@ -18,15 +18,13 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
----
-
-# Migrating from VMware Cloud Foundation as a Service to IBM Cloud Virtual Servers for VPC
+# Migrating VMware Cloud Foundation (VCFaaS) workloads to IBM Cloud virtual servers for VPC
 {: #virt-sol-vcfaas-vpc-migration-tutorial-overview}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-Migrate Windows and RHEL VMs from VCFaaS to IBM Cloud VPC: transfer disks with netcat, convert with virt-v2v, configure transit gateway connectivity.
+Migrate VMware VMware Cloud Foundation as a Service (VCFaaS) Windows and Red Hat Enterprise Linux (RHEL) workloads to IBM Cloud Virtual Servers for VPC using a Transit Gateway private connection.
 {: shortdesc}
 
 {{./../../_include-segments/objective.md}}
@@ -42,7 +40,7 @@ This tutorial requires the following prerequisites.
    - Networks
    - Firewall Rules
    - NAT rules
-   - TGW Connection Group
+   - Transit Gateway (TGW) Connection Group
 
 For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?topic=vmware-service-vmaas-iam&interface=ui).
 
@@ -106,20 +104,20 @@ Use the following steps to configure networking in your VMware Cloud Director (V
       2. For **Source**, click **Edit**. In the **Select source firewall groups** form, specify the following information:
           1. Click **Firewall IP addresses**.
           2. Click **Add**.
-          3. For the new list item that appears, enter `192.168.0.1/24`.
+          3. For the new item that appears, enter `192.168.0.1/24`.
           4. Click **Keep**.
       3. For **Destination**, click **Edit**. In the **Select destination firewall groups** form, specify the following information:
          1. Set **Any destination** to **enabled**.
          2. Click **Keep**.
       4. Click **Save**.
-5. Create a NAT Rule to allow access to the internet from the routed VDC Network
+5. Create a Network Address Translation (NAT) Rule to allow access to the internet from the routed VDC Network
    1. From the side window, click **Data centers**.
    2. From the list of available data centers, select your VDC.
    3. In the **Networking** section, click **Edges**.
    4. Click your Edge Gateway. In the **Services** section, click **NAT**.
    5. Click **New**. Within the **Add NAT rule** form, specify the following information:
       1. For **Name**, enter `outbound-nat`.
-      2. For **NAT action**, enter `SNAT`.
+      2. For **NAT action**, enter `SNAT` (Source Network Address Translation).
       3. For **External IP**, select an IP from the list of available IPs, or request a new one.
       4. For **Internal IP**, enter `192.168.0.0/24`.
       5. Click **Save**.
@@ -402,7 +400,7 @@ Use the following steps to create a transit gateway to securely connect your VCF
 
     2. Close the Web Console window.
 12. Try to reach an IP in the routed VDC network from the VPC.
-    1. SSH into the worker virtual server by running the command that you used previously.
+    1. Secure Shell (SSH) into the worker virtual server by running the command that you used previously.
     2. Verify that you can ping the gateway of the routed VDC Network by running the following command:
 
           `ping 192.168.0.1`
@@ -442,7 +440,7 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
     ```
     {: codeblock}
 
-    2. SCP over the virtio drivers iso file
+    2. Secure Copy Protocol (SCP) over the virtio drivers iso file
 
     ```bash
     scp root@<TEMP_RHEL_VM_IP>:/usr/share/virtio-win/virtio-win.iso /root/virtio-win.iso
@@ -467,7 +465,7 @@ Before you can migrate the virtual server, you must install the necessary driver
 4. Open a Web Console window to the Windows virtual server.
 5. Install the virtIO drivers on the recovery image of the Windows virtual server by following the steps that are in [Making the virtio-win drivers available in the recovery image](/docs/vpc?topic=vpc-create-windows-custom-image#virtio-win-drivers-windows-recovery-image). Use the command prompt, not powershell to run the commands noted in the linked documentation. The driver files added to the recovery image come from mounting the `C:\virtio-win.iso` file that was copied over to the Windows virtual server in an earlier step.
 
-    Keep in mind that if your virtual server has a GPT partition table, you must set the partition IDs to UUIDs, not numbers. Get the correct IDs by displaying the details of the System and Recovery partitions while `diskpart` is running. For more information, see the [documentation on the detail partition command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/detail-partition){: external}.
+    Keep in mind that if your virtual server has a GUID Partition Table (GPT), you must set the partition IDs to UUIDs, not numbers. Get the correct IDs by displaying the details of the System and Recovery partitions while `diskpart` is running. For more information, see the [documentation on the detail partition command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/detail-partition){: external}.
 
     If your virtual server does not show any files in the recovery drive after assigning the recovery partition a drive letter, check the `C:\Windows\System32\Recovery` folder. The Winre.wim file will only appear after disabling `reagentc`. The file will still be hidden and can only be viewed by using the `dir /a` command.
 
@@ -512,7 +510,7 @@ Before you can migrate the virtual server, you must install the necessary driver
        2. Click **Insert**.
    11. Click **Power on** and wait for the virtual server to start.
    12. Click **Launch the web console**. Within the **Web Console**, specify the following information:
-       1. Choose **EFI VMware Virtual IDE CDROM Drive**.
+       1. Choose **Extensible Firmware Interface (EFI) VMware Virtual IDE CDROM Drive**.
        2. Choose **Try or install Ubuntu Server**.
        3. Wait for the language selection screen to load.
        4. Choose **Help**.
@@ -567,7 +565,7 @@ Before you can migrate the virtual server, you must install the necessary driver
 14. Install utils to use the virt-v2v-in-place tool
     1. `apt-get install -y virt-v2v`
     2. `apt-get install -y rhsrvany`
-15. Make a symlink to the mounted Windows boot volume. Note that the virtual server name here corresponds to the example Windows virtual server name that was created in this document. If a virtual server of a different name is being migrated, use the name of that virtual server instead for the `VM_NAME` variable.
+15. Make a symlink to the mounted Windows boot volume. The virtual server name here corresponds to the example Windows virtual server name that was created in this document. If a virtual server of a different name is being migrated, use the name of that virtual server instead for the `VM_NAME` variable.
     ```bash
     VM_NAME=vm-win22
     TARGET_DEV=/dev/<DEV_NAME>
@@ -579,7 +577,7 @@ Before you can migrate the virtual server, you must install the necessary driver
 
     Where
     `<DEV_NAME>` is the name of the block device that you found previously.
-16. Run `virt-v2v-in-place`. Note that the virtio-win.iso file copied over from an eariler step is referenced with the `VIRTIO_WIN` variable here.
+16. Run `virt-v2v-in-place`. The virtio-win.iso file copied over from an earlier step is referenced with the `VIRTIO_WIN` variable here.
     ```bash
     export LIBGUESTFS_BACKEND=direct
     export VIRTIO_WIN=/root/virtio-win.iso
@@ -627,7 +625,7 @@ Before you can migrate the virtual server, you must install the necessary driver
          1. Copy your password.
          2. Click **Discard**.
 22. Log in to the Windows virtual server.
-    1. Display the RDP port of the Windows virtual server through the Bastion virtual server by running the following command:
+    1. Display the Remote Desktop Protocol (RDP) port of the Windows virtual server through the Bastion virtual server by running the following command:
 
        `ssh -L 3389:<WINDOWS_VSI_IP>:3389 <BASTION_VSI_IP> -l root -N`
 
@@ -708,7 +706,7 @@ Use the following information to prepare the RHEL virtual server for migration.
 Before you migrate the RHEL virtual server, understand the Block Storage for {{site.data.keyword.vpc_short}} volumes that this migration uses:
 
 - Boot volumes: The volumes that this tutorial creates are boot volumes that contain the operating system. Boot volumes attach automatically when you create the instance and can range from 10 GB to 32,000 GB, depending on the profile that you use.
-- Volume profiles: This tutorial uses Block Storage for {{site.data.keyword.vpc_short}} volumes. You can choose from traditional tiered profiles (3iops-tier, 5iops-tier, and 10iops-tier) or the SDP (defined performance) profile for custom IOPS and throughput.
+- Volume profiles: This tutorial uses Block Storage for {{site.data.keyword.vpc_short}} volumes. You can choose from traditional tiered profiles (3iops-tier, 5iops-tier, and 10iops-tier) or the Storage Defined Performance (SDP) profile for custom input/output operations per second (IOPS) and throughput.
 - Volume encryption: All volumes are encrypted by default with IBM-managed encryption. You can also use customer-managed encryption with your own root keys.
 - Volume limits: Each account can create up to 300 volumes per region, and each virtual server instance can have up to 12 attached data volumes, plus one boot volume.
 - Performance: Each volume has dedicated performance allocation, which helps prevent "noisy neighbor" issues that are common in shared storage environments.

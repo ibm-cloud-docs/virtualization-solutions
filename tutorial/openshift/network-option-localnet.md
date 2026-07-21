@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-16"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Virtualization, ROKS, VPC, Localnet, CUDN, UDN, VLAN, VNI, OVN
+keywords: Localnet network OpenShift, CUDN configuration, UDN setup, VLAN-backed network OpenShift, VNI networking, OVN Localnet, OpenShift Virtualization networking
 
 subcollection: virtualization-solutions
 
@@ -23,8 +23,10 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
-This tutorial shows how to create an example three-tier application by using Virtual Private Cloud (VPC) subnets, Cluster User-Defined Networks (CUDNs), localnets, and namespaces on {{site.data.keyword.openshiftlong_notm}} on {{site.data.keyword.cloud_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization directly to VPC subnets by using Virtual Local Area Network (VLAN)-backed localnet networks. For more information about network types, see [Open Virtual Network (OVN) networking in {{site.data.keyword.redhat_openshift_notm}} for vSphere&reg; administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
+Attach OpenShift Virtualization VMs to IBM Cloud VPC subnets using CUDN Localnet networks for VLAN-backed, namespace-isolated traffic.
 {: shortdesc}
+
+This tutorial shows how to create an example three-tier application by using Virtual Private Cloud (VPC) subnets, Cluster User-Defined Networks (CUDNs), localnets, and namespaces on {{site.data.keyword.openshiftlong_notm}} on {{site.data.keyword.cloud_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization directly to VPC subnets by using virtual local area network (VLAN)-backed localnet networks. For more information about network types, see [Open Virtual Network (OVN) networking in {{site.data.keyword.redhat_openshift_notm}} for vSphere&reg; administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
 
 ## Overview
 {: #localnet-overview}
@@ -63,7 +65,7 @@ Make sure that you have the following items in place:
 - The {{site.data.keyword.cloud_notm}} CLI is installed.
 - The `container-service` and `vpc-infrastructure` plug-ins installed.
 
-The `container-service` plug-in provides the `ic ks` commands that the guide uses to attach VLAN virtual network interfaces (VNIs) to the cluster. The `vpc-infrastructure` plug-in provides the `ic is` commands that the guide uses to create VPC subnets, virtual network interfaces, and other infrastructure.
+The `container-service` plug-in provides the `ic ks` commands that the guide uses to attach VLAN virtual network interfaces (VNIs) to the cluster. The `vpc-infrastructure` plug-in provides the `ic is` commands that the guide uses to create VPC subnets, virtual network interfaces (VNIs), and other infrastructure.
 
 If you need to install the required CLI plug-ins, use the following commands.
 

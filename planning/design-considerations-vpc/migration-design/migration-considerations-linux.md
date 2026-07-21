@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, Linux migration IBM Cloud, VirtIO drivers Linux, migrate Linux to VPC, cloud-init migration, Linux network configuration, VMware to IBM Cloud Linux, RHEL migration VPC, Ubuntu migration VPC, Linux partition migration, Linux file system migration
+keywords: Linux migration VPC, VirtIO drivers Linux, migrate Linux to VPC, cloud-init migration, Linux network configuration, RHEL migration VPC, Ubuntu migration VPC, Linux partition migration, Linux file system migration
 
 
 subcollection: virtualization-solutions
@@ -13,12 +13,12 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Linux migration considerations
+# Linux migration considerations for moving to IBM Cloud VPC
 {: #virt-sol-vpc-migration-design-linux}
 
 
 
-Plan Linux migrations to IBM Cloud VPC by verifying VirtIO drivers, configuring cloud-init, adjusting network settings, and managing partition tables.
+Review Linux migration considerations for IBM Cloud VPC, including VirtIO driver verification, cloud-init configuration, and network settings.
 {: shortdesc}
 
 Before you start a migration, consider the following information.
@@ -36,7 +36,7 @@ The following Linux distributions include VirtIO drivers in the kernel:
 - Debian: 8 and later
 - SUSE: 12 and later
 
-Use the following command to verify drivers are present.
+Use the following command to verify that the VirtIO drivers are present.
 
 ```bash
 lsmod | grep virtio
@@ -73,14 +73,14 @@ In VMware, your interface might be named:
 - `ens192` (systemd predictable naming)
 - `eth0` (traditional naming)
 
-In VPC, it might change to:
+In VPC, it can change to:
 
 - `ens3` or `ens33` (common in VirtIO environments)
 - `eth0` (if you use traditional naming conventions)
 
 To resolve Static IP configuration, use the following information:
 
-- NetworkManager-based (RHEL 7+ or newer Ubuntu versions)
+- NetworkManager-based (Red Hat Enterprise Linux (RHEL) 7+ or newer Ubuntu versions)
 
    ```bash
    # Identify new interface name
@@ -129,14 +129,14 @@ If you use DHCP, the configuration is automatic, but you might need to update in
 
 
 
-Cloud-init is used to initialize cloud instances, typically used with image templates. It runs on the first boot to do the following actions:
+Cloud-init is used to initialize cloud instances, typically used with image templates. The tool runs on the first boot to do the following actions:
 
 - Set a hostname
 - Configure networking
 - Create users and SSH keys
 - Run custom scripts
 
-Migration context: If cloud-init is installed on your migrated virtual server, VPC might treat the first boot as a "first boot", which triggers the following actions:
+Migration context: If cloud-init is installed on your migrated virtual server, VPC can treat the first boot as a first boot, which triggers the following actions:
 
 - Hostname changes
 - Network reconfiguration
@@ -165,7 +165,7 @@ sudo touch /etc/cloud/cloud-init.disabled
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions2}
 
 - Useful if you want VPC to auto-configure networking through DHCP
-- Might require manual adjustments post-boot (hostname, users)
+- might require manual adjustments post-boot (hostname, users)
 
 ### Option 3: Configure cloud-init
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
@@ -184,7 +184,7 @@ For individual VM migrations (not template deployments), disable cloud-init to p
 Partition table verification: After you transfer the disks, use the following command to verify that the partition tables are intact:
 
 ```bash
-# On worker VSI after transfer
+# On worker virtual server instance (VSI) after transfer
 fdisk -l /dev/vdb
 
 # For GPT
@@ -228,6 +228,6 @@ If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
 ## fstrim and Thin Provisioning
 {: #virt-sol-vpc-migration-design-linux-fstrim}
 
-In VMware, you might use `fstrim` to reclaim unused space in thin-provisioned VMDKs. In VPC, all volumes are thin-provisioned at the storage layer, but fstrim has no effect on space reclamation in VPC. Keep in mind that fstrim doesn't free up storage.
+In VMware, you can use `fstrim` to reclaim unused space in thin-provisioned VMDKs. In VPC, all volumes are thin-provisioned at the storage layer, but fstrim has no effect on space reclamation in VPC. Keep in mind that fstrim doesn't free up storage.
 
 Existing fstrim cron jobs can stay in place or remove them to avoid unnecessary I/O.

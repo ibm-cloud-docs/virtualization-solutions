@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, pre-migration planning VPC, workload assessment migration, VMware discovery tools, Transit Gateway connectivity, instance profile selection, VPC storage profiles, migration re-IP planning, security group migration, RVTools VMware inventory, BYOL VPC migration
+keywords: pre-migration planning VPC, workload assessment migration, VMware discovery tools, Transit Gateway connectivity, instance profile selection, VPC storage profiles, migration re-IP planning, security group migration, RVTools VMware inventory, BYOL VPC migration
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Pre-migration design
+# Planning and designing your pre-migration to IBM Cloud VPC
 {: #virt-sol-vpc-migration-design-premigration}
 
-Plan VMware to VPC migrations with workload assessment, Transit Gateway connectivity, instance profile selection, storage planning, and security group configuration.
+Assess VMware workloads, design Transit Gateway connectivity, and select VPC instance profiles before migrating to IBM Cloud VPC.
 {: shortdesc}
 
 ## Workload assessment and categorization
@@ -30,7 +30,7 @@ Before you begin your migration, you need to understand what you have beyond an 
 To extract your VMware inventory, you can use extraction tools such as RVTools. For each virtual server, keep the following information in mind.
 
 - Identify dependencies. What does this virtual server communicate with? Can the virtual server migrate independently?
-- Network characteristics. Does the environment use a static IP or DHCP? Does it have multiple NICs? Does the environment have specific VLAN requirements?
+- Network characteristics. Does the environment use a static IP or Dynamic Host Configuration Protocol (DHCP)? Does it have multiple network interface cards (NICs)? Does the environment have specific virtual local area network (VLAN) requirements?
 - Storage layout. How many disks does the environment have? What is the current IOPS usage? What is the total capacity?
 - Performance baseline. What CPUs, memory, network, and storage options are used?
 - Application characteristics. Do you have databases? Does the environment host a web server? Can the environment support a [cold migration](https://blogs.vmware.com/cloud-foundation/2019/12/10/hot-and-cold-migrations-which-network-is-used/){: external}?
@@ -70,7 +70,7 @@ From VMware on NSX (Classic with NSX Overlay)
 - You configure GRE endpoints on your NSX edges and in Transit Gateway
 - Routing propagates between NSX segments and VPC subnets
 
-From VCF as a Service (VCFaaS)
+From VMware Cloud Foundation as a Service (VCFaaS)
 
 - Transit Gateway connects to your VCFaaS edge through GRE tunnels
 - A similar pattern is followed to NSX, but managed through the VCFaaS portal
@@ -85,12 +85,12 @@ Design considerations
 ## Instance profile selection
 {: #virt-sol-vpc-migration-design-premigration-instance}
 
-Instance profiles combine CPU generation, vCPU count, memory, network bandwidth, and maximum network interfaces. These profiles are different from VMware where vCPUs and RAM are independently set.
+Instance profiles combine CPU generation, virtual central processing unit (vCPU) count, memory, network bandwidth, and maximum network interfaces. These profiles are different from VMware where vCPUs and RAM are independently set.
 
 ### Understanding vCPU to pCPU ratios
 {: #virt-sol-vpc-migration-design-premigration-instance-vcpu}
 
-VMware uses oversubscription ratios of 4:1 or 8:1 for vCPU to pCore. VPC standard instance profiles guarantee a 1:1 ratio of virtual CPUs to hyperthreaded cores. This oversubscription means that an 8 vCPU instance in VPC has 8 dedicated hyperthreads (not 8 vCPUs that can potentially share fewer cores).
+VMware uses oversubscription ratios of 4:1 or 8:1 for vCPU to physical core (pCore). VPC standard instance profiles guarantee a 1:1 ratio of virtual CPUs to hyperthreaded cores. This oversubscription means that an 8 vCPU instance in VPC has 8 dedicated hyperthreads (not 8 vCPUs that can potentially share fewer cores).
 
 IBM Cloud offers burstable virtual servers that you can use for oversubscription ratios of 2:1, 4:1, and 10:1, with the ability to burst up to 2x the guaranteed allocation. For more information about burstable virtual servers, see [Burstable virtual servers](/docs/vpc?topic=vpc-burstable-virtual-servers).
 
@@ -153,7 +153,7 @@ If you use the VMware distributed firewall (DFW) or NSX micro-segmentation, you 
 VPC security group details:
 
 - Security groups are stateful, which automatically allows return traffic.
-- You can assign multiple security groups to a VNI while traffic is allowed.
+- You can assign multiple security groups to a virtual network interface (VNI) while traffic is allowed.
 - Rules can reference the security group as the source or destination that means that members of this group can talk to each other on these ports.
 - No explicit deny rules exist. Security groups are allow-only.
 
@@ -172,7 +172,7 @@ If you use vSAN encryption, encrypted VMDKs, or guest OS encryption, you need to
 
 VPC encryption details:
 
-- All volumes support encryption at rest by provider-managed or user-managed keys through Key Protect or HPCS.
+- All volumes support encryption at rest by provider-managed or user-managed keys through Key Protect or Hyper Protect Crypto Services (HPCS).
 - Confidential computing profiles offer extra security with Intel SGX and TDX and secure boot.
 - Data in transit between virtual servers and storage is encrypted by the IBM Cloud infrastructure.
 

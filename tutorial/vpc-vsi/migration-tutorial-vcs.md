@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-15"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes, VMware VCS to VPC migration, virtual machine disk transfer, virt-v2v conversion tool, transit gateway VCS VPC, virtIO drivers Windows RHEL, NSX firewall configuration, Ubuntu live boot migration, netcat disk transfer, cloud-init configuration, VMware workload migration
+keywords: VMware VCS to VPC migration, virtual machine disk transfer, virt-v2v conversion tool, transit gateway VCS VPC, virtIO drivers Windows RHEL, NSX firewall configuration, Ubuntu live boot migration, netcat disk transfer, cloud-init configuration, VMware workload migration
 
 
 subcollection: virtualization-solutions
@@ -18,13 +18,13 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating from VMware Cloud Foundation for Classic to IBM Cloud Virtual Servers for VPC
+# Migrating VMware VCF for Classic workloads to IBM Cloud virtual servers for VPC
 {: #virt-sol-vcs-vpc-migration-tutorial-overview}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-Migrate VMs from VMware Cloud Foundation to IBM Cloud VPC: configure transit gateway, transfer disks with netcat, convert with virt-v2v, and deploy on VPC.
+Migrate VMware VCF for Classic workloads to IBM Cloud Virtual Servers for VPC using a Transit Gateway connection.
 {: shortdesc}
 
 {{./../../_include-segments/objective.md}}
@@ -35,13 +35,13 @@ Migrate VMs from VMware Cloud Foundation to IBM Cloud VPC: configure transit gat
 This tutorial requires the following prerequisites.
 
 * An available VMware&reg; vCenter Server&reg; (VCS) instance.
-* Virtual Private Network (VPN) access to your VCS instance configured by using the [instructions](/docs/vmwaresolutions?topic=vmwaresolutions-trbl_timeout_vc_console).
+* Virtual Private Network (VPN) access to your VMware vCenter Server (VCS) instance configured by using the [instructions](/docs/vmwaresolutions?topic=vmwaresolutions-trbl_timeout_vc_console).
 * The correct access policies to manage VCS environments and the ability to create the following VCS resources. For more information, see [Managing Identity and Access Management (IAM) access for VCS](/docs/vmwaresolutions?topic=vmwaresolutions-iam&interface=ui).
    - Virtual machines
    - Networks
    - Firewall rules
    - Network Address Translation (NAT) rules
-   - Transit gateway connection groups
+   - Transit Gateway connection groups
 
 
 {{./../../_include-segments/access.md}}
@@ -66,7 +66,7 @@ Use the following steps to configure networking in your {{site.data.keyword.vmwa
    2. From the **Navigation menu**, click **VMware > Resources > VCF for Classic**.
    3. From the list of available resources, select your VCS instance.
    4. Go to **Access information**.
-   5. Under **NSX Manager**, copy **http** credentials and **Fully Qualified Domain Name (FQDN)**.
+   5. Under **NSX Manager**, copy **HTTP** credentials and **Fully Qualified Domain Name (FQDN)**.
 2. Find the available Internet Protocol (IP) address for private Source Network Address Translation (SNAT).
    1. Log in to the {{site.data.keyword.cloud_notm}} console.
    2. From the **Navigation menu**, click **VMware > Resources > VCF for Classic**.

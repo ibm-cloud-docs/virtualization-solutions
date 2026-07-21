@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: OpenShift virtualization storage, Red Hat OpenShift Data Foundation, ODF storage, Ceph storage OpenShift, NVMe storage bare metal, PersistentVolumes OpenShift, File Storage VPC, IBM Cloud Object Storage, block storage encryption, storage classes OpenShift
+keywords: OpenShift virtualization storage, ODF storage, Ceph storage OpenShift, NVMe storage bare metal, PersistentVolumes OpenShift, File Storage VPC, IBM Cloud Object Storage, block storage encryption, storage classes OpenShift
 
 subcollection: virtualization-solutions
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Storage design for Red Hat OpenShift Virtualization
+# Designing storage for Red Hat OpenShift virtualization on IBM Cloud
 {: #virt-sol-openshift-storage-design-overview}
 
-Deploy OpenShift virtualization storage using Red Hat OpenShift Data Foundation with NVMe, File Storage for VPC, and IBM Cloud Object Storage for persistent volumes.
+Design storage for Red Hat OpenShift Virtualization on IBM Cloud, including ODF, block storage, file storage, and IBM Cloud Object Storage.
 {: shortdesc}
 
 The key storage architecture elements are shown in the following diagram.
@@ -34,7 +34,7 @@ Red Hat OpenShift on IBM Cloud offers integrated add-ons for Red Hat OpenShift D
 
 Red Hat OpenShift Data Foundation (ODF) provides persistent, software-defined storage for containerized applications. It delivers highly available and scalable storage by combining object, block, and file storage under a unified platform. ODF offers features such as snapshots, replication, and scalable storage management and are integrated with the Red Hat OpenShift console and APIs. This integration help you manage storage across diverse workloads.
 
-The primary storage option for Red Hat OpenShift Virtualization is Red Hat OpenShift Data Foundation. This highly available storage solution consists of several open source operators and technologies such as Ceph, NooBaa, and Rook. These operators are used to provision and manage file, block, and object storage for your clusters by using storage classes.
+The primary storage option for Red Hat OpenShift Virtualization is Red Hat OpenShift Data Foundation. This highly available storage solution consists of several open-source operators and technologies such as Ceph, NooBaa, and Rook. These operators are used to provision and manage file, block, and object storage for your clusters by using storage classes.
 
 ODF abstracts your underlying storage, and you can use ODF to create file, block, or object storage claims from the same underlying raw block storage. In virtualization, ODF uses local NVMe disks on bare metal servers to create a performant virtualized storage layer, where your application data is replicated in multiples of 3 (typically) for high availability by default. ODF with Red Hat OpenShift Virtualization is especially critical if you want to use disaster recovery (DR) capabilities for your VM workloads.
 
@@ -58,16 +58,16 @@ You can use {{site.data.keyword.cos_full_notm}} with backup solutions, or other 
 ### File Storage for VPC
 {: #virt-sol-openshift-storage-file-summary}
 
-You can use File Storage for VPC, which is a network-attached storage with NFS support.
+You can use File Storage for VPC, which is a network-attached storage with Network File System (NFS) support.
 
-IBM Cloud File Storage for VPC is a persistent, fast, and flexible network-attached, NFS-based storage option. You can add IBM Cloud File Storage to your applications by using persistent volumes claims (PVCs). You can choose between predefined storage classes that provide the required capacity in GB and IOPS.
+IBM Cloud File Storage for VPC is a persistent, fast, and flexible network-attached, NFS-based storage option. You can add IBM Cloud File Storage to your applications by using persistent volumes claims (PVCs). You can choose between predefined storage classes that provide the required capacity in GB and input/output operations per second (IOPS).
 
 * All file shares are provisioned with zonal availability.
 * All classes support cross-zone mounting.
 
 Data on a file share is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys. For more information, see [About File Storage for VPC](/docs/vpc?topic=vpc-file-storage-vpc-about) and [About File Storage for VPC > Securing your data](/docs/vpc?topic=vpc-file-storage-vpc-about&interface=ui#fs-data-security).
 
-For NFS-based file share needs, you can also use the NFS storage that is built into the ODF clusters. The key differences here are that File Storage for VPC is managed by IBM Cloud, while NFS storage is built in the ODF clusters and is on self-managed on {{site.data.keyword.redhat_openshift_notm}} managed worker nodes. The IOPS and GB settings are independent of your clusters. Depending on the use case, you can use both of these options.
+For NFS-based file share needs, you can also use the NFS storage that is built into the ODF clusters. The key differences here are that File Storage for VPC is managed by IBM Cloud, while NFS storage is built in the ODF clusters and is on self-managed on {{site.data.keyword.redhat_openshift_notm}} managed worker nodes. The IOPS (input/output operations per second) and GB settings are independent of your clusters. Depending on the use case, you can use both of these options.
 
 For Red Hat OpenShift Virtualization workloads that use VPC File storage, keep the following considerations in mind:
 
@@ -78,7 +78,7 @@ For Red Hat OpenShift Virtualization workloads that use VPC File storage, keep t
 
 To deploy the File storage shares for VPC add-on on your {{site.data.keyword.redhat_openshift_notm}} cluster, see [Enabling the IBM Cloud File Storage for VPC cluster add-on](/docs/openshift?topic=openshift-storage-file-vpc-install).
 
-The add-on automatically installs the PersistentVolume provisioner `vpc.file.csi.ibm.io` and creates a set of StorageClasses that are named `ibmc-vpc-file-*`. Each option offers different IOPS tiers and varying reclaim and binding policies. For the full list of available StorageClasses and detailed explanations of their parameters, see [Storage class reference](/docs/openshift?topic=openshift-storage-file-vpc-sc-ref).
+The add-on automatically installs the PersistentVolume provisioner `vpc.file.csi.ibm.io` and creates a set of StorageClasses that are named `ibmc-vpc-file-*`. Each option offers different IOPS (input/output operations per second) tiers and varying reclaim and binding policies. For the full list of available StorageClasses and detailed explanations of their parameters, see [Storage class reference](/docs/openshift?topic=openshift-storage-file-vpc-sc-ref).
 
 ### Block Storage for VPC
 {: #virt-sol-openshift-storage-block-summary}

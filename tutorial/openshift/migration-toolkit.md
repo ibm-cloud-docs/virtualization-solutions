@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, MTV, Migration, Migration Toolkit Virtualization, VMware vSphere migration, OpenShift Virtualization migration, MTV tutorial, VDDK image setup, warm migration cold migration, vCenter ESXi migration, VM migration prerequisites, migration plan configuration, VMware to OpenShift
+keywords: Migration Toolkit for Virtualization, MTV, VMware vSphere migration, OpenShift Virtualization migration, MTV tutorial, VDDK image setup, warm migration cold migration, vCenter ESXi migration, VM migration prerequisites, migration plan configuration, VMware to OpenShift
 
 subcollection: virtualization-solutions
 
@@ -20,7 +20,7 @@ compliance: HIPAA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrate from VMware to Red Hat OpenShift Virtualization Tutorial
+# Migrate VMware VMs to Red Hat OpenShift Virtualization using MTV
 {: #vsphere-openshift-migration}
 {: #tutorial-rove-migration-toolkit}
 {: toc-content-type="tutorial"}
@@ -30,7 +30,7 @@ compliance: HIPAA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPAA"}
 
-Migrate VMs from VMware vSphere to OpenShift Virtualization with MTV: install operator, configure VDDK, create migration plans, and execute warm/cold migrations.
+Use the Migration Toolkit for Virtualization (MTV) to migrate VMware vSphere virtual machines (VMs) to Red Hat OpenShift Virtualization on IBM Cloud.
 {: shortdesc}
 
 ## Migration Toolkit for Virtualization
@@ -61,7 +61,7 @@ The following network prerequisites apply across all migrations:
 
 - Network Stability: The network connections between the source environment and the OpenShift Virtualization cluster must be reliable and uninterrupted.
 - Configuration Integrity: IP addresses, VLANs, and other network configuration settings must not be changed during migration, as the VM's MAC addresses are preserved.
-- Network Address Uniqueness: If you are migrating workloads from {{site.data.keyword.cloud_notm}} classic infrastructure, connect your VPC to the classic infrastructure by using {{site.data.keyword.cloud_notm}} Transit Gateway. When you create the VPC to host your workloads, ensure that the network address prefixes do not overlap with prefixes used by other VPCs connected to your {{site.data.keyword.cloud_notm}} classic infrastructure. It is recommended that when you create your VPC, deselect the **Create a default prefix for each zone** checkbox because the default prefix remains the same across VPCs and can introduce routing conflicts. After the VPC is created, you can configure address prefixes and subnets as needed.
+- Network Address Uniqueness: If you are migrating workloads from {{site.data.keyword.cloud_notm}} classic infrastructure, connect your VPC to the classic infrastructure by using {{site.data.keyword.cloud_notm}} Transit Gateway. When you create the VPC to host your workloads, ensure that the network address prefixes do not overlap with prefixes used by other VPCs connected to your {{site.data.keyword.cloud_notm}} classic infrastructure. When you create your VPC, deselect the **Create a default prefix for each zone** checkbox because the default prefix remains the same across VPCs and can introduce routing conflicts. After the VPC is created, you can configure address prefixes and subnets as needed.
 - Destination Networks: If multiple source and destination networks are mapped, a network attachment definition must be created for each additional destination network.
 - Required Ports: Firewalls must permit traffic over specific ports based on the source provider:
 - VMware vSphere: TCP ports 443 (for inventory and disk transfer authentication) and 902 (for disk transfer data copy) from OpenShift nodes to VMware vCenter/ESXi hosts.
@@ -73,9 +73,9 @@ The following network prerequisites apply across all migrations:
 Prerequisites for source VMs across all migrations include:
 
 - Media Status: ISO images and CD-ROMs must be unmounted.
-- IP Addressing: Each NIC must contain either an IPv4 address or an IPv6 address, and may utilize both.
+- IP Addressing: Each NIC must contain either an IPv4 address or an IPv6 address, and can utilize both.
 - OS Certification: The VM operating system must be certified and supported for conversion as a guest operating system.
-- Boot Features: Virtual machines with Secure Boot enabled currently might not be migrated automatically, as this prevents them from booting on the destination provider. The current workaround for this issue is to disable Secure Boot on the destination.
+- Boot Features: Virtual machines with Secure Boot enabled currently cannot be migrated automatically, as this prevents them from booting on the destination provider. The current workaround for this issue is to disable Secure Boot on the destination.
 
 ### VM Naming
 {: #vm-naming}
@@ -119,14 +119,14 @@ The user performing the migration must be logged in with at least the minimal se
 ### Warm Migration Requirement
 {: #warm-migration-requirement}
 
-To run a warm migration, you must enable changed block tracking (CBT) on the VM and on each individual VM disk. The incremental copying during the precopy stage relies on CBT snapshots. A single VM supports up to 28 CBT snapshots.
+To run a warm migration, you must enable changed block tracking (CBT) on the virtual machine (VM) and on each individual VM disk. The incremental copying during the precopy stage relies on CBT snapshots. A single VM supports up to 28 CBT snapshots.
 
 It is also strongly recommended to disable hibernation for all VMs because MTV does not support migrating hibernated VMs, and migration will fail if hibernation is not disabled.
 
 ### ESXi Host Configuration
 {: #esxi-host-configuration}
 
-If a migration plan involves migrating more than 10 VMs concurrently from a single ESXi host, you must increase the Network File Copy (NFC) service memory of that host.
+If a migration plan involves migrating more than 10 VMs concurrently from a single ESXi (VMware vSphere hypervisor) host, you must increase the Network File Copy (NFC) service memory of that host.
 
 - This is necessary because the NFC service memory defaults to supporting only 10 parallel connections.
 - The required modification involves changing the `maxMemory` value to `1000000000` (1 GB) and restarting the `hostd` service.
@@ -141,7 +141,7 @@ For more information, see [Source virtual machine prerequisites](https://docs.re
 {: #installation-configuration}
 {: step}
 
-The MTV Operator, which includes the MTV plugin for the Red Hat OpenShift web console, can be installed using either the Red Hat OpenShift web console or the command-line interface (CLI).
+The MTV Operator, which includes the MTV plugin for the Red Hat OpenShift web console, can be installed by using either the Red Hat OpenShift web console or the command-line interface (CLI).
 
 The following prerequisites must be met:
 
@@ -206,7 +206,7 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 
 1. Other Settings (Optional)
 
-   - Disk decryption passphrases: Enter passphrases for Linux Unified Key Setup (LUKS) encrypted devices.
+   - Disk decryption passphrases: Enter passphrases for Linux Unified Key Setup (LUKS)-encrypted devices.
    - Transfer Network: Optionally override the provider's default transfer network. Note: If the OpenShift transfer network MTU is changed, the VMware migration network MTU must also be adjusted.
    - Preserve static IPs: Select this checkbox to attempt to preserve static IP addresses, mitigating loss due to vNIC changes during migration.
    - Root device: For multi-boot VMs, manually specify the disk location for the root device (e.g., `/dev/sdb2`).
@@ -260,7 +260,7 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 
 1. Important Restriction
 
-   - Do not take a snapshot of a VM after the migration has started, as this may cause the migration to fail.
+   - Do not take a snapshot of a VM after the migration has started, as this can cause the migration to fail.
 
 1. Post-Migration Activities
 
@@ -277,7 +277,7 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 
  1. Networking, Storage, and Host Tuning for Migration Throughput
 
-   - Ensure Fast Networking and Storage: Both VMware and Red Hat OpenShift (OCP) environments require fast storage and network speeds.
+   - Ensure Fast Networking and Storage: Both VMware and Red Hat OpenShift Container Platform (OCP) environments require fast storage and network speeds.
    - High Throughput: VMware network connectivity should offer high throughput (at least 10 Gigabit Ethernet or 10 GiB network connection) to ensure reception rates align with ESXi datastore read rates.
    - Observed Speeds: Average network transfer rates observed were 200 to 325 MiB/s from the vmnic for each ESXi host.
    - Host Settings: Set ESXi Hosts BIOS profiles and Host Power Management settings to High Performance where possible. This showed an increase of 15 MiB in the average datastore read rate when transferring more than 10 VMs.
@@ -304,14 +304,14 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 1. Large Disks (1 TB+)
 
    - Prioritization: Treat migrations involving large disks as a special case; prioritize MTV activities and ensure no other heavy network or storage activities run concurrently.
-   - High Churn VMs: For large VMs with a high churn rate (100 GB+ data change between snapshots), consider reducing the default 60-minute warm migration `controller_precopy_interval`. This process must start at least 24 hours before the scheduled cutover.
+   - High Churn VMs: For large VMs with a high churn rate (100 GB+ data change between snapshots), consider reducing the default 60-minute warm migration `controller_precopy_interval`. This change must be made at least 24 hours before the scheduled cutover.
    - Cold vs. Warm: If some downtime is possible, choose cold migration over warm migration for particularly large single-disk VMs, especially due to potentially large VM snapshots.
    - Databases: For large database disks with continuous writes where snapshots are impossible, consider using database vendor-specific replication options outside of MTV.
 
-1. AIO Buffering (Cold Migration Only)
+1. Asynchronous Input/Output (AIO) Buffering (Cold Migration Only)
 
-   - Function: Asynchronous Input/Output (AIO) buffering changes Network Block Device (NBD) transport network file copy (NFC) parameters to potentially increase cold migration performance.
-   - Cold Migration Requirement: AIO buffering is suitable only for cold migration use cases and must be disabled before initiating warm migrations.
+   - Function: AIO buffering changes Network Block Device (NBD) transport Network File Copy (NFC) parameters to potentially increase cold migration performance.
+   - Cold Migration Requirement: AIO buffering is suitable only for cold migration use cases and you must disable it before initiating warm migrations.
 
 ### Troubleshooting
 {: #troubleshooting}

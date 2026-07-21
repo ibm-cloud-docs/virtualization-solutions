@@ -1,6 +1,9 @@
-## Creating a virtual server
+## Creating a virtual server for VPC migration
 {: #virt-sol-vpc-migration-tutorial-create-virtual-server}
 {: step}
+
+Learn how to create a worker virtual server for running migrations in IBM Cloud VPC.
+{: shortdesc}
 
 Use these steps to create a worker virtual server that is used to run migrations.
 
@@ -15,7 +18,7 @@ Use these steps to create a worker virtual server that is used to run migrations
 6. In the **Details** section, for **Name**, enter `vpc-migration-vsi-worker`.
 7. In the **Server configuration** section, specify the following information:
    - For **Image**, click **Change image**.
-   - The **Select an image** form appears where you take the following actions:
+   - The **Select an image** form is displayed where you take the following actions:
        1. Search for **Ubuntu**.
        2. Select **ibm-ubuntu-24-04-3-minimal-amd64-4** from the list of results and click **Save**.
    - For **SSH keys**, click **Create an SSH key** and in the Create an SSH key form, take the following actions:

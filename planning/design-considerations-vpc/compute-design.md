@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, VPC virtual server profiles, IBM Cloud VSI compute, instance profiles VPC, balanced compute profiles, memory-optimized instances, compute-optimized VPC, GPU instances VPC, dedicated host VPC, auto-scaling instance groups, VPC compute design
+keywords: VPC virtual server profiles, instance profiles VPC, balanced compute profiles, memory-optimized instances, compute-optimized VPC, GPU instances VPC, dedicated host VPC, auto-scaling instance groups, VPC compute design
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Compute Design for VPC virtual servers
+# Designing compute for IBM Cloud VPC virtual servers
 {: #virt-sol-vpc-compute-design-overview}
 
-Design VPC compute with virtual server profiles: balanced, compute-optimized, memory-optimized, and GPU options with flexible scaling and dedicated hosts.
+Explore IBM Cloud VPC compute options including virtual servers, bare metal servers, dedicated hosts, GPU instances, and auto-scaling groups.
 {: shortdesc}
 
 IBM Cloud VPC provides a comprehensive portfolio of compute options designed to support diverse workloads, from traditional applications to modern cloud-native solutions. These offerings deliver flexibility, scalability, and enterprise-grade security, enabling organizations to deploy workloads across virtualized, containerized, and bare metal environments.
@@ -43,8 +43,8 @@ The following tables lists the key features for IBM Cloud Virtual Servers for VP
 | -------------- | -------------- |
 | Customizable profiles | Balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations |
 | Flexible tenancy | Shared tenancy infrastructure with optional dedicated host placement for compliance requirements |
-| Advanced networking | Integration with VPC Security Groups, Network ACLs, Load Balancers, and VPN connectivity |
-| Persistent storage | IBM Cloud Block Storage and File Storage for VPC with configurable IOPS and encryption |
+| Advanced networking | Integration with VPC Security Groups, Network access control lists (ACLs), Load Balancers, and virtual private network (VPN) connectivity |
+| Persistent storage | IBM Cloud Block Storage and File Storage for VPC with configurable input/output operations per second (IOPS) and encryption |
 | Operating system flexibility | IBM-provided stock images or bring-your-own custom images |
 | Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
 {: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-13"
+lastupdated: "2026-07-21"
 
-keywords: Hyper-V, VPC, VSI, cloud infrastructure, Virtual Machines, Hyper-V deployment tutorial, VPC bare metal servers, Hyper-V failover cluster, Storage Spaces Direct, Active Directory VPC, Cluster Shared Volumes, live migration Hyper-V, Windows Server 2025, BYOL Hyper-V, Hyper-V cluster configuration
+keywords: Hyper-V deployment tutorial, VPC bare metal servers, Hyper-V failover cluster, Storage Spaces Direct, Active Directory VPC, Cluster Shared Volumes, live migration Hyper-V, Windows Server 2025, BYOL Hyper-V, Hyper-V cluster configuration
 
 subcollection: virtualization-solutions
 
@@ -17,13 +17,13 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Deploying and configuring a Hyper-V cluster on IBM Cloud VPC
+# Deploying and configuring a Hyper-V cluster on IBM Cloud VPC infrastructure
 {: #virt-sol-hyperv-on-vpc-tutorial}
 {: toc-content-type="tutorial"}
 {: toc-services="Hyper-V, VPC VSI, VPC Bare-metal"}
 {: toc-completion-time="60m"}
 
-Tutorial: Deploy Hyper-V cluster on VPC bare metal servers with failover clustering, Storage Spaces Direct, Active Directory integration, and VM migration.
+Deploy a Hyper-V cluster on IBM Cloud VPC bare metal servers with Active Directory, network setup, live migration, and failover clustering.
 {: shortdesc}
 
 Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built into the Windows&reg; Server and Windows operating system. Hyper-V on {{site.data.keyword.vpc_short}} provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale on Windows-based environments that are hosted on bare metal servers within the {{site.data.keyword.vpc_short}} isolated and secured private cloud.
@@ -33,7 +33,7 @@ Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built
 
 This tutorial guides you through deploying and configuring a Hyper-V cluster on {{site.data.keyword.vpc_short}} infrastructure. You learn how to set up the required network infrastructure, deploy virtual servers for Active Directory and management, create bare metal servers for the Hyper-V cluster, and configure highly available virtual machines. The tutorial also covers live migration and failover testing to help ensure business continuity.
 
-Currently, Hyper-V on {{site.data.keyword.vpc_short}} follows the Bring Your Own License (BYOL) model. Customers need to bring their own Windows Server 2025 Datacenter license for activating the bare metal server operating system (OS).
+Currently, Hyper-V on {{site.data.keyword.vpc_short}} follows the Bring Your Own License (BYOL) model. You need to bring your own Windows Server 2025 Datacenter license for activating the bare metal server operating system (OS).
 {: attention}
 
 ## Key benefits
@@ -44,7 +44,7 @@ Deploying Hyper-V on {{site.data.keyword.vpc_short}} provides several advantages
 - Cost efficiency and savings: Hyper-V is included with Windows Server, Windows 10, or 11 Pro+, eliminating extra licensing fees for the hypervisor itself. It reduces hardware, power, cooling, and data center space costs through server consolidation.
 - High availability and business continuity: Features such as failover clustering and Hyper-V replica help ensure that services remain available, providing redundancy and minimizing downtime during maintenance or failures.
 - Flexibility and mobility: Live migration allows moving running virtual machines (VMs) between hosts without disrupting users, enabling efficient host maintenance and workload balancing.
-- Security and isolation: Hyper-V provides secure environment isolation, including support for shielded virtual machines to protect sensitive data. It supports secure boot and TPM 2.0 for enhanced security, reducing risks from compromised external code.
+- Security and isolation: Hyper-V provides secure environment isolation, including support for shielded virtual machines to protect sensitive data. It supports secure boot and Trusted Platform Module (TPM) 2.0 for enhanced security, reducing risks from compromised external code.
 - Scalability and performance: As a type-1 hypervisor, Hyper-V runs efficiently on bare metal servers that are provided by {{site.data.keyword.vpc_short}}, delivering near-native performance, and robust isolation for virtualized workloads by using its infrastructure capabilities. Hyper-V supports scaling resources (CPU, RAM) up or down for virtual machines.
 - Management and automation: Hyper-V integrates with Windows-based tools, PowerShell, and System Center to simplify automated VM provisioning and infrastructure management.
 
@@ -101,7 +101,7 @@ Complete the following steps to create two virtual servers for Active Directory 
 3. Click **Create**. On the displayed page:
    1. Select **Windows Server 2025 Standard Edition (amd64)** as the image.
    2. Select an **x3** profile for all virtual servers that you deploy. Install Windows Admin Center (WAC) and System Center Virtual Machine Manager (SCVMM) on the jump server to manage Hyper-V cluster hosts that require additional resources. If multiple remote desktop sessions are expected on the jump server, use a profile such as `cx3d-16x40` to improve scalability and performance.
-   3. In the **Storage** section, change the boot volume profile to SDP.
+   3. In the **Storage** section, change the boot volume profile to Storage Defined Performance (SDP).
    4. In the **Networking** section, ensure that the **Virtual private cloud** has the exact {{site.data.keyword.vpc_short}} instance that is selected and that the **Virtual network interface** is selected as the **Network interface type**. Verify that the VNI is attached to the management subnet specified in the prerequisites.
    5. Complete the remaining fields as required, and then click **Create virtual server** on the side panel.
 
@@ -112,7 +112,7 @@ Complete the following steps to create two virtual servers for Active Directory 
     2. In the displayed dialog, click **Attach**, and then select the newly created floating IP.
     3. Click **Attach** to associate the floating IP with the jump server virtual server.
 7. Add the newly associated public floating IP and a new inbound rule to the security group that you created in the [previous section](#virt-sol-hyperv-on-vpc-security-group-creation). This configuration allows Remote Desktop access to the Windows server on the following bare metal servers.
-8. Log in to both the AD virtual server and the jump virtual server. Update and rename the IPv4 private network configuration from default DHCP to a fixed IP according to your network environment (usually the IP address, gateway, and DNS are required) by using the following PowerShell command. After configuration, restart both virtual servers.
+8. Log in to both the AD virtual server and the jump virtual server. Update and rename the IPv4 private network configuration from default Dynamic Host Configuration Protocol (DHCP) to a fixed IP according to your network environment (usually the IP address, gateway, and DNS are required) by using the following PowerShell command. After configuration, restart both virtual servers.
 
     To connect and log in to the {{site.data.keyword.vpc_short}} virtual server with Windows OS, see [Connecting to Windows instances](/docs/vpc?topic=vpc-vsi_is_connecting_windows).
 
@@ -143,7 +143,7 @@ It is highly recommended to install Windows Server 2025 on bare metal servers to
 
 1. Deploy a virtual server by using a Windows 2025 image. Follow the steps in the [previous section](#virt-sol-hyperv-on-vpc-vsi-creation).
 2. After you create the virtual server, log in to it. From the `cmd.exe` command prompt, run `c:\windows\system32\sysprep\sysprep.exe`.
-3. In the displayed window, select the OOBE experience, click **Generalize**, and then click **Shutdown** (do not restart).
+3. In the displayed window, select the Out-of-Box Experience (OOBE) experience, click **Generalize**, and then click **Shutdown** (do not restart).
 
 After the virtual server shuts down, use the virtual server option to create an image. The image is saved in the custom image list for the current {{site.data.keyword.cloud_notm}} account.
 {: note}
@@ -154,7 +154,7 @@ Complete the following steps to create bare metal servers for the Hyper-V cluste
 2. From the navigation menu, go to **Infrastructure** > **Compute** > **Bare metal servers**.
 3. Click **Create**. On the displayed page:
    1. Select the custom image that you created earlier.
-   2. Select a bare metal profile with `d` in the name that meets your business requirements for CPU, RAM, and NVMe storage. S2D storage is network-intensive, so `100 GB` network capacity is recommended. You can choose diskless profiles if your storage nodes are deployed separately.
+   2. Select a bare metal profile with `d` in the name that meets your business requirements for CPU, RAM, and Non-Volatile Memory Express (NVMe) storage. Storage Spaces Direct (S2D) storage is network-intensive, so `100 GB` network capacity is recommended. You can choose diskless profiles if your storage nodes are deployed separately.
    3. In the **Networking** section, help ensure that the correct VPC instance is selected for **Virtual private cloud** and that the **Network interface type** is set to **Virtual network interface**. Verify that the VNI interface is on the management subnet that is mentioned in the prerequisite list.
    4. Fill other fields with proper values, and then click **Create bare metal server** on the side panel.
 4. After you create the bare metal server, log in and open a Windows PowerShell prompt. Run command `Get-PhysicalDisk | Select-Object FriendlyName, BusType, CanPool, CannotPoolReason | Format-Table -AutoSize`. Verify that the result is NVMe instead of RAID.
@@ -338,7 +338,7 @@ Use and share VLAN ID for the same subnet and different VLAN IDs for different s
 
 Before performing live migration, review the following prerequisites:
 
-- For Windows Server 2025, CredSSP is no longer supported for authentication during live migration. To support live migration for these systems, configure Kerberos constrained delegation.
+- For Windows Server 2025, Credential Security Support Provider (CredSSP) is no longer supported for authentication during live migration. To support live migration for these systems, configure Kerberos constrained delegation.
 - For set up configuration, see [Use the Users and Computers snap-in to set up constrained delegation](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/deploy/set-up-hosts-for-live-migration-without-failover-clustering#use-the-users-and-computers-snap-in-to-set-up-constrained-delegation){: external}.
 
 Run the following command in Hyper-V Manager to move a running virtual machine:
@@ -388,7 +388,7 @@ Complete the following steps to create a highly available VM and perform planned
        During an unplanned failover test, stopping one node causes all cluster-wide resources on that node to migrate. If other workloads are still running, move those resources to another node first to avoid unexpected disruptions.
        {: note}
 
-7. When the unplanned fail-over test completes, run the following PwoerScript to restart the stopped node:
+7. When the unplanned fail-over test completes, run the following PowerShell command to restart the stopped node:
 
    ```PowerShell
    Start-ClusterNode -Name <Server Name Originally Owning the VM>

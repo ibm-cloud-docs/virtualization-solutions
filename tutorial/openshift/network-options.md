@@ -2,9 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-29"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Virtualization, IBM Cloud, OVN networking, OpenShift networking, OpenShift Virtualization networking, OVN Kubernetes, User Defined Network, UDN, Cluster User Defined Network, CUDN, masquerade network, Layer 2 primary, Layer 2 secondary, localnet, virtual machine networking, VM workload network, cluster infrastructure network, vSphere networking comparison, ROKS networking
+
+keywords: OVN networking OpenShift, OVN-Kubernetes networking, User Defined Network UDN, Cluster User Defined Network CUDN, Localnet network type, masquerade network OpenShift, ROKS networking
 
 subcollection: virtualization-solutions
 
@@ -22,8 +23,12 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
-Choose the right Open Virtual Network (OVN) networking option for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}. Compare masquerade, Layer 2 primary, Layer 2 secondary, and localnet networks, and understand when to use user-defined networks (UDNs) and cluster user-defined networks (CUDNs) for virtual machine workloads.
+Learn how Open Virtual Networking (OVN) networking in Red Hat OpenShift on IBM Cloud compares to NSX-T, and how to use User-Defined Network (UDN), Cluster User-Defined Network (CUDN), and Localnet network types.
 {: shortdesc}
+
+If you have used NSX-T, you already understand the core idea. Open Virtual Networking (OVN) is the software-defined networking layer built into OpenShift. It replaces the older Calico networking stack in the same way NSX-T replaced standard vSwitches, by moving network intelligence into software rather than relying on the underlying physical network. OVN handles all internal cluster networking: how VMs talk to each other, how they reach external networks, and how traffic is isolated between tenants or workloads.
+
+When deploying a new ROKS cluster, you choose either OVN or Calico at deployment time. There is no migration path between them, just as you cannot switch between a standard vSwitch and a dvSwitch on a running VM without a planned transition.
 
 OVN is the software-defined networking layer that is built into {{site.data.keyword.openshiftlong_notm}}. Similar to how NSX-T replaces standard vSwitches, OVN replaces the older Calico networking stack by moving network intelligence into software instead of relying on the underlying physical network. OVN handles all internal cluster networking, including how virtual machines communicate with each other, how they reach external networks, and how traffic is isolated between tenants or workloads.
 
@@ -37,13 +42,13 @@ The following table maps OVN concepts to familiar vSphere constructs:
 
 | OVN concept | vSphere equivalent |
 | ----------- | ------------------ |
-| UDN or CUDN | NSX logical segment or distributed virtual port group (dvPortGroup) |
-| Cluster infrastructure network (primary) | Background plumbing such as health checks, DNS, and Kubernetes services |
-| VM workload network (secondary) | Your actual virtual machine network and the IP address that your application uses |
-| Masquerade | Network Address Translation (NAT) network where virtual machines go out, but nothing comes directly in |
-| Layer 2 secondary | Isolated NSX overlay segment with static IP addresses and full control |
-| Layer 2 primary | Routed NSX segment with a BGP uplink to the physical network |
-| Localnet | VLAN-backed dvPortGroup with direct pass-through to the physical network |
+| UDN or CUDN | NSX logical segment or dvPortGroup |
+| Cluster infrastructure network (Primary) | Background plumbing - health checks, DNS, Kubernetes services |
+| VM workload network (Secondary) | Your actual VM network - the IP your application uses |
+| Masquerade | Network Address Translation (NAT) network - VMs go out, nothing comes directly in |
+| Layer 2 Secondary | Isolated NSX overlay segment - static IPs, full control |
+| Layer 2 Primary | Routed NSX segment with a BGP uplink to the physical network |
+| Localnet | VLAN-backed dvPortGroup - direct passthrough to the physical network |
 {: caption="OVN concepts mapped to familiar vSphere networking constructs" caption-side="bottom"}
 
 ## UDNs and CUDNs
@@ -51,11 +56,11 @@ The following table maps OVN concepts to familiar vSphere constructs:
 
 {{site.data.keyword.redhat_openshift_notm}} groups workloads into namespaces. Think of namespaces as resource pools or folders that isolate one application or team from another. Network definitions follow the same pattern:
 
-User-defined network (UDN)
-:   Scoped to a single namespace. This network is equivalent to a port group that only one cluster or folder can use.
+User-Defined Network (UDN)
+:   Scoped to a single namespace - the equivalent of a port group that only one cluster or folder can use.
 
-Cluster user-defined network (CUDN)
-:   A CUDN can span multiple namespaces. This network is equivalent to a shared `dvPortGroup` that is accessible from multiple clusters.
+Cluster User-Defined Network (CUDN)
+:   Can span multiple namespaces - the equivalent of a shared dvPortGroup accessible from multiple clusters.
 
 You usually configure CUDNs because they are more flexible and avoid duplicate network definitions for every namespace that needs access to the same segment.
 
@@ -100,10 +105,9 @@ This topology is equivalent to an NSX overlay segment that is connected to a Tie
 * Virtual machines support multicast and broadcast.
 * Namespaces cannot use masquerade when you enable a Layer 2 primary network. The two cannot coexist.
 
-IP addressing uses a first-come, first-served DHCP system. IP addresses do not change during the lifetime of a virtual machine, but you cannot preassign a specific IP address to a specific virtual machine. If you need static IP addresses, use a Layer 2 secondary network instead.
-{: important}
+Currently VPC does not support a Dynamic Routing Service (Border Gateway Protocol (BGP)), therefore, custom VPC routes with next hop must be used.
 
-Currently, VPC does not support a dynamic routing service (BGP). Use custom VPC routes with a next hop instead.
+IP addressing uses a first-come, first-served DHCP system. IP addresses do not change during the lifetime of a virtual machine, but you cannot preassign a specific IP address to a specific virtual machine. If you need static IP addresses, use a Layer 2 secondary network instead.
 {: important}
 
 Some edge use cases might require the primary network for your virtual machine, such as cases where your virtual machines need direct access to Kubernetes services. However, most virtual machine use cases do not use the primary network.

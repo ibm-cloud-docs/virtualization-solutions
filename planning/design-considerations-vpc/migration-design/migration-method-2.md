@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, virtual server instance, volume copy migration, multi-disk migration VPC, virt-v2v driver injection, worker VM migration, ephemeral instance VPC, direct volume copy, qemu-img raw conversion, network transfer migration, libguestfs tools, VPC volume attachment
+keywords: volume copy migration, multi-disk migration VPC, virt-v2v driver injection, worker VM migration, ephemeral instance VPC, direct volume copy, qemu-img raw conversion, network transfer migration, libguestfs tools, VPC volume attachment
 
 
 subcollection: virtualization-solutions
@@ -13,20 +13,20 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Copying direct volume (multi-disk method)
+# Migrating multi-disk VMware virtual machines to IBM Cloud with direct volume copy
 {: #virt-sol-vpc-migration-design-method2}
 
-Migrate multi-disk VMware VMs to VPC by creating target volumes, using worker VMs for conversion with virt-v2v, and provisioning from existing boot volumes.
+Migrate multi-disk VMware virtual machines (VMs) to IBM Cloud VPC virtual servers using direct volume copy with qemu-img or virt-v2v for full disk-level control.
 {: shortdesc}
 
-## Architecture Components
+## Architecture components
 {: #virt-sol-vpc-migration-design-method2-architecture}
 
 The following table lists the architecture components of a direct volume copy migration.
 
 | Architecture components | Description |
 | ----------- | ------------------ |
-| Worker virtual server instance | A temporary virtual server instance that serves as your migration workspace. This virtual server instance needs the following prerequisites:  \n  \n - Adequate CPU and memory to run conversion tools \n  \n - Sufficient workspace storage to hold exported VMDKs (or large ephemeral disk) \n  \n - Network connectivity to your VMware environment (if you use live transfer) \n  \n - The `qemu-img` tool and optionally `libguestfs` (virt-v2v) for transformations |
+| Worker virtual server instance | A temporary virtual server instance that serves as your migration workspace. This virtual server instance needs the following prerequisites:  \n  \n - Adequate central processing unit (CPU) and memory to run conversion tools \n  \n - Sufficient workspace storage to hold exported virtual machine disk (VMDK) files (or large ephemeral disk) \n  \n - Network connectivity to your VMware environment (if you use live transfer) \n  \n - The `qemu-img` tool and optionally `libguestfs` (virt-v2v) for transformations |
 | Ephemeral virtual server instance | A short-lived virtual server instance created solely to generate boot and data volumes with the correct configuration. You delete this virtual server instance immediately but keep its volumes. |
 | Target Volumes | The actual volumes that become your migrated VM's disks. |
 {: caption="Architecture components for direct volume copy migration method" caption-side="bottom"}
@@ -90,10 +90,10 @@ The following table lists the design advantages of direct volume copy migration.
 
 | Design advantage | Description |
 | ----------- | ------------------ |
-| Multi-Disk Support | Multi-disk support handles virtual machines with any number of disks, up to VPC's 12-disk limit. |
-| No Image Proliferation | You're not creating a custom image for each virtual machine. Your custom image list stays clean. |
-| Flexible Transformation | Enables easy integration with virt-v2v for driver injection, OS tweaks, and so on. |
-| Storage Efficiency Option | If you import a base template as a custom image and use it as the boot volume source for your ephemeral virtual server instance (step 2), the final boot volume inherits the linked-clone space efficiency. |
+| Multi-disk support | Multi-disk support handles virtual machines with any number of disks, up to VPC's 12-disk limit. |
+| No image proliferation | You're not creating a custom image for each virtual machine. Your custom image list stays clean. |
+| Flexible transformation | Enables easy integration with virt-v2v for driver injection, OS tweaks, and so on. |
+| Storage efficiency option | If you import a base template as a custom image and use it as the boot volume source for your ephemeral virtual server instance (step 2), the final boot volume inherits the linked-clone space efficiency. |
 {: caption="Design advantages for direct volume copy migration method" caption-side="bottom"}
 
 ## Direct volume copy design constraints and limitations
@@ -103,8 +103,8 @@ The following table lists the constraints and limitations of a direct volume cop
 
 | Limitation or Constraint | Description |
 | ----------- | ------------------ |
-| Orchestration Complexity | There are more steps and moving parts. You need solid runbooks and preferably automation (Terraform, Ansible, scripts). |
-| Volume attachment limitations. | The IBM Cloud UI doesn't support attaching secondary volumes during virtual server instance creation. You must do one of the following:  \n  \n - Use CLI: `ibmcloud is instance-create ... --volume-attach ...`  \n  \n - Use API/Terraform for full automation \n  \n - Create the virtual server instance, stop it, attach volumes, then start it |
+| Orchestration complexity | There are more steps and moving parts. You need solid runbooks and preferably automation (Terraform, Ansible, scripts). |
+| Volume attachment limitations | The IBM Cloud user interface (UI) doesn't support attaching secondary volumes during virtual server instance creation. You must do one of the following:  \n  \n - Use command-line interface (CLI): `ibmcloud is instance-create ... --volume-attach ...`  \n  \n - Use API/Terraform for full automation \n  \n - Create the virtual server instance, stop it, attach volumes, then start it |
 | Export overhead | If you're exporting VMDKs from VMware, you still incur that overhead (though less than OVA export). |
 {: caption="Limitations and constraints for direct volume copy migration method" caption-side="bottom"}
 

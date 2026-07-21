@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, migration wave planning, VMware migration waves, pilot migration VPC, cutover window planning, migration dependency mapping, parallel migration VPC, migration rollback strategy, migration velocity estimation, subnet migration planning, application stack migration
+keywords: migration wave planning, VMware migration waves, pilot migration VPC, cutover window planning, migration dependency mapping, parallel migration VPC, migration rollback strategy, migration velocity estimation, subnet migration planning, application stack migration
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migration wave and execution plan
+# Planning migration waves for virtual servers on IBM Cloud VPC
 {: #virt-sol-vpc-migration-design-wave}
 
-Execute VMware to VPC migrations with structured wave planning, dependency mapping, pilot testing, cutover windows, rollback strategies, and parallel migration.
+Plan IBM Cloud VPC migration waves by mapping virtual machine (VM) dependencies, estimating velocity, and scheduling cutover windows for application stacks.
 {: shortdesc}
 
 ## Dependency planning
@@ -40,7 +40,7 @@ Cross-application:
 
 Tools for discovery:
 
-- VMware vRealize Network Insight
+- VMware vRealize Network Insight (vRNI)
 - Application dependency-mapping tools
 - Network flow analysis
 - Manual documentation from application owners
@@ -99,7 +99,7 @@ Application stack grouping for multitier applications:
 
 - Migrate the entire stack in one wave, if possible.
 - If your migration is too large, migrate from the database first, then apps, and so on.
-- Maintain connectivity between migrated and nonmigrated tiers through Transit Gateway.
+- Maintain connectivity between migrated and nonmigrated tiers through IBM Cloud Transit Gateway.
 
 Application stack grouping for dependency-aware sequencing:
 
@@ -154,7 +154,7 @@ Wave 4 (Application C): 15 virtual servers
 - Large multitier application
 - Subnet `10.50.30.0/24` → VPC subnet `10.240.30.0/24`
 
-## Cutover Window design
+## Cutover window design
 {: #virt-sol-vpc-migration-design-wave-cutover}
 
 Each wave needs a well-defined cutover window.
@@ -168,7 +168,7 @@ Pre-cutover timeline (7 days to migration day):
 - Reduce DNS TTLs for services that are migrating
 - Notify users of maintenance window
 
-### Cutover Execution (T-0)
+### Cutover execution (T-0)
 {: #virt-sol-vpc-migration-design-wave-cutover-exec}
 
 The following information describes the cutover phases.

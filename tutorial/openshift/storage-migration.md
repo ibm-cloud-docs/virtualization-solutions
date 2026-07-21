@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Virtualization, Red Hat OpenShift Kubernetes Service, VSI, storage migration, IBM Cloud, Storage vMotion, MTC, VM storage migration tutorial, Migration Toolkit Containers MTC, OpenShift Virtualization storage, live migration VMs, storage class conversion, PVC migration OpenShift, Storage vMotion equivalent, MigCluster configuration, stage cutover rollback, persistent volume migration
+keywords: storage migration OpenShift, Storage vMotion equivalent, Migration Toolkit Containers MTC, OpenShift Virtualization storage, live migration VMs, storage class conversion, PVC migration OpenShift, MigCluster configuration, stage cutover rollback, persistent volume migration
 
 
 subcollection: virtualization-solutions
@@ -18,7 +18,7 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Storage migration for virtual machines in OpenShift Virtualization
+# Migrating virtual machine storage in Red Hat OpenShift Virtualization on IBM Cloud
 {: #storage-migration-vms}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
@@ -27,7 +27,7 @@ completion-time: 60m
 ## Overview of the guide
 {: #overview-of-the-guide}
 
-Migrate VM storage between storage classes in OpenShift Virtualization: install MTC operator, create migration plans, and perform live storage migrations.
+Migrate VM storage between storage classes in Red Hat OpenShift Virtualization on IBM Cloud using the Migration Toolkit for Containers (MTC).
 {: shortdesc}
 
 Storage migration helps you move VM disk data between storage classes within the same {{site.data.keyword.redhat_openshift_notm}} cluster and namespace, enabling you to:
@@ -40,7 +40,7 @@ Storage migration helps you move VM disk data between storage classes within the
 ## About Migration Toolkit for Containers (MTC)
 {: #about-mtc}
 
-MTC is an operator that enables the migration of stateful application workloads between {{site.data.keyword.redhat_openshift_notm}} Container Platform clusters at the namespace level. MTC provides both a web console and an API that uses Kubernetes&reg; custom resources to help you control migrations and minimize application downtime.
+The Migration Toolkit for Containers (MTC) is an operator that enables the migration of stateful application workloads between {{site.data.keyword.redhat_openshift_notm}} Container Platform clusters at the namespace level. MTC provides both a web console and an application programming interface (API) that uses Kubernetes&reg; custom resources to help you control migrations and minimize application downtime.
 
 ### Key capabilities for VM storage migration
 {: #key-capabilities}
@@ -50,12 +50,12 @@ When you use MTC for {{site.data.keyword.redhat_openshift_notm}} Virtualization 
 - Move VM storage between different storage classes within the same namespace.
 - Migrate running VMs with minimal downtime in ({{site.data.keyword.redhat_openshift_notm}} Virtualization 4.18 or later).
 - Use stage, cutover, and rollback capabilities for flexible migration control.
-- Migrate between different storage providers (for example, OpenShift Data Foundation (ODF) to Network File System (NFS) or vice versa).
+- Migrate between different storage providers (for example, OpenShift Data Foundation (ODF) to Network File System (NFS) or conversely).
 
 ### Important limitations for VM storage migration
 {: #important-limitations}
 
-The following limitations apply to {{site.data.keyword.redhat_openshift_notm}} Virtualization VM storage migrations. While MTC can migrate general persistent volume claims (PVCs) across namespaces and clusters, VM-attached PVCs require stricter handling.
+The following limitations apply to {{site.data.keyword.redhat_openshift_notm}} Virtualization virtual machine (VM) storage migrations. While MTC can migrate general persistent volume claims (PVCs) across namespaces and clusters, VM-attached PVCs require stricter handling.
 {: important}
 
 Same cluster only

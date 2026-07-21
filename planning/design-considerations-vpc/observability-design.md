@@ -1,18 +1,18 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-07-13"
+lastupdated: "2026-07-21"
 
-keywords: IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection, VPC observability design, IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection agent, monitoring metrics, log collection, vulnerability scanning, threat detection, unified agent, compliance monitoring
+keywords: VPC observability design, IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection agent, monitoring metrics, log collection, vulnerability scanning, threat detection, unified agent, compliance monitoring
 
 subcollection: virtualization-solutions
 ---
 {{site.data.keyword.attribute-definition-list}}
 
-# Observability design for Virtual Private Cloud (VPC) virtual server instances
+# Designing observability for IBM Cloud VPC virtual servers
 {: #virt-sol-vpc-observability-design-overview}
 
-Design VPC observability with IBM Cloud Monitoring for metrics, IBM Cloud Logs for log collection, and Workload Protection for security and compliance.
+Learn how to implement observability for virtual server instances in IBM Cloud VPC, ensuring visibility and insights into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
 {: shortdesc}
 
 Observability in {{site.data.keyword.cloud}} provides the visibility and insights that are needed to monitor, troubleshoot, and optimize applications and infrastructure across hybrid and multicloud environments. It extends beyond traditional monitoring by offering end-to-end visibility into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
@@ -23,7 +23,7 @@ Observability in {{site.data.keyword.cloud}} provides the visibility and insight
 ## {{site.data.keyword.sysdigsecure_full_notm}}
 {: #virt-sol-vpc-observability-design-scc-wpp}
 
-{{site.data.keyword.sysdigsecure_full_notm}} provides security monitoring and threat detection for workloads on {{site.data.keyword.cloud_notm}}, including virtual machines on Virtual Private Cloud (VPC) and {{site.data.keyword.redhat_openshift_notm}} Virtualization environments.
+{{site.data.keyword.sysdigsecure_full_notm}} provides security monitoring and threat detection for workloads on {{site.data.keyword.cloud_notm}}, including virtual machines (VMs) on Virtual Private Cloud (VPC) and {{site.data.keyword.redhat_openshift_notm}} Virtualization environments.
 
 The workload protection agent discovers and prioritizes software vulnerabilities, detects and responds to runtime threats, and manages configurations, permissions, and compliance requirements for hosted virtual machines and containerized workloads.
 For more information, see [Getting started with {{site.data.keyword.sysdigsecure_full_notm}}](/docs/workload-protection?topic=workload-protection-getting-started)
@@ -75,7 +75,7 @@ The general guide mostly works for the Debian 13 OS image. However, you must run
 ```sh
 E: Failed to fetch http://mirrors.adn.networklayer.com/debian-security/pool/updates/main/c/curl/libcurl4_7.74.0-1.3%2bdeb11u15_amd64.deb  404  Not Found [IP: 161.26.0.6 80]
 E: Failed to fetch http://mirrors.adn.networklayer.com/debian-security/pool/updates/main/c/curl/curl_7.74.0-1.3%2bdeb11u15_amd64.deb  404  Not Found [IP: 161.26.0.6 80]
-E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+E: Unable to fetch some archives, mightbe run apt-get update or try with --fix-missing?
 ```
 {: pre}
 
@@ -101,7 +101,7 @@ Fedora CoreOS is primarily targeted for containers and discourages additional in
 
 Both Red Hat AI OS images are not registered with an entitled repository server because current Red Hat releases do not include the required internal infrastructure. They are offered as CoreOS images, and do not support custom application installation, similar to Fedora CoreOS.
 
-It is unclear whether the repository is intentionally not attached to Red Hat AI to avoid kernel modification. However, with the currently supported agent installation method requires a repository. Therefore, Cloud Security and Compliance Center agent injection is not supported for these OS images until a repository is registered.
+The current agent installation method requires a registered repository, which is not available for these OS images. Cloud Security and Compliance Center agent injection is not supported for these OS images until a repository is registered.
 
 #### ibm-rocky-linux-9-6-minimal-amd64-3
 {: #virt-sol-vpc-observability-design-scc-vsi-rocky9}
@@ -212,7 +212,7 @@ The message resource is present but the message was not found in the message tab
 | {{site.data.keyword.logs_full_notm}} | {{site.data.keyword.logs_full_notm}} is an observability service that is designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, {{site.data.keyword.logs_full_notm}} provides actionable insights into system behavior. | {{site.data.keyword.logs_full_notm}} supports log collection from: \n - IBM Cloud services and resources \n - On-premises infrastructure \n - Third-party cloud providers \n - Security and audit logs generated in IBM Cloud \n \n To collect logs, deploy the {{site.data.keyword.logs_full_notm}} agent on supported hosts. The agent type depends on the host platform and determines which logs are automatically collected. When an {{site.data.keyword.logs_full_notm}} agent is configured, logs are collected automatically and sent to your {{site.data.keyword.logs_full_notm}} instance for analysis and alerting. \n \n For more information, see [Getting started with {{site.data.keyword.logs_full_notm}}](/docs/cloud-logs?topic=cloud-logs-getting-started) and [Configuring the {{site.data.keyword.logs_full_notm}} agent](/docs/cloud-logs?topic=cloud-logs-agent-about). |
 {: caption="{{site.data.keyword.monitoringfull_notm}} and {{site.data.keyword.logs_full_notm}} details" caption-side="bottom"}
 
-For IBM Cloud Linux virtual server instances and IBM Cloud Windows virtual server instances, the agent that is used with {{site.data.keyword.logs_full_notm}} supports both the Service ID API key and Trusted Profiles authentication methods.
+For IBM Cloud Linux virtual server instances and IBM Cloud Windows virtual server instances, the agent that is used with {{site.data.keyword.logs_full_notm}} supports both the Service ID application programming interface (API) key and Trusted Profiles authentication methods.
 
 ### Combined observability benefits
 {: #virt-sol-vpc-observability-design-combined-benefits}
@@ -227,7 +227,7 @@ The following table lists the unified agent components.
 | Component | Description |
 | -------------- | -------------- |
 | For monitoring (metrics) | - Agent: Collects metrics from containers, pods, nodes, and Kubernetes resources  \n - Prometheus integration: Custom metrics collection  \n  - Cluster metadata: Automatic tagging with cluster name and context |
-| For workload protection (security) | - Node Analyzer: Includes host scanner and Kubernetes Security Posture Management (KSPM) analyzer  \n Host Scanner: Detects vulnerabilities and identifies resolution priority based on available fixed versions and severity  \n - KSPM Analyzer: Kubernetes Security Posture Management for compliance and configuration analysis  \n - Cluster Shield: Security runtime component |
+| For workload protection (security) | - Node Analyzer: Includes host scanner and Kubernetes Security Posture Management (KSPM) analyzer  \n - Host Scanner: Detects vulnerabilities and identifies resolution priority based on available fixed versions and severity  \n - KSPM Analyzer: Kubernetes Security Posture Management for compliance and configuration analysis  \n - Cluster Shield: Security runtime component |
 {: caption="Components of unified agent" caption-side="bottom"}
 
 The following table describes the observability capabilities available when you deploy both the unified agent (for {{site.data.keyword.monitoringfull_notm}} and workload protection) and the {{site.data.keyword.logs_full_notm}} agent on VPC virtual server instances.

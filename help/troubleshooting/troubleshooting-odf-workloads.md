@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD, ODF troubleshooting OpenShift, NVMe disk recovery bare metal, PVC stuck pending Ceph, OSD down recovery procedures, Ceph nearfull alert resolution, VM storage performance issues, live migration RWX requirements, CSI provisioner troubleshooting, Ceph cluster capacity management, OpenShift Data Foundation problems
+keywords: ODF troubleshooting OpenShift, NVMe disk recovery bare metal, PVC stuck pending Ceph, OSD down recovery procedures, Ceph nearfull alert resolution, VM storage performance issues, live migration RWX requirements, CSI provisioner troubleshooting, Ceph cluster capacity management, OpenShift Data Foundation problems
 
 
 subcollection: virtualization-solutions
@@ -13,13 +13,13 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Troubleshooting ODF workloads
+# Troubleshooting Red Hat OpenShift Data Foundation workloads on bare metal servers
 {: #troubleshooting-odf-workloads}
 
-Troubleshoot ODF storage issues: recover missing NVMe disks, resolve PVC pending states, fix OSD failures, address nearfull alerts, optimize VM performance.
+Troubleshoot ODF storage issues on IBM Cloud bare metal servers, including NVMe recovery, PVC failures, OSD outages, and slow VM performance.
 {: shortdesc}
 
-When working with Red Hat OpenShift Data Foundation (ODF) storage from local NVMe drives that are in the bare metal servers, you might encounter issues. Issues, symptoms, likely causes, and resolutions are described in the following sections.
+When working with Red Hat OpenShift Data Foundation (ODF) storage from local Non-Volatile Memory Express (NVMe) drives that are in the bare metal servers, you can encounter issues. Issues, symptoms, likely causes, and resolutions are described in the following sections.
 
 ## Verification and recovery of missing NVMe disks
 {: #verification-and-recovery-of-missing-nvme-disks}
@@ -169,7 +169,7 @@ Symptom: VMs experience high I/O latency or low IOPS.
 
 Possible causes and diagnostics:
 
-1. Ceph daemons are under-resourced: If using the Lean profile, Ceph OSDs might be CPU-throttled. Check OSD pod CPU usage in the OpenShift metrics dashboard. Consider switching to the Balanced or Performance profile.
+1. Ceph daemons are under-resourced: If using the Lean profile, Ceph OSDs can be CPU-throttled. Check OSD pod CPU usage in the OpenShift metrics dashboard. Consider switching to the Balanced or Performance profile.
 
 2. Custom pool with 1 PG: A custom CephBlockPool without `targetSizeRatio` gets 1 Placement Group, bottlenecking all I/O on a single OSD. Check:
 

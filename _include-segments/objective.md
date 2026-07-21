@@ -1,5 +1,8 @@
-## Objective
+## Migrating virtual servers to IBM Cloud VPC: A step-by-step tutorial
 {: #virt-sol-vpc-migration-tutorial-overview-objectives}
+
+Learn how to migrate virtual servers to IBM Cloud VPC using a transit gateway, with a tutorial covering VPC setup, virtual server migration, and disk.
+{: shortdesc}
 
 The following objectives are covered in the following tutorial.
 

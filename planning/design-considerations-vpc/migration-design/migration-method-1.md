@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, image import migration, template-based migration VPC, QCOW2 conversion, OVF export VMware, custom image VPC, Cloud Object Storage migration, qemu-img convert, single-disk migration, VMDK to QCOW2, VPC custom image creation
+keywords: image import migration, template-based migration VPC, QCOW2 conversion, OVF export VMware, custom image VPC, Cloud Object Storage migration, qemu-img convert, single-disk migration, VMDK to QCOW2, VPC custom image creation
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Image Import (Template-Based Migration)
+# Migrate to IBM Cloud virtual servers using Image Import
 {: #virt-sol-vpc-migration-design-method1}
 
-Migrate single-disk VMware VMs to VPC by exporting to OVF, converting to QCOW2, uploading to Cloud Object Storage, and creating custom images for deployment.
+Migrate single-disk VMware virtual machines to IBM Cloud VPC by exporting Open Virtualization Archive (OVA) or Virtual Machine Disk (VMDK) files and importing them as custom images.
 {: shortdesc}
 
 ## Overview of the migration process
@@ -25,8 +25,8 @@ Migrate single-disk VMware VMs to VPC by exporting to OVF, converting to QCOW2, 
 The following steps layout the process to migrate by using image imports.
 
 1. Export virtual machine from VMware
-   - From vCenter: Shut down virtual machine, use "Actions → Template → Export OVF Template"
-   - From VCFaaS: Shut down vApp, download OVA file, extract VMDK
+   - From vCenter: Shut down virtual machine, use "Actions → Template → Export Open Virtualization Format (OVF) Template"
+   - From VMware Cloud Foundation as a Service (VCFaaS): Shut down virtual application (vApp), download OVA file, extract VMDK
 
    The preceding approach preserves thin provisioning better than data store browser downloads
 
@@ -39,7 +39,7 @@ The following steps layout the process to migrate by using image imports.
 
 3. Upload to IBM Cloud Object Storage
    1. Create an {{site.data.keyword.cos_full}} instance and bucket if needed
-   2. Use web upload (for smaller files) or Aspera (for large files)
+   2. Use web upload (for smaller files) or Aspera high-speed transfer (for large files)
    3. Configure bucket access (public read for import, or use authorized service access)
 4. Create Custom Image in VPC
    1. Go to VPC → Compute → Images
@@ -70,10 +70,10 @@ The following table describes the constraints and limitations of an image import
 
 | Limitation or Constraint | Description |
 | ----------- | ------------------ |
-| Single Disk Limitation | This method handles only the boot disk. \n \n If your virtual machine has multiple disks, you need to:  \n  \n - Use a different method for the entire virtual machine \n \n OR \n \n - Use this method for the boot disk and Method 2 for secondary disks (hybrid approach) |
-| Image Proliferation | Each unique virtual machine creates a unique custom image. Unlike VMware templates, these aren't true reusable templates—they're snapshots of individual virtual machines. Over time, you'll have dozens or hundreds of one-off custom images in your list. |
-| Linked Clone Constraint | The boot volume maintains a space-efficient linkage to the custom image. This means:  \n  \n - You **cannot delete the custom image** while any virtual server instance is using a boot volume derived from it \n  \n - Storage savings are realized through this linkage \n  \n - Breaking the linkage requires creating a new image from the boot volume and reprovisioning |
-| Cloud-Init First Boot | If cloud-init is installed and configured on your image, VPC might treat the boot as a first boot, potentially:  \n  \n - Resetting the root password \n  \n - Generating new SSH host keys \n  \n - Running provisioning scripts |
+| Single disk limitation | This method handles only the boot disk. \n \n If your virtual machine has multiple disks, you need to:  \n  \n - Use a different method for the entire virtual machine \n \n OR \n \n - Use this method for the boot disk and Method 2 for secondary disks (hybrid approach) |
+| Image proliferation | Each unique virtual machine creates a unique custom image. Unlike VMware templates, these aren't true reusable templates—they're snapshots of individual virtual machines. Over time, you'll have dozens or hundreds of one-off custom images in your list. |
+| Linked clone constraint | The boot volume maintains a space-efficient linkage to the custom image. This means:  \n  \n - You **cannot delete the custom image** while any virtual server instance is using a boot volume derived from it \n  \n - Storage savings are realized through this linkage \n  \n - Breaking the linkage requires creating a new image from the boot volume and reprovisioning |
+| Cloud-init first boot | If cloud-init is installed and configured on your image, VPC might treat the boot as a first boot, potentially:  \n  \n - Resetting the root password \n  \n - Generating new Secure Shell (SSH) host keys \n  \n - Running provisioning scripts |
 {: caption="Limitations and constraints for image import migration method" caption-side="bottom"}
 
 Use image import migration for true template scenarios (deploying multiple identical virtual machines from a base image) and for simple single-disk virtual machines where image management overhead is acceptable.
