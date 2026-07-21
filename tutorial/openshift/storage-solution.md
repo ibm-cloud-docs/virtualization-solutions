@@ -458,6 +458,12 @@ Generic RBD StorageClasses remain suitable for container workloads, but use the 
 
 Colocating virtual machines and ODF storage nodes can lead to resource contention and performance degradation. For optimal stability, provision dedicated worker node pools exclusively for ODF workloads.
 
+![ODF cluster architecture on IBM Cloud VPC showing dedicated storage and compute worker pools](../../images/openshift/openshift-virtualization-odf-cluster-architecture.svg "Architecture diagram showing an IBM Cloud VPC containing a Red Hat OpenShift Kubernetes Service cluster. Inside the cluster, a storage worker pool with three bare metal nodes runs only ODF and Ceph daemon pods, each with example NVMe drives. The storage pool header indicates that a NoSchedule taint is applied to all storage nodes. StorageClasses are listed below the pool, including ocs-storagecluster-ceph-rbd, ocs-storagecluster-cephfs, and ocs-storagecluster-ceph-rbd-virtualization as the default for VirtualMachines. A separate compute worker pool contains multiple compute nodes running only VM workload pods. An arrow labeled PVC binds to PV connects the compute pool to the PersistentVolumes row in the storage pool."){: caption="ODF cluster architecture with dedicated storage and compute worker pools on IBM Cloud VPC" caption-side="bottom"}
+
+The following diagram compares the hyperconverged topology, which causes resource contention, with the recommended dedicated pool topology.
+
+![Side-by-side comparison of hyperconverged ODF deployment versus dedicated worker pool deployment](../../images/openshift/openshift-virtualization-odf-topology-comparison.svg "Two-panel diagram. Left panel shows a hyperconverged deployment labeled as not recommended. A resource bar shows an example node with 192 vCPU and 512 GB RAM split approximately 35 percent for ODF daemons and 65 percent for VM workloads, with an orange overlap zone indicating resource contention. Below the bar, three bare metal nodes each run both ODF Ceph daemons and VM workload pods side by side, with orange contention zones between the two workload types. A callout warns that ODF daemons and VM workloads compete for CPU and memory, and that I/O spikes can cause VM latency and reduced IOPS headroom. Right panel shows the recommended dedicated worker pools deployment. A green resource bar shows 100 percent of CPU and RAM available to ODF daemons on dedicated storage nodes. Below the bar, three storage nodes run only ODF daemons with a NoSchedule badge applied, and a separate compute worker pool runs only VM workload pods. A PVC-to-PV arrow connects the two pools. A callout confirms full resource isolation and that compute and storage pools scale independently."){: caption="Hyperconverged deployment (left) versus dedicated worker pool deployment (right)" caption-side="bottom"}
+
 Use the following steps to implement separate worker pools for compute and storage on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service.
 
 1. Plan your cluster architecture with dedicated worker pools. Create a storage worker pool that uses storage-optimized profiles for ODF. Then, create one or more compute worker pools that use balanced or compute-optimized profiles for application workloads.
@@ -484,6 +490,10 @@ Use the following steps to implement separate worker pools for compute and stora
     xargs -I {} oc adm taint nodes {} node.ocs.openshift.io/storage=true:NoSchedule
     ```
    {: pre}
+
+    The following diagram shows how the taint controls pod scheduling at the node level.
+
+    ![Diagram showing how the ODF NoSchedule taint controls pod scheduling](../../images/openshift/openshift-virtualization-odf-taint-scheduling.svg "Flow diagram showing a storage node with the NoSchedule taint applied. An ODF pod with a matching toleration is allowed to schedule on the storage node, shown with a green arrow. A VM workload pod with no toleration is rejected from the storage node, shown with a red dashed arrow toward the storage node and a red X at the rejection point. A separate green arrow then redirects the VM workload pod to a compute node that has no storage taint."){: caption="How the ODF NoSchedule taint allows ODF daemon pods and rejects VM workload pods from storage nodes" caption-side="bottom"}
 
 4. Specify the storage worker pool during ODF add-on installation. The installation automatically applies taints to prevent nonstorage pods or virtual machines from scheduled on storage nodes.
 

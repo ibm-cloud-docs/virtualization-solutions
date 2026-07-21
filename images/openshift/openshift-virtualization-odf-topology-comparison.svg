@@ -1,0 +1,181 @@
+<svg width="1920" height="952" viewBox="0 0 1920 952" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1920" height="952" fill="#F5F5F5"/>
+<defs>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#0F62FE"/>
+  </marker>
+</defs>
+
+<!-- Title -->
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="30" font-weight="600"><tspan x="60" y="60">Hyperconverged vs. dedicated worker pools</tspan></text>
+<line x1="60" y1="76" x2="1860" y2="76" stroke="#E0E0E0" stroke-width="1.5"/>
+
+<!-- ═══════════════════ LEFT PANEL — hyperconverged ═══════════════════ -->
+<rect x="40" y="90" width="880" height="822" rx="8" fill="#FFF1F1" stroke="#FFB3B8" stroke-width="2"/>
+<text fill="#A2191F" xml:space="preserve" font-family="IBM Plex Sans" font-size="22" font-weight="600"><tspan x="200" y="130">Hyperconverged — not recommended</tspan></text>
+
+<!-- ── Resource bar (left) ── -->
+<!-- bar background -->
+<rect x="70" y="166" width="820" height="62" rx="6" fill="#F4F4F4" stroke="#E0E0E0" stroke-width="1"/>
+<!-- ODF portion ~35% (~287px of 820) -->
+<rect x="70" y="166" width="287" height="62" rx="6" fill="#FFB3B8"/>
+<!-- round right side only by overlapping a plain rect -->
+<rect x="70" y="166" width="281" height="62" fill="#FFB3B8"/>
+<text fill="#A2191F" xml:space="preserve" font-family="IBM Plex Sans" font-size="13" font-weight="600"><tspan x="90" y="192">ODF daemons</tspan></text>
+<text fill="#A2191F" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="90" y="210">~35% CPU &amp; RAM</tspan></text>
+<!-- contention overlap band (~48px) -->
+<rect x="333" y="166" width="48" height="62" fill="#FF832B" fill-opacity="0.55"/>
+<text fill="#8A3800" font-family="IBM Plex Sans" font-size="10" font-weight="600" text-anchor="middle" x="345" y="237">overlap</text>
+<!-- VM workloads portion ~65% (remaining ~485px) -->
+<rect x="357" y="166" width="533" height="62" fill="#A6C8FF"/>
+<rect x="849" y="166" width="41" height="62" rx="6" fill="#A6C8FF"/>
+<text fill="#0043CE" xml:space="preserve" font-family="IBM Plex Sans" font-size="13" font-weight="600"><tspan x="560" y="192">VM workloads</tspan></text>
+<text fill="#0043CE" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="560" y="210">~65% CPU &amp; RAM</tspan></text>
+
+<!-- Node 1 (shifted down 92px from original y=148) -->
+<rect x="70" y="240" width="820" height="170" rx="6" fill="white" stroke="#FFB3B8" stroke-width="1.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="17" font-weight="600"><tspan x="90" y="270">Bare metal node 1</tspan></text>
+<rect x="90" y="282" width="300" height="110" rx="4" fill="#FFF1F1" stroke="#FA4D56" stroke-width="1.5"/>
+<text fill="#A2191F" xml:space="preserve" font-family="IBM Plex Sans" font-size="14" font-weight="600"><tspan x="108" y="305">ODF / Ceph daemons</tspan></text>
+<rect x="104" y="314" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="118" y="334">osd</tspan></text>
+<rect x="184" y="314" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="198" y="334">mon</tspan></text>
+<rect x="264" y="314" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="278" y="334">mgr</tspan></text>
+<rect x="104" y="352" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="116" y="372">mds</tspan></text>
+<rect x="184" y="352" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="196" y="372">rgw</tspan></text>
+<!-- contention band -->
+<rect x="388" y="280" width="40" height="114" fill="#FF832B" fill-opacity="0.35"/>
+<text fill="#8A3800" font-family="IBM Plex Sans" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central" x="408" y="337" transform="rotate(-90 408 337)">CONTENTION</text>
+<rect x="428" y="282" width="300" height="110" rx="4" fill="#EDF5FF" stroke="#78A9FF" stroke-width="1.5"/>
+<text fill="#0043CE" xml:space="preserve" font-family="IBM Plex Sans" font-size="14" font-weight="600"><tspan x="446" y="305">VM workloads</tspan></text>
+<rect x="440" y="314" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="455" y="334">VM 1</tspan></text>
+<rect x="520" y="314" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="535" y="334">VM 2</tspan></text>
+<rect x="600" y="314" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="615" y="334">VM 3</tspan></text>
+<rect x="440" y="352" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="455" y="372">VM 4</tspan></text>
+<rect x="520" y="352" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="535" y="372">VM 5</tspan></text>
+
+<!-- Node 2 (shifted +92) -->
+<rect x="70" y="422" width="820" height="170" rx="6" fill="white" stroke="#FFB3B8" stroke-width="1.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="17" font-weight="600"><tspan x="90" y="452">Bare metal node 2</tspan></text>
+<rect x="90" y="464" width="300" height="110" rx="4" fill="#FFF1F1" stroke="#FA4D56" stroke-width="1.5"/>
+<text fill="#A2191F" xml:space="preserve" font-family="IBM Plex Sans" font-size="14" font-weight="600"><tspan x="108" y="487">ODF / Ceph daemons</tspan></text>
+<rect x="104" y="496" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="118" y="516">osd</tspan></text>
+<rect x="184" y="496" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="198" y="516">mon</tspan></text>
+<rect x="264" y="496" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="278" y="516">mgr</tspan></text>
+<rect x="104" y="534" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="116" y="554">mds</tspan></text>
+<rect x="388" y="462" width="40" height="114" fill="#FF832B" fill-opacity="0.35"/>
+<text fill="#8A3800" font-family="IBM Plex Sans" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central" x="408" y="519" transform="rotate(-90 408 519)">CONTENTION</text>
+<rect x="428" y="464" width="300" height="110" rx="4" fill="#EDF5FF" stroke="#78A9FF" stroke-width="1.5"/>
+<text fill="#0043CE" xml:space="preserve" font-family="IBM Plex Sans" font-size="14" font-weight="600"><tspan x="446" y="487">VM workloads</tspan></text>
+<rect x="440" y="496" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="455" y="516">VM 6</tspan></text>
+<rect x="520" y="496" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="535" y="516">VM 7</tspan></text>
+<rect x="440" y="534" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="455" y="554">VM 8</tspan></text>
+
+<!-- Node 3 (shifted +92) -->
+<rect x="70" y="604" width="820" height="170" rx="6" fill="white" stroke="#FFB3B8" stroke-width="1.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="17" font-weight="600"><tspan x="90" y="634">Bare metal node 3</tspan></text>
+<rect x="90" y="646" width="300" height="110" rx="4" fill="#FFF1F1" stroke="#FA4D56" stroke-width="1.5"/>
+<text fill="#A2191F" xml:space="preserve" font-family="IBM Plex Sans" font-size="14" font-weight="600"><tspan x="108" y="669">ODF / Ceph daemons</tspan></text>
+<rect x="104" y="678" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="118" y="698">osd</tspan></text>
+<rect x="184" y="678" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="198" y="698">mon</tspan></text>
+<rect x="264" y="678" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="278" y="698">mgr</tspan></text>
+<rect x="104" y="716" width="72" height="30" rx="3" fill="#FFB3B8"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="116" y="736">mds</tspan></text>
+<rect x="388" y="644" width="40" height="114" fill="#FF832B" fill-opacity="0.35"/>
+<text fill="#8A3800" font-family="IBM Plex Sans" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central" x="408" y="701" transform="rotate(-90 408 701)">CONTENTION</text>
+<rect x="428" y="646" width="300" height="110" rx="4" fill="#EDF5FF" stroke="#78A9FF" stroke-width="1.5"/>
+<text fill="#0043CE" xml:space="preserve" font-family="IBM Plex Sans" font-size="14" font-weight="600"><tspan x="446" y="669">VM workloads</tspan></text>
+<rect x="440" y="678" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="455" y="698">VM 9</tspan></text>
+<rect x="520" y="678" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="530" y="698">VM 10</tspan></text>
+<rect x="440" y="716" width="72" height="30" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="450" y="736">VM 11</tspan></text>
+
+<!-- Left callout (shifted +92) -->
+<rect x="70" y="794" width="820" height="96" rx="6" fill="#FFF1F1" stroke="#FA4D56" stroke-width="1.5"/>
+<text fill="#A2191F" xml:space="preserve" font-family="IBM Plex Sans" font-size="16" font-weight="600"><tspan x="90" y="819">⚠ Resource contention</tspan></text>
+<text fill="#525252" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="90" y="842">ODF daemons and VM workloads compete for CPU and memory.</tspan></text>
+<text fill="#525252" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="90" y="862">I/O spikes can cause VM latency and reduced IOPS headroom.</tspan></text>
+
+<!-- ═══════════════════ RIGHT PANEL — dedicated pools ═══════════════════ -->
+<rect x="1000" y="90" width="880" height="822" rx="8" fill="#DEFBE6" stroke="#A7F0BA" stroke-width="2"/>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="22" font-weight="600"><tspan x="1100" y="130">Dedicated worker pools — recommended</tspan></text>
+
+<!-- ── Resource bar (right) ── -->
+<!-- bar background / fill — 100% ODF green -->
+<rect x="1030" y="166" width="820" height="62" rx="6" fill="#A7F0BA"/>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="13" font-weight="600" text-anchor="middle"><tspan x="1440" y="192">ODF daemons</tspan></text>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="12" text-anchor="middle"><tspan x="1440" y="210">100% CPU &amp; RAM available</tspan></text>
+
+<!-- Storage pool label (shifted +92) -->
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="16" font-weight="600"><tspan x="1030" y="260">Storage worker pool</tspan></text>
+
+<!-- Storage node 1 (shifted +92) -->
+<rect x="1030" y="270" width="360" height="168" rx="6" fill="white" stroke="#A7F0BA" stroke-width="1.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="17" font-weight="600"><tspan x="1050" y="300">Storage node 1</tspan></text>
+<rect x="1286" y="274" width="100" height="26" rx="10" fill="#198038"/>
+<text fill="white" xml:space="preserve" font-family="IBM Plex Sans" font-size="11" font-weight="600"><tspan x="1296" y="291">NoSchedule</tspan></text>
+<rect x="1050" y="310" width="322" height="112" rx="4" fill="#DEFBE6" stroke="#42BE65" stroke-width="1.5"/>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="13" font-weight="600"><tspan x="1066" y="332">ODF / Ceph daemons only</tspan></text>
+<rect x="1060" y="342" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1074" y="361">osd</tspan></text>
+<rect x="1132" y="342" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1146" y="361">mon</tspan></text>
+<rect x="1204" y="342" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1218" y="361">mgr</tspan></text>
+<rect x="1276" y="342" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1288" y="361">mds</tspan></text>
+<rect x="1060" y="378" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1074" y="397">rgw</tspan></text>
+
+<!-- Storage node 2 (shifted +92) -->
+<rect x="1030" y="450" width="360" height="168" rx="6" fill="white" stroke="#A7F0BA" stroke-width="1.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="17" font-weight="600"><tspan x="1050" y="480">Storage node 2</tspan></text>
+<rect x="1286" y="454" width="100" height="26" rx="10" fill="#198038"/>
+<text fill="white" xml:space="preserve" font-family="IBM Plex Sans" font-size="11" font-weight="600"><tspan x="1296" y="471">NoSchedule</tspan></text>
+<rect x="1050" y="490" width="322" height="112" rx="4" fill="#DEFBE6" stroke="#42BE65" stroke-width="1.5"/>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="13" font-weight="600"><tspan x="1066" y="512">ODF / Ceph daemons only</tspan></text>
+<rect x="1060" y="522" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1074" y="541">osd</tspan></text>
+<rect x="1132" y="522" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1146" y="541">mon</tspan></text>
+<rect x="1204" y="522" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1218" y="541">mgr</tspan></text>
+<rect x="1276" y="522" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1288" y="541">mds</tspan></text>
+<rect x="1060" y="558" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1074" y="577">rgw</tspan></text>
+
+<!-- Storage node 3 (shifted +92) -->
+<rect x="1030" y="630" width="360" height="168" rx="6" fill="white" stroke="#A7F0BA" stroke-width="1.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="17" font-weight="600"><tspan x="1050" y="660">Storage node 3</tspan></text>
+<rect x="1286" y="634" width="100" height="26" rx="10" fill="#198038"/>
+<text fill="white" xml:space="preserve" font-family="IBM Plex Sans" font-size="11" font-weight="600"><tspan x="1296" y="651">NoSchedule</tspan></text>
+<rect x="1050" y="670" width="322" height="112" rx="4" fill="#DEFBE6" stroke="#42BE65" stroke-width="1.5"/>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="13" font-weight="600"><tspan x="1066" y="692">ODF / Ceph daemons only</tspan></text>
+<rect x="1060" y="702" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1074" y="721">osd</tspan></text>
+<rect x="1132" y="702" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1146" y="721">mon</tspan></text>
+<rect x="1204" y="702" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1218" y="721">mgr</tspan></text>
+<rect x="1276" y="702" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1288" y="721">mds</tspan></text>
+<rect x="1060" y="738" width="64" height="28" rx="3" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="1074" y="757">rgw</tspan></text>
+
+<!-- PVC arrow from compute pool to storage pool (shifted +92) -->
+<line x1="1456" y1="542" x2="1394" y2="542" stroke="#0F62FE" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+<text fill="#0043CE" xml:space="preserve" font-family="IBM Plex Sans" font-size="12" font-weight="600" text-anchor="middle"><tspan x="1425" y="532">PV ← PVC</tspan></text>
+
+<!-- Compute pool label (shifted +92) -->
+<text fill="#0043CE" xml:space="preserve" font-family="IBM Plex Sans" font-size="16" font-weight="600"><tspan x="1466" y="260">Compute worker pool</tspan></text>
+
+<!-- Compute node (shifted +92) -->
+<rect x="1460" y="270" width="396" height="528" rx="6" fill="white" stroke="#A6C8FF" stroke-width="1.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="17" font-weight="600"><tspan x="1480" y="302">Compute nodes</tspan></text>
+<rect x="1476" y="314" width="362" height="468" rx="4" fill="#EDF5FF" stroke="#78A9FF" stroke-width="1.5"/>
+<text fill="#0043CE" xml:space="preserve" font-family="IBM Plex Sans" font-size="13" font-weight="600"><tspan x="1492" y="340">VM workloads only</tspan></text>
+<rect x="1488" y="352" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1504" y="375">VM 1</tspan></text>
+<rect x="1598" y="352" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1614" y="375">VM 2</tspan></text>
+<rect x="1488" y="398" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1504" y="421">VM 3</tspan></text>
+<rect x="1598" y="398" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1614" y="421">VM 4</tspan></text>
+<rect x="1488" y="444" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1504" y="467">VM 5</tspan></text>
+<rect x="1598" y="444" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1614" y="467">VM 6</tspan></text>
+<rect x="1488" y="490" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1504" y="513">VM 7</tspan></text>
+<rect x="1598" y="490" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1614" y="513">VM 8</tspan></text>
+<rect x="1488" y="536" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1504" y="559">VM 9</tspan></text>
+<rect x="1598" y="536" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1606" y="559">VM 10</tspan></text>
+<rect x="1488" y="582" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1496" y="605">VM 11</tspan></text>
+<rect x="1598" y="582" width="100" height="36" rx="3" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1606" y="605">VM 12</tspan></text>
+
+<!-- Right callout (shifted +92) -->
+<rect x="1030" y="810" width="826" height="80" rx="6" fill="#DEFBE6" stroke="#42BE65" stroke-width="1.5"/>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="16" font-weight="600"><tspan x="1050" y="835">✓ Full resource isolation</tspan></text>
+<text fill="#525252" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1050" y="856">ODF daemons and VM workloads on separate nodes — no CPU or memory competition.</tspan></text>
+<text fill="#525252" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="1050" y="876">Compute and storage pools scale independently.</tspan></text>
+
+<!-- Divider -->
+<line x1="960" y1="90" x2="960" y2="912" stroke="#C6C6C6" stroke-width="2"/>
+</svg>

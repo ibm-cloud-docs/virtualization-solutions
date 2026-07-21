@@ -1,0 +1,80 @@
+<svg width="1298" height="880" viewBox="0 0 1298 880" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1298" height="880" fill="#F5F5F5"/>
+<defs>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#0F62FE"/>
+  </marker>
+  <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#198038"/>
+  </marker>
+  <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#DA1E28"/>
+  </marker>
+</defs>
+
+<!-- Title -->
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="30" font-weight="600"><tspan x="60" y="60">How ODF storage taints control pod scheduling</tspan></text>
+<line x1="60" y1="76" x2="1238" y2="76" stroke="#E0E0E0" stroke-width="1.5"/>
+
+<!-- ════════════════ STORAGE NODE ════════════════ -->
+<rect x="60" y="110" width="460" height="282" rx="8" fill="white" stroke="#42BE65" stroke-width="2.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="20" font-weight="600"><tspan x="84" y="150">Storage node</tspan></text>
+<!-- Taint badge -->
+<rect x="84" y="164" width="412" height="40" rx="6" fill="#198038"/>
+<text fill="white" xml:space="preserve" font-family="IBM Plex Sans" font-size="14" font-weight="600"><tspan x="104" y="188">node.ocs.openshift.io/storage=true:NoSchedule</tspan></text>
+<!-- ODF daemons inside -->
+<rect x="84" y="216" width="412" height="156" rx="6" fill="#DEFBE6" stroke="#42BE65" stroke-width="1.5"/>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="16" font-weight="600"><tspan x="104" y="244">ODF / Ceph daemons</tspan></text>
+<!-- Row 1: osd, mon, mgr -->
+<rect x="100" y="256" width="100" height="38" rx="4" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="14"><tspan x="128" y="280">osd</tspan></text>
+<rect x="210" y="256" width="100" height="38" rx="4" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="14"><tspan x="238" y="280">mon</tspan></text>
+<rect x="320" y="256" width="100" height="38" rx="4" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="14"><tspan x="348" y="280">mgr</tspan></text>
+<!-- Row 2: mds, rgw (left-aligned with row 1) -->
+<rect x="100" y="304" width="100" height="38" rx="4" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="14"><tspan x="128" y="328">mds</tspan></text>
+<rect x="210" y="304" width="100" height="38" rx="4" fill="#A7F0BA"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="14"><tspan x="238" y="328">rgw</tspan></text>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="104" y="362">✓ Has matching toleration — scheduled here</tspan></text>
+
+<!-- ════════════════ INCOMING PODS ════════════════ -->
+<!-- ODF pod — allowed -->
+<rect x="800" y="244" width="438" height="148" rx="8" fill="#DEFBE6" stroke="#42BE65" stroke-width="2"/>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="18" font-weight="600"><tspan x="824" y="282">ODF pod</tspan></text>
+<rect x="824" y="296" width="390" height="36" rx="4" fill="#A7F0BA"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="844" y="318">toleration: node.ocs.openshift.io/storage=true:NoSchedule</tspan></text>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="824" y="374">✓ Toleration matches taint — allowed to schedule</tspan></text>
+<!-- Arrow ODF pod → storage node (green) -->
+<line x1="796" y1="318" x2="524" y2="318" stroke="#198038" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+
+<!-- VM workload pod — rejected from storage, scheduled on compute -->
+<rect x="800" y="418" width="438" height="148" rx="8" fill="#EDF5FF" stroke="#A6C8FF" stroke-width="2"/>
+<text fill="#0F62FE" xml:space="preserve" font-family="IBM Plex Sans" font-size="18" font-weight="600"><tspan x="824" y="456">VM workload pod</tspan></text>
+<rect x="824" y="470" width="390" height="36" rx="4" fill="#FFB3B8"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="844" y="492">No toleration for node.ocs.openshift.io/storage</tspan></text>
+<text fill="#A2191F" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="824" y="548">✗ No toleration — rejected from storage node</tspan></text>
+<!-- Arrow VM pod → storage node (red dashed, rejected) -->
+<line x1="796" y1="488" x2="658" y2="429" stroke="#DA1E28" stroke-width="2.5" stroke-dasharray="8 4"/>
+<line x1="658" y1="429" x2="520" y2="370" stroke="#DA1E28" stroke-width="2.5" stroke-dasharray="8 4" marker-end="url(#arrow-red)"/>
+<!-- Red X at midpoint -->
+<circle cx="658" cy="429" r="22" fill="#DA1E28"/>
+<text fill="white" xml:space="preserve" font-family="IBM Plex Sans" font-size="20" font-weight="700"><tspan x="647" y="438">✗</tspan></text>
+<!-- Arrow redirected to compute node: down from ✗ text then left into right side -->
+<line x1="824" y1="566" x2="824" y2="600" stroke="#198038" stroke-width="2"/>
+<line x1="824" y1="600" x2="524" y2="600" stroke="#198038" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+<!-- ════════════════ COMPUTE NODE ════════════════ -->
+<rect x="60" y="418" width="460" height="210" rx="8" fill="white" stroke="#A6C8FF" stroke-width="2"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="18" font-weight="600"><tspan x="84" y="454">Compute node — no storage taint</tspan></text>
+<rect x="84" y="468" width="100" height="38" rx="4" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="112" y="492">VM 1</tspan></text>
+<rect x="194" y="468" width="100" height="38" rx="4" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="222" y="492">VM 2</tspan></text>
+<rect x="304" y="468" width="100" height="38" rx="4" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="332" y="492">VM 3</tspan></text>
+<rect x="84" y="516" width="210" height="38" rx="4" fill="#A6C8FF"/><text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="104" y="540">VM workload pod ✓</tspan></text>
+<text fill="#198038" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="84" y="606">✓ VM workload scheduled successfully on compute node</tspan></text>
+
+<!-- ════════════════ SUMMARY ════════════════ -->
+<rect x="60" y="658" width="1178" height="176" rx="8" fill="#F4F4F4" stroke="#E0E0E0" stroke-width="1.5"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="18" font-weight="600"><tspan x="84" y="696">How it works</tspan></text>
+<line x1="84" y1="706" x2="1214" y2="706" stroke="#E0E0E0" stroke-width="1"/>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="84" y="730">1. ODF applies a NoSchedule taint to every node in the storage worker pool.</tspan></text>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="84" y="754">2. ODF daemon pods carry a matching toleration and are scheduled on storage nodes.</tspan></text>
+<text fill="#161616" xml:space="preserve" font-family="IBM Plex Sans" font-size="13"><tspan x="84" y="778">3. VM pods have no toleration and are rejected from storage nodes — they schedule on compute nodes.</tspan></text>
+<text fill="#0F62FE" xml:space="preserve" font-family="IBM Plex Sans" font-size="12"><tspan x="84" y="810">oc adm taint nodes &#60;node&#62; node.ocs.openshift.io/storage=true:NoSchedule</tspan></text>
+</svg>
