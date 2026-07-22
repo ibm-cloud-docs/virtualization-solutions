@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-07-22"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: Layer 2 primary network OpenShift, CUDN OpenShift Virtualization, User-Defined Network tutorial, OVN-Kubernetes Layer 2, BGP routing OpenShift, three-tier application OpenShift, namespace networking, FRR BGP configuration, ClusterUserDefinedNetwork, FRR configuration, static routes
@@ -30,7 +30,8 @@ Configure CUDN Layer 2 primary networks on Red Hat OpenShift Virtualization on I
 ## Overview
 {: #layer2-primary-overview}
 
-Create a three-tier application that uses CUDN layer 2 primary networks on OpenShift Virtualization with BGP route advertisement and {{site.data.keyword.vpc_short}} static routing.
+Create a three-tier application that uses CUDN layer 2 primary networks on Red Hat OpenShift Virtualization with BGP route advertisement and {{site.data.keyword.vpc_short}} static routing.
+{: shortdesc}
 
 This tutorial shows you how to create an example three-tier application by using Cluster-User-Defined Network (CUDN) layer 2 primary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on {{site.data.keyword.containerlong_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization to layer 2 primary networks. The tutorial also shows how Border Gateway Protocol (BGP) advertises pod subnets back into {{site.data.keyword.vpc_short}} by using static {{site.data.keyword.vpc_short}} routes. For more information about network types, see [Open Virtual Network (OVN) networking in Red Hat OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
 
@@ -54,7 +55,6 @@ The following table summarizes the example network layout.
 
 Each code block in this tutorial can be copied to a file and applied with `oc apply -f <file-name>.yml`. Some code blocks might cross page boundaries in PDF and Word formats, and some long lines might wrap in those formats.
 {: tip}
-
 
 ## Reviewing network prerequisites
 {: #layer2-primary-review-network-prerequisites}
@@ -270,9 +270,9 @@ Update each manifest with a new password and `ssh_authorized_keys` value. The sy
 ### Reserving a specific IP address for a virtual server (optional)
 {: #layer2-primary-reserved-ip}
 
-By default, virtual servers on Layer 2 primary networks receive IP addresses through DHCP. While these DHCP leases persist for the life of the virtual server, you can optionally reserve a specific IP address by adding an annotation to the virtual server template metadata. The IP address is still assigned by DHCP, but the system ensures that the virtual server always receives the specified IP address.
+By default, virtual servers on Layer 2 primary networks receive IP addresses through DHCP. You can reserve a specific IP address by adding an annotation to the virtual server template metadata. The virtual server always receives the specified IP address.
 
-To reserve a specific IP address, add the following annotation to the `spec.template.metadata.annotations` section of your virtual server manifest:
+To reserve an IP address, add the following annotation to the `spec.template.metadata.annotations` section of your virtual server manifest:
 
 ```yaml
 template:
@@ -285,12 +285,12 @@ template:
 ```
 {: codeblock}
 
-Replace `green-net` with the name of your network (`green-net` or `white-net` in this tutorial) and `10.203.0.100` with the desired IP address from the network's subnet range.
+Replace `green-net` with the name of your network (`green-net` or `white-net` in this tutorial) and `10.203.0.100` with the desired IP address in the network's subnet range.
 
-The IP address must be within the subnet range defined for the network and must not conflict with other reserved addresses.
+The IP address must not conflict with other reserved addresses in the subnet.
 {: important}
 
-The first virtual server example (`factory-web00`) demonstrates how to use a reserved IP address. The remaining virtual server examples use standard DHCP assignment without reserved IPs.
+The first virtual server example (`factory-web00`) uses a reserved IP address. The remaining virtual server examples use standard DHCP assignment without reserved IP addresses.
 
 Apply each manifest by running `oc apply -f <file-name>.yml`. Use the following links to jump directly to each manifest.
 
@@ -950,6 +950,6 @@ spec:
 ```
 {: codeblock}
 
-Rerun the preceding tests using VM's web console since the policy strictly only allows TCP 8080 traffic and SSH will not work. Test 6 no longer completes successfully, and ping no longer works.
+Rerun the preceding tests by using VM's web console. The policy strictly allows only TCP 8080 traffic, and SSH does not work. Test 6 no longer completes successfully, so ping does not work.
 
 Remove the policy by running `oc delete -f my-policy.yml` to restore connectivity. The tests work again.

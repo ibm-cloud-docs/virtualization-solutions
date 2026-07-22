@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-07-22"
 
 keywords: Localnet network OpenShift, CUDN configuration, UDN setup, VLAN-backed network OpenShift, VNI networking, OVN Localnet, OpenShift Virtualization networking
 
@@ -636,12 +636,10 @@ Run the following tests to verify the network setup.
 
 8. Rerun the preceding tasks by using `198.18.2.20` and the jump virtual server's IP address.
 
-
-
 ### Applying a multi-network policy and rerunning the tests
 {: #localnet-network-policy}
 
-Next, apply a multi-network policy that allows only TCP port 8080 on the `vlan20-prod` network. Save the following manifest to a file named `my-policy.yml` and apply it by running `oc apply -f my-policy.yml`.
+Apply a multi-network policy that allows only TCP port 8080 for the `vlan20-prod` network. Save the following manifest to a file named `my-policy.yml`. Then, run `oc apply -f my-policy.yml` to apply it.
 
 ```yaml
 ---
@@ -668,6 +666,6 @@ spec:
 ```
 {: codeblock}
 
-Rerun the tests from the previous section against `plant-web00` on `vlan20-prod`. You should see that TCP port 8080 still works, but other traffic such as ping and the `iperf3` test on port 9090 no longer works for that network attachment.
+Rerun the [Tests](#localnet-tests) against `plant-web00` on `vlan20-prod`. TCP port 8080 still works, but other traffic, such as `ping` and the `iperf3` test on port 9090, no longer work on that network attachment.
 
-Remove the policy by running `oc delete -f my-policy.yml` to restore connectivity. The tests work again.
+Run `oc delete -f my-policy.yml` to remove the policy and restore connectivity. The tests pass again.

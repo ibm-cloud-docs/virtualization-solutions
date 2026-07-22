@@ -120,8 +120,6 @@ toc:
           - topic: tutorial/openshift/network-options.md
             navtitle: OVN networking in OpenShift for vSphere administrators
           - topic: tutorial/openshift/network-option-layer2-primary.md
-            navtitle: Layer 2 primary UDN examples for Red Hat OpenShift Virtualization
-          - topic: tutorial/openshift/network-option-layer2-secondary.md
             navtitle: Layer 2 secondary UDN examples for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/network-option-localnet.md
             navtitle: Localnet UDN examples for Red Hat OpenShift Virtualization
