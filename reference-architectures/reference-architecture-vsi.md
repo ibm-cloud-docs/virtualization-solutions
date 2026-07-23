@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-17"
+lastupdated: "2026-07-21"
 
-keywords: VPC virtual servers, IBM Cloud VSI, virtual server architecture, VPC compute instances, VMware to VPC migration, virtual machine infrastructure, cloud VM deployment, VPC virtualization, virtual server reference architecture, IBM Cloud virtual machines
+keywords: VPC virtual servers, virtual server architecture, VPC compute instances, VMware to VPC migration, virtual machine infrastructure, cloud VM deployment, VPC virtualization, virtual server reference architecture
 
 subcollection: virtualization-solutions
 
@@ -17,15 +17,15 @@ production: false
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Virtual Servers for VPC
+# Deploying virtual servers on IBM Cloud VPC: Flexible compute resources
 {: #virt-sol-vpc-vsi-architecture}
 
-Deploy virtual machines on IBM Cloud VPC with flexible compute profiles, integrated networking, and enterprise security. Ideal for migrating VMware workloads to cloud infrastructure with minimal changes.
+Explore the IBM Cloud Virtual Servers for Virtual Private Cloud (VPC) reference architecture, including compute, networking, storage, and security components.
 {: shortdesc}
 
-The platform includes networking features such as security groups, network ACLs, VPN connectivity, and load balancers. These options provide network isolation and security controls.
+The platform includes networking features such as security groups, network access control lists (ACLs), virtual private network (VPN) connectivity, and load balancers. These options provide network isolation and security controls.
 
-Storage options include boot and data volumes by using {{site.data.keyword.block_storage_is_short}}, that integrate with {{site.data.keyword.filestorage_vpc_short}} and Object Storage for extra data management capabilities.
+Storage options include boot and data volumes by using {{site.data.keyword.block_storage_is_short}}, that integrate with {{site.data.keyword.filestorage_vpc_short}} and Object Storage for extra data management capabilities. File storage uses the Network File System (NFS) protocol.
 
 For enterprise management and governance, {{site.data.keyword.cloud_notm}} services such as {{site.data.keyword.monitoringlong}}, {{site.data.keyword.logs_routing_full_notm}}, and {{site.data.keyword.cloud_notm}} Security and Compliance Center provide visibility, audit trails, and compliance scanning across your VPC infrastructure.
 
@@ -54,27 +54,27 @@ The following table outlines the products or services that are used in the archi
 | | {{site.data.keyword.cloud_notm}} Backup and recovery | Agent-based backup service for file-level and folder-level backup. |
 | | 3rd-party backup solutions | Self-managed backup solutions such as Veeam, Commvault, or Rubrik. |
 | | Multi-zone deployment | Distribution of virtual servers across availability zones for high availability. |
-| [**Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) | {{site.data.keyword.cloud_notm}} Console, CLI, or API | Web-based console, command-line interface, and REST APIs for managing VPC resources. |
+| [**Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) | {{site.data.keyword.cloud_notm}} Console, command-line interface (CLI), or application programming interface (API) | Web-based console, CLI, and REST APIs for managing VPC resources. |
 | | {{site.data.keyword.monitoringlong}} | Agent-based monitoring for metrics collection. |
 | | {{site.data.keyword.logs_routing_full_notm}} | Agent-based log aggregation and analysis. |
 | | {{site.data.keyword.cloud_notm}} IBM Cloud Activity Tracker Event Routing | Audit logging for VPC resource management activities. |
 | | {{site.data.keyword.cloud_notm}} security and compliance center | Posture management and compliance scanning for your VPC infrastructure. |
-| [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | {{site.data.keyword.block_storage_is_short}} | High-performance block storage volumes with configurable IOPS for boot and data disks. |
+| [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | {{site.data.keyword.block_storage_is_short}} | High-performance block storage volumes with configurable input/output operations per second (IOPS) for boot and data disks. |
 | | {{site.data.keyword.filestorage_vpc_short}} | Persistent, fast, and flexible network-attached, NFS-based file storage. |
 | | {{site.data.keyword.cos_full}} | Designed for unstructured data. Ideal for workloads such as backup, archiving, big data analytics, and application data storage. |
 | | {{site.data.keyword.cloud_notm}} Key Protect | Provision and store encrypted keys that are used for volume encryption. |
 | [**Compute**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-compute-design-overview) | Virtual server instances | Shared tenancy virtual servers with customizable profiles. |
 | | Dedicated hosts | Optional single-tenant physical servers for compliance and licensing requirements. |
-| | Instance profiles | Balanced, compute-optimized, memory-optimized, GPU, and very high memory configurations. |
+| | Instance profiles | Balanced, compute-optimized, memory-optimized, graphics processing unit (GPU), and very high memory configurations. |
 | | Custom Images | User-provided operating system images for specialized workload requirements. |
-| [**Networking**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-design) | Virtual Private Cloud (VPC) | Logically isolated network environment with user-defined IP address ranges. |
+| [**Networking**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-design) | {{site.data.keyword.vpc_full}} (VPC) | Logically isolated network environment with user-defined IP address ranges. |
 | | Subnets | Network segments within availability zones that use configurable routing. |
 | | Security groups | Firewalls that control inbound and outbound traffic at the instance level. |
-| | Network ACLs | Firewalls that control traffic at the subnet level. |
+| | Network ACLs (access control lists) | Firewalls that control traffic at the subnet level. |
 | | Public gateways | Enable outbound internet connectivity for virtual servers on private subnets. |
 | | Floating IPs | Static public IP addresses that can attach to virtual servers for inbound internet access. |
 | | Load balancers | Application and network load balancers that distribute traffic across virtual servers. |
-| | VPN gateways | Site-to-site VPN connectivity to on-premises networks. |
+| | VPN (virtual private network) gateways | Site-to-site VPN connectivity to on-premises networks. |
 | | Transit gateway | Hub that connects multiple VPCs and Classic infrastructure. |
 | | Direct link | Connects dedicated, minimal latency connections to on-premises data centers. |
 | | Virtual Network Functions (VNFs) | Virtual firewalls and network appliances that run as virtual servers. |

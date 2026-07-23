@@ -5,9 +5,9 @@
    - Public gateways
    - Floating IPs
 
-For more information, see [Managing IAM access for VPC Infrastructure Services](/docs/vpc?topic=vpc-iam-getting-started&interface=ui).
+For more information, see [Managing Identity and Access Management (IAM) access for VPC Infrastructure Services](/docs/vpc?topic=vpc-iam-getting-started&interface=ui).
 
-- Verify that you have the correct access policies to manage Transit gateways (TGWs) so you can create the following TGW resources.
+- Verify that you have the correct access policies to manage Transit Gateways (TGWs) so you can create the following TGW resources.
    - TGWs
    - TGW connections
 

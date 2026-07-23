@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, migration governance framework, change management migration, migration runbook templates, stakeholder communication plan, migration documentation requirements, lessons learned retrospective, migration tracking spreadsheet, troubleshooting guide migration, wave approval process, post-migration retrospective
+keywords: migration governance framework, change management migration, migration runbook templates, stakeholder communication plan, migration documentation requirements, lessons learned retrospective, migration tracking spreadsheet, troubleshooting guide migration, wave approval process, post-migration retrospective
 
 subcollection: virtualization-solutions
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migration methods for virtual servers
+# Migration methods for moving VMware VMs to IBM Cloud VPC virtual servers
 {: #virt-sol-vpc-migration-design-methods}
 
-Establish migration governance with change management processes, runbook templates, stakeholder communication plans, documentation standards, and retrospectives.
+Compare four VMware-to-VPC migration methods: Image Import, Direct Volume Copy, Live Network Transfer, and VDDK Extraction.
 {: shortdesc}
 
 * Method 1: [Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1)
@@ -23,7 +23,7 @@ Establish migration governance with change management processes, runbook templat
 * Method 3: [Live Network Transfer (Recommended for Scale)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3)
 * Method 4: [VDDK Direct Extraction (vCenter Only)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 
-## Migration Method Selection Matrix
+## Migration method selection matrix
 {: #virt-sol-vpc-migration-design-methods-matrix}
 
 | Criterion | Method 1 (Image) | Method 2 (Volume) | Method 3 (Network) | Method 4 (VDDK) |
@@ -40,7 +40,7 @@ Establish migration governance with change management processes, runbook templat
 | Automation potential | Medium | High | High | Very High |
 | Template reuse | ✓ Excellent | Limited | Limited | Limited |
 | Image proliferation | ✗ High | ✓ Avoids | ✓ Avoids | ✓ Avoids |
-{: caption="Migration Method Selection Matrix" caption-side="bottom"}
+{: caption="Migration method selection matrix" caption-side="bottom"}
 
 General Guidance:
 - Small migrations (<10 virtual machines), mostly single-disk: Method 1

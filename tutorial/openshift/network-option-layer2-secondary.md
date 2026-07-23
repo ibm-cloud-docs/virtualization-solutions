@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-29"
+lastupdated: "2026-07-23"
 
-keywords: Red Hat OpenShift Virtualization, ROKS, VPC, Layer 2 Secondary, CUDN, UDN, OVN, isolated networks
+keywords: Layer 2 secondary network OpenShift, CUDN configuration, UDN setup, OVN Layer 2 secondary, isolated networks OpenShift, OpenShift Virtualization networking
 
 subcollection: virtualization-solutions
 
@@ -23,8 +23,11 @@ completion-time: 45m
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="45m"}
 
+
 This tutorial shows how to create an example three-tier application by using Cluster-User-Defined Network (CUDN) Layer 2 secondary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes&reg; Service on {{site.data.keyword.cloud_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization to Layer 2 secondary networks that provide isolated network segments without external access. For more information on network types, see [OVN networking in {{site.data.keyword.redhat_openshift_notm}} for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
 {: shortdesc}
+
+This tutorial shows how to create an example three-tier application by using Cluster User-Defined Network (CUDN) Layer 2 secondary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on IBM Cloud. The example demonstrates how to attach virtual servers running on {{site.data.keyword.redhat_openshift_notm}} Virtualization to Layer 2 secondary networks that provide isolated network segments without external access. For more information about network types, see [Open Virtual Network (OVN) networking in OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
 
 ## Overview
 {: #layer2-secondary-overview}

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-26"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Kubernetes Service, Red Hat OpenShift Data Foundation, ODF, File Storage, Block Storage, Encryption, OpenShift virtualization compute, bare metal servers OpenShift, IBM Cloud bare metal VPC, OpenShift worker nodes, NVMe storage OpenShift, Red Hat OpenShift Data Foundation, virtual servers OpenShift, multizone cluster OpenShift, compute profiles VPC, OpenShift Kubernetes Service compute
+keywords: OpenShift virtualization compute, bare metal servers OpenShift, IBM Cloud bare metal VPC, OpenShift worker nodes, NVMe storage OpenShift, virtual servers OpenShift, multizone cluster OpenShift, compute profiles VPC
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Compute design for Red Hat OpenShift virtualization
+# Designing compute for Red Hat OpenShift virtualization on IBM Cloud VPC
 {: #virt-sol-openshift-compute-design}
 
-Choose IBM Cloud bare metal servers with NVMe storage or virtual servers for OpenShift virtualization worker nodes with flexible compute profiles and multizone deployment.
+Choose virtual server or bare metal worker node profiles for Red Hat OpenShift Virtualization VM workloads on IBM Cloud VPC.
 {: shortdesc}
 
 IBM Cloud VPC offers two compute options:
@@ -52,8 +52,8 @@ The following table lists the key features for IBM Cloud Virtual Servers for VPC
 | -------------- | -------------- |
 | Customizable profiles | Balanced, compute-optimized, memory-optimized, GPU, and high memory configurations |
 | Flexible tenancy | Shared tenancy infrastructure with optional dedicated host placement for compliance requirements |
-| Advanced networking | Integration with VPC Security Groups, Network ACLs, Load Balancers, and VPN connectivity |
-| Persistent storage | IBM Cloud Block Storage and File Storage for VPC with configurable IOPS and encryption |
+| Advanced networking | Integration with VPC Security Groups, Network access control lists (ACLs), Load Balancers, and virtual private network (VPN) connectivity |
+| Persistent storage | IBM Cloud Block Storage and File Storage for VPC with configurable input/output operations per second (IOPS) and encryption |
 | Operating system flexibility | IBM-provided stock images or bring-your-own custom images |
 | Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
 {: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
@@ -70,7 +70,7 @@ The following table lists the key features for IBM Cloud Bare Metal Servers for 
 | Feature | Description |
 | -------------- | -------------- |
 | Single-tenant isolation | Dedicated physical hardware with no resource sharing |
-| High-performance NVMe storage | Local NVMe drives for Red Hat OpenShift Data Foundation deployments |
+| High-performance NVMe storage | Local Non-Volatile Memory Express (NVMe) drives for Red Hat OpenShift Data Foundation deployments |
 | Consistent performance | Predictable performance without virtualization resource overuse |
 | Large memory configurations | Support for memory-intensive virtualization workloads |
 | Network performance | High-bandwidth, low-latency networking for VM traffic |

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, migration risk mitigation, migration rollback strategy, network connectivity failure, data corruption prevention, performance degradation troubleshooting, migration rollback procedures, VPC migration troubleshooting, application startup failure, security group configuration, source VM preservation
+keywords: migration risk mitigation, migration rollback strategy, network connectivity failure, data corruption prevention, performance degradation troubleshooting, migration rollback procedures, VPC migration troubleshooting, application startup failure, security group configuration, source VM preservation
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Risk mitigation and rollback strategies
+# Mitigating risks and rollback strategies for migration to IBM Cloud VPC
 {: #virt-sol-vpc-migration-design-risk}
 
-Mitigate VMware to VPC migration risks with troubleshooting guidance for network, application, data, and performance issues, plus rollback procedures.
+Mitigate IBM Cloud VPC migration risks — network failures, data corruption, performance issues — and implement rollback procedures.
 {: shortdesc}
 
 ## Common migration risks
@@ -36,8 +36,8 @@ Detection: Post-migration connectivity tests fail.
 
 Fix:
 
-- Access through VNC console to troubleshoot
-- Verify VNI configuration (IP address, security groups)
+- Access through Virtual Network Computing (VNC) console to troubleshoot
+- Verify virtual network interface (VNI) configuration (IP address, security groups)
 - Check routing tables in VPC and Transit Gateway
 - Review security group rules (use VPC flow logs to see dropped packets)
 

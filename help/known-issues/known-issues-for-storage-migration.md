@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD, storage migration known issues, MigPlan existing plan error, MTV migration toolkit problems, nodeSelector migration warnings, volume capacity mismatch migration, OpenShift storage class migration, namespace migration plan conflicts, storage migration troubleshooting, PVC migration issues OpenShift, migration plan deletion workflow
+keywords: storage migration known issues OpenShift, MigPlan existing plan error, MTV migration toolkit problems, nodeSelector migration warnings, volume capacity mismatch migration, OpenShift storage class migration, namespace migration plan conflicts, PVC migration issues OpenShift, migration plan deletion workflow
 
 
 subcollection: virtualization-solutions
@@ -13,13 +13,13 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Known issues for storage migration
+# Storage migration known issues and limitations
 {: #known-issues-storage-migration}
 
-Common storage migration issues: existing MigPlan conflicts, nondefault nodeSelector warnings, and volume capacity mismatches. Includes workarounds for each.
+Review known issues for VM storage migration on IBM Cloud OpenShift Virtualization, including MigPlan conflicts and volume capacity mismatches.
 {: shortdesc}
 
-Known issues and limitations might change as capabilities are added, so check back periodically.
+This list reflects known issues and limitations at the time of publication. Review this page periodically for updates as new capabilities are released.
 
 ## Common issues and solutions
 {: #common-issues-and-solutions-storage-migration}
@@ -31,7 +31,7 @@ The following issues are commonly encountered during storage migration operation
 
 **Error message**: "The system finds an existing MigPlan for this namespace. Click Storage Migrations to review and delete existing MigPlans."
 
-**Explanation**: This error occurs when you attempt to create a new migration plan for a namespace that already has an existing MigPlan. The Migration Toolkit for Virtualization (MTV) does not allow multiple migration plans for the same namespace to prevent conflicts and help ensure data consistency during the migration process. You must delete the existing plan before you can create a new one.
+**Explanation**: This error occurs when you attempt to create a new migration plan for a namespace that already has an existing MigPlan. The Migration Toolkit for Virtualization (MTV) does not allow multiple migration plans for the same namespace to prevent conflicts and help ensure data consistency during the migration process. You must delete the existing plan before creating a new one.
 
 **Workaround**:
 
@@ -45,14 +45,14 @@ The following issues are commonly encountered during storage migration operation
 
 **Warning message**: "The system finds pods with nondefault `Spec.NodeSelector` set in namespace: []. The system clears this field on pods that it restores into the target cluster."
 
-**Explanation**: Source pods contain hardcoded `nodeSelector` fields that target specific nodes that might not exist on the target cluster. The operator automatically removes these constraints to prevent migration failure, which allows the system to schedule pods anywhere on the target cluster.
+**Explanation**: Source pods contain hardcoded `nodeSelector` fields that target specific nodes that do not exist on the target cluster. The operator automatically removes these constraints to prevent migration failure, which allows the system to schedule pods anywhere on the target cluster.
 
 **Workaround**: No action is required. This message is informational.
 
 ### Warning: Volume capacity mismatch
 {: #warning-volume-capacity}
 
-**Warning message**: "Migrating data of the following volumes might result in a failure either due to mismatch in their requested and actual capacities or disk usage close to 100%: [volume]."
+**Warning message**: "Migrating data of the following volumes can result in a failure either due to mismatch in their requested and actual capacities or disk usage close to 100%: [volume]."
 
 **Explanation**: The storage class API does not report which access modes it supports or whether a capacity mismatch exists.
 

@@ -2,10 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-13"
+lastupdated: "2026-07-22"
 lasttested: "[{LAST_TESTED_DATE}]"
 
-keywords: Red Hat OpenShift Virtualization, ROKS, VPC, Layer 2 Primary, CUDN, UDN, OVN, BGP, FRR, Layer 2 primary network OpenShift, CUDN OpenShift virtualization, User-Defined Network tutorial, OVN-Kubernetes Layer 2, BGP routing OpenShift, three-tier application OpenShift, VPC routing OpenShift, namespace networking, FRR BGP configuration, ClusterUserDefinedNetwork, three-tier application tutorial, FRR configuration, VPC static routes
+keywords: Layer 2 primary network OpenShift, CUDN OpenShift Virtualization, User-Defined Network tutorial, OVN-Kubernetes Layer 2, BGP routing OpenShift, three-tier application OpenShift, namespace networking, FRR BGP configuration, ClusterUserDefinedNetwork, FRR configuration, static routes
 
 subcollection: virtualization-solutions
 
@@ -18,16 +18,19 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Layer 2 primary User-Defined Network (UDN) examples for Red Hat OpenShift Virtualization
+# Layer 2 primary user-defined network (UDN) examples for Red Hat OpenShift Virtualization
 {: #layer-2-primary-udn-examples-for-red-hat-openshift-virtualization}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
+Configure CUDN Layer 2 primary networks on Red Hat OpenShift Virtualization on IBM Cloud, with BGP route advertisement to VPC subnets.
+{: shortdesc}
+
 ## Overview
 {: #layer2-primary-overview}
 
-Create a three-tier application that uses CUDN layer 2 primary networks on OpenShift Virtualization with BGP route advertisement and {{site.data.keyword.vpc_short}} static routing.
+Create a three-tier application that uses CUDN layer 2 primary networks on Red Hat OpenShift Virtualization with BGP route advertisement and {{site.data.keyword.vpc_short}} static routing.
 {: shortdesc}
 
 This tutorial shows you how to create an example three-tier application by using Cluster-User-Defined Network (CUDN) layer 2 primary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on {{site.data.keyword.containerlong_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization to layer 2 primary networks. The tutorial also shows how Border Gateway Protocol (BGP) advertises pod subnets back into {{site.data.keyword.vpc_short}} by using static {{site.data.keyword.vpc_short}} routes. For more information about network types, see [Open Virtual Network (OVN) networking in Red Hat OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
@@ -57,7 +60,7 @@ Each code block in this tutorial can be copied to a file and applied with `oc ap
 {: #layer2-primary-review-network-prerequisites}
 {: step}
 
-If you use {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, review [Red Hat OpenShift Kubernetes Service OVN UDN/CUDN network prerequisites](/docs/virtualization-solutions?topic=virtualization-solutions-udn-prerequisites) before you begin. {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.vpc_short}} includes this configuration by default.
+If you use {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, review [Red Hat OpenShift Kubernetes Service OVN UDN/CUDN network prerequisites](/docs/virtualization-solutions?topic=virtualization-solutions-udn-prerequisites) before you begin.
 
 ## Creating a BGP peering or placeholder
 {: #layer2-primary-bgp}
@@ -264,6 +267,31 @@ The following manifests create the example three-tier application: four virtual 
 Update each manifest with a new password and `ssh_authorized_keys` value. The system allows logins by SSH public key only.
 {: important}
 
+### Reserving a specific IP address for a virtual server (optional)
+{: #layer2-primary-reserved-ip}
+
+By default, virtual servers on Layer 2 primary networks receive IP addresses through DHCP. You can reserve a specific IP address by adding an annotation to the virtual server template metadata. The virtual server always receives the specified IP address.
+
+To reserve an IP address, add the following annotation to the `spec.template.metadata.annotations` section of your virtual server manifest:
+
+```yaml
+template:
+    metadata:
+      annotations:
+        kubevirt.io/pci-topology-version: v3
+        network.kubevirt.io/addresses: '{"green-net": ["10.203.0.100"]}'
+        vm.kubevirt.io/flavor: small
+...
+```
+{: codeblock}
+
+Replace `green-net` with the name of your network (`green-net` or `white-net` in this tutorial) and `10.203.0.100` with the desired IP address in the network's subnet range.
+
+The IP address must not conflict with other reserved addresses in the subnet.
+{: important}
+
+The first virtual server example (`factory-web00`) uses a reserved IP address. The remaining virtual server examples use standard DHCP assignment without reserved IP addresses.
+
 Apply each manifest by running `oc apply -f <file-name>.yml`. Use the following links to jump directly to each manifest.
 
 - [Virtual server `factory-web00` in the `green` namespace](/docs/virtualization-solutions?topic=virtualization-solutions-layer-2-primary-udn-examples-for-red-hat-openshift-virtualization#layer2-primary-vm-factory-web00)
@@ -316,6 +344,7 @@ spec:
         vm.kubevirt.io/flavor: "small"
         vm.kubevirt.io/os: "centos-stream9"
         vm.kubevirt.io/workload: "server"
+        network.kubevirt.io/addresses: '{"green-net": ["10.203.0.100"]}'
       labels:
         kubevirt.io/domain: example
         kubevirt.io/size: "small"
@@ -336,7 +365,7 @@ spec:
           interfaces:
             - binding:
                 name: l2bridge
-              name: default
+              name: green-net
               model: virtio
           networkInterfaceMultiqueue: true
           rng: {}
@@ -344,7 +373,7 @@ spec:
           guest: "2Gi"
       hostname: "factory-web00"
       networks:
-        - name: default
+        - name: green-net
           pod: {}
       terminationGracePeriodSeconds: 180
       volumes:
@@ -428,7 +457,7 @@ spec:
           interfaces:
             - binding:
                 name: l2bridge
-              name: default
+              name: green-net
               model: virtio
           networkInterfaceMultiqueue: true
           rng: {}
@@ -436,7 +465,7 @@ spec:
           guest: "2Gi"
       hostname: "factory-web01"
       networks:
-        - name: default
+        - name: green-net
           pod: {}
       terminationGracePeriodSeconds: 180
       volumes:
@@ -520,7 +549,7 @@ spec:
           interfaces:
             - binding:
                 name: l2bridge
-              name: default
+              name: green-net
               model: virtio
           networkInterfaceMultiqueue: true
           rng: {}
@@ -528,7 +557,7 @@ spec:
           guest: "2Gi"
       hostname: "factory-db00"
       networks:
-        - name: default
+        - name: green-net
           pod: {}
       terminationGracePeriodSeconds: 180
       volumes:
@@ -612,7 +641,7 @@ spec:
           interfaces:
             - binding:
                 name: l2bridge
-              name: default
+              name: green-net
               model: virtio
           networkInterfaceMultiqueue: true
           rng: {}
@@ -620,7 +649,7 @@ spec:
           guest: "2Gi"
       hostname: "factory-db01"
       networks:
-        - name: default
+        - name: green-net
           pod: {}
       terminationGracePeriodSeconds: 180
       volumes:
@@ -704,7 +733,7 @@ spec:
           interfaces:
             - binding:
                 name: l2bridge
-              name: default
+              name: white-net
               model: virtio
           networkInterfaceMultiqueue: true
           rng: {}
@@ -712,7 +741,7 @@ spec:
           guest: "2Gi"
       hostname: "factory-app00"
       networks:
-        - name: default
+        - name: white-net
           pod: {}
       terminationGracePeriodSeconds: 180
       volumes:
@@ -796,7 +825,7 @@ spec:
           interfaces:
             - binding:
                 name: l2bridge
-              name: default
+              name: white-net
               model: virtio
           networkInterfaceMultiqueue: true
           rng: {}
@@ -804,7 +833,7 @@ spec:
           guest: "2Gi"
       hostname: "factory-app01"
       networks:
-        - name: default
+        - name: white-net
           pod: {}
       terminationGracePeriodSeconds: 180
       volumes:
@@ -921,6 +950,6 @@ spec:
 ```
 {: codeblock}
 
-Rerun the preceding tests using VM's web console since the policy strictly only allows TCP 8080 traffic and SSH will not work. Test 6 no longer completes successfully, and ping no longer works.
+Rerun the preceding tests by using VM's web console. The policy strictly allows only TCP 8080 traffic, and SSH does not work. Test 6 no longer completes successfully, so ping does not work.
 
 Remove the policy by running `oc delete -f my-policy.yml` to restore connectivity. The tests work again.

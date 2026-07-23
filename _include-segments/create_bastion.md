@@ -1,6 +1,9 @@
-## Creating a Bastion virtual server
+## Creating a bastion virtual server for secure VPC access
 {: #virt-sol-vpc-migration-tutorial-create-bastion-virtual-server}
 {: step}
+
+Learn how to create a bastion virtual server to securely access VPC resources by following this step-by-step tutorial.
+{: shortdesc}
 
 Create a Bastion virtual server to securely access the resources in the VPC.
 
@@ -15,7 +18,7 @@ Create a Bastion virtual server to securely access the resources in the VPC.
 6. In the **Details** section, for **Name**, enter `vpc-migration-vsi-bastion`.
 7. In the server configuration section, specify the following information:
    - For **Image**, click **Change image**.
-   - The **Select an image** form appears where you take the following actions:
+   - The **Select an image** form is displayed where you take the following actions:
       1. Search for `ubuntu`.
       2. Select **ibm-ubuntu-24-04-3-minimal-amd64-4** from the list of results and click **Save**.
 8. For **SSH keys**, select **vpc-migration-ssh-key**.

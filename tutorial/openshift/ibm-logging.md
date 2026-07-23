@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Kubernetes Service, OpenShift Data Foundation, ODF, observability, monitoring, logging, alerting, metrics, dashboards, ACM, LokiStack, IBM Cloud Logs, IBM Cloud Logs tutorial, OpenShift Virtualization logging, Sysdig agent installation, centralized logging OpenShift, log forwarding configuration, Cloud Logs bucket setup, log retention policies, OpenShift cluster logging, IBM Cloud Monitoring integration, virtual machine log analysis
+keywords: IBM Cloud Logs tutorial, OpenShift Virtualization logging, centralized logging OpenShift, log forwarding configuration, Cloud Logs bucket setup, log retention policies, OpenShift cluster logging, IBM Cloud Monitoring integration, virtual machine log analysis
 
 subcollection: virtualization-solutions
 
@@ -20,7 +20,7 @@ compliance: HIPPA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Logging for Red Hat OpenShift Virtualization
+# Configuring IBM Cloud Logs for Red Hat OpenShift Virtualization
 {: #logging-rove-design}
 {: #vsphere-openshift-logging}
 {: #tutorial-observability-logging}
@@ -31,13 +31,13 @@ compliance: HIPPA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPPA"}
 
-Configure IBM Cloud Logs for OpenShift Virtualization: install Sysdig agents, set up log forwarding, configure Cloud Logs buckets, and enable log retention.
+Configure IBM Cloud Logs for Red Hat OpenShift Virtualization on IBM Cloud to collect and forward virtual machine (VM) logs with agent-based installation.
 {: shortdesc}
 
 ## Overview of IBM Cloud Logs with Red Hat OpenShift Virtualization
 {: #openshift-virt-ibm-logs-overview}
 
-{{site.data.keyword.cloud}} Logs are a fully managed logging service that provides a centralized logging solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services. You can use {{site.data.keyword.cloud_notm}} Logs to monitor your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, which also includes:
+{{site.data.keyword.cloud}} Logs is a fully managed logging service that provides a centralized logging solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services. You can use {{site.data.keyword.cloud_notm}} Logs to monitor your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, which also includes:
 
 - Virtual servers
 - Networks

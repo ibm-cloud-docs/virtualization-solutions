@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, Veeam VBR configuration troubleshooting, COS repository connection errors, VBR agent installation failures, backup performance optimization VPC, HMAC credentials Veeam COS, insufficient space backup repository, Veeam firewall port configuration, SOBR capacity tier offload, VBR VPC integration issues, Veeam backup job failures
+keywords: Veeam VBR configuration troubleshooting, COS repository connection errors, VBR agent installation failures, backup performance optimization VPC, HMAC credentials Veeam COS, insufficient space backup repository, Veeam firewall port configuration, SOBR capacity tier offload, VBR VPC integration issues, Veeam backup job failures
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Why Can't I Configure Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
+# Troubleshooting Veeam Backup & Replication (VBR) configuration on IBM Cloud VPC virtual servers
 {: #troubleshooting-vbr-vpc-vsi-integration-configuration}
 
-Troubleshoot Veeam VBR on VPC: fix COS connection errors, resolve agent installation failures, optimize backup performance, address insufficient space issues.
+Troubleshoot Veeam Backup & Replication on IBM Cloud VPC virtual servers, covering Object Storage connectivity, slow backups, and agent failures.
 {: shortdesc}
 
 If you encounter issues while configuring or running Veeam Backup & Replication in {{site.data.keyword.vpc_short}}, review the following common problems and solutions. Each troubleshooting scenario includes symptoms, potential causes, and step-by-step resolutions.
@@ -35,7 +35,7 @@ Veeam cannot connect to {{site.data.keyword.cos_full_notm}} repository.
 {: #tsCauses-cos}
 
 - Repository settings are incorrect.
-- When the VBR server cannot reach the {{site.data.keyword.cos_short}} endpoint.
+- When the VBR server cannot reach the Cloud Object Storage (COS) endpoint.
 - Incorrect HMAC credentials.
 - An invalid endpoint format.
 - Missing bucket access.
@@ -55,7 +55,7 @@ Veeam cannot connect to {{site.data.keyword.cos_full_notm}} repository.
    - Run: `Test-NetConnection -ComputerName s3.us-south.cloud-object-storage.appdomain.cloud -Port 443`.
 4. Verify bucket permissions:
    - Ensure that the bucket exists and is accessible.
-   - Ensure that the IAM policies allow access to the bucket.
+   - Ensure that the Identity and Access Management (IAM) policies allow access to the bucket.
 
 ## Slow backup performance
 {: #veeam-vbr-vpc-troubleshoot-performance}
@@ -129,10 +129,10 @@ Veeam agent fails to install on a target virtual server.
    - Verify Windows Firewall or `iptables` rules.
 3. Verify credentials:
    - Ensure that the provided credentials have administrative privileges.
-   - Verify that SSH-key based authentication works for Linux systems.
+   - Verify that Secure Shell (SSH)-key based authentication works for Linux systems.
 4. Check network connectivity:
    - Ping the target virtual server from the VBR server.
-   - Verify DNS resolution when using hostnames.
+   - Verify Domain Name System (DNS) resolution when using hostnames.
 
 ## Backup job fails with "insufficient space"
 {: #veeam-vbr-vpc-troubleshoot-space}
@@ -148,7 +148,7 @@ Backup jobs fail because of insufficient disk space.
 {: #tsCauses-space}
 
 - Backup repository or backup volume does not have enough available capacity for new restore points or retention operations.
-- SOBR offload settings.
+- Scale-Out Backup Repository (SOBR) offload settings.
 - Retention policies.
 - Local storage sizing.
 
@@ -158,7 +158,7 @@ Backup jobs fail because of insufficient disk space.
 1. Monitor local repository space:
    - Check the available space on the `E:` drive.
    - Review space usage in the Veeam console.
-2. Adjust SOBR capacity tier offload settings:
+2. Adjust SOBR (Scale-Out Backup Repository) capacity tier offload settings:
    - Reduce the `Move backups to object storage` days.
    - Enable `Copy backups to object storage as soon as they are created`.
 3. Review retention policies:

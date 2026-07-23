@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-26"
+lastupdated: "2026-07-21"
 
 keywords: IBM Cloud virtualization, virtualization solutions, OpenShift virtualization, VPC virtual servers, VMware migration, hybrid cloud virtualization, container virtualization, virtual machine migration, cloud virtualization platform, Kubernetes virtualization
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Enable flexible workload deployments with IBM Cloud Virtualization
+# Deploy flexible workloads with IBM Cloud virtualization solutions
 {: #overview}
 
-Deploy virtualized workloads on {{site.data.keyword.cloud}} using {{site.data.keyword.redhat_openshift_full}} Virtualization for container-native applications or VPC Virtual Servers for traditional VMs. Migrate from VMware with comprehensive tools and guidance.
+Run virtualized workloads on IBM Cloud using Virtual Servers for Virtual Private Cloud (VPC) or Red Hat OpenShift Virtualization in a secure, scalable environment.
 {: shortdesc}
 
 By abstracting physical resources into virtualized environments, organizations can optimize their infrastructure usage, reduce operational complexity, and accelerate application delivery.
@@ -57,7 +57,7 @@ The following table details the high-level, key responsibilities for {{site.data
 | Guest operating system maintenance and security fixes |
 | Security hardening and configuration |
 | Network configuration within your VPC |
-| Backup and DR implementation |
+| Backup and disaster recovery (DR) implementation |
 | Monitoring and logging setup |
 {: caption="{{site.data.keyword.cloud_notm}} Virtual Servers for VPC key responsibilities" caption-side="bottom"}
 {: tab-title="Your responsibilities"}
@@ -93,8 +93,8 @@ See the following key features of Red Hat OpenShift.
 - Unifies infrastructure management by using a single Kubernetes-based platform that orchestrates both virtual servers and containers that eliminate the need for separate virtualization and containerization stacks.
 - Enables gradual modernization by migrating existing virtual servers to Red Hat OpenShift while you run them alongside containerized workloads, which supports incremental application refactoring without disruption.
 - Provides enterprise orchestration by using Red Hat Advanced Cluster Management for multi-cluster deployments, disaster recovery, and centralized governance across hybrid environments.
-- Delivers consistent DevOps workflows by using the same CI/CD pipelines, GitOps practices, and Kubernetes-native tools to both virtual servers and container workloads.
-- Integrates with {{site.data.keyword.cloud_notm}} infrastructure, by natively connecting to {{site.data.keyword.cloud_notm}} Block Storage, File Storage, Object Storage, IAM, and VPN services.
+- Delivers consistent DevOps workflows by using the same continuous integration/continuous delivery (CI/CD) pipelines, GitOps practices, and Kubernetes-native tools to both virtual servers and container workloads.
+- Integrates with {{site.data.keyword.cloud_notm}} infrastructure, by natively connecting to {{site.data.keyword.cloud_notm}} Block Storage, File Storage, Object Storage, Identity and Access Management (IAM), and virtual private network (VPN) services.
 - Red Hat OpenShift Data Foundation provides persistent storage for virtual servers with features such as snapshots, cloning, and disaster recovery replication.
 - Reduces operational usage as {{site.data.keyword.cloud_notm}} manages the Red Hat OpenShift control plane, worker node maintenance, and platform updates, so you can focus on workload management.
 
@@ -149,5 +149,5 @@ Now that you understand the virtualization options available on IBM Cloud, explo
 {: #virt-sol-overview-next-openshift}
 
 - Review the [Red Hat OpenShift Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture) to understand the complete solution design
-- Learn about [migration from VMware using MTV](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration)
+- Learn about [migration from VMware using the Migration Toolkit for Virtualization (MTV)](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration)
 - Explore [backup solutions for OpenShift Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup)

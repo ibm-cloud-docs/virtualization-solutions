@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-29"
+lastupdated: "2026-07-22"
 
-keywords: Red Hat OpenShift Virtualization, ROKS, VPC, Localnet, CUDN, UDN, VLAN, VNI, OVN
+keywords: Localnet network OpenShift, CUDN configuration, UDN setup, VLAN-backed network OpenShift, VNI networking, OVN Localnet, OpenShift Virtualization networking
 
 subcollection: virtualization-solutions
 
@@ -23,8 +23,10 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
-This tutorial shows how to create an example three-tier application by using Virtual Private Cloud (VPC) subnets, Cluster User-Defined Networks (CUDNs), localnets, and namespaces on {{site.data.keyword.openshiftlong_notm}} on {{site.data.keyword.cloud_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization directly to VPC subnets by using Virtual Local Area Network (VLAN)-backed localnet networks. For more information about network types, see [Open Virtual Network (OVN) networking in {{site.data.keyword.redhat_openshift_notm}} for vSphere&reg; administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
+Attach OpenShift Virtualization VMs to IBM Cloud VPC subnets using CUDN Localnet networks for VLAN-backed, namespace-isolated traffic.
 {: shortdesc}
+
+This tutorial shows how to create an example three-tier application by using Virtual Private Cloud (VPC) subnets, Cluster User-Defined Networks (CUDNs), localnets, and namespaces on {{site.data.keyword.openshiftlong_notm}} on {{site.data.keyword.cloud_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization directly to VPC subnets by using virtual local area network (VLAN)-backed localnet networks. For more information about network types, see [Open Virtual Network (OVN) networking in {{site.data.keyword.redhat_openshift_notm}} for vSphere&reg; administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
 
 ## Overview
 {: #localnet-overview}
@@ -63,7 +65,7 @@ Make sure that you have the following items in place:
 - The {{site.data.keyword.cloud_notm}} CLI is installed.
 - The `container-service` and `vpc-infrastructure` plug-ins installed.
 
-The `container-service` plug-in provides the `ic ks` commands that the guide uses to attach VLAN virtual network interfaces (VNIs) to the cluster. The `vpc-infrastructure` plug-in provides the `ic is` commands that the guide uses to create VPC subnets, virtual network interfaces, and other infrastructure.
+The `container-service` plug-in provides the `ic ks` commands that the guide uses to attach VLAN virtual network interfaces (VNIs) to the cluster. The `vpc-infrastructure` plug-in provides the `ic is` commands that the guide uses to create VPC subnets, virtual network interfaces (VNIs), and other infrastructure.
 
 If you need to install the required CLI plug-ins, use the following commands.
 
@@ -189,11 +191,11 @@ spec:
 ```
 {: codeblock}
 
-## Creating the VLAN VNIs in your VPC account
+## Creating reserved IPs and VNIs in your VPC account
 {: #localnet-vlan-vni}
 {: step}
 
-This step creates the `IP` reservation for each subnet and assigns a `MAC address` to each virtual network interface (`VNI`).
+This step creates a reserved IP in each subnet, then creates the VNI using that reserved IP and assigns a `MAC address` to each virtual network interface (`VNI`).
 
 Keep the following considerations in mind:
 
@@ -202,12 +204,31 @@ Keep the following considerations in mind:
 - You can run this step in bulk.
 - 256 VNIs per host is the cap. Keep usage less than 85% to allow for failover and migrations from other hosts.
 
+### Creating reserved IPs in each subnet
+{: #localnet-create-reserved-ips}
+
+First, create a reserved IP in each subnet for your virtual servers:
+
 ```sh
-ic is virtual-network-interface-create --name zone1-web00 --allow-ip-spoofing false --auto-delete false --protocol-state-filtering-mode disabled --enable-infrastructure-nat true --subnet zone1-vm-prod --vpc my-vpc --rip-address 198.18.0.20 --rip-auto-delete true --rip-name zone1-web00 --sgs handclap-roundworm-clique-eccentric --resource-group-name Default
+ic is subnet-reserved-ip-create zone1-vm-prod --address 198.18.0.20 --name zone1-web00 --auto-delete false
 
-ic is virtual-network-interface-create --name zone1-db00 --allow-ip-spoofing false --auto-delete false --protocol-state-filtering-mode disabled --enable-infrastructure-nat true --subnet zone1-vm-db --vpc my-vpc --rip-address 198.18.1.20 --rip-auto-delete true --rip-name zone1-db00 --sgs handclap-roundworm-clique-eccentric --resource-group-name Default
+ic is subnet-reserved-ip-create zone1-vm-db --address 198.18.1.20 --name zone1-db00 --auto-delete false
 
-ic is virtual-network-interface-create --name zone1-app00 --allow-ip-spoofing false --auto-delete false --protocol-state-filtering-mode disabled --enable-infrastructure-nat true --subnet zone1-vm-app --vpc my-vpc --rip-address 198.18.2.20 --rip-auto-delete true --rip-name zone1-app00 --sgs handclap-roundworm-clique-eccentric --resource-group-name Default
+ic is subnet-reserved-ip-create zone1-vm-app --address 198.18.2.20 --name zone1-app00 --auto-delete false
+```
+{: pre}
+
+### Creating VNIs using the reserved IPs
+{: #localnet-create-vnis}
+
+Now create the VNIs using the reserved IP names from the previous step:
+
+```sh
+ic is virtual-network-interface-create --name zone1-web00 --allow-ip-spoofing false --auto-delete false --protocol-state-filtering-mode disabled --enable-infrastructure-nat true --subnet zone1-vm-prod --vpc my-vpc --rip zone1-web00 --sgs handclap-roundworm-clique-eccentric --resource-group-name Default
+
+ic is virtual-network-interface-create --name zone1-db00 --allow-ip-spoofing false --auto-delete false --protocol-state-filtering-mode disabled --enable-infrastructure-nat true --subnet zone1-vm-db --vpc my-vpc --rip zone1-db00 --sgs handclap-roundworm-clique-eccentric --resource-group-name Default
+
+ic is virtual-network-interface-create --name zone1-app00 --allow-ip-spoofing false --auto-delete false --protocol-state-filtering-mode disabled --enable-infrastructure-nat true --subnet zone1-vm-app --vpc my-vpc --rip zone1-app00 --sgs handclap-roundworm-clique-eccentric --resource-group-name Default
 ```
 {: pre}
 
@@ -614,3 +635,37 @@ Run the following tests to verify the network setup.
 7. Ping from `198.18.1.20` to `198.18.0.20` and vice versa.
 
 8. Rerun the preceding tasks by using `198.18.2.20` and the jump virtual server's IP address.
+
+### Applying a multi-network policy and rerunning the tests
+{: #localnet-network-policy}
+
+Apply a multi-network policy that allows only TCP port 8080 for the `vlan20-prod` network. Save the following manifest to a file named `my-policy.yml`. Then, run `oc apply -f my-policy.yml` to apply it.
+
+```yaml
+---
+apiVersion: k8s.ovn.org/v1alpha1
+kind: MultiNetworkPolicy
+metadata:
+  name: allow-8080-tcp
+  namespace: green
+  annotations:
+    k8s.v1.cni.cncf.io/policy-for: vlan20-prod
+spec:
+  podSelector: {}
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    - ports:
+        - protocol: TCP
+          port: 8080
+  policyTypes:
+    - Ingress
+    - Egress
+```
+{: codeblock}
+
+Rerun the [Tests](#localnet-tests) against `plant-web00` on `vlan20-prod`. TCP port 8080 still works, but other traffic, such as `ping` and the `iperf3` test on port 9090, no longer work on that network attachment.
+
+Run `oc delete -f my-policy.yml` to remove the policy and restore connectivity. The tests pass again.

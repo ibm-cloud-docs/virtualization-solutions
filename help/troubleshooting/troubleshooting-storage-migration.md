@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Veeam Backup & Replication, VBR, backup, recovery, IBM Cloud VPC, VSI, Cloud Object Storage, SOBR, storage migration troubleshooting OpenShift, Calico network policy rollback error, live migration size mismatch, MTC migration toolkit errors, KubeVirt live migration failures, PVC size mismatch migration, calico-tier-getter permissions, bandwidthPerMigration configuration, OpenShift VM storage migration, migration rollback RBAC issues
+keywords: storage migration troubleshooting OpenShift, Calico network policy rollback error, live migration size mismatch, MTC migration toolkit errors, KubeVirt live migration failures, PVC size mismatch migration, calico-tier-getter permissions, bandwidthPerMigration configuration, OpenShift VM storage migration, migration rollback RBAC issues
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Troubleshooting storage migration
+# Troubleshooting storage migration in IBM Cloud VPC
 {: #troubleshooting-storage-migration}
 
-Resolve storage migration errors: fix Calico network policy rollback failures and live migration size mismatches. Includes RBAC fixes and capacity checks.
+Troubleshoot storage migration in IBM Cloud VPC, including Calico network policy forbidden errors and live migration size mismatch failures.
 {: shortdesc}
 
 If you encounter issues during storage migration, review the following common problems and their solutions.
@@ -32,7 +32,7 @@ If you encounter issues during storage migration, review the following common pr
 ### Why is it happening?
 {: #tsCauses-calico-policy}
 
-This error occurs during rollback operations when the Migration Toolkit attempts to restore Calico tiered network policies. The `calico-tier-getter` ClusterRole lacks the necessary permissions to perform operations on Calico tiered policies. Calico tiered policies require specific RBAC (Role-Based Access Control) permissions that are not included in the default ClusterRole configuration, which causes the rollback operation to fail when it tries to restore these network policy resources.
+This error occurs during rollback operations when the Migration Toolkit attempts to restore Calico tiered network policies. The `calico-tier-getter` ClusterRole lacks the necessary permissions to perform operations on Calico tiered policies. Calico tiered policies require specific role-based access control (RBAC) permissions that are not included in the default ClusterRole configuration, which causes the rollback operation to fail when it tries to restore these network policy resources.
 
 ### How do you fix it?
 {: #tsResolve-calico-policy}

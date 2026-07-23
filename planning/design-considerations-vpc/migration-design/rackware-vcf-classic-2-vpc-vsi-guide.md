@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: VSI, File Storage, Block Storage, Encryption, Migration, RackWare, RMM, RackWare RMM migration, VCF-Automated to VPC, Direct Sync migration, RackWare Passthrough, bridge server NAT, reverse SSH tunnel migration, RackWare microkernel, isolated network migration, IP address retention, VMware to VPC VSI
+keywords: RackWare RMM migration, VCF-Automated to VPC, Direct Sync migration, RackWare Passthrough, bridge server NAT, reverse SSH tunnel migration, RackWare microkernel, isolated network migration, IP address retention, VMware to VPC VSI
 
 
 subcollection: virtualization-solutions
@@ -13,28 +13,28 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating from IBM Cloud VMware VCF-Automated to VPC VSI with RackWare RMM Technical Guide
+# Migrating IBM Cloud VMware VCF to VPC virtual servers using RackWare RMM
 {: #virt-sol-vpc-migration-design-rmm-guide}
 
-Migrate VCF-Automated VMs to VPC VSIs using RackWare RMM with Direct Sync, Passthrough mode, and bridge server NAT for isolated network connectivity.
+Migrate IBM Cloud VMware VCF VMs to VPC virtual servers with RackWare RMM, retaining IP addresses via Direct Sync and a bridge server.
 {: shortdesc}
 
-This guide focuses on using RackWare RMM (RackWare Management Module) to migrate IBM Cloud VCF-Automated Virtual Machines (VMs) to IBM Cloud VPC Virtual Server Instances (VSIs). There is an associated tutorial that steps through the process.
+This guide focuses on using the RackWare Management Module (RMM) to migrate IBM Cloud VCF-Automated virtual machines to IBM Cloud virtual private cloud (VPC) virtual server instances. There is an associated tutorial that steps through the process.
 
-IBM Cloud VCF-Automated VM OS licenses are the responsibility of the customer and are not provided by IBM Cloud. When creating the Target VSI's be aware of the provisioning options of [Bring your own license](/docs/vpc?topic=vpc-byol-vpc-about).
+IBM Cloud VCF-Automated virtual machine OS licenses are the responsibility of the customer and are not provided by IBM Cloud. When creating the target virtual server instances, be aware of the provisioning options for [Bring Your Own License](/docs/vpc?topic=vpc-byol-vpc-about).
 
-The majority of VMs hosted on IBM Cloud VCF-Automated are connected to NSX overlay segments which don't have native access to the IBM Cloud Classic networks. Additionally as we want the the target VSIs to have the same IP addresses as the source VMs we have to ensure that the NSX overlay segment and the target VSI VPC subnets are isolated. We accomplish this with the following RMM features:
+The majority of virtual machines hosted on IBM Cloud VCF-Automated are connected to NSX overlay segments which don't have native access to the IBM Cloud Classic networks. To ensure that the target virtual server instances have the same IP addresses as the source virtual machines, the NSX overlay segment and the target virtual server instance VPC subnets must be isolated. You accomplish this with the following RMM features:
 
-* Direct Sync (Host Sync) - Data transfers directly from the source VM to the target VSI without being stored on the RMM server. The RMM orchestrates the operation.
-* Passthrough - The target VSI cannot reach the source VM directly, so RMM will SSH to the target VSI and from there initiate a reverse SSH tunnel to the source VM, hence, data flows: Source → RMM → Target, with the RMM acting as a network relay/proxy for the data transfer.
+* Direct Sync (Host Sync) - Data transfers directly from the source virtual machine to the target virtual server instance without being stored on the RMM server. The RMM orchestrates the operation.
+* Passthrough - The target virtual server instance cannot reach the source virtual machine directly, so RMM uses Secure Shell (SSH) to connect to the target virtual server instance and from there initiate a reverse SSH tunnel to the source virtual machine. Data flows: Source → RMM → Target, with the RMM acting as a network relay/proxy for the data transfer.
 
 The RackWare RMM with a bridge server enables migration between isolated networks through:
 
-1. Bridge NAT: Makes source accessible to RMM via network address translation
-1. Reverse SSH Tunnel: Allows the target VSI to reach the source VM through the RMM server
-1. Key-based Authentication**: Target VSI uses RMM's SSH key to authenticate to the source VM
-1. Data sync via the Tunnel: The target VSI pulls data from the source VM through the secure SSH tunnel
-1. Bootloader Installation: RMM makes target bootable with proper GRUB configuration
+1. Bridge network address translation (NAT): Makes source accessible to RMM via NAT
+1. Reverse SSH tunnel: Allows the target virtual server instance to reach the source virtual machine through the RMM server
+1. Key-based authentication: Target virtual server instance uses RMM's SSH key to authenticate to the source virtual machine
+1. Data sync via the tunnel: The target virtual server instance pulls data from the source virtual machine through the secure SSH tunnel
+1. Bootloader installation: RMM makes target bootable with proper GRUB configuration
 
 The process is elegant, allowing any-to-any migration while maintaining security and network isolation.
 
@@ -48,7 +48,7 @@ Used when Direct Sync isn't desired or when you want to decouple source and targ
 ## Retain IP addressing
 {: #virt-sol-vpc-migration-design-rmm-guide-retain}
 
-Most VM to VPC VSI migrations are expected to require the retention of IP addressing in the migrated workloads. For the majority of VMs this is achievable, however, VPC subnets has reserved IP addresses, for example the following are reserved on 192.168.10.0/24:
+Most virtual machine to VPC virtual server migrations require the retention of IP addressing in the migrated workloads. For the majority of virtual machines this is achievable, however, VPC subnets have reserved IP addresses. For example, the following are reserved on 192.168.10.0/24:
 
 * ibm-network-address:	 192.168.10.0
 * ibm-default-gateway:	 192.168.10.1

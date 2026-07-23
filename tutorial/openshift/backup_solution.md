@@ -2,10 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 lasttested: "[{LAST_TESTED_DATE}]"
 
-keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, File Storage, Backup, Kasten, Veeam, volumes, Veeam Kasten backup tutorial, OpenShift Virtualization backup, Kasten data protection, immutable backups OpenShift, snapshot policies Kasten, location profiles, Kasten restore points, S3 backup OpenShift, NFS backup location, Kasten blueprints
+keywords: Kasten backup OpenShift, Veeam backup OpenShift, OpenShift Virtualization backup, Kasten data protection, immutable backups OpenShift, snapshot policies Kasten, Kasten location profiles, Kasten restore points, S3 backup OpenShift, NFS backup location, Kasten blueprints
 
 subcollection: virtualization-solutions
 
@@ -18,28 +18,28 @@ completion-time: 120m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# IBM Cloud virtualization backup solutions
+# Backing up virtual machines on Red Hat OpenShift Virtualization with Veeam Kasten
 {: #virt-sol-openshift-backup}
 {: #tutorial-backup-vms}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="120m"}
 
-Install and configure Veeam Kasten on OpenShift: create snapshot policies, configure S3/NFS backup locations, enable immutable backups, and restore VMs.
+Install and configure Veeam Kasten on IBM Cloud Red Hat OpenShift Virtualization to back up VMs, create policies, and restore namespaces.
 {: shortdesc}
 
-The tutorial uses Kasten version 8.5.1. However, the Kasten version that is available at the time of use might differ. New releases might include extra features or changes to the installation process and user interface.
+This tutorial uses Kasten version 8.5.1. If a newer version is available, the installation steps and user interface may vary. Check the release notes for your installed version before you begin.
 
 ## Veeam Kasten prerequisites
 {: #virt-sol-openshift-backup-kasten-prereqs}
 
-Veeam Kasten is installed on an existing {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster and does not configure cluster or storage resources. You must already have a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster with Ceph block storage and the required storage classes that are created.
+Veeam Kasten is installed on an existing {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service (ROKS) cluster and does not configure cluster or storage resources. You must already have an ROKS cluster with Ceph block storage and the required storage classes that are created.
 Once your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster is ready, run the Kasten prerequisite checker tool before you install Kasten.
 
 ### Veeam Kasten prerequisite checker
 {: #virt-sol-openshift-backup-kasten-prerequisite-checker-tool}
 
-Veeam Kasten provides a prerequisite checker, Veeam Kasten Primer, that you use to verify that the Kubernetes cluster and StorageClasses meet the installation requirements. If a Container Storage Interface (CSI) provisioner exists, it conducts a basic validation check.
+Veeam Kasten provides a prerequisite checker, the Veeam Kasten Primer, that you use to verify that the Kubernetes cluster and StorageClasses meet the installation requirements. If a Container Storage Interface (CSI) provisioner exists, it conducts a basic validation check.
 
 The download location includes a path to the version that you want to install. Version 8.5.1 is used in this example. Change these values to a specific version or use the value `latest`. The primer tool also expects the helm package to be installed on your system with the Veeam Kasten Helm charts repository. For more information, see the [Veeam Kasten documentation](https://docs.kasten.io/latest/install/requirements/#install-prereqs){: external}.
 {: note}
@@ -68,7 +68,7 @@ For more information, see [Helm-based installation](https://docs.kasten.io/lates
 
 Use the following information to install Veeam Kasten through OperatorHub.
 
-1. From the {{site.data.keyword.redhat_openshift_notm}} Container Platform ({{site.data.keyword.redhat_openshift_notm}} Container Platform) web console, go to **Operators > OperatorHub**.
+1. From the {{site.data.keyword.redhat_openshift_notm}} Container Platform (OCP) web console, go to **Operators > OperatorHub**.
 2. Search for **Kasten** in the filter and click the resulting **Veeam Kasten** entry. Installation packages are available with different licensing options. Click **Tile** for the appropriate licensing.
 3. Click **Install**.
 4. In the **Install operator**, you can use the default values. You can also enable the **Console plug-in**, which enables the **Veeam Kasten** tab of the {{site.data.keyword.redhat_openshift_notm}} web console navigation window.
@@ -77,7 +77,7 @@ Use the following information to install Veeam Kasten through OperatorHub.
 ### Configuring the environment for Veeam Kasten
 {: #virt-sol-openshift-backup-kasten-conf}
 
-Configuring the environment to use Veeam Kasten involves the use of the {{site.data.keyword.redhat_openshift_notm}} command line interface (CLI). Verify that the command line session to the {{site.data.keyword.redhat_openshift_notm}} cluster is active. If not, create a new command line session before you proceed.
+Configuring the environment to use Veeam Kasten involves the use of the {{site.data.keyword.redhat_openshift_notm}} command-line interface (CLI). Verify that the command-line session to the {{site.data.keyword.redhat_openshift_notm}} cluster is active. If not, create a new command-line session before you proceed.
 
 If your storage class name differs from the example, then you must adjust the commands.
 {: note}
@@ -270,7 +270,7 @@ A best practice is to set a storage snapshot retention at a minimal level as pos
 
 Kasten provides the option to export backup data to an external location by using location profiles by toggling the **Enable backups through snapshots exports** option. After the option is enabled, you can select export frequency, export location profile, and retention of exported snapshots.
 
-It is recommended that you enable the backup export option. Because having only a single backup copy (and local) is not a best practice, it doesn't satisfy the industry standard 3-2-1 backup rule.
+Enable the backup export option. Having only a single, local backup copy does not satisfy the industry-standard 3-2-1 backup rule.
 {: tip}
 
 Veeam Kasten encryption is always enabled for data and metadata for object storage and NFS/SMB files storage. Kasten uses the AES-256-GCM encryption algorithm.
@@ -418,14 +418,14 @@ If you use Kasten to back up and restore virtual servers, some issues can occur.
 ### Federal Information Processing Standard (FIPS)
 {: #virt-sol-openshift-backup-kasten-limitations-fips}
 
-You can deploy Kasten in a FIPS-compliant mode through only the helm chart with the correct parameters selected. Because components that are connected to Kasten might not all be FIPS-compliant, carefully configure FIPS mode to reduce the risk of features that might not work.
+You can deploy Kasten in a FIPS-compliant mode through only the helm chart with the correct parameters selected. Because not all components that connect to Kasten are FIPS-compliant, carefully review the FIPS configuration to avoid enabling features that are not FIPS-compliant.
 
 For more information, see [Installing Kasten in FIPS mode](https://docs.kasten.io/latest/install/fips/){: external}.
 
-### Veeam Backup and Replication (VBR) Repository backup
+### Veeam Backup & Replication (VBR) repository backup
 {: #virt-sol-openshift-backup-kasten-limitations-vbr-backup}
 
-Backups that are exported to VBR repositories might have limitations.
+Backups exported to VBR repositories have the following limitation: the VBR repository stores only snapshot data, not the application metadata.
 
 The VBR repository can store only the snapshot data itself and not the metadata that is a part of a backed-up application in {{site.data.keyword.redhat_openshift_notm}}.
 
@@ -456,7 +456,7 @@ You can follow the 3-2-1 rule in several ways. The simplest is to export your ba
 ### Immutability
 {: #virt-sol-openshift-backup-kasten-best-practices-immutability}
 
-It is recommended that you enable immutability wherever possible to protect against ransomware attacks. You can configure immutability on S3-compatible buckets and on Veeam SOBR when you use a Linux Hardened Repository.
+Enable immutability wherever possible to protect against ransomware attacks. You can configure immutability on S3-compatible buckets and on Veeam SOBR when you use a Linux Hardened Repository.
 
 When you use immutable buckets as an export location, Kasten adds a hidden buffer period to the retention period. This buffer affects the actual immutability duration. According to Kasten documentation, the following points apply when you create an S3 immutable bucket profile:
 
@@ -504,7 +504,7 @@ Veeam Kasten has a tool inside the product that is known as Kanister. Kanister i
 
 The main use case of these blueprints is to enable Kasten to conduct application-aware backups. These blueprints run automated steps to help ensure that applications are properly backed up when a simple snapshot is insufficient. Typical uses cases revolve around database backup.
 
-It is important to note that application-aware backups of databases are done by the available template blueprints. You can review your particular use case and update the blueprint to suit your specific needs.
+Application-aware backups of databases use the available template blueprints. Review your use case and update the blueprint to meet your specific requirements.
 
 Veeam provides several examples in their documentation. See a PostgreSQL example at [Application Consistent PostgreSQL Backup](https://docs.kasten.io/latest/kanister/postgresql/install_app_cons){: external}.
 

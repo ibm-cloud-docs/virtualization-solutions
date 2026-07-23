@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: Veeam Backup & Replication, VBR, restore, recovery, IBM Cloud VPC, VSI, volume restore, disaster recovery, Veeam VBR volume restore VPC, disaster recovery VSI tutorial, boot volume restore Windows Linux, worker instance restore workflow, preserved volume recovery VPC, Veeam agent volume-level restore, temporary VSI restore operations, VPC instance recreation tutorial, Windows Linux disaster recovery, Veeam VBR IBM Cloud restore
+keywords: Veeam VBR volume restore VPC, disaster recovery VSI tutorial, boot volume restore Windows Linux, worker instance restore workflow, preserved volume recovery VPC, Veeam agent volume-level restore, temporary VSI restore operations, VPC instance recreation tutorial, Windows Linux disaster recovery
 
 
 subcollection: virtualization-solutions
@@ -18,13 +18,13 @@ completion-time: 90m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Restoring IBM Cloud VPC Virtual Server Instances with Veeam Backup & Replication
+# Restoring IBM Cloud VPC virtual servers with Veeam Backup & Replication
 {: #veeam-vbr-vpc-vsi-restore}
 {: toc-content-type="tutorial"}
 {: toc-services="vpc"}
 {: toc-completion-time="90m"}
 
-Restore VPC virtual servers with Veeam VBR: attach preserved volumes to worker instance, perform volume-level restore, recreate VSI with recovered data.
+Restore IBM Cloud VPC virtual servers from Veeam Backup & Replication by recovering preserved volumes and rebuilding instances using a worker virtual server instance.
 {: shortdesc}
 
 ## Objectives
@@ -48,7 +48,7 @@ By the end of this tutorial, you complete a full disaster recovery scenario that
 
 Before you begin, verify that you meet the following prerequisites:
 
-- A working VBR 13 installation with configured repositories (Scale-Out Backup Repository or SOBR using local disk and {{site.data.keyword.cos_full}}).
+- A working VBR 13 installation with configured repositories (Scale-Out Backup Repository (SOBR) using local disk and {{site.data.keyword.cos_full}}).
 - At least one successful backup of a Windows or Linux virtual server instance.
 - A temporary virtual server instance with a Veeam agent installed (generic agent, not preinstalled).
 - Appropriate Identity and Access Management (IAM) permissions to create and manage Virtual Private Cloud (VPC) resources.

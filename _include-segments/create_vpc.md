@@ -1,6 +1,9 @@
-## Creating a VPC
+## Creating a virtual private cloud (VPC) for migration on IBM Cloud
 {: #virt-sol-vpc-migration-tutorial-create-vpc}
 {: step}
+
+Learn how to create and set up a VPC environment on IBM Cloud, hosting migrated virtual servers and associated resources like subnets and security groups.
+{: shortdesc}
 
 Use the following steps to create and set up a VPC environment. The VPC hosts the migrated virtual servers and associated resources such as subnets, gateways, and security groups. The following information also includes resources that are used later in the migration process.
 

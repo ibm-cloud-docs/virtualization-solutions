@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: migration, warm migration, cold migration, mtv, red hat openShift migration toolkit for virtualization, migration toolkit for virtualization, mtv OpenShift, warm migration openShift, cold migration openShift, vmware to openShift migration, ova migration, IBM Cloud OpenShift migration, vCenter to OpenShift, virtual machine migration toolkit
+keywords: Migration Toolkit for Virtualization, warm migration, cold migration, MTV OpenShift, VMware to OpenShift migration, OVA migration, vCenter to OpenShift, virtual machine migration toolkit
 
 subcollection: virtualization-solutions
 
@@ -12,13 +12,13 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Red Hat OpenShift Migration Toolkit for Virtualization (MTV)
+# Migrate VMware VMs to Red Hat OpenShift Virtualization with Migration Toolkit for Virtualization (MTV)
 {: #virt-sol-openshift-migration-design-mtv}
 
-Migrate VMs from VMware vSphere, Red Hat Virtualization, or OpenStack to IBM Cloud OpenShift Virtualization using warm or cold migration with minimal downtime.
+Use MTV to migrate VMs from VMware vSphere, Red Hat Virtualization, or OpenStack to Red Hat OpenShift Virtualization on IBM Cloud.
 {: shortdesc}
 
-MTV provides a web UI and API for discovery, planning, and execution of migrations that uses persistent volume cloning or streaming for disk data while it maintains virtual server configuration and networking. MTV integrates with Red Hat OpenShift Virtualization to run migrated virtual servers alongside containers by using Kubernetes-native storage and networking constructs.
+MTV provides a web user interface (UI) and application programming interface (API) for discovery, planning, and execution of migrations that uses persistent volume cloning or streaming for disk data while it maintains virtual server configuration and networking. MTV integrates with Red Hat OpenShift Virtualization to run migrated virtual servers alongside containers by using Kubernetes-native storage and networking constructs.
 
 For VMware migrations, the Migration Toolkit for Virtualization (MTV) integrates with vCenter to discover virtual machines and inventory data, map virtual machine resources (clusters, networks, data stores) to Red Hat OpenShift equivalents, and automate bulk or selective migrations. It supports disk data transfer with warm or cold migration, preserves virtual machine configuration (CPU, memory, NICs), and converts VMware constructs into Kubernetes-native resources for seamless execution in Red Hat OpenShift Virtualization.
 
@@ -34,7 +34,7 @@ Migration Toolkit for Virtualization supports the following types of VM migratio
 - Migrates a powered on VM to a separate host.
 - The source host state is cloned to the destination host.
 - Most data is copied during the precopy stage while the source VMs are running.
-- The precopy stage uses incremental copying of VM disks via Changed Block Tracking (CBT) snapshots (snapshots are created at one-hour intervals by default, which can be changed).
+- The precopy stage uses incremental copying of virtual machine (VM) disks by using Changed Block Tracking (CBT) snapshots (snapshots are created at one-hour intervals by default, which can be changed).
 - The cutover stage requires the VMs to be shut down so the remaining delta data can be copied. Data stored in RAM is not migrated.
 
 3.  **OVA Migration:**
@@ -45,7 +45,7 @@ The table below compares the characteristics, advantages, and disadvantages of c
 | :--- | :--- | :--- | :--- |
 | **VM Power Status (During Data Transfer)** | Shut down. | Running (during precopy phase). | Shut down. |
 | **VM Downtime** | **High**. Correlates directly to the amount of data transferred. | **Low**. VMs are shut down only during the final cutover stage. | **High** (Similar to cold migration). |
-| **Data Copy Strategy** | Each block is copied once. | Blocks may be copied multiple times due to VM utilization. Uses incremental CBT snapshots. | Each block is copied once. |
+| **Data Copy Strategy** | Each block is copied once. | Blocks might be copied multiple times due to VM utilization. Uses incremental CBT snapshots. | Each block is copied once. |
 | **Conversion Timing** | **Fail Fast:** Conversion to OpenShift compatibility happens *before* disk transfer. If conversion fails, migration stops immediately. | Transfer (snapshots) happens *before* conversion. Conversion runs after the final snapshot transfer during cutover. | Conversion typically happens *before* disk transfer (as it uses cold migration flow). |
 | **Best Use Case** | Shortest duration for VMs with a large amount of data on a single disk. | Shortest downtime for VMs. Shortest duration for VMs with data spread across multiple disks. | Migrating offline VM images stored as OVAs on an NFS share. |
 {: caption="Migration Option Comparison" caption-side="bottom"}

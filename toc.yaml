@@ -54,7 +54,7 @@ toc:
           - topic: planning/design-considerations-openshift/networking-design.md
             navtitle: Networking
       - topicgroup:
-          label: Virtual servers on VPC
+          label: Virtual Servers for VPC
           topics:
           - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
             navtitle: Overview VMware to Virtual Servers on VPC migration
@@ -128,7 +128,7 @@ toc:
           - topic: tutorial/openshift/network-prerequisites.md
             navtitle: UDN Prerequisites for Red Hat OpenShift Virtualization
       - topicgroup:
-          label: Virtual servers on VPC
+          label: Virtual Servers for VPC
           topics:
           - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-tutorial.md
             navtitle: RackWare Tutorial
@@ -152,7 +152,7 @@ toc:
               label: Red Hat OpenShift Virtualization Service
               href: https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview
       - topicgroup:
-          label: Virtual servers on VPC
+          label: Virtual Servers for VPC
           topics:
           - topicgroup:
               label: Migrating virtual server options

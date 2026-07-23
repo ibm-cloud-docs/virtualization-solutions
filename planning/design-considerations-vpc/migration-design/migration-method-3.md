@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-06-11"
+lastupdated: "2026-07-21"
 
-keywords: virtual server instance, File Storage, Block Storage, Encryption, Migration, live network transfer, Transit Gateway migration, live ISO migration, netcat streaming, parallel migration VPC, no export migration, compressed disk transfer, virt-p2v migration, large-scale migration, network bandwidth migration
+keywords: live network transfer, Transit Gateway migration, live ISO migration, netcat streaming, parallel migration VPC, no export migration, compressed disk transfer, virt-p2v migration, large-scale migration, network bandwidth migration
 
 
 subcollection: virtualization-solutions
@@ -13,13 +13,13 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Live network transfer (Recommended for Scale)
+# Migrate VMware VMs to IBM Cloud virtual servers with live network transfer
 {: #virt-sol-vpc-migration-design-method3}
 
-Stream VMware VM disks directly to VPC over Transit Gateway using live ISO, netcat, and compression for large-scale migrations without export overhead.
+Migrate VMware virtual machines (VMs) to IBM Cloud VPC virtual servers by streaming disk data over the network using virt-v2v and a Transit Gateway connection.
 {: shortdesc}
 
-## Architecture Components
+## Architecture components
 {: #virt-sol-vpc-migration-design-method3-architecture}
 
 The architecture components of a live network transfer migration are:
@@ -58,7 +58,7 @@ The following steps layout the process to migrate using live network transfer.
    1. Reboot virtual machine, it boots into the live environment
    1. Your virtual machine's disks are accessible but the OS isn't running (clean shutdown equivalent)
 1. Configure Networking in Live Environment
-   1. Determine network interface name (may vary: eth0, ens192, etc.)
+   1. Determine network interface name (might vary: eth0, ens192, and so on)
    1. Configure IP and routing:
 
      ```bash
@@ -112,32 +112,32 @@ The following steps layout the process to migrate using live network transfer.
     1. After verifying virtual server instance boots successfully, shut down source virtual machine
     1. Optionally create a snapshot in VMware as a rollback point
 
-## Design Advantages
+## Design advantages
 {: #virt-sol-vpc-migration-design-method3-advantages}
 
 The following table describes the design advantages of live network transfer migration.
 
 | Design advantage | Description |
 | ----------- | ------------------ |
-| No Export Overhead | Eliminates the entire export step—no time spent exporting VMDKs, no export storage needed, no transferring exports to VPC. |
-| Efficient Network Utilization | Direct streaming with compression makes optimal use of available bandwidth. |
-| Parallel Migration Capability | Provision multiple worker virtual server instances and migrate multiple virtual machines concurrently, limited only by network bandwidth and worker resources. |
-| Maximum Flexibility | Easy to integrate with virt-v2v transformations, supports both VCFaaS and vCenter, works with any virtual machine regardless of disk count. |
-| Clean Disk State | Booting from ISO ensures the source OS isn't running, providing a clean, consistent disk state (similar to a cold snapshot). |
+| No export overhead | Eliminates the entire export step—no time spent exporting VMDKs, no export storage needed, no transferring exports to VPC. |
+| Efficient network utilization | Direct streaming with compression makes optimal use of available bandwidth. |
+| Parallel migration capability | Provision multiple worker virtual server instances and migrate multiple virtual machines concurrently, limited only by network bandwidth and worker resources. |
+| Maximum flexibility | Easy to integrate with virt-v2v transformations, supports both VCFaaS and vCenter, works with any virtual machine regardless of disk count. |
+| Clean disk state | Booting from ISO ensures the source OS isn't running, providing a clean, consistent disk state (similar to a cold snapshot). |
 {: caption="Design advantages for live network transfer migration method" caption-side="bottom"}
 
-## Design Constraints and Limitations
+## Design constraints and limitations
 {: #virt-sol-vpc-migration-design-method3-constraints}
 
 The following table describes the constraints and limitations of a live network transfer migration.
 
 | Limitation or Constraint | Description |
 | ----------- | ------------------ |
-| Transit Gateway Requirement | Requires upfront investment in setting up and testing Transit Gateway connectivity. |
-| Live ISO Preparation | - You need to prepare and test your chosen live ISO, potentially customizing it with needed tools. |
-| Network Bandwidth Dependency | Transfer speed is limited by network bandwidth between environments. Monitor and plan accordingly. |
-| Manual Network Configuration | For each source virtual machine, you need to configure networking in the live ISO environment (can be scripted). |
-| Not Suitable for Warm Migration | This is a cold migration approach—source virtual machine is offline during transfer. |
+| Transit Gateway requirement | Requires upfront investment in setting up and testing Transit Gateway connectivity. |
+| Live ISO preparation | - You need to prepare and test your chosen live ISO, potentially customizing it with needed tools. |
+| Network bandwidth dependency | Transfer speed is limited by network bandwidth between environments. Monitor and plan accordingly. |
+| Manual network configuration | For each source virtual machine, you need to configure networking in the live ISO environment (can be scripted). |
+| Not suitable for warm migration | This is a cold migration approach—source virtual machine is offline during transfer. |
 {: caption="Limitations and constraints for live network transfer migration method" caption-side="bottom"}
 
 ## virt-p2v Integration

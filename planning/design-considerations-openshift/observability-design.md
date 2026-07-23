@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-13"
+lastupdated: "2026-07-21"
 
 keywords: OpenShift virtualization observability, Prometheus monitoring OpenShift, Grafana dashboards OpenShift, IBM Cloud Monitoring, IBM Cloud Logs, RHACM observability, Loki logging OpenShift, Alertmanager OpenShift, OpenTelemetry tracing, distributed tracing OpenShift
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Observability Design for OpenShift Virtualization
+# Designing observability for OpenShift Virtualization on IBM Cloud
 {: #virt-sol-openshift-openshift-observability-design-overview}
 
-Monitor OpenShift virtualization with Prometheus metrics, Grafana dashboards, Loki logging, and IBM Cloud Monitoring for comprehensive observability across clusters using RHACM.
+Design monitoring and logging for Red Hat OpenShift Virtualization on IBM Cloud using RHACM, IBM Cloud Monitoring, and IBM Cloud Logs.
 {: shortdesc}
 
 Observability in IBM Cloud provides the visibility and insights needed to monitor, troubleshoot, and optimize applications and infrastructure across hybrid and multicloud environments. It goes beyond traditional monitoring by offering end-to-end visibility into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
@@ -49,7 +49,7 @@ The following table details the RHACM architecture and core capabilities.
 | Hub cluster | The central controller running Red Hat Advanced Cluster Management. The hub cluster hosts the management console, RHACM components, and APIs. From the hub cluster, you can search resources across all managed clusters, view topology, and execute management operations. |
 | Managed cluster | Any OpenShift cluster managed by the hub cluster. The connection between hub and managed clusters is established through the klusterlet agent installed on each managed cluster. The managed cluster receives and applies requests from the hub cluster, enabling centralized management of cluster lifecycle, application lifecycle, governance, and observability. |
 {: caption="RHACM architecture components" caption-side="bottom"}
-{: summary="This table provides details the RHACM architecture components."}
+{: summary="This table provides details of the RHACM architecture components."}
 {: #architecture-rhacm}
 {: tab-title="RHACM architecture"}
 {: tab-group="RHACM"}
@@ -62,7 +62,7 @@ The following table details the RHACM architecture and core capabilities.
 | Governance and risk management | Enables definition and enforcement of security and compliance policies across all managed clusters. Using dynamic policy templates, you can manage policies and compliance requirements from a central interface, with automated remediation capabilities for policy violations. |
 | Observability | Collects and reports the status, health, and performance metrics of managed OpenShift clusters to the hub cluster. Data is visualized through integrated Grafana dashboards, and custom alerts can be configured to notify administrators of cluster issues or policy violations. |
 {: caption="RHACM core capabilities" caption-side="bottom"}
-{: summary="This table provides details the RHACM core capabilities."}
+{: summary="This table provides details of the RHACM core capabilities."}
 {: #core-rhacm}
 {: tab-title="RHACM core capabilities"}
 {: tab-group="RHACM"}
@@ -93,7 +93,7 @@ The Workload Protection agent discovers and prioritizes software vulnerabilities
 
 See [Getting started with IBM Cloud Security and Compliance Center Workload Protection](/docs/workload-protection?topic=workload-protection-getting-started)
 
-### Deployment and Capabilities
+### Deployment and capabilities
 {: #virt-sol-openshift-observability-design-scc-wpp-deployment}
 
 To enable Workload Protection, provision an instance of the IBM Cloud Security and Compliance Center Workload Protection service in IBM Cloud. After provisioning, deploy the agent to collect security and compliance data across your infrastructure.
@@ -126,9 +126,9 @@ IBM Cloud Monitoring and IBM Cloud Logs provide cloud-native observability for a
 | IBM Cloud Logs | IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior.  \n For more information on IBM Cloud Logs, see  \n - [Getting started with IBM Cloud Logs](/docs/cloud-logs?topic=cloud-logs-getting-started)  \n - [The Logging agent](/docs/cloud-logs?topic=cloud-logs-agent-about)  \n - [Send IBM Cloud Kubernetes Service log data to IBM Cloud Logs](/docs/cloud-logs?topic=cloud-logs-kube2logs)  \n - [Logging agent for orchestrated environments](/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-orchestrated)  \n - [Logging agent for non-orchestrated environments](/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-std) | IBM Cloud Logs is an observability service designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods.  \n By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, IBM Cloud Logs provides actionable insights into system behavior.  \n IBM Cloud Logs supports log collection from:  \n - IBM Cloud services and resources  \n - On-premises infrastructure  \n - Third-party cloud providers  \n - Security and audit logs generated in IBM Cloud  \n The Logging agent, based on the open-source Fluent Bit log processor, collects and sends infrastructure and application logs to IBM Cloud Logs instances. The agent supports multiple data sources and log formats, providing flexible log collection across diverse environments. | Deploy Logging agents within virtual machine operating systems to collect guest-level logs, including application logs, system logs, and security events. This provides comprehensive log visibility across both the OpenShift cluster infrastructure and the workloads running within virtual machines, enhancing troubleshooting and security monitoring capabilities. |
 {: caption="IBM Cloud Monitoring and IBM Cloud Logs details" caption-side="bottom"}
 
-Be aware that for IBM Cloud OpenShift clusters, IBM Cloud Linux VSI and IBM Cloud Windows VSI	both Service ID API key and Trusted Profiles authentication methods are supported by the agent with the IBM Cloud Logs service.
+Be aware that for IBM Cloud OpenShift clusters, IBM Cloud Linux virtual server instances and IBM Cloud Windows virtual server instances both support Service ID API key and Trusted Profiles authentication methods with the IBM Cloud Logs agent.
 
-### Combined Observability Benefits
+### Combined observability benefits
 {: #virt-sol-openshift-observability-design-combined-benefits}
 
 IBM Cloud uses a single unified agent that can collect both security data (for Workload Protection) and metrics data (for Cloud Monitoring). Key points:
@@ -141,7 +141,7 @@ The following table details the unified agent components.
 | Component | Description |
 | -------------- | -------------- |
 | For Monitoring (Metrics) | - Agent: Collects metrics from containers, pods, nodes, and Kubernetes resources  \n - Prometheus integration: Custom metrics collection  \n - Cluster metadata: Automatic tagging with cluster name and context |
-| For Workload Protection (Security) | - Node Analyzer: Includes host scanner and KSPM (Kubernetes Security Posture Management) analyzer  \n - Host Scanner: Detects vulnerabilities and identifies resolution priority based on available fixed versions and severity  \n - KSPM Analyzer: Kubernetes Security Posture Management for compliance and configuration analysis  \n - Cluster Shield: Security runtime component |
+| For Workload Protection (Security) | - Node Analyzer: Includes host scanner and Kubernetes Security Posture Management (KSPM) analyzer  \n - Host Scanner: Detects vulnerabilities and identifies resolution priority based on available fixed versions and severity  \n - KSPM Analyzer: Kubernetes Security Posture Management for compliance and configuration analysis  \n - Cluster Shield: Security runtime component |
 {: caption="Components of unified agent" caption-side="bottom"}
 
 The following table details the comprehensive observability provided when deploying both the unified agent (for IBM Cloud Monitoring and Workload Protection) and the IBM Cloud Logs agent in VPC virtual server instances.

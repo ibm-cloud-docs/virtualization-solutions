@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-13"
+lastupdated: "2026-07-21"
 
-keywords: Red Hat OpenShift Virtualization, Red Hat OpenShift Kubernetes Service, VSI, NFS, storage, File Storage for VPC, IBM Cloud
+keywords: NFS storage OpenShift, File Storage for VPC, OpenShift Virtualization storage, persistent volumes NFS
 
 subcollection: virtualization-solutions
 
@@ -17,7 +17,8 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# IBM VPC File Storage with Red Hat OpenShift Virtualization
+
+# Configuring IBM Cloud File Storage for VPC with Red Hat OpenShift Virtualization
 {: #file-storage-vpc-virtualization}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMWare"}
@@ -25,7 +26,7 @@ completion-time: 60m
 {: toc-completion-time="60m"}
 
 
-Learn how to configure IBM VPC File Storage as persistent storage for {{site.data.keyword.redhat_openshift_full}} Virtualization virtual machine workloads.
+Configure IBM Cloud File Storage for VPC as persistent storage for OpenShift Virtualization VMs, with StorageClass and live migration support.
 {: shortdesc}
 
 Explore the sections to access the guide:
@@ -58,7 +59,6 @@ Explore the sections to access the guide:
 
 IBM VPC File Storage provides NFS-based file storage services within the VPC Infrastructure. File shares provide network-accessible storage that allows multiple clients to access the same folders and files simultaneously.
 For more information and considerations, see [Enabling the {{site.data.keyword.cloud_notm}} File Storage for VPC cluster add-on](/docs/openshift?topic=openshift-storage-file-vpc-install).
-
 
 {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}} provides predefined StorageClasses that specify the type of IBM VPC File Storage to provision, including available size, IOPS, file system, and retention policy.
 
@@ -123,7 +123,7 @@ To increase a quota for a particular resource, [contact support](/docs/vpc?topic
 #### Resource group considerations
 {: #resource-group}
 
-It is recommended that your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster and VPC are part of the same resource group. If your cluster and VPC are in separate resource groups, you must create custom StorageClasses and provide your VPC resource group ID.
+Ensure that your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster and VPC are part of the same resource group. If your cluster and VPC are in separate resource groups, you must create custom StorageClasses and provide your VPC resource group ID.
 
 For troubleshooting and fix information, see [Why does PVC creation fail for File Storage for VPC?](/docs/containers?topic=containers-ts-storage-vpc-file-eit-pvc-fails).
 
@@ -440,6 +440,7 @@ Before you set up IBM VPC File Storage with {{site.data.keyword.redhat_openshift
 - Outbound traffic protection. Disabled for pulling the image.
 - {{site.data.keyword.redhat_openshift_notm}} Virtualization. Already installed and available on the cluster. For installation instructions, see [Installing the {{site.data.keyword.redhat_openshift_notm}} Virtualization Operator](#install-virt-operator).
 
+
 Bare-metal node has a "d" suffix (such as bx2d or cx2d) include an extra NVMe&trade; local disk, which is not needed for a File Storage cluster on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service.
 {: note}
 
@@ -522,6 +523,7 @@ Use the following sequence to configure IBM VPC File Storage for {{site.data.key
 2. Configure `StorageProfiles` for IBM VPC File Storage `StorageClasses`.
 
 This sequence will help ensure that cloning and snapshots work as expected for IBM VPC File Storage virtual machine workloads.
+
 
 If your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment already uses another storage provider, such as [{{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF)](https://www.redhat.com/en/technologies/cloud-computing/openshift-data-foundation){: external}, you do not need to change the cluster default `StorageClasses` to complete the IBM VPC File Storage-specific configuration in the section.
 However, if the environment is intended to use IBM VPC File Storage as the primary storage provider for {{site.data.keyword.redhat_openshift_notm}} Virtualization, it is recommended that you complete the optional steps in [Optional default `StorageClass` reconfiguration](#default-storageclass-reconfiguration).
@@ -756,7 +758,7 @@ You can use different `StorageClasses` for different VM disks based on performan
 Boot disk
 :   Use reduced IOPS (for example, `ibmc-vpc-file-500-iops`) for cost-effective storage, as booting is a one-time operation.
 
-Data disks
+Data Disk
 :   Use higher IOPS (for example, `ibmc-vpc-file-3000-iops`) for better runtime performance where it matters most.
 
 Example VM with multiple disks:
@@ -935,7 +937,8 @@ When a file share is deleted, its snapshots are deleted automatically.
 4. Provide a snapshot name.
 5. Click **Save**.
 
-You might see a warning that the `cloudinitdisk` is not included in the snapshot. This behavior is expected because cloud-init disks are ephemeral configuration drives that are regenerated at boot.
+
+You might see a warning about the `cloudinitdisk` not being included in the snapshot. This is expected behavior, as cloud-init disks are ephemeral configuration drives that are regenerated at boot.
 {: note}
 
 Example warning message:
