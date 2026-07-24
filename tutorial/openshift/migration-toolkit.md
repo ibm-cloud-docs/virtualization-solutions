@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-07-24"
 
 keywords: Migration Toolkit for Virtualization, MTV, VMware vSphere migration, OpenShift Virtualization migration, MTV tutorial, VDDK image setup, warm migration cold migration, vCenter ESXi migration, VM migration prerequisites, migration plan configuration, VMware to OpenShift
 
@@ -75,7 +75,9 @@ Prerequisites for source VMs across all migrations include:
 - Media Status: ISO images and CD-ROMs must be unmounted.
 - IP Addressing: Each NIC must contain either an IPv4 address or an IPv6 address, and can utilize both.
 - OS Certification: The VM operating system must be certified and supported for conversion as a guest operating system.
-- Boot Features: Virtual machines with Secure Boot enabled currently cannot be migrated automatically, as this prevents them from booting on the destination provider. The current workaround for this issue is to disable Secure Boot on the destination.
+- Boot Features: Virtual machines with Secure Boot enabled currently might not be migrated automatically, as this prevents them from booting on the destination provider. The current workaround for this issue is to disable Secure Boot on the destination.
+- VMware guest agents, known as VMware Tools or open-vm-tools, are needed when "Preserve static IPs" is enabled.
+
 
 ### VM Naming
 {: #vm-naming}
@@ -101,7 +103,7 @@ MTV supports the migration of VMs using the following encryption types:
 ### VMware Tools
 {: #vmware-tools}
 
-To utilize a pre-migration hook to access the virtual machine, VMware Tools must be installed on the source virtual machine.
+To utilize a pre-migration hook to access the virtual machine, VMware Tools or open-vm-tools must be installed on the source virtual machine.
 
 ### VDDK Image (Strongly Recommended)
 {: #vddk-image}
@@ -213,6 +215,8 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
    - Shared disks: This is enabled by default for cold migrations. Shared disks use the multi-writer option and can slow down the migration process.
    - Select the Enable hook checkbox for pre-migration (operations on source VM before migration) or post-migration (operations on migrated VM after migration).
    - You must specify the Hook runner image (default is `quay.io/kubev2v/hook-runner`) and provide the Ansible playbook. Only one pre-migration and one post-migration hook are allowed per plan.
+   - When using Preserve static IPs and, moving to a Layer 2 Primary UDN or CUDN . The source vm needs to be powered on and running a
+     VMWare Guest Agent. Preserve static IP does not work with Secondary networks and, will make no changes in that state. 
 
 1. Review and Create: Create the plan, which triggers validation.
 
@@ -378,6 +382,29 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
            - Perform a clean shutdown: shutdown /s /t 0
            - Re-export the OVA after the clean shutdown.
            - Upload the new OVA to the NFS server and retry OVA migration.
+
+    f. Preserve static IP Issues
+       
+       - Destination Layer 2 Primary network has a different subnet than source.
+       - Resolution:
+           - Delete and re-create the Layer 2 Primary network to match the correct subnet.
+           - Rerun migration after Layer 2 Primary network change.
+      
+       - VM gets a free IP from the pool but not the requested IP.
+       - Resolution:
+           - Source VM was not powered on at time of migration or was missing a VMWare guest agent.
+           - Delete migrated vm than check source VM for a VMWare Guest agent and power state.
+
+       - Network Map points to a Layer 2 Secondary network.
+       - Resolution:
+           - Layer 2 Secondary networks do not support Preserve static IP. 
+           - Create Layer 2 Secondary network without IPam enabled and use manual IP configuration. 
+
+       - Network Map points to a Localnet / VMNetwork  network.
+       - Resolution:
+           - Localnet networks do not support Preserve static IP. 
+           - Use manual IP configuration. 
+
 
 ## Additional Resources
 {: #additional-resources}
