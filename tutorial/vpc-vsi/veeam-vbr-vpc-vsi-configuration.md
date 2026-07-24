@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-07-23"
 
-keywords: Veeam Backup Replication VPC, VBR agent deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, Veeam protection groups VSI, HMAC credentials COS integration, Windows Linux backup agents, VPC backup configuration guide
+keywords: Veeam Backup Replication VPC, VBR deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, HMAC credentials COS integration, VPC backup configuration guide
 
 
 subcollection: virtualization-solutions
@@ -24,7 +24,7 @@ completion-time: 120m
 {: toc-services="vpc, cloud object storage"}
 {: toc-completion-time="120m"}
 
-Deploy and configure Veeam Backup & Replication agents on IBM Cloud VPC virtual servers, with IBM Cloud Object Storage as the backup repository.
+Deploy and configure Veeam Backup & Replication (VBR) on IBM Cloud VPC virtual server, with a two tier Scale-Out Backup Repository (SOBR) as backup destination.
 {: shortdesc}
 
 ## Objectives
@@ -39,8 +39,6 @@ You learn how to build a production-ready backup infrastructure that combines lo
 - Set up {{site.data.keyword.cos_full_notm}} (Cloud Object Storage, COS) as a backup repository.
 - Configure local disk repositories with Resilient File System (ReFS).
 - Create a scale-out backup repository (SOBR) for tiered storage.
-- Deploy Veeam agents on target virtual servers.
-- Create and configure backup jobs.
 - Implement backup best practices for VPC environments.
 
 ## Before you begin
@@ -57,7 +55,7 @@ Before you begin, ensure that you meet the following prerequisites:
 ## Best practices
 {: #veeam-vbr-vpc-best-practices}
 
-Follow these best practices to optimize your Veeam Backup & Replication deployment in {{site.data.keyword.vpc_short}}. These recommendations cover storage configuration, network setup, backup strategy, security, and performance to help ensure reliable and efficient backup operations.
+Follow these best practices to optimize your Veeam Backup & Replication deployment in {{site.data.keyword.vpc_short}}. These recommendations cover storage configuration, network setup, and security to help ensure reliable and secure backup operations.
 
 ### Storage configuration
 {: #veeam-vbr-vpc-storage-best-practices}
@@ -82,17 +80,6 @@ Use these network practices to keep backup traffic efficient, private, and predi
 - Ensure adequate bandwidth between the VBR server and target virtual servers. A minimum of 1 Gbps is recommended.
 - Use VPC routing to avoid using the internet gateway for backup traffic.
 
-### Backup strategy
-{: #veeam-vbr-vpc-backup-strategy}
-
-Use these strategy recommendations to balance recovery speed, retention, and operational resilience. A clear backup strategy helps you validate recoverability and maintain consistent protection for your workloads.
-
-- Follow the 3-2-1 rule: Keep three copies of data on two different media types, with one copy offsite.
-- Use SOBR tiering: Keep recent backups (`7-14 days`) on local storage for fast restores.
-- Perform regular testing: Perform restore tests monthly to validate backup integrity.
-- Document procedures: Maintain runbooks for backup and restore operations.
-- Monitor job status: Review backup reports daily and address failures promptly.
-
 ### Security
 {: #veeam-vbr-vpc-security-best-practices}
 
@@ -104,18 +91,6 @@ Use these security practices to protect backup data, credentials, and administra
 - Network isolation: Use security groups to restrict VBR server access.
 - Regular updates: Keep Veeam software updated with the latest patches.
 - Audit logs: Enable and review Veeam audit logs regularly.
-
-### Performance optimization
-{: #veeam-vbr-vpc-performance-optimization}
-
-Use these optimization practices to improve backup throughput and make better use of compute and storage resources.
-
-- Parallel processing: Configure one concurrent task per central processing unit (CPU) core.
-- Backup windows: Schedule backups during off-peak hours.
-- Incremental backups: Use forever-forward incremental for efficiency.
-- Synthetic full: Enable synthetic full backups to reduce backup windows.
-- Compression: Use `Optimal` compression to balance speed and storage savings.
-- Deduplication: Enable inline deduplication for storage efficiency.
 
 ### Required IAM access policies
 {: #veeam-vbr-vpc-access-policies}
@@ -139,23 +114,6 @@ The solution architecture includes:
 - Local repository: Resilient File System (ReFS)-formatted block storage for fast backups.
 - Cloud repository: {{site.data.keyword.cos_full_notm}} for long-term retention.
 - Scale-out backup repository (SOBR): A scale-out backup repository that combines local and cloud tiers.
-- Target virtual servers: Windows and Linux® virtual servers to be backed up.
-- Veeam agents: Agents installed on each target virtual server for backup operations.
-
-## Provisioning the Windows and Red Hat® Enterprise Linux® virtual servers
-{: #veeam-endpoint-vpc-provision-vsi}
-{: step}
-
-Complete the following steps to create Windows and Red Hat Enterprise Linux virtual servers that Veeam Backup & Replication backs up later.
-
-Ensure that `lvm2` is installed on the Red Hat Enterprise Linux or Linux virtual server.
-{: note}
-
-Open the required ports on the Windows virtual server. For more information, see the [Veeam documentation](https://helpcenter.veeam.com/docs/vbr/userguide/used_ports.html){: external} to determine which ports must be open. In this example, the Windows firewall is disabled.
-{: note}
-
-1. Log in to the [{{site.data.keyword.cloud_notm}} console](https://cloud.ibm.com/infrastructure/compute/vs){: external} to create Windows and Red Hat Enterprise Linux virtual servers for backup.
-2. Record the private IP address of each virtual server.
 
 ## Provisioning the VBR server instance
 {: #veeam-vbr-vpc-provision-vsi}
@@ -532,246 +490,7 @@ Complete the following steps to create a Scale-Out Backup Repository (SOBR) that
    6. On the **Summary** page, review the SOBR configuration, and then click **Finish**.
    7. Wait until the SOBR is created.
 
-## Creating protection groups
-{: #veeam-vbr-vpc-create-protection-groups}
-{: step}
-
-Complete the following steps to create protection groups to organize your virtual servers before you deploy agents. Protection groups in Veeam 13 help you logically group servers and apply backup policies consistently.
-
-### Creating a Windows protection group
-{: #veeam-vbr-vpc-create-windows-protection-group}
-
-Use a Windows protection group to organize Windows virtual servers and deploy backup agents consistently.
-
-1. In the Veeam Backup & Replication Console, go to **Inventory**.
-2. Create a new protection group for Windows servers. In the left navigation pane, right-click **Physical & Cloud Infrastructure**.
-   1. Click **Add protection group**.
-   2. Select **Individual computers**.
-   3. In the **New Protection Group** wizard:
-       1. On the **Name** page, enter `VPC-Windows-Servers` for **Name**.
-       2. For **Description**, enter `Windows VSIs in IBM Cloud VPC for backup`.
-       3. Click **Next**.
-   4. On the **Computers** page, click **Add**.
-       1. In the **Add Computer** form:
-          1. For **DNS name or IP address**, enter the private IP address of your Windows VSI.
-          2. For **Connect using admin credentials**, click **Add**.
-             1. For **Username**, enter `Administrator` or a domain account.
-             2. For **Password**, enter the password.
-             3. For **Description**, enter `Windows VSI Admin Credentials`.
-             4. Click **OK**.
-          3. Click **OK**.
-       2. Click **Next**.
-   5. On the **Options** page, select **Install backup agent**.
-      1. Select **Install change block tracking driver**.
-      2. Select **Enable auto-update for installed components**.
-      3. Select **Perform reboot automatically if required**.
-      4. Click **Next**.
-   6. On the **Review** page, review the computer details, and then click **Apply** if needed.
-      1. Repeat the steps 1-3 to add additional Windows virtual server instances to the protection group.
-      2. Click **Next**.
-   7. On the **Apply** page, click **Next** if you need to apply any changes.
-   8. On the **Summary** page, click **Finish**.
-3. Wait for the **Machine rescan** to complete.
-
-### Creating a Linux protection group
-{: #veeam-vbr-vpc-create-linux-protection-group}
-
-Use a Linux protection group to organize Linux virtual servers and prepare them for agent deployment.
-
-1. In the Veeam Backup & Replication Console, go to **Inventory**.
-2. Create a new protection group for Linux servers. In the left navigation pane, right-click **Physical & Cloud Infrastructure**.
-   1. Click **Add protection group**.
-   2. Select **Individual computers**.
-   3. In the **New Protection Group** wizard:
-      1. On the **Name** page:
-         1. For **Name**, enter `VPC-Linux-Servers`.
-         2. For **Description**, enter `Linux VSIs in IBM Cloud VPC for backup`.
-         3. Click **Next**.
-      2. On the **Computers** page, click **Add**.
-         1. In the **Add Computer** form:
-            1. For **DNS name or IP address**, enter the private IP address of your Linux VSI.
-            2. For **Connect using admin credentials:**, click **Add**.
-               1. For **Username**, enter `root` or a domain account.
-               2. For **Password**, enter the password or ssh key
-               3. For **Description**, enter `Linux VSI Admin Credentials`.
-               4. Click **OK**.
-            3. Click **OK**.
-         2. Click **Next**.
-      3. On the **Options** page, select **Install backup agent**.
-         1. Select **Enable auto-update for installed components**.
-         2. Select **Perform reboot automatically if required**.
-         3. Click **Next**.
-      4. On the **Review** page, review the computer details, and then click **Apply** if needed.
-         1. Repeat the steps 1-3 to add additional Linux virtual server instances to the protection group.
-         2. Click **Next**.
-      5. On the **Apply** page, click **Next** if you need to apply any changes.
-      6. On the **Summary** page, click **Finish**.
-3. Wait for the **Machine rescan** to finish.
-
-### Verifying protection group deployment
-{: #veeam-vbr-vpc-verify-protection-groups}
-
-After you create the protection groups, verify that the servers are online and that the Veeam agents are installed.
-
-1. In the Veeam Backup & Replication Console, go to **Inventory**.
-2. Verify protection groups. In the left navigation pane, expand **Physical & Cloud Infrastructure**.
-   1. Expand **Protection Groups**.
-   2. Click **VPC-Windows-Servers** to view Windows virtual server instances.
-       - Verify all Windows virtual server instances are listed with the status **Online**.
-       - Verify **Agent** column shows **Installed**.
-   3. Click **VPC-Linux-Servers** to view Linux virtual server instances.
-       - Verify all Linux virtual server instances are listed with the status **Online**.
-       - Verify **Agent** column shows **Installed**.
-3. If any servers show **Agent not installed** or **Offline**:
-   1. Right-click the server.
-   2. Click **Install Agent** to retry deployment.
-   3. Check network connectivity and credentials if deployment fails.
-
-## Managing Veeam agents
-{: #veeam-vbr-vpc-manage-agents}
-{: step}
-
-After you create protection groups in the previous step, Veeam agents are automatically deployed to all virtual servers in those groups. The section explains how to verify agent status and manually add more servers if needed.
-
-1. In the Veeam Backup & Replication Console, go to **Inventory**.
-2. Check agent status. In the left navigation pane, expand **Physical & Cloud Infrastructure**.
-    1. Expand **Protection Groups**.
-    2. Click on **VPC-Windows-Servers** or **VPC-Linux-Servers**.
-    3. Verify that all servers show by double clicking each server:
-       - **Status**: Online (green checkmark).
-       - **Agent**: Installed.
-       - **Version**: Current Veeam Agent version.
-3. If any server shows issues:
-   1. Right-click the server.
-   2. Click **Rescan** to refresh the status.
-   3. If agent is not installed, click **Install Agent** to retry.
-
-## Creating backup jobs
-{: #veeam-vbr-vpc-create-backup-jobs}
-{: step}
-
-Complete the following steps to create backup jobs for your virtual servers by using the protection groups created earlier.
-
-### Creating a Windows backup job
-{: #veeam-vbr-vpc-create-windows-backup-job}
-
-Start by creating a managed backup job for the Windows protection group.
-
-1. In the Veeam Backup & Replication Console, go to **Home**.
-2. Create a new backup job for Windows servers. In the ribbon, click **Backup Job** > **Windows computer**.
-   1. . In the **New Agent Backup Job** wizard:
-       1. On the **Job Mode** page, select `Server` for **Type**.
-       2. Select **Managed by backup server** for **Mode**.
-       3. Click **Next**.
-   2. On the **Name** page:
-       1. For **Name**, enter `VPC-Windows-Backup-Job`.
-       2. For **Description**, enter `Daily backup of Windows VSIs in VPC`.
-       3. Click **Next**.
-   3. On the **Computers** page, click **Add** > **Protection group**.
-       1. Select **VPC-Windows-Servers** from the list.
-       2. Click **OK**.
-       3. If needed, click **Add** > **Individual computer** to add a specific virtual server that is not in the protection group.
-       4. Click **Next**.
-   4. On the **Backup Mode** page:
-       1. Select **Entire computer** for a full system backup.
-       2. If you need to protect only selected volumes, select **Volume level** instead.
-       3. Click **Next**.
-   5. On the **Storage** page:
-       1. Select **SOBR-VPC-Backups** for **Backup repository**.
-       2. For **Retention policy**, specify:
-            - **Restore points to keep**: **14** (adjust based on your requirements)
-       3. Click **Advanced**.
-       4. In the **Advanced Settings** form:
-           1. In the **Storage** tab:
-                - For **Compression level**, select **Optimal** or **High**.
-                - For **Encyprtion**, select `Enable backup file encryption` then add a password.
-           2. Click **OK**.
-       5. Click **Next**.
-   6. On the **Guest Processing** page, click **Next**.
-   7. On the **Schedule** page:
-       1. Check **Run the job automatically**.
-       2. For **Schedule**, configure:
-             - **Daily**: At **10:00 PM** (adjust based on your backup window)
-             - **Days**: **Monday** through **Sunday**
-       3. Click **Apply**.
-   8. On the **Summary** page, review the job configuration.
-       1. Select **Run the job when I click Finish** to start the first backup immediately.
-       2. Click **Finish**.
-3. Monitor the Windows backup job.
-    1. In the **Home** view, locate the job in the **Jobs** list.
-    2. Click the job to view progress and details.
-    3. Wait for the first backup to complete.
-
-### Creating a Linux backup job
-{: #veeam-vbr-vpc-create-linux-backup-job}
-
-Start by creating a managed backup job for the Linux protection group.
-
-1. In the Veeam Backup & Replication Console, go to **Home**.
-2. Create a new backup job for Linux servers. In the ribbon, click **Backup Job** > **Linux computer**.
-    1. In the **New Agent Backup Job** wizard:
-       1. On the **Job Mode** page, select **Server** for **Type**.
-            1. Select **Managed by backup server** for **Mode**.
-            2. Click **Next**.
-       2. On the **Name** page:
-              1. Enter `VPC-Linux-Backup-Job` for **Name**.
-              2. For **Description**, enter `Daily backup of Linux VSIs in VPC`.
-              3. Click **Next**.
-       3. On the **Computers** page, click **Add** > **Protection group**
-              1. Select `VPC-Linux-Servers` from the list.
-              2. Click **OK**.
-              3. If needed, click **Add** > **Individual computer** to add a specific virtual server that is not in the protection group.
-              4. Click **Next**.
-       4. On the **Backup Mode** page:
-             1. Select **Entire computer** for a full system backup.
-             2. If you need to protect only selected volumes, select **Volume level** instead.
-             3. Click **Next**.
-       5. On the **Storage** page:
-            1. For **Backup repository**, select **SOBR-VPC-Backups**.
-            2. For **Retention policy**, specify:
-                - **Restore points to keep**: **14** (adjust based on your requirements)
-            3. Click **Advanced**.
-            4. In the **Advanced Settings** form:
-                1. In the **Storage** tab:
-                   - For **Compression level**, select **Optimal** or **High**.
-                   - For **Encyprtion**, select `Enable backup file encryption` then add a password.
-                2. Click **OK**.
-            5. Click **Next**.
-       6. On the **Guest Processing** page, click **Next**.
-       7. On the **Schedule** page:
-          1. Select **Run the job automatically**.
-          2. For **Schedule**, configure:
-             - **Daily**: At **10:00 PM** (adjust based on your backup window)
-             - **Days**: **Monday** through **Sunday**
-          3. Click **Apply**.
-       8. On the **Summary** page, review the job configuration.
-          1. Select **Run the job when I click Finish** to start the first backup immediately.
-          2. Click **Finish**.
-3. Monitor the Linux backup job.
-    1. In the **Home** view, locate the job in the **Jobs** list.
-    2. Click the job to view progress and details.
-    3. Wait for the first backup to complete.
-
-### Verifying backup jobs
-{: #veeam-vbr-vpc-verify-backup-jobs}
-
-After you create both backup jobs, verify that they are running correctly and that backup files are being stored in the appropriate repositories.
-
-1. In the Veeam Backup & Replication Console, go to **Home**.
-2. Verify that both backup jobs are listed.
-   1. Check `VPC-Windows-Backup-Job` status.
-   2. Check `VPC-Linux-Backup-Job` status.
-3. Review job statistics.
-   1. Click each job to view details.
-   2. Verify that all virtual servers in the protection groups are being backed up.
-   3. Check backup duration and data transfer rates.
-4. Review backup files.
-   1. Go to **Backup Infrastructure** > **Scale-out Repositories**.
-   2. Click `SOBR-VPC-Backups`.
-   3. Verify that backup files are being created in the local repository.
-   4. After 7 days, verify that files are being moved to {{site.data.keyword.cos_full_notm}}.
-
-### Support resources
+## Support resources
 {: #veeam-vbr-vpc-support-resources}
 
 Use the following resources for additional information when you work with Veeam Backup & Replication and {{site.data.keyword.cloud_notm}} services.
@@ -787,7 +506,7 @@ Use the following resources for additional information when you work with Veeam 
 
 After you complete this tutorial, consider the following next steps:
 
-- Test restores: Perform test restores to validate backup integrity.
+- Perform backups: Protect workloads by creating backup jobs.
 - Configure replication: Set up Veeam replication for additional protection.
 - Implement monitoring: Integrate with monitoring tools (Veeam ONE, Grafana, and so on).
 - Automate operations: Create PowerShell scripts for common tasks.

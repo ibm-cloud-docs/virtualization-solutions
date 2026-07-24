@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-07-23"
 
 keywords: Veeam VBR configuration troubleshooting, COS repository connection errors, VBR agent installation failures, backup performance optimization VPC, HMAC credentials Veeam COS, insufficient space backup repository, Veeam firewall port configuration, SOBR capacity tier offload, VBR VPC integration issues, Veeam backup job failures
 
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Troubleshooting Veeam Backup & Replication (VBR) configuration on IBM Cloud VPC virtual servers
+# Troubleshooting Veeam Backup & Replication configuration and backup issues on IBM Cloud VPC
 {: #troubleshooting-vbr-vpc-vsi-integration-configuration}
 
-Troubleshoot Veeam Backup & Replication on IBM Cloud VPC virtual servers, covering Object Storage connectivity, slow backups, and agent failures.
+Troubleshoot Veeam Backup & Replication on IBM Cloud VPC, covering Object Storage connectivity, slow backups, and agent failures.
 {: shortdesc}
 
 If you encounter issues while configuring or running Veeam Backup & Replication in {{site.data.keyword.vpc_short}}, review the following common problems and solutions. Each troubleshooting scenario includes symptoms, potential causes, and step-by-step resolutions.

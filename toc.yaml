@@ -138,6 +138,8 @@ toc:
             navtitle: VMware Migration Tutorial - VCF for Classic
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-configuration.md
             navtitle: VMware Migration Tutorial - Configuring VBR with VSI
+          - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-backup.md
+            navtitle: VMware Migration Tutorial - Backing up VSI with VBR
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-restore.md
             navtitle: VMware Migration Tutorial - Restoring VSI with VBR
   - navgroup:
@@ -188,8 +190,8 @@ toc:
           - topic: help/troubleshooting/troubleshooting-odf-workloads.md
             navtitle: Troubleshooting ODF workloads
           - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-configuration.md
-            navtitle: Why Can't I Configure Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
+            navtitle: Troubleshooting Veeam Backup & Replication configuration and backup issues
           - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-restore.md
-            navtitle: Why Can't I Restore Veeam Backup & Replication Configuration on VPC Virtual Server Instances?
+            navtitle: Troubleshooting Veeam Backup & Replication restore issues
           - topic: help/troubleshooting/troubleshooting-storage-migration.md
             navtitle: Troubleshooting storage migration
