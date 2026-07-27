@@ -3,7 +3,7 @@
 copyright:
   years: 2026
 
-lastupdated: "2026-07-23"
+lastupdated: "2026-07-27"
 
 keywords: Veeam Backup Replication VPC, VBR agent deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, Veeam protection groups VSI, HMAC credentials COS integration, Windows Linux backup agents, VPC backup configuration guide
 
@@ -94,9 +94,9 @@ Ensure that you have the following IAM access policies:
 {: #veeam-endpoint-vpc-provision-vsi}
 {: step}
 
-Complete the following steps to create Windows and {{site.data.keyword.rhel_full}} virtual servers for Veeam Backup & Replication to back up.
+Complete the following steps to create Windows and Red Hat Enterprise Linux (RHEL) virtual servers for Veeam Backup & Replication to back up.
 
-Confirm that `lvm2` is installed on the {{site.data.keyword.rhel_short}} or Linux virtual server.
+Confirm that `lvm2` is installed on the RHEL or Linux virtual server.
 {: note}
 
 Open the required ports on the Windows virtual server. For more information, see [Ports that are used by Veeam Backup & Replication](https://helpcenter.veeam.com/docs/vbr/userguide/used_ports.html){: external} to determine which ports to open. The Windows Firewall is disabled for testing purposes only. Do not disable the firewall in a production environment.
