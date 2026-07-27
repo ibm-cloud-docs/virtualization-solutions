@@ -135,11 +135,11 @@ toc:
           - topic: tutorial/vpc-vsi/migration-tutorial-vcs.md
             navtitle: VMware Migration Tutorial - VCF for Classic
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-configuration.md
-            navtitle: VMware Migration Tutorial - Configuring VBR with VSI
+            navtitle: "VMware Migration Tutorial - Configuring VBR with VSI"
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-backup.md
-            navtitle: VMware Migration Tutorial - Backing up VSI with VBR
+            navtitle: "VMware Migration Tutorial - Backing up VSI with VBR"
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-restore.md
-            navtitle: VMware Migration Tutorial - Restoring VSI with VBR
+            navtitle: "VMware Migration Tutorial - Restoring VSI with VBR"
   - navgroup:
       id: howto
       topics:
