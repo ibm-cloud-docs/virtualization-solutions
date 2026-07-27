@@ -102,7 +102,7 @@ Confirm that `lvm2` is installed on the RHEL or Linux virtual server.
 Open the required ports on the Windows virtual server. For more information, see [Ports that are used by Veeam Backup & Replication](https://helpcenter.veeam.com/docs/vbr/userguide/used_ports.html){: external} to determine which ports to open. The Windows Firewall is disabled for testing purposes only. Do not disable the firewall in a production environment.
 {: note}
 
-1. Log in to the [{{site.data.keyword.cloud_notm}} console](https://cloud.ibm.com/infrastructure/compute/vs){: external} to create Windows and {{site.data.keyword.rhel_short}} virtual servers for backup.
+1. Log in to the [{{site.data.keyword.cloud_notm}} console](https://cloud.ibm.com/infrastructure/compute/vs){: external} to create Windows and RHEL virtual servers for backup.
 2. Record the private IP address of each virtual server.
 
 ## Creating protection groups
