@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-07-27"
 
 
 keywords: OpenShift Data Foundation ODF, Ceph storage virtual machines, ODF storage classes configuration, VM live migration storage, replicated pools erasure coding, RBD block storage VMs, ODF capacity planning, snapshot backup VMs, bare metal NVMe storage, vSAN migration ODF
@@ -17,15 +17,16 @@ completion-time: 60m
 
 ---
 
-# Using Red Hat OpenShift Data Foundation (ODF) for virtual machine workloads
 {{site.data.keyword.attribute-definition-list}}
+
+# Using Red Hat OpenShift Data Foundation (ODF) for virtual machine workloads
 {: #odf-for-vm-workloads}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
 
-Configure Red Hat OpenShift Data Foundation (ODF) as the storage backend for VM workloads on IBM Cloud OpenShift Virtualization.
+Configure Red Hat OpenShift Data Foundation (ODF) as the storage backend for virtual machine workloads on IBM Cloud OpenShift Virtualization.
 {: shortdesc}
 
 {{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. Use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
@@ -43,18 +44,25 @@ Configure Red Hat OpenShift Data Foundation (ODF) as the storage backend for VM 
 ## What is ODF?
 {: #what-is-odf}
 
-ODF is a software-defined storage solution that is built for {{site.data.keyword.redhat_openshift_notm}}. ODF is based on Ceph&reg; and is fully integrated and lifecycle-managed through {{site.data.keyword.redhat_openshift_notm}} operators. Ceph is an open source distributed storage system that turns commodity servers into a highly scalable and fault-tolerant storage cluster.
+ODF is a software-defined storage solution that is built for {{site.data.keyword.redhat_openshift_notm}}. ODF is based on Ceph&reg; and is fully integrated and lifecycle-managed through {{site.data.keyword.redhat_openshift_notm}} operators. Ceph is an open-source distributed storage system that turns commodity servers into a highly scalable and fault-tolerant storage cluster.
 
 ODF provides four types of storage from the same platform:
 
-- Block storage (RADOS Block Device (RBD)) – for virtual machine workload disks
-- File storage (CephFS) – for shared file systems
-- Object storage (RGW and S3-compatible) – for object workloads
-- Network File System (NFS) (CephFS-backed) – NFS exports for traditional or external clients
+Block storage (RADOS Block Device (RBD))
+:   For virtual machine workload disks.
+
+File storage (CephFS)
+:   For shared file systems.
+
+Object storage (RGW and S3-compatible)
+:   For object workloads.
+
+Network File System (NFS) (CephFS-backed)
+:   NFS exports for traditional or external clients.
 
 In ODF, NFS is backed by CephFS and exposed through a Ceph NFS Ganesha gateway. The gateway is managed through a CephNFS custom resource in Rook. NFS is not a distinct storage backend; it provides access to CephFS over the NFS protocol. The primary use case is to provide NFS access to clients outside the {{site.data.keyword.redhat_openshift_notm}} cluster, or to workloads that require NFS. NFS is not used for virtual machine workload disks because virtual servers use block storage (RBD).
 
-On IBM {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, ODF typically uses local disks on worker nodes to create a high-performance and resilient storage cluster inside {{site.data.keyword.redhat_openshift_notm}}.
+On {{site.data.keyword.IBM_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, ODF typically uses local disks on worker nodes to create a high-performance and resilient storage cluster inside {{site.data.keyword.redhat_openshift_notm}}.
 
 ## Understanding data protection
 {: #understanding-data-protection}
@@ -83,7 +91,7 @@ What happens when copies are lost (`replica-3`):
 | 2 of 3 | `active+degraded` | I/O continues normally. Ceph immediately begins rereplicating the missing copy to another OSD to restore 3 copies. | Minimal. Data is still durable on 2 independent OSDs. Recovery occurs automatically. |
 | 1 of 3 | `active+degraded` or `peered` (depending on `min_size`) | With the ODF default `min_size=2`, Ceph blocks all I/O to affected Placement Groups when only 1 copy remains. Prevents extra writes that can become inconsistent. Virtual servers with data on those PGs experience I/O hang. | High. Only 1 copy of the data remains on a single remaining OSD. If it also fails before the recovery completes, the data is permanently lost. |
 | 0 of 3 | `incomplete` | I/O is blocked. No copies exist. | Data loss. The data is permanently unrecoverable. |
-{: caption="rep3 failure progression and I/O behaviour"}
+{: caption="Replica-3 failure progression and I/O behavior"}
 
 The `min_size` parameter controls the minimum number of copies that must be available before Ceph allows I/O. ODF sets `min_size=2` for replica-3 pools by default, which is enforced through `requireSafeReplicaSize: true`. When two or three copies are available, reads and writes proceed normally. When only one copy is available, Ceph blocks I/O to maintain data consistency.
 
@@ -156,7 +164,7 @@ A single replica pool has the following use cases:
 The single replica pool provides zero fault tolerance. A single OSD or node failure results in permanent, unrecoverable data loss for all data on that OSD. No second copy is available for recovery. {{site.data.keyword.cloud_notm}} documentation explicitly warns that this option increases the risk of data loss, data corruption, and potential system instability. For more information, see [Ceph documentation](https://docs.ceph.com/en/latest/architecture/#scalability-and-high-availability){: external}.
 {: warning}
 
-Limitations:
+The single replica pool has the following limitations:
 
 - Block storage only: A single replica does not support file storage.
 - Requires extra disks: At least one extra usable NVMe disk per node is required beyond what the replica-3 pool uses. Without this extra disk, the replica-1 OSDs do not start and the storage cluster remains in a progressing state.
@@ -216,8 +224,6 @@ Virtual machine workload capacity estimation: A typical virtual machine workload
 
 Ceph performance degrades as cluster usage increases. The following thresholds apply:
 
-Virtual machine workload capacity estimation: A typical virtual machine workload with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With rep3, that virtual machine workload requires 390 GB of raw storage. On the preceding 3-node cluster, you can provision approximately 196 virtual machine workloads of this size. In practice, keep Ceph usage less than 75% to maintain performance and support recovery operations.
-
 - At 75% OSD usage, ODF fires the `CephOSDNearFull` Prometheus alert.
 - At 85%, Ceph sets the native `nearfull` OSD flag (`mon_osd_nearfull_ratio`) and ODF fires the `CephOSDCriticallyFull` alert.
 - At 90%, Ceph stops backfill and recovery operations to the affected OSD (`mon_osd_backfillfull_ratio`).
@@ -243,7 +249,7 @@ oc exec -n openshift-storage $(oc get pods -n openshift-storage -l app=rook-ceph
 
 Adding nodes in counts that are not multiples of three creates a rack imbalance. With four nodes, `rack0` gets two nodes while `rack1` and `rack2` get one each. This distribution results in uneven OSD weight distribution across racks, which can lead to suboptimal data placement, uneven usage, and partially idle OSDs.
 
-Always scale in multiples of 3 to maintain a balanced topology.
+Always scale in multiples of three to maintain a balanced topology.
 {: important}
 
 #### Why 6 nodes are the practical minimum for production
@@ -255,7 +261,7 @@ Although ODF requires a minimum of three nodes, a 3-node cluster has no headroom
 - If a second node fails during that maintenance window (disk failure, kernel panic, or power event), some placement groups are left with only one copy. With the default `min_size=2`, Ceph blocks I/O on those PGs. Virtual servers with data on affected placement groups experience an I/O hang.
 - If both the maintenance node and the failed node remain down, any placement group with copies on those two nodes and a third OSD on the same node has zero copies, which causes permanent data loss.
 
-To avoid this data loss, size your ODF cluster so that you can lose 2 nodes simultaneously and still maintain enough OSDs for all data to remain available.
+To avoid this data loss, size your ODF cluster so that you can lose two nodes simultaneously and still maintain enough OSDs for all data to remain available.
 
 | Nodes | Maintenance + Failure | Result |
 | ----- | --------------------- | ------ |
@@ -278,11 +284,11 @@ oc get nodes -l node-role.kubernetes.io/worker= \
 
 You have two deployment options.
 
-- Option A – Use the entire worker pool
+- Option A: Use the entire worker pool
    * Specify only the worker pool name during ODF configuration.
    * Verify that the pool contains exactly 3, 6, or 9 bare metal nodes.
 
-- Option B – Select specific nodes
+- Option B: Select specific nodes
    * If the pool has more nodes, or you want to reserve some nodes for compute-only workloads, select 3, 6, or 9 nodes to participate in ODF.
 
 ### ODF subscription plans
@@ -312,7 +318,6 @@ For instructions on deploying ODF on a VPC-based {{site.data.keyword.redhat_open
 
 - Select **Local storage**.
 - Local storage uses the local NVMe instance storage available on bare metal worker nodes.
-
 - NVMe drives provide reduced latency and high IOPS (input/output operations per second) performance that is required for virtual machine workload disks.
 
 ### ODF resource profile
@@ -339,7 +344,7 @@ Slight oversubscription of resources is often acceptable on a bare metal server.
 - Determine the number of local NVMe drives available on each bare metal server.
 - Help ensure that the number of OSDs configured per node does not exceed the number of usable NVMe drives.
 - The recommended pattern is one OSD per NVMe drive for optimal performance and failure isolation.
-- The number of OSD disks typically matches the number of NVMe drives per bare metal node. The storage capacity calculation that is shown in the UI does not reflect the actual usable capacity for local storage configurations and can be disregarded.
+- The number of OSD disks typically matches the number of NVMe drives per bare metal node. The storage capacity calculation that is shown in the console does not reflect the actual usable capacity for local storage configurations and can be disregarded.
 
 ### Default StorageClass for the cluster
 {: #default-storageclass}
@@ -424,7 +429,7 @@ For most use cases, use this StorageClass without modification.
 Live migration moves a running virtual machine workload from one worker node to another without downtime. For a successful live migration, the storage must be accessible from both the source and destination nodes simultaneously. Live migration requires the following configurations:
 
 - `ReadWriteMany` access mode on virtual machine workload PVCs. Ceph RBD supports RWX in block mode, which is the default configuration for the ODF virtualization StorageClass.
-- The `ocs-storagecluster-ceph-rbd-virtualization` StorageClass is pre-configured with `ReadWriteMany` support through RBD block mode. Virtual servers that use this StorageClass can live migrate without extra configuration.
+- The `ocs-storagecluster-ceph-rbd-virtualization` StorageClass is preconfigured with `ReadWriteMany` support through RBD block mode. Virtual servers that use this StorageClass can live migrate without extra configuration.
 - The generic `ocs-storagecluster-ceph-rbd` StorageClass uses the `ReadWriteOnce` access mode by default. Virtual servers that use RWO PVCs cannot perform live migration. The migration fails because the PVC cannot be mounted on the destination node while attached to the source.
 
 If you create custom StorageClasses for virtual servers that need live migration, verify that the PVCs are created with `accessModes: [ReadWriteMany]` and `volumeMode: Block`.
@@ -458,11 +463,13 @@ Generic RBD StorageClasses remain suitable for container workloads, but use the 
 
 Colocating virtual machines and ODF storage nodes can lead to resource contention and performance degradation. For optimal stability, provision dedicated worker node pools exclusively for ODF workloads.
 
+The following diagram shows the recommended ODF cluster architecture with dedicated storage and compute worker pools on IBM Cloud VPC.
+
 ![ODF cluster architecture on IBM Cloud VPC showing dedicated storage and compute worker pools](../../images/openshift/openshift-virtualization-odf-cluster-architecture.svg "Architecture diagram showing an IBM Cloud VPC containing a Red Hat OpenShift Kubernetes Service cluster. Inside the cluster, a storage worker pool with three bare metal nodes runs only ODF and Ceph daemon pods, each with example NVMe drives. The storage pool header indicates that a NoSchedule taint is applied to all storage nodes. StorageClasses are listed below the pool, including ocs-storagecluster-ceph-rbd, ocs-storagecluster-cephfs, and ocs-storagecluster-ceph-rbd-virtualization as the default for VirtualMachines. A separate compute worker pool contains multiple compute nodes running only VM workload pods. An arrow labeled PVC binds to PV connects the compute pool to the PersistentVolumes row in the storage pool."){: caption="ODF cluster architecture with dedicated storage and compute worker pools on IBM Cloud VPC" caption-side="bottom"}
 
 The following diagram compares the hyperconverged topology, which causes resource contention, with the recommended dedicated pool topology.
 
-![Side-by-side comparison of hyperconverged ODF deployment versus dedicated worker pool deployment](../../images/openshift/openshift-virtualization-odf-topology-comparison.svg "Two-panel diagram. Left panel shows a hyperconverged deployment labeled as not recommended. A resource bar shows an example node with 192 vCPU and 512 GB RAM split approximately 35 percent for ODF daemons and 65 percent for VM workloads, with an orange overlap zone indicating resource contention. Below the bar, three bare metal nodes each run both ODF Ceph daemons and VM workload pods side by side, with orange contention zones between the two workload types. A callout warns that ODF daemons and VM workloads compete for CPU and memory, and that I/O spikes can cause VM latency and reduced IOPS headroom. Right panel shows the recommended dedicated worker pools deployment. A green resource bar shows 100 percent of CPU and RAM available to ODF daemons on dedicated storage nodes. Below the bar, three storage nodes run only ODF daemons with a NoSchedule badge applied, and a separate compute worker pool runs only VM workload pods. A PVC-to-PV arrow connects the two pools. A callout confirms full resource isolation and that compute and storage pools scale independently."){: caption="Hyperconverged deployment (left) versus dedicated worker pool deployment (right)" caption-side="bottom"}
+![Side-by-side comparison of hyperconverged ODF deployment versus dedicated worker pool deployment](../../images/openshift/openshift-virtualization-odf-topology-comparison.svg "Two-panel diagram. Left panel shows a hyperconverged deployment labeled as not recommended. A resource bar shows approximately 35 percent allocated to ODF daemons and 65 percent to VM workloads, with an orange overlap zone indicating resource contention. Below the bar, three bare metal nodes each run both ODF Ceph daemons and VM workload pods side by side, with orange contention zones between the two workload types. A callout warns that ODF daemons and VM workloads compete for CPU and memory, and that I/O spikes can cause VM latency and reduced IOPS headroom. Right panel shows the recommended dedicated worker pools deployment. A green resource bar shows 100 percent of CPU and RAM available to ODF daemons on dedicated storage nodes. Below the bar, three storage nodes run only ODF daemons with a NoSchedule badge applied, and a separate compute worker pool runs only VM workload pods. A PVC-to-PV arrow connects the two pools. A callout confirms full resource isolation and that compute and storage pools scale independently."){: caption="Hyperconverged deployment (left) versus dedicated worker pool deployment (right)" caption-side="bottom"}
 
 Use the following steps to implement separate worker pools for compute and storage on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service.
 
@@ -495,7 +502,7 @@ Use the following steps to implement separate worker pools for compute and stora
 
     ![Diagram showing how the ODF NoSchedule taint controls pod scheduling](../../images/openshift/openshift-virtualization-odf-taint-scheduling.svg "Flow diagram showing a storage node with the NoSchedule taint applied. An ODF pod with a matching toleration is allowed to schedule on the storage node, shown with a green arrow. A VM workload pod with no toleration is rejected from the storage node, shown with a red dashed arrow toward the storage node and a red X at the rejection point. A separate green arrow then redirects the VM workload pod to a compute node that has no storage taint."){: caption="How the ODF NoSchedule taint allows ODF daemon pods and rejects VM workload pods from storage nodes" caption-side="bottom"}
 
-4. Specify the storage worker pool during ODF add-on installation. The installation automatically applies taints to prevent nonstorage pods or virtual machines from scheduled on storage nodes.
+4. Specify the storage worker pool during ODF add-on installation. The installation automatically applies taints to prevent nonstorage pods or virtual machines from being scheduled on storage nodes.
 
 5. Verify that the node is successfully tainted:
 
@@ -529,7 +536,7 @@ When you create a custom StorageClass for virtualization workloads, verify that 
 - Provisioner
 
 
-    The StorageClass must use the Ceph RBD Container Storage Interface (CSI) provisioner-provided by ODF:
+    The StorageClass must use the Ceph RBD Container Storage Interface (CSI) provisioner that is provided by ODF:
 
     ```text
     openshift-storage.rbd.csi.ceph.com
@@ -669,7 +676,7 @@ Compression is most effective on compressible data such as text, logs, decompres
 - Data that is encrypted at the application layer
 - Data generated by workloads that produce high-entropy output
 
-On hyper-converged clusters where VMs and Ceph OSDs share nodes, compression adds CPU usage that competes with VM workloads. Monitor OSD CPU usage after you enable compression, and consider using the Performance resource profile to provide Ceph daemons with extra CPU headroom.
+On hyperconverged clusters where VMs and Ceph OSDs share nodes, compression adds CPU usage that competes with VM workloads. Monitor OSD CPU usage after you enable compression, and consider using the Performance resource profile to provide Ceph daemons with extra CPU headroom.
 {: important}
 
 #### Enabling compression on a custom CephBlockPool
@@ -874,7 +881,7 @@ VMware comparison: The PostgreSQL freeze hook is analogous to the VMware pre-fre
 ### Changed Block Tracking limitations
 {: #cbt-limitations}
 
-Changed Block Tracking (CBT) enables incremental backups by identifying only the blocks that changed since the last backup. VMware's VADP (vStorage APIs for Data Protection) uses this mechanism to provide efficient incremental backups.
+Changed Block Tracking (CBT) enables incremental backups by identifying only the blocks that changed since the last backup. VMware VADP (vStorage APIs for Data Protection) uses this mechanism to provide efficient incremental backups.
 
 CBT is not available for ODF and Ceph RBD on {{site.data.keyword.redhat_openshift_notm}} Virtualization. Backups rely on full snapshots, which might result in longer backup windows and higher storage usage.
 
@@ -1087,7 +1094,7 @@ In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} 
 
 5. Verify that the new worker nodes are added and evenly distributed across each rack bucket, along with the corresponding number of OSDs assigned to each node.
 
-For more information, see [expanding ODF by adding worker nodes to your VPC cluster](/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui#odf-vpc-add-worker-nodes).
+For more information, see [Expanding ODF by adding worker nodes to your VPC cluster](/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui#odf-vpc-add-worker-nodes).
 
 ## Summary and best practices
 {: #summary-and-best-practices}
