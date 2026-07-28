@@ -3,7 +3,7 @@
 copyright:
   years: 2026
 
-lastupdated: "2026-07-27"
+lastupdated: "2026-07-28"
 
 keywords: Veeam Backup Replication VPC, VBR agent deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, Veeam protection groups VSI, HMAC credentials COS integration, Windows Linux backup agents, VPC backup configuration guide
 
@@ -21,7 +21,7 @@ completion-time: 90m
 # Backing up IBM Cloud VPC virtual servers with Veeam Backup & Replication
 {: #veeam-vbr-vpc-vsi-backup}
 {: toc-content-type="tutorial"}
-{: toc-services="vpc"}
+{: toc-services="vpc, cloud object storage"}
 {: toc-completion-time="90m"}
 
 Install Veeam backup agents on {{site.data.keyword.vpc_short}} virtual servers and create protection groups and backup jobs.
