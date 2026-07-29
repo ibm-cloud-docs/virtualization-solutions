@@ -3,7 +3,7 @@
 copyright:
   years: 2026
 
-lastupdated: "2026-07-23"
+lastupdated: "2026-07-28"
 
 keywords: Veeam Backup Replication VPC, VBR agent deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, Veeam protection groups VSI, HMAC credentials COS integration, Windows Linux backup agents, VPC backup configuration guide
 
@@ -21,7 +21,7 @@ completion-time: 90m
 # Backing up IBM Cloud VPC virtual servers with Veeam Backup & Replication
 {: #veeam-vbr-vpc-vsi-backup}
 {: toc-content-type="tutorial"}
-{: toc-services="vpc"}
+{: toc-services="vpc, cloud object storage"}
 {: toc-completion-time="90m"}
 
 Install Veeam backup agents on {{site.data.keyword.vpc_short}} virtual servers and create protection groups and backup jobs.
@@ -94,15 +94,15 @@ Ensure that you have the following IAM access policies:
 {: #veeam-endpoint-vpc-provision-vsi}
 {: step}
 
-Complete the following steps to create Windows and {{site.data.keyword.rhel_full}} virtual servers for Veeam Backup & Replication to back up.
+Complete the following steps to create Windows and Red Hat Enterprise Linux (RHEL) virtual servers for Veeam Backup & Replication to back up.
 
-Confirm that `lvm2` is installed on the {{site.data.keyword.rhel_short}} or Linux virtual server.
+Confirm that `lvm2` is installed on the RHEL or Linux virtual server.
 {: note}
 
 Open the required ports on the Windows virtual server. For more information, see [Ports that are used by Veeam Backup & Replication](https://helpcenter.veeam.com/docs/vbr/userguide/used_ports.html){: external} to determine which ports to open. The Windows Firewall is disabled for testing purposes only. Do not disable the firewall in a production environment.
 {: note}
 
-1. Log in to the [{{site.data.keyword.cloud_notm}} console](https://cloud.ibm.com/infrastructure/compute/vs){: external} to create Windows and {{site.data.keyword.rhel_short}} virtual servers for backup.
+1. Log in to the [{{site.data.keyword.cloud_notm}} console](https://cloud.ibm.com/infrastructure/compute/vs){: external} to create Windows and RHEL virtual servers for backup.
 2. Record the private IP address of each virtual server.
 
 ## Creating protection groups
