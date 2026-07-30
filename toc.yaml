@@ -27,6 +27,8 @@ toc:
   - navgroup:
       id: plan
       topics:
+      - topic: planning/vmware-migration-guide.md
+        navtitle: Migrating VMware workloads to IBM Cloud Virtualization platforms
       - topicgroup:
           label: OpenShift Virtualization
           topics:
