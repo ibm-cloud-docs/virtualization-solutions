@@ -14,7 +14,7 @@ content-type: overview
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating VMware workloads to {{site.data.keyword.cloud_notm}} virtualization platforms
+# Migrating VMware workloads to IBM Cloud virtualization platforms
 {: #vmware-migration-guide}
 
 Evaluate migration paths, compare target platforms, and find the technical resources that you need to plan and run your VMware&reg; workload migration to {{site.data.keyword.cloud}}.
