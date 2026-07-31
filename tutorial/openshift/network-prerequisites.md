@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-07-31"
 
 keywords: OpenShift Virtualization networking prerequisites, VPC networking setup, Localnet configuration, CUDN prerequisites, UDN setup, VLAN configuration OpenShift, VNI networking, OVN configuration
 
@@ -254,7 +254,7 @@ You must repeat this step for each new subnet and each zone. Public gateways are
 {: note}
 
 ## Layer 2 Primary plumbing
-{: #optional-layer2-plumbing }
+{: #optional-layer2-plumbing}
 
 Layer 2 Primary networks require some initial plumbing to be done before a end user can make use of them .
 
