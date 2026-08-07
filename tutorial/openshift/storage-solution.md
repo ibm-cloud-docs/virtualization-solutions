@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-27"
+lastupdated: "2026-08-07"
 
 
 keywords: OpenShift Data Foundation ODF, Ceph storage virtual machines, ODF storage classes configuration, VM live migration storage, replicated pools erasure coding, RBD block storage VMs, ODF capacity planning, snapshot backup VMs, bare metal NVMe storage, vSAN migration ODF
@@ -238,19 +238,21 @@ oc exec -n openshift-storage $(oc get pods -n openshift-storage -l app=rook-ceph
 ```
 {: pre}
 
-### Worker node count and rack topology
+### Worker node count and fault domain
 {: #number-of-worker-nodes}
 
-{{site.data.keyword.redhat_openshift_notm}} Kubernetes Service deploys ODF by using a Ceph rack-aware topology by default. {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service assigns worker nodes to racks in a pattern across three racks (`rack0`, `rack1`, `rack2`). For optimal availability, performance, and data safety, see the following tips.
+In ODF, fault domains and worker node counts are tightly coupled to ensure data high availability (HA) and proper Ceph replication. ODF uses Kubernetes topology labels on nodes to automatically map its storage backend (Ceph CRUSH map) to physical infrastructures. 
+  - Prior to ROKS 4.21, ODF was set up with a rack-level fault domain. Worker nodes are assigned to racks in a pattern across three racks (rack0, rack1, rack2).
+  
+  - Since ROKS 4.21, ODF is set up with a host-level fault domain when the workers are in a single zone, meaning that storage replication treats each individual worker node as its own independent failure domain, rather than grouping them by physical rack topology. With a host domain, adding or removing individual worker nodes gives the ODF cluster more flexibility.
 
-- Use 3, 6, or 9 nodes for the ODF storage cluster.
-- These counts keep the topology balanced. Each rack receives the same number of nodes.
+ For optimal availability, performance, and data safety, see the following tips.
+
+- It is strongly recommanded that the cluster is ordered with all worker nodes in a single zone.
+- For the cluster set up with rack level fault domain, keep the nodes number multiple of 3, for example 3, 6, or 9, when you scale the cluster to make each fault domain to receive same number of nodes
+- For the cluster set up with host level fault domain where flexible scaling is also enabled, you can expand the cluster with any number of nodes as needed. See details in section {: #expanding-odf}.
 - All nodes that participate in the ODF storage cluster must be bare metal. Mixing virtualized and bare-metal nodes within the same ODF cluster is not supported.
 
-Adding nodes in counts that are not multiples of three creates a rack imbalance. With four nodes, `rack0` gets two nodes while `rack1` and `rack2` get one each. This distribution results in uneven OSD weight distribution across racks, which can lead to suboptimal data placement, uneven usage, and partially idle OSDs.
-
-Always scale in multiples of three to maintain a balanced topology.
-{: important}
 
 #### Why 6 nodes are the practical minimum for production
 {: #n-plus-two-sizing}
@@ -274,13 +276,21 @@ To avoid this data loss, size your ODF cluster so that you can lose two nodes si
 For production clusters that run `replica-3`, start with 6 nodes. This setup provides N+2 headroom with enough capacity for one node in planned maintenance and one unexpected failure without risking data availability or data loss. Use a 3-node cluster only for development, testing, or proofs of concept where downtime and data loss are acceptable.
 {: tip}
 
-You can verify rack assignments on your cluster by running the following command:
+You can verify rack assignments for rack level fault domain on your cluster by running the following command:
 
 ```bash
 oc get nodes -l node-role.kubernetes.io/worker= \
   -o custom-columns='NAME:.metadata.name,RACK:.metadata.labels.topology\.kubernetes\.io/rack'
 ```
 {: codeblock}
+
+or zone lable on nodes for host level fault domain
+```bash
+oc get nodes -l node-role.kubernetes.io/worker= \
+  -o custom-columns='NAME:.metadata.name,ZONE:.metadata.labels.topology\.kubernetes\.io/zone'
+```
+{: codeblock}
+
 
 You have two deployment options.
 
@@ -1064,7 +1074,22 @@ As your workloads grow and storage demands increase, scale your storage infrastr
 
 In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments, expansion typically involves extending the storage worker pool. This operation is performed with minimal downtime, enabling seamless growth of your storage cluster.
 
-1. Expand worker nodes by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). In production environments where the storage cluster is configured with worker nodes across 3 racks, add worker nodes in multiples of 3 to maintain replication balance, for example, 3, 6, or 9.
+1. Expand worker nodes by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). 
+ - If your cluster was deployed with flexible scalilng enabled,  ODF is configured with host-level fault domain. Ceph distributes data replicas across separate worker nodes, allowing you to safely add single nodes as needed.
+
+ - If your cluster was deployed without flexible scaling enabled, the storage infrastructure relies on worker nodes distributed across three separate racks. To maintain data replication balance, you must expand the cluster by adding worker nodes in multiples of three (for example: 3, 6, or 9 nodes).
+
+
+#### How to check if your cluster has flexible scaling enabled
+{: #check-flexible-scaling}
+Beginning with ROKS version 4.21, flexible scaling is enabled by default for the newly provisioned clusters ordered in a single zone. Clusters ordered prior to version 4.21 do not possess this capability. Please note that upgrading a legacy cluster to version 4.21 or later will not activate flexible scaling, as the system does not support the conversion of existing non-flexible scaling clusters.
+
+Administrators can confirm the flexible scaling status of a cluster by reviewing the storagecluster CRD. 
+```
+oc get storagecluster ocs-storagecluster -n openshift-storage -o yaml | grep flexibleScaling
+```
+A returned value of `flexibleScaling: true` indicates the feature is active. Conversely, if the property returns `false` or is omitted from the configuration output, flexible scaling is not enabled.
+
 
 2. If ODF runs on all of the worker nodes in your cluster, new worker nodes are added to the ODF storage cluster topology automatically. If ODF runs on only a subset of worker nodes, specify the private `<workerNodes>` parameters in your OcsCluster custom resource. Add the names of the new worker nodes to your ODF deployment by editing the custom resource definition. Modify the OcsCluster custom resource as follows. First, find the `ocscluster` resource:
 
@@ -1082,8 +1107,13 @@ In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} 
 
 3. Increase the `numOfOsd` value in your `OcsCluster` custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster.
 
-    The adjustment to `numOfOsd` depends on both the number of OSD disks per node and the number of nodes added. For example, if each node has eight NVMe disks that are dedicated to OSDs, adding three nodes increases `numOfOsd` by 8, while adding six nodes increases it by 16.
-   {: note}
+   The numOfOsd value is determined by two factors: whether flexible scaling is enabled, and your total count of OSD disks and storage nodes.
+  
+    - Flexible Scaling Enabled: The numOfOsd value must equal the total number of OSD disks across all existing and newly added storage nodes. To calculate this, add the total number of OSD disks on the new hosts to the original value.
+      - Example: When adding a single node containing 8 NVMe drives to an existing 3-node storage cluster (where the original numOfOsd was 24), increase the value to 32 (24 + 8 = 32).
+    - Flexible Scaling Disabled: The numOfOsd value must equal the total number of OSD disks divided by 3. To calculate this, add the total number of OSD disks on the new hosts divided by 3 to the original value.
+      - Example: When adding 3 new storage nodes that each contain 8 NVMe drives (totaling 24 new disks) to an existing cluster (where the original numOfOsd was 8), increase the value to 16 (8 + [24 / 3] = 16).
+     {: note}
 
 4. Verify the result by running the following command:
 
@@ -1092,7 +1122,7 @@ In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} 
     ```
     {: pre}
 
-5. Verify that the new worker nodes are added and evenly distributed across each rack bucket, along with the corresponding number of OSDs assigned to each node.
+5. Verify that the new worker nodes are added into zone bucket if flexible scaling is enabled or evenly distributed across each rack bucket if flexing scaling is not enabled, along with the corresponding number of OSDs assigned to each node.
 
 For more information, see [Expanding ODF by adding worker nodes to your VPC cluster](/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui#odf-vpc-add-worker-nodes).
 
