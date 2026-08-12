@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-08-07"
+lastupdated: "2026-08-12"
 
 
 keywords: OpenShift Data Foundation ODF, Ceph storage virtual machines, ODF storage classes configuration, VM live migration storage, replicated pools erasure coding, RBD block storage VMs, ODF capacity planning, snapshot backup VMs, bare metal NVMe storage, vSAN migration ODF
@@ -34,12 +34,23 @@ Configure Red Hat OpenShift Data Foundation (ODF) as the storage backend for vir
 ## Key benefits
 {: #key-benefits}
 
-- High performance for virtual machines: Optimized block storage for virtual machine boot and data disks reduces latency and delivers high input/output operations per second (IOPS).
-- Built for {{site.data.keyword.redhat_openshift_notm}} Virtualization: Native integration with {{site.data.keyword.redhat_openshift_notm}} and KubeVirt supports snapshots, cloning, live migration, backup and restore, and integration with the Containerized Data Importer (CDI).
-- High resilience and availability: Distributed storage with data replication across worker nodes provides automatic recovery from disk or node failures.
-- Optimized for {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service bare metal infrastructure: Aggregates local NVMe and SSD disks into a shared storage pool, which eliminates reliance on external network storage.
-- Fully supported and lifecycle-managed: Installed and upgraded through {{site.data.keyword.redhat_openshift_notm}} operators with integrated monitoring and alerting. Jointly validated and supported by {{site.data.keyword.IBM}} and Red Hat&reg;.
-- Unified storage for virtual servers and containers: ODF provides consistent storage across these workloads on a single platform.
+High performance for virtual machines
+:   Optimized block storage for virtual machine boot and data disks reduces latency and delivers high input/output operations per second (IOPS).
+
+Built for {{site.data.keyword.redhat_openshift_notm}} Virtualization
+:   Native integration with {{site.data.keyword.redhat_openshift_notm}} and KubeVirt supports snapshots, cloning, live migration, backup and restore, and integration with the Containerized Data Importer (CDI).
+
+High resilience and availability
+:   Distributed storage with data replication across worker nodes provides automatic recovery from disk or node failures.
+
+Optimized for {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service bare metal infrastructure
+:   Aggregates local NVMe and SSD disks into a shared storage pool, which eliminates reliance on external network storage.
+
+Fully supported and lifecycle-managed
+:   Installed and upgraded through {{site.data.keyword.redhat_openshift_notm}} operators with integrated monitoring and alerting. Jointly validated and supported by {{site.data.keyword.IBM}} and Red Hat&reg;.
+
+Unified storage for virtual servers and containers
+:   ODF provides consistent storage across these workloads on a single platform.
 
 ## What is ODF?
 {: #what-is-odf}
@@ -80,8 +91,11 @@ ODF supports the following data protection strategies for Ceph block pools:
 
 The default ODF configuration uses 3-way replication. Every piece of data is stored as three copies across different nodes and protects against up to two simultaneous disk or node failures. The default pool type is `replica-3`.
 
-- Advantages: Straightforward architecture, fast reads, fast recovery, and predictable latency.
-- Storage overhead: 3x raw storage per byte of usable data.
+Advantages
+:   Straightforward architecture, fast reads, fast recovery, and predictable latency.
+
+Storage overhead
+:   3x raw storage per byte of usable data.
 
 What happens when copies are lost (`replica-3`):
 
@@ -91,7 +105,7 @@ What happens when copies are lost (`replica-3`):
 | 2 of 3 | `active+degraded` | I/O continues normally. Ceph immediately begins rereplicating the missing copy to another OSD to restore 3 copies. | Minimal. Data is still durable on 2 independent OSDs. Recovery occurs automatically. |
 | 1 of 3 | `active+degraded` or `peered` (depending on `min_size`) | With the ODF default `min_size=2`, Ceph blocks all I/O to affected Placement Groups when only 1 copy remains. Prevents extra writes that can become inconsistent. Virtual servers with data on those PGs experience I/O hang. | High. Only 1 copy of the data remains on a single remaining OSD. If it also fails before the recovery completes, the data is permanently lost. |
 | 0 of 3 | `incomplete` | I/O is blocked. No copies exist. | Data loss. The data is permanently unrecoverable. |
-{: caption="Replica-3 failure progression and I/O behavior"}
+{: caption="Replica-3 failure progression and I/O behavior" caption-side="bottom"}
 
 The `min_size` parameter controls the minimum number of copies that must be available before Ceph allows I/O. ODF sets `min_size=2` for replica-3 pools by default, which is enforced through `requireSafeReplicaSize: true`. When two or three copies are available, reads and writes proceed normally. When only one copy is available, Ceph blocks I/O to maintain data consistency.
 
@@ -127,7 +141,7 @@ All available pool types and their characteristics are listed in the following t
 | ec-3-1 | k=3, m=1 | 1.33x | Survives 1 failure | 4 |
 | ec-2-2 | k=2, m=2 | 2.0x | Survives 2 failures | 4 |
 | ec-4-2 | k=4, m=2 | 1.5x | Survives 2 failures | 6 |
-{: caption="Ceph pool types and their characteristics"}
+{: caption="Ceph pool types and their characteristics" caption-side="bottom"}
 {: summary="This table lists all available Ceph pool types. Each row describes one pool type and shows its configuration, storage overhead factor, fault tolerance level, and minimum number of hosts required."}
 
 Key considerations for erasure coding include:
@@ -158,8 +172,11 @@ The standard `replica-3` pool (`ocs-storagecluster-cephblockpool`) is still crea
 
 A single replica pool has the following use cases:
 
-- Development and test environments, where data durability is not critical and storage cost savings are prioritized.
-- Applications with built-in replication. These applications manage their own data redundancy at the application layer and maintain multiple copies across nodes, which makes storage-level replication redundant.
+Development and test environments
+:   Data durability is not critical and storage cost savings are prioritized.
+
+Applications with built-in replication
+:   These applications manage their own data redundancy at the application layer and maintain multiple copies across nodes, which makes storage-level replication redundant.
 
 The single replica pool provides zero fault tolerance. A single OSD or node failure results in permanent, unrecoverable data loss for all data on that OSD. No second copy is available for recovery. {{site.data.keyword.cloud_notm}} documentation explicitly warns that this option increases the risk of data loss, data corruption, and potential system instability. For more information, see [Ceph documentation](https://docs.ceph.com/en/latest/architecture/#scalability-and-high-availability){: external}.
 {: warning}
@@ -186,16 +203,25 @@ For teams that are migrating from VMware vSAN&trade;, these Ceph pool types map 
 | ec-3-1 | RAID-5, FTT=1 (3+1) | 1.33x | 1 failure | Both use 3 data + 1 parity chunks. |
 | ec-2-2 | No direct equivalent | 2x | 2 failures | Dual-parity like RAID-6, but uses a 2+2 layout. More usage than vSAN RAID-6. |
 | ec-4-2 | RAID-6, FTT=2 (4+2) | 1.5x | 2 failures | Both use 4 data + 2 parity chunks. |
-{: caption="Ceph pool types mapped to VMware vSAN equivalents"}
+{: caption="Ceph pool types mapped to VMware vSAN equivalents" caption-side="bottom"}
 {: summary="This table maps Ceph pool types to their closest VMware vSAN storage policy equivalents. Each row identifies a Ceph pool, its vSAN equivalent, the storage overhead, the fault tolerance level, and notes on the comparison."}
 
 Key differences from vSAN:
 
-- Smaller host minimums: Ceph separates its cluster quorum from data placement. A `replica-3` pool needs only three hosts because each host stores one full copy. vSAN RAID-1 FTT=2 needs five hosts.
-- `replica-2` matches standard vSAN RAID-1: Most vSAN deployments use FTT=1, which stores two copies. Ceph `replica-2` is the direct equivalent.
-- `ec-3-1` matches vSAN RAID-5: Both use a 3+1 layout and achieve 1.33x usage, the most space-efficient option for single-failure tolerance.
-- `ec-4-2` matches vSAN RAID-6: Both use a 4+2 layout and achieve 1.5x usage with dual-failure tolerance.
-- `ec-2-1` and `ec-2-2` have no direct vSAN equivalent: These smaller Ceph EC configurations use fewer data chunks, which results in higher usage per byte but requires fewer hosts. They trade storage efficiency for a smaller host count requirement.
+Smaller host minimums
+:   Ceph separates its cluster quorum from data placement. A `replica-3` pool needs only three hosts because each host stores one full copy. vSAN RAID-1 FTT=2 needs five hosts.
+
+`replica-2` matches standard vSAN RAID-1
+:   Most vSAN deployments use FTT=1, which stores two copies. Ceph `replica-2` is the direct equivalent.
+
+`ec-3-1` matches vSAN RAID-5
+:   Both use a 3+1 layout and achieve 1.33x usage, the most space-efficient option for single-failure tolerance.
+
+`ec-4-2` matches vSAN RAID-6
+:   Both use a 4+2 layout and achieve 1.5x usage with dual-failure tolerance.
+
+`ec-2-1` and `ec-2-2` have no direct vSAN equivalent
+:   These smaller Ceph EC configurations use fewer data chunks, which results in higher usage per byte but requires fewer hosts. They trade storage efficiency for a smaller host count requirement.
 
 ## Planning your ODF cluster
 {: #planning-your-odf-cluster}
@@ -217,10 +243,10 @@ See the following example of calculations for a 3-node cluster with 8 x 3.2 TB N
 | replica-2 | 2.0x | 38.4 TB | 50% |
 | ec-2-1 | 1.5x | 51.2 TB | 67% |
 | rep1 (nonresilient) | 1.0x | 76.8 TB | 100% |
-{: caption="Usable capacity by data protection type for a 3-node cluster"}
+{: caption="Usable capacity by data protection type for a 3-node cluster" caption-side="bottom"}
 {: summary="This table shows usable storage capacity for a 3-node cluster with 76.8 TB of raw NVMe storage. Each row represents a data protection type and shows the usage overhead factor, the resulting usable capacity, and the storage efficiency percentage."}
 
-Virtual machine workload capacity estimation: A typical virtual machine workload with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With replica-3, that virtual machine workload requires 390 GB of raw storage. On the preceding 3-node cluster, you can provision approximately 196 virtual machine workloads of this size. In practice, keep Ceph usage less than 75% to maintain performance and support recovery operations.
+Virtual machine workload capacity estimation: A typical virtual machine workload with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With replica-3, that virtual machine workload requires 390 GB of raw storage. On the preceding 3-node cluster, you can provision approximately 196 virtual machine workloads of this size. In practice, keep Ceph usage below 75% to maintain performance and support recovery operations.
 
 Ceph performance degrades as cluster usage increases. The following thresholds apply:
 
@@ -241,16 +267,18 @@ oc exec -n openshift-storage $(oc get pods -n openshift-storage -l app=rook-ceph
 ### Worker node count and fault domain
 {: #number-of-worker-nodes}
 
-In ODF, fault domains and worker node counts are tightly coupled to ensure data high availability (HA) and proper Ceph replication. ODF uses Kubernetes topology labels on nodes to automatically map its storage backend (Ceph CRUSH map) to physical infrastructures. 
-  - Prior to ROKS 4.21, ODF was set up with a rack-level fault domain. Worker nodes are assigned to racks in a pattern across three racks (rack0, rack1, rack2).
-  
-  - Since ROKS 4.21, ODF is set up with a host-level fault domain when the workers are in a single zone, meaning that storage replication treats each individual worker node as its own independent failure domain, rather than grouping them by physical rack topology. With a host domain, adding or removing individual worker nodes gives the ODF cluster more flexibility.
+In ODF, fault domains and worker node counts are tightly coupled to ensure data high availability (HA) and proper Ceph replication. ODF uses Kubernetes topology labels on nodes to automatically map its storage backend (Ceph CRUSH map) to the physical infrastructure.
 
- For optimal availability, performance, and data safety, see the following tips.
+The fault domain configuration depends on the Red Hat OpenShift on IBM Cloud (ROKS) version:
 
-- It is strongly recommanded that the cluster is ordered with all worker nodes in a single zone.
-- For the cluster set up with rack level fault domain, keep the nodes number multiple of 3, for example 3, 6, or 9, when you scale the cluster to make each fault domain to receive same number of nodes
-- For the cluster set up with host level fault domain where flexible scaling is also enabled, you can expand the cluster with any number of nodes as needed. See details in section {: #expanding-odf}.
+- Prior to ROKS 4.21, ODF uses a rack-level fault domain. Worker nodes are assigned to racks in a pattern across three racks (rack0, rack1, rack2).
+- Since ROKS 4.21, ODF uses a host-level fault domain when all workers are in a single zone. Storage replication treats each individual worker node as its own independent failure domain, rather than grouping nodes by physical rack. With a host-level fault domain, you can add or remove individual worker nodes with greater flexibility.
+
+For optimal availability, performance, and data safety, see the following tips.
+
+- Order the cluster with all worker nodes in a single zone.
+- For clusters that use a rack-level fault domain, add worker nodes in multiples of three (for example, 3, 6, or 9) when you scale the cluster, so that each rack receives the same number of nodes.
+- For clusters that use a host-level fault domain with flexible scaling enabled, you can expand the cluster with any number of nodes as needed. For more information, see [Expanding ODF storage on Red Hat OpenShift Kubernetes Service](#expanding-odf).
 - All nodes that participate in the ODF storage cluster must be bare metal. Mixing virtualized and bare-metal nodes within the same ODF cluster is not supported.
 
 
@@ -270,13 +298,13 @@ To avoid this data loss, size your ODF cluster so that you can lose two nodes si
 | 3 (minimum) | 1 in maintenance + 1 failure = 1 remaining | I/O blocked (`min_size=2`). Risk of data loss. |
 | 6 (recommended) | 1 in maintenance + 1 failure = 4 remaining | Ceph replicates to the 4 nodes. I/O continues. No data loss risk. |
 | 9 | 1 in maintenance + 1 failure = 7 remaining | Ample capacity for replication. Minimal performance impact. |
-{: caption="Impact of planned maintenance plus an unplanned failure by cluster size"}
+{: caption="Impact of planned maintenance plus an unplanned failure by cluster size" caption-side="bottom"}
 {: summary="This table compares the impact of a simultaneous planned maintenance event and an unplanned node failure across three cluster sizes: 3 nodes, 6 nodes, and 9 nodes. Each row shows the number of nodes, the scenario, and the resulting cluster state."}
 
 For production clusters that run `replica-3`, start with 6 nodes. This setup provides N+2 headroom with enough capacity for one node in planned maintenance and one unexpected failure without risking data availability or data loss. Use a 3-node cluster only for development, testing, or proofs of concept where downtime and data loss are acceptable.
 {: tip}
 
-You can verify rack assignments for rack level fault domain on your cluster by running the following command:
+To verify rack assignments for a rack-level fault domain, run the following command:
 
 ```bash
 oc get nodes -l node-role.kubernetes.io/worker= \
@@ -284,7 +312,8 @@ oc get nodes -l node-role.kubernetes.io/worker= \
 ```
 {: codeblock}
 
-or zone lable on nodes for host level fault domain
+To verify zone labels on nodes for a host-level fault domain, run the following command:
+
 ```bash
 oc get nodes -l node-role.kubernetes.io/worker= \
   -o custom-columns='NAME:.metadata.name,ZONE:.metadata.labels.topology\.kubernetes\.io/zone'
@@ -295,11 +324,11 @@ oc get nodes -l node-role.kubernetes.io/worker= \
 You have two deployment options.
 
 - Option A: Use the entire worker pool
-   * Specify only the worker pool name during ODF configuration.
-   * Verify that the pool contains exactly 3, 6, or 9 bare metal nodes.
+   - Specify only the worker pool name during ODF configuration.
+   - Verify that the pool contains exactly 3, 6, or 9 bare metal nodes.
 
 - Option B: Select specific nodes
-   * If the pool has more nodes, or you want to reserve some nodes for compute-only workloads, select 3, 6, or 9 nodes to participate in ODF.
+   - If the pool has more nodes, or you want to reserve some nodes for compute-only workloads, select 3, 6, or 9 nodes to participate in ODF.
 
 ### ODF subscription plans
 {: #odf-subscription-plans}
@@ -335,9 +364,14 @@ For instructions on deploying ODF on a VPC-based {{site.data.keyword.redhat_open
 
 ODF provides three resource allocation profiles that control the CPU and memory that is reserved for Ceph daemons.
 
-- Lean: Minimum resource allocation. The Lean profile is suitable for resource-constrained environments, testing, development, and proofs of concept. The Lean profile is not recommended for production virtualization workloads.
-- Balanced: The default profile on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. The Balanced profile provides a balance between resource consumption and performance for general-purpose workloads.
-- Performance: Allocates more CPU and memory to Ceph daemons, which reduces the risk of daemon-side bottlenecks. Recommended for high-IOPS workloads, large numbers of virtual servers, and demanding applications. The Performance profile is the minimum recommended profile for bare metal deployments.
+Lean
+:   Minimum resource allocation. The Lean profile is suitable for resource-constrained environments, testing, development, and proofs of concept. The Lean profile is not recommended for production virtualization workloads.
+
+Balanced
+:   The default profile on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. The Balanced profile provides a balance between resource consumption and performance for general-purpose workloads.
+
+Performance
+:   Allocates more CPU and memory to Ceph daemons, which reduces the risk of daemon-side bottlenecks. Recommended for high-IOPS workloads, large numbers of virtual servers, and demanding applications. The Performance profile is the minimum recommended profile for bare metal deployments.
 
 The resource requirements that are shown in the **{{site.data.keyword.redhat_openshift_notm}} web console** during ODF installation are dynamically computed based on the cluster OSD count. Clusters with more NVMe drives require proportionally more resources. The values are not fixed. Always verify the requirements displayed in the console for your specific cluster configuration.
 
@@ -458,12 +492,12 @@ Although virtual machines can use a generic Ceph RBD StorageClass, the virtualiz
 | Aspect | Virtualization-specific StorageClass | Generic RBD StorageClass |
 | ------ | ------------------------------------ | ------------------------ |
 | Workload optimization | Tuned for virtual machine workload disk access patterns | Optimized for containerized workloads |
-| Kernel RBD mapping | Uses VM-friendly RBD-mapping options (for example, `krbd:rxbounce`) | Might use default-mapping options |
+| Kernel RBD mapping | Uses virtual machine-friendly RBD-mapping options (for example, `krbd:rxbounce`) | Might use default-mapping options |
 | Performance consistency | More predictable latency for guest OS I/O | Potentially more latency |
 | Virtual machine workload lifecycle operations | Validated for the virtual machine workload start, stop, live migration, and snapshot workflows | Not explicitly validated for virtual machine workload operations |
-| Supportability | Fully supported and recommended for {{site.data.keyword.redhat_openshift_notm}} Virtualization | Supported, but not recommended for VM disks |
+| Supportability | Fully supported and recommended for {{site.data.keyword.redhat_openshift_notm}} Virtualization | Supported, but not recommended for virtual machine disks |
 | Day 2 operations | Reduced risk during upgrades and migrations | More risk of unexpected performance |
-{: caption="Comparison of virtualization-specific and generic RBD StorageClass"}
+{: caption="Comparison of virtualization-specific and generic RBD StorageClass" caption-side="bottom"}
 {: summary="This table compares the virtualization-specific StorageClass and the generic RBD StorageClass across six aspects: workload optimization, kernel RBD mapping, performance consistency, lifecycle operations, supportability, and Day 2 operations. Each row identifies an aspect and shows the behavior of each StorageClass type."}
 
 Generic RBD StorageClasses remain suitable for container workloads, but use the virtualization-specific StorageClass for production virtualization environments.
@@ -602,7 +636,7 @@ When you create a custom StorageClass for virtualization workloads, verify that 
     | `fast-diff` | Accelerates snapshot diff and DataVolume clone operations for faster boot times. |
     | `deep-flatten` | Makes clones fully independent after they are flattened. |
     | `layering` | Enables copy-on-write cloning that is required for DataVolume cloning. |
-    {: caption="RBD image features and their purpose"}
+    {: caption="RBD image features and their purpose" caption-side="bottom"}
     {: summary="This table lists the required RBD image features for a custom StorageClass. Each row identifies one feature and describes its purpose for virtual machine workload performance and operations."}
 
 - Map options
@@ -674,7 +708,7 @@ When you enable compression on a pool, Ceph compresses each data chunk before wr
 | lz4 | Minimal–moderate | Smallest CPU cost | Use to minimize CPU usage. |
 | zlib | Moderate | Moderate | Middle ground between snappy and zstd. |
 | zstd | 36–50% | 21–66% IOPS reduction | Best compression ratio, but highest CPU cost. Not recommended for latency-sensitive workloads. |
-{: caption="BlueStore compression algorithms compared"}
+{: caption="BlueStore compression algorithms compared" caption-side="bottom"}
 {: summary="This table compares the four BlueStore compression algorithms available in ODF. Each row describes one algorithm and shows its typical space savings, performance impact, and recommendation for use."}
 
 #### Compression use cases
@@ -686,7 +720,7 @@ Compression is most effective on compressible data such as text, logs, decompres
 - Data that is encrypted at the application layer
 - Data generated by workloads that produce high-entropy output
 
-On hyperconverged clusters where VMs and Ceph OSDs share nodes, compression adds CPU usage that competes with VM workloads. Monitor OSD CPU usage after you enable compression, and consider using the Performance resource profile to provide Ceph daemons with extra CPU headroom.
+On hyperconverged clusters where virtual machines and Ceph OSDs share nodes, compression adds CPU usage that competes with virtual machine workloads. Monitor OSD CPU usage after you enable compression, and consider using the Performance resource profile to provide Ceph daemons with extra CPU headroom.
 {: important}
 
 #### Enabling compression on a custom CephBlockPool
@@ -852,9 +886,9 @@ The snapshot status field indicates the achieved consistency level, as shown in 
 | GuestAgent | The guest agent successfully froze the file system. The snapshot is application-consistent. |
 | NoGuestAgent | The guest agent was not installed or not ready. The snapshot is crash-consistent only. |
 | QuiesceFailed | File system freeze was attempted, but failed. The snapshot might not be application-consistent. |
-{: caption="VolumeSnapshot consistency indicators and their meanings"}
+{: caption="VolumeSnapshot consistency indicators and their meanings" caption-side="bottom"}
 
-Install the QEMU guest agent in all production VMs. On Linux&reg; guests, use the following command:
+Install the QEMU guest agent in all production virtual machines. On Linux&reg; guests, use the following command:
 
 ```bash
 # RHEL / CentOS / Fedora
@@ -900,9 +934,9 @@ CBT development is in progress at multiple levels:
 | Layer | Status | Details |
 | ----- | ------ | ------- |
 | Kubernetes CSI CBT API | Alpha (Kubernetes 1.31) | Introduces a `SnapshotMetadata` CSI service to identify changed blocks between snapshots. Block volumes only. |
-| KubeVirt incremental backup | In development | [VEP 25](https://github.com/kubevirt/enhancements/issues/25){: external} targets QEMU-level CBT for incremental VM backups. Alpha planned for KubeVirt 1.7. |
+| KubeVirt incremental backup | In development | [VEP 25](https://github.com/kubevirt/enhancements/issues/25){: external} targets QEMU-level CBT for incremental virtual machine backups. Alpha planned for KubeVirt 1.7. |
 | Ceph RBD | Underlying capability exists | Ceph supports differential snapshots (`rbd diff`) natively, but the CSI CBT API integration is not implemented. |
-{: caption="Changed Block Tracking (CBT) development status across the stack"}
+{: caption="Changed Block Tracking (CBT) development status across the stack" caption-side="bottom"}
 {: summary="This table describes the development status of Changed Block Tracking (CBT) support across three layers of the stack: the Kubernetes CSI CBT API, KubeVirt incremental backup, and Ceph RBD. Each row identifies a layer and shows its current status and implementation details."}
 
 Although Ceph RBD supports the underlying `rbd diff` capability to identify changed blocks between snapshots, the Kubernetes CSI Changed Block Tracking API does not yet expose this capability. Until the full stack is in place (CSI CBT API + Ceph CSI driver support + KubeVirt integration), incremental backups at the block level are not available.
@@ -975,7 +1009,7 @@ The following table describes each Ceph health state and the recommended action.
 | `HEALTH_OK` | All components are working correctly, all data fully replicated. | None, normal operation. |
 | `HEALTH_WARN` | Noncritical issue. The cluster is operational, but something needs attention. | Investigate with `ceph health detail`. Common causes: almost full OSDs, degraded PGs recovering, clock skew between MONs. |
 | `HEALTH_ERR` | Critical issue. Data availability or durability might be at risk. | Investigate immediately. Common causes: OSDs down, PGs not recovering, cluster full. |
-{: caption="Ceph health states and recommended actions"}
+{: caption="Ceph health states and recommended actions" caption-side="bottom"}
 {: summary="This table describes the three Ceph health states. Each row identifies one status code and explains what it means and what action to take."}
 
 To see detailed warnings, use the following command:
@@ -1044,6 +1078,20 @@ The {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}}
 
 However, major and minor version upgrades (for example, 4.18 to 4.19) are not automatic. Follow the manual upgrade procedure to help ensure data safety and cluster stability.
 
+#### Pre-upgrade operational prerequisites
+{: #pre-upgrade-prerequisites}
+
+Complete the following checks before you start a major or minor ODF upgrade.
+
+**IBM Cloud CLI plugin version**
+
+As a best practice, always update the `container-service` plugin before running the upgrade.
+
+```bash
+ibmcloud plugin update container-service
+```
+{: pre}
+
 Updating ODF on a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster consists of two main phases, both of which are required for a successful upgrade.
 
 1. Upgrade or replace ODF worker nodes.
@@ -1067,6 +1115,205 @@ Updating ODF on a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service
 
 For more information, see [Updating ODF on VPC clusters](/docs/openshift?topic=openshift-openshift-storage-update-vpc).
 
+#### Worker node upgrade guardrails
+{: #worker-upgrade-guardrails}
+
+Each worker replacement temporarily reduces OSD availability, which narrows the cluster's fault tolerance window. Do not replace the next worker until the cluster has fully recovered from the previous replacement. Observe the following guardrails throughout the process.
+
+**Stop the upgrade immediately if any of the following conditions occur:**
+
+- Any Cluster Operator becomes **Degraded** or **Unavailable**
+- Ceph reports **HEALTH_WARN** or **HEALTH_ERR**
+- One or more OSDs become **Down**
+- Placement Groups (PGs) become degraded
+- StorageCluster is not **Ready**
+- Worker replacement does not complete successfully
+
+**Validate all of the following before replacing the next worker node:**
+
+- All Cluster Operators are healthy (`AVAILABLE=True`, `PROGRESSING=False`, `DEGRADED=False`)
+- StorageCluster reports **Ready**
+- Ceph reports **HEALTH_OK**
+- All OSDs are **Up** and **In**
+- All Placement Groups are **active+clean**
+- All DaemonSets are fully available
+- No CSV is in **Failed** or **Pending** state
+
+Run the following commands to perform these checks:
+
+```bash
+# Check Cluster Operators
+oc get clusteroperators
+
+# Check StorageCluster
+oc get storagecluster -n openshift-storage
+
+# Check Ceph health and OSD status
+TOOLS_POD=$(oc get pods -n openshift-storage -l app=rook-ceph-tools -o name)
+oc exec -n openshift-storage ${TOOLS_POD} -- ceph status
+oc exec -n openshift-storage ${TOOLS_POD} -- ceph osd tree
+
+# Check CSV status
+oc get csv -n openshift-storage
+```
+{: pre}
+
+#### Recovery scenario: OSD pod remains Pending after worker replacement
+{: #recovery-osd-pending-after-worker-replace}
+
+After a worker replacement, an OSD pod can remain in **Pending** state with Ceph reporting degraded health, for example:
+
+```text
+HEALTH_WARN
+1 osds down
+1 host (1 osds) down
+1 rack (1 osds) down
+Placement Groups degraded or undersized
+```
+
+**Root cause**
+
+After worker replacement, the OSD Deployment continues referencing the deleted worker through its node selector, while the backing Local Persistent Volume retains node affinity for the removed worker hostname. As a result, the scheduler cannot place the OSD pod on any available node:
+
+```text
+0/6 nodes are available: 5 node(s) didn't match Pod's node affinity/selector
+```
+
+**Confirming the root cause**
+
+1. Check the OSD pod for scheduling errors:
+
+   ```bash
+   oc describe pod <osd-pod-name> -n openshift-storage
+   ```
+   {: pre}
+
+   Look for a node affinity or selector mismatch in the **Events** section.
+
+2. Check the backing PV for stale node affinity referencing the deleted hostname:
+
+   ```bash
+   oc get pv <pv-name> -o yaml
+   ```
+   {: pre}
+
+   Look for a `nodeAffinity` stanza referencing the deleted worker hostname:
+
+   ```yaml
+   nodeAffinity:
+     required:
+       nodeSelectorTerms:
+       - matchExpressions:
+         - key: kubernetes.io/hostname
+           operator: In
+           values:
+           - <deleted-worker-hostname>
+   ```
+
+**Pre-condition before recovery**
+
+Delete any existing OSD removal job before running the workflow. A stale job from a previous attempt prevents a new job from being created and the recovery silently fails.
+
+```bash
+oc delete job ocs-osd-removal-job -n openshift-storage --ignore-not-found
+```
+{: pre}
+
+**Recovery**
+
+Execute the IBM-supported OSD removal workflow:
+
+```bash
+oc process -n openshift-storage ocs-osd-removal \
+  -p FAILED_OSD_IDS=<osd-id> \
+  -p FORCE_OSD_REMOVAL=true | oc create -f -
+```
+{: pre}
+
+Monitor job completion:
+
+```bash
+oc get pods -n openshift-storage -l job-name=ocs-osd-removal-job -w
+```
+{: pre}
+
+The workflow removes the OSD deployment, old PVC, old PV references, and the stale CRUSH map host entry. ODF then automatically provisions replacement storage resources on the new worker and Ceph returns to a healthy state.
+
+#### Recovery scenario: Local PV or PVC remains bound to deleted worker
+{: #recovery-local-pv-bound-to-deleted-worker}
+
+In some cases, the replacement worker correctly discovers local storage and new local PVs are visible, but ODF continues attempting to use the previous PVC and PV associated with the deleted node. The OSD pod remains pending or fails to schedule on the new worker.
+
+**Root cause**
+
+Although the replacement worker discovers new storage devices and new PVs appear, the existing OSD remains linked to the old PVC, old PV, old hostname, and the old CRUSH map host entry. ODF cannot automatically relocate the OSD to the replacement node. Discovery of new local storage on the replacement worker alone does not guarantee automatic ODF recovery.
+
+**Confirming the root cause**
+
+1. Check PV inventory on the new worker — new PVs should be present:
+
+   ```bash
+   oc get pv -l kubernetes.io/hostname=<new-worker-hostname>
+   ```
+   {: pre}
+
+2. Check that the old PV still has affinity to the deleted hostname:
+
+   ```bash
+   oc get pv <old-pv-name> -o yaml
+   ```
+   {: pre}
+
+3. Check local storage discovery results:
+
+   ```bash
+   oc get localvolumediscoveryresult -n openshift-local-storage
+   ```
+   {: pre}
+
+4. Check OSD pod placement:
+
+   ```bash
+   oc describe pod <osd-pod-name> -n openshift-storage
+   ```
+   {: pre}
+
+**Pre-condition before recovery**
+
+Delete any existing OSD removal job before running the workflow (see [Recovery scenario: OSD pod remains Pending after worker replacement](#recovery-osd-pending-after-worker-replace)).
+
+**Recovery**
+
+Execute the IBM-supported OSD removal workflow:
+
+```bash
+oc process -n openshift-storage ocs-osd-removal \
+  -p FAILED_OSD_IDS=<osd-id> \
+  -p FORCE_OSD_REMOVAL=true | oc create -f -
+```
+{: pre}
+
+The workflow removes the OSD deployment, old PVC, old PV references, and the stale CRUSH map host entry. ODF then automatically provisions a new PVC and OSD using storage discovered on the replacement worker.
+
+**Validate recovery**
+
+```bash
+oc get pvc -n openshift-storage
+oc get pv -o wide
+oc get pods -n openshift-storage | grep rook-ceph-osd
+```
+{: pre}
+
+Then check Ceph health:
+
+```bash
+TOOLS_POD=$(oc get pods -n openshift-storage -l app=rook-ceph-tools -o name)
+oc exec -n openshift-storage ${TOOLS_POD} -- ceph status
+```
+{: pre}
+
+Expected result: `HEALTH_OK`, all OSDs Up and In, all Placement Groups `active+clean`.
+
 ### Expanding ODF storage on Red Hat OpenShift Kubernetes Service
 {: #expanding-odf}
 
@@ -1074,21 +1321,23 @@ As your workloads grow and storage demands increase, scale your storage infrastr
 
 In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service environments, expansion typically involves extending the storage worker pool. This operation is performed with minimal downtime, enabling seamless growth of your storage cluster.
 
-1. Expand worker nodes by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc). 
- - If your cluster was deployed with flexible scalilng enabled,  ODF is configured with host-level fault domain. Ceph distributes data replicas across separate worker nodes, allowing you to safely add single nodes as needed.
-
- - If your cluster was deployed without flexible scaling enabled, the storage infrastructure relies on worker nodes distributed across three separate racks. To maintain data replication balance, you must expand the cluster by adding worker nodes in multiples of three (for example: 3, 6, or 9 nodes).
-
+1. Expand worker nodes by [adding worker nodes to VPC clusters](/docs/openshift?topic=openshift-add-workers-vpc).
+   - If your cluster was deployed with flexible scaling enabled, ODF is configured with a host-level fault domain. Ceph distributes data replicas across separate worker nodes. You can safely add single nodes as needed.
+   - If your cluster was deployed without flexible scaling enabled, the storage infrastructure relies on worker nodes distributed across three separate racks. To maintain data replication balance, you must expand the cluster by adding worker nodes in multiples of three (for example, 3, 6, or 9 nodes).
 
 #### How to check if your cluster has flexible scaling enabled
 {: #check-flexible-scaling}
-Beginning with ROKS version 4.21, flexible scaling is enabled by default for the newly provisioned clusters ordered in a single zone. Clusters ordered prior to version 4.21 do not possess this capability. Please note that upgrading a legacy cluster to version 4.21 or later will not activate flexible scaling, as the system does not support the conversion of existing non-flexible scaling clusters.
 
-Administrators can confirm the flexible scaling status of a cluster by reviewing the storagecluster CRD. 
-```
+Beginning with ROKS version 4.21, flexible scaling is enabled by default for newly provisioned clusters that are ordered in a single zone. Clusters provisioned before version 4.21 do not support flexible scaling. Upgrading a legacy cluster to version 4.21 or later does not activate flexible scaling. The conversion of existing clusters from non-flexible to flexible scaling is not supported.
+
+To confirm the flexible scaling status of your cluster, review the storagecluster CRD by running the following command:
+
+```bash
 oc get storagecluster ocs-storagecluster -n openshift-storage -o yaml | grep flexibleScaling
 ```
-A returned value of `flexibleScaling: true` indicates the feature is active. Conversely, if the property returns `false` or is omitted from the configuration output, flexible scaling is not enabled.
+{: pre}
+
+If the output shows `flexibleScaling: true`, flexible scaling is active. If the property shows `false` or does not appear, flexible scaling is not enabled.
 
 
 2. If ODF runs on all of the worker nodes in your cluster, new worker nodes are added to the ODF storage cluster topology automatically. If ODF runs on only a subset of worker nodes, specify the private `<workerNodes>` parameters in your OcsCluster custom resource. Add the names of the new worker nodes to your ODF deployment by editing the custom resource definition. Modify the OcsCluster custom resource as follows. First, find the `ocscluster` resource:
@@ -1105,15 +1354,15 @@ A returned value of `flexibleScaling: true` indicates the feature is active. Con
 
    Save the `OcsCluster` custom resource file to reapply it to your cluster.
 
-3. Increase the `numOfOsd` value in your `OcsCluster` custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster.
+3. Increase the `numOfOsd` value in your `OcsCluster` custom resource to enable ODF to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster.
 
-   The numOfOsd value is determined by two factors: whether flexible scaling is enabled, and your total count of OSD disks and storage nodes.
-  
-    - Flexible Scaling Enabled: The numOfOsd value must equal the total number of OSD disks across all existing and newly added storage nodes. To calculate this, add the total number of OSD disks on the new hosts to the original value.
-      - Example: When adding a single node containing 8 NVMe drives to an existing 3-node storage cluster (where the original numOfOsd was 24), increase the value to 32 (24 + 8 = 32).
-    - Flexible Scaling Disabled: The numOfOsd value must equal the total number of OSD disks divided by 3. To calculate this, add the total number of OSD disks on the new hosts divided by 3 to the original value.
-      - Example: When adding 3 new storage nodes that each contain 8 NVMe drives (totaling 24 new disks) to an existing cluster (where the original numOfOsd was 8), increase the value to 16 (8 + [24 / 3] = 16).
-     {: note}
+   The `numOfOsd` value depends on two factors: whether flexible scaling is enabled, and the total number of OSD disks and storage nodes.
+
+   - Flexible scaling enabled: The `numOfOsd` value must equal the total number of OSD disks across all existing and newly added storage nodes. To calculate this, add the total number of OSD disks on the new hosts to the original value.
+     - Example: When adding a single node that contains 8 NVMe drives to an existing 3-node storage cluster (where the original `numOfOsd` was 24), increase the value to 32 (24 + 8 = 32).
+   - Flexible scaling disabled: The `numOfOsd` value must equal the total number of OSD disks divided by 3. To calculate this, add the total number of OSD disks on the new hosts divided by 3 to the original value.
+     - Example: When adding three new storage nodes that each contain 8 NVMe drives (totaling 24 new disks) to an existing cluster (where the original `numOfOsd` was 8), increase the value to 16 (8 + [24 / 3] = 16).
+   {: note}
 
 4. Verify the result by running the following command:
 
@@ -1122,7 +1371,7 @@ A returned value of `flexibleScaling: true` indicates the feature is active. Con
     ```
     {: pre}
 
-5. Verify that the new worker nodes are added into zone bucket if flexible scaling is enabled or evenly distributed across each rack bucket if flexing scaling is not enabled, along with the corresponding number of OSDs assigned to each node.
+5. Verify that the new worker nodes are added to the zone bucket (if flexible scaling is enabled) or are evenly distributed across each rack bucket (if flexible scaling is not enabled), along with the correct number of OSDs assigned to each node.
 
 For more information, see [Expanding ODF by adding worker nodes to your VPC cluster](/docs/openshift?topic=openshift-deploy-odf-vpc&interface=ui#odf-vpc-add-worker-nodes).
 
@@ -1133,10 +1382,15 @@ For more information, see [Expanding ODF by adding worker nodes to your VPC clus
 - Use `ocs-storagecluster-ceph-rbd-virtualization` for most {{site.data.keyword.redhat_openshift_notm}} Virtualization deployments.
 - Create a custom StorageClass only when specific requirements exist.
 - When creating custom CephBlockPools, always set `targetSizeRatio` (for example, `0.1`) and include all required `imageFeatures` (especially `exclusive-lock`) in the StorageClass.
-- Erasure-coded pools for RBD are a Developer Preview feature (ODF 4.20+) and are not supported for production use. Use replicated pools (`replica-2` or `replica-3`) for all production VM storage.
+- Erasure-coded pools for RBD are a Developer Preview feature (ODF 4.20+) and are not supported for production use. Use replicated pools (`replica-2` or `replica-3`) for all production virtual machine storage.
 - Always validate custom StorageClasses in a nonproduction environment before use.
-- Avoid using generic RBD StorageClasses for VM disks in production environments.
-- For encrypted VM storage, use the nonencrypted StorageClass for root disks and the encrypted variant for data disks.
+- Avoid using generic RBD StorageClasses for virtual machine disks in production environments.
+- For encrypted virtual machine storage, use the nonencrypted StorageClass for root disks and the encrypted variant for data disks.
 - Plan capacity to stay under 70% cluster usage, and scale ODF nodes in multiples of 3.
-- Install the QEMU guest agent in all production VMs for application-consistent snapshots.
+- Install the QEMU guest agent in all production virtual machines for application-consistent snapshots.
 - Monitor Ceph health regularly and investigate `HEALTH_WARN` promptly before issues escalate.
+- Update the `container-service` CLI plugin as a best practice before any major or minor ODF upgrade.
+- Validate OSD scheduling immediately after each storage worker replacement. Check the OSD Deployment node selector and the Local PV node affinity whenever an OSD pod remains Pending — these are not automatically updated after worker replacement.
+- Always delete any existing `ocs-osd-removal-job` before running the OSD removal workflow. A stale job prevents a new job from being created without a clear error.
+- Discovery of new local storage on the replacement worker alone does not guarantee automatic ODF recovery. The old OSD metadata, PVC, PV, and CRUSH map entry must be explicitly removed using the `ocs-osd-removal` workflow.
+- Verify Ceph health returns to `HEALTH_OK` before proceeding with the next worker replacement.
