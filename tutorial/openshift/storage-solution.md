@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-08-19"
+lastupdated: "2026-08-20"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD, OpenShift Data Foundation ODF, Ceph storage virtual machines, ODF storage classes configuration, VM live migration storage, replicated pools erasure coding, RBD block storage VMs, ODF capacity planning, snapshot backup VMs, bare metal NVMe storage, vSAN migration ODF
 
@@ -629,8 +629,6 @@ ODF supports BlueStore inline compression on Ceph block pools, which can reduce 
 #### How it works
 {: #how-compression-works}
 
-When you enable compression on a pool, Ceph compresses each data chunk before it writes to a disk. On read, Ceph transparently decompresses the chunk. The `compression_required_ratio` parameter sets a threshold in the following situations.
-
 - If a chunk does not compress to at least 87.5% of its original size
 - Ceph stores that it decompressed to avoid wasting CPU on negligible savings.
 - Data written before compression was enabled is not retroactively compressed; only new writes are affected.
@@ -640,7 +638,7 @@ When you enable compression on a pool, Ceph compresses each data chunk before it
 
 | Algorithm | Typical space savings | Performance impact | Recommendation |
 | --------- | --------------------- | ------------------ | -------------- |
-| snappy | 16–23% | 12–38% IOPS reduction | Default. Best balance of speed and savings. |
+| Snappy | 16–23% | 12–38% IOPS reduction | Default. Best balance of speed and savings. |
 | lz4 | Minimal–moderate | Smallest CPU cost | Use to minimize CPU usage. |
 | zlib | Moderate | Moderate | Middle ground between snappy and zstd. |
 | zstd | 36–50% | 21–66% IOPS reduction | Best compression ratio, but highest CPU cost. Not recommended for latency-sensitive workloads. |
@@ -790,7 +788,7 @@ EOF
 ```
 {: codeblock}
 
-VolumeSnapshots are copy-on-write and near-instant to create. You can use them to restore a virtual machine workload to a previous state or clone a disk. {{site.data.keyword.redhat_openshift_notm}} Virtualization also provides a built-in [VM snapshot and restores API](https://kubevirt.io/user-guide/storage/snapshot_restore_api/){: external} that captures the full virtual machine workload state including configuration and all disks, in a single operation.
+VolumeSnapshots are copy-on-write and near-instant to create. You can use them to restore a virtual machine workload to a previous state or clone a disk. {{site.data.keyword.redhat_openshift_notm}} Virtualization also provides a built-in [VM snapshot and restores API](https://kubevirt.io/user-guide/storage/snapshot_restore_api/){: external} that captures the full virtual machine workload state that includes configuration and all disks, in a single operation.
 
 ### Quiescing virtual machine workloads for application-consistent snapshots
 {: #quiescing-vms}
@@ -800,7 +798,6 @@ When you take a snapshot of a running virtual machine workload, the data on disk
 To achieve application-consistent snapshots, freeze the guest file system before the snapshot and thaw it afterward. {{site.data.keyword.redhat_openshift_notm}} Virtualization automates this process by using the QEMU guest agent.
 
 The snapshot controller detects the QEMU guest agent. Before taking the snapshot, it issues a `guest-fsfreeze-freeze` command that halts all file systems I/O. The VolumeSnapshot is taken while the file system is frozen. After the snapshot completes, a `guest-fsfreeze-thaw` command resumes I/O.
-
 The snapshot status indicates the achieved consistency level. See the following table for the meaning of each status meaning.
 
 | Indication | Meaning |
@@ -1006,7 +1003,7 @@ Updating ODF on a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service
    - This step upgrades the ODF operators, CSI drivers, and related components to the target version.
    - After the add-on update completes, the cluster automatically reconciles the ODF resources and applies the required changes.
 
-   Perform post-upgrade validation to confirm:
+   Run post-upgrade validation to confirm:
 
    - ODF and Ceph cluster health
    - StorageClasses availability
@@ -1031,13 +1028,11 @@ In {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} 
         ```bash
         oc get ocscluster
         ```
-
       - Edit ocscluster custom resource file and add new work nodes
 
         ```bash
         oc edit ocscluster <ocs cluster name> -o yaml
         ```
-
       - Save the OcsCluster custom resource file to reapply it to your cluster.
 
 4. Increase the 'numOfOsd' value in your OcsCluster custom resource to enable OCS to deploy ODF components on newly added worker nodes and provision additional OSDs in the storage cluster.
