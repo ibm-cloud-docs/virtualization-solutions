@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-08-19"
 
-keywords: OpenShift virtualization storage, ODF storage, Ceph storage OpenShift, NVMe storage bare metal, PersistentVolumes OpenShift, File Storage VPC, IBM Cloud Object Storage, block storage encryption, storage classes OpenShift
+keywords: OpenShift virtualization storage, Red Hat OpenShift Data Foundation, ODF storage, Ceph storage OpenShift, NVMe storage bare metal, PersistentVolumes OpenShift, File Storage VPC, IBM Cloud Object Storage, block storage encryption, storage classes OpenShift
 
 subcollection: virtualization-solutions
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Designing storage for Red Hat OpenShift virtualization on IBM Cloud
+# Storage design for Red Hat OpenShift Virtualization
 {: #virt-sol-openshift-storage-design-overview}
 
-Design storage for Red Hat OpenShift Virtualization on IBM Cloud, including ODF, block storage, file storage, and IBM Cloud Object Storage.
+Deploy OpenShift virtualization storage using Red Hat OpenShift Data Foundation with NVMe, File Storage for VPC, and IBM Cloud Object Storage for persistent volumes.
 {: shortdesc}
 
 The key storage architecture elements are shown in the following diagram.
@@ -34,7 +34,7 @@ Red Hat OpenShift on IBM Cloud offers integrated add-ons for Red Hat OpenShift D
 
 Red Hat OpenShift Data Foundation (ODF) provides persistent, software-defined storage for containerized applications. It delivers highly available and scalable storage by combining object, block, and file storage under a unified platform. ODF offers features such as snapshots, replication, and scalable storage management and are integrated with the Red Hat OpenShift console and APIs. This integration help you manage storage across diverse workloads.
 
-The primary storage option for Red Hat OpenShift Virtualization is Red Hat OpenShift Data Foundation. This highly available storage solution consists of several open-source operators and technologies such as Ceph, NooBaa, and Rook. These operators are used to provision and manage file, block, and object storage for your clusters by using storage classes.
+The primary storage option for Red Hat OpenShift Virtualization is Red Hat OpenShift Data Foundation. This highly available storage solution consists of several open source operators and technologies such as Ceph, NooBaa, and Rook. These operators are used to provision and manage file, block, and object storage for your clusters by using storage classes.
 
 ODF abstracts your underlying storage, and you can use ODF to create file, block, or object storage claims from the same underlying raw block storage. In virtualization, ODF uses local NVMe disks on bare metal servers to create a performant virtualized storage layer, where your application data is replicated in multiples of 3 (typically) for high availability by default. ODF with Red Hat OpenShift Virtualization is especially critical if you want to use disaster recovery (DR) capabilities for your VM workloads.
 
@@ -58,16 +58,16 @@ You can use {{site.data.keyword.cos_full_notm}} with backup solutions, or other 
 ### File Storage for VPC
 {: #virt-sol-openshift-storage-file-summary}
 
-You can use File Storage for VPC, which is a network-attached storage with Network File System (NFS) support.
+You can use File Storage for VPC, which is a network-attached storage with NFS support.
 
-IBM Cloud File Storage for VPC is a persistent, fast, and flexible network-attached, NFS-based storage option. You can add IBM Cloud File Storage to your applications by using persistent volumes claims (PVCs). You can choose between predefined storage classes that provide the required capacity in GB and input/output operations per second (IOPS).
+IBM Cloud File Storage for VPC is a persistent, fast, and flexible network-attached, NFS-based storage option. You can add IBM Cloud File Storage to your applications by using persistent volumes claims (PVCs). You can choose between predefined storage classes that provide the required capacity in GB and IOPS.
 
 * All file shares are provisioned with zonal availability.
 * All classes support cross-zone mounting.
 
 Data on a file share is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys. For more information, see [About File Storage for VPC](/docs/vpc?topic=vpc-file-storage-vpc-about) and [About File Storage for VPC > Securing your data](/docs/vpc?topic=vpc-file-storage-vpc-about&interface=ui#fs-data-security).
 
-For NFS-based file share needs, you can also use the NFS storage that is built into the ODF clusters. The key differences here are that File Storage for VPC is managed by IBM Cloud, while NFS storage is built in the ODF clusters and is on self-managed on {{site.data.keyword.redhat_openshift_notm}} managed worker nodes. The IOPS (input/output operations per second) and GB settings are independent of your clusters. Depending on the use case, you can use both of these options.
+For NFS-based file share needs, you can also use the NFS storage that is built into the ODF clusters. The key differences here are that File Storage for VPC is managed by IBM Cloud, while NFS storage is built in the ODF clusters and is on self-managed on {{site.data.keyword.redhat_openshift_notm}} managed worker nodes. The IOPS and GB settings are independent of your clusters. Depending on the use case, you can use both of these options.
 
 For Red Hat OpenShift Virtualization workloads that use VPC File storage, keep the following considerations in mind:
 
@@ -78,7 +78,7 @@ For Red Hat OpenShift Virtualization workloads that use VPC File storage, keep t
 
 To deploy the File storage shares for VPC add-on on your {{site.data.keyword.redhat_openshift_notm}} cluster, see [Enabling the IBM Cloud File Storage for VPC cluster add-on](/docs/openshift?topic=openshift-storage-file-vpc-install).
 
-The add-on automatically installs the PersistentVolume provisioner `vpc.file.csi.ibm.io` and creates a set of StorageClasses that are named `ibmc-vpc-file-*`. Each option offers different IOPS (input/output operations per second) tiers and varying reclaim and binding policies. For the full list of available StorageClasses and detailed explanations of their parameters, see [Storage class reference](/docs/openshift?topic=openshift-storage-file-vpc-sc-ref).
+The add-on automatically installs the PersistentVolume provisioner `vpc.file.csi.ibm.io` and creates a set of StorageClasses that are named `ibmc-vpc-file-*`. Each option offers different IOPS tiers and varying reclaim and binding policies. For the full list of available StorageClasses and detailed explanations of their parameters, see [Storage class reference](/docs/openshift?topic=openshift-storage-file-vpc-sc-ref).
 
 ### Block Storage for VPC
 {: #virt-sol-openshift-storage-block-summary}
@@ -90,6 +90,30 @@ This add-on provisions hypervisor-mounted, high-performance, block-level data st
 
 Data on a block volume is encrypted at rest with IBM-managed encryption by default. You can optionally use your own root keys to protect your file shares with customer-managed keys.
 For more information see, [About Block Storage for VPC](/docs/vpc?topic=vpc-block-storage-about) and [About Block Storage for VPC > Securing your data](/docs/vpc?topic=vpc-block-storage-about#bs-data-security).
+
+## Choosing your storage solution
+{: #virt-sol-openshift-storage-choosing}
+
+Use the following table to select the right storage option based on your workload requirements. Multiple options can be combined within the same cluster.
+
+| Use case | Recommended option | Key constraints |
+| -------- | ------------------ | --------------- |
+| Virtual machine boot and data disks, live migration, snapshots, DR | ODF on bare-metal (local NVMe) | Requires bare-metal worker nodes; minimum 3 nodes in the ODF storage pool (single-zone and flexible-scaling deployments can expand granularly; multi-zone deployments require multiples of 3); only replication pools supported on ROKS (erasure coding is not available on ROKS bare-metal) |
+| Shared file system access across pods or VMs | ODF NFS (CephFS-backed) or File Storage for VPC | ODF NFS requires an enabled NFS gateway (adds ~3 CPU + 8 Gi RAM); File Storage for VPC does not support snapshots and cannot be shared across multiple virtual servers |
+| Backup data or object workloads outside the ODF cluster | IBM Cloud Object Storage | Fully managed; billed independently; not suitable for block or file VM disk workloads |
+| Block storage on virtual server (VSI) worker nodes | Block Storage for VPC | Available only on VSI worker nodes, not bare-metal |
+| Shared read-only content or import sources | File Storage for VPC | One NFS share per PVC; supports cross-zone mounting; max 32 TB per PVC |
+{: caption="Storage option selection by use case"}
+
+ODF is the primary and recommended storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}. Before you provision your cluster, keep the following requirements in mind.
+{: important}
+
+- ODF requires bare-metal worker nodes running Red Hat CoreOS. Virtualized (VSI) worker nodes are not supported for ODF storage clusters on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service.
+- The ODF storage node pool requires a minimum of 3 nodes. Single-zone and flexible-scaling deployments can expand granularly beyond the initial 3. Multi-zone deployments must use multiples of 3 (3, 6, 9, …) to maintain balanced zone distribution; non-multiples of 3 in a multi-zone topology create a zone imbalance that leads to uneven OSD weight distribution and suboptimal data placement.
+- Only replication pools (replica-3 and replica-2) are supported for production block storage on ROKS bare-metal. Erasure-coded pools for RBD are a developer preview feature (ODF 4.20+) and are not supported for production use.
+- For optimal performance and stability, provision a dedicated storage worker pool for ODF and a separate compute worker pool for VM workloads. Colocating ODF daemons and VM workloads on the same nodes causes resource contention.
+
+For step-by-step ODF configuration instructions after your cluster is provisioned, see [{{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) for virtual machine workloads](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads).
 
 ## Next steps
 {: #virt-sol-openshift-storage-design-next-steps}
