@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-09-04"
+lastupdated: "2026-09-17"
 
 keywords: storage migration OpenShift, storage class conversion, OpenShift Virtualization storage, live migration VMs, PVC migration OpenShift, persistent volume migration, VirtualMachineStorageMigrationPlan, cross-namespace VM migration, storage class migration, retentionPolicy deleteSource
 
@@ -23,54 +23,51 @@ completion-time: 45m
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="45m"}
 
-## Overview of the guide
-{: #overview-of-the-guide}
-
-Migrate VM disk storage between storage classes in Red Hat {{site.data.keyword.redhat_openshift_notm}} Virtualization on IBM Cloud without stopping your virtual machines.
+Migrate virtual machine (VM) disk storage between storage classes in {{site.data.keyword.redhat_openshift_full}} Virtualization on {{site.data.keyword.cloud}} without you having to stop your virtual machines.
 {: shortdesc}
 
-Storage migration moves a VM's persistent volume claims (PVCs) from one storage class to another within the same cluster. The VM continues running throughout the entire process via live storage migration. Expect a brief connection loss of approximately 1 second at the end of the migration during the final cutover phase.
+Storage migration moves a VM's persistent volume claims (PVCs) from one storage class to another within the same cluster. The VM continues running throughout the entire process by using live storage migration. Expect a brief connection loss of approximately one second during the final cutover phase.
 
-This guide applies to any storage class migration scenario, including but not limited to:
+The following storage class migration scenarios are supported, including but not limited to:
 
-- OpenShift Data Foundation (ODF) to IBM Cloud VPC File Storage (NFS), or vice versa
+- {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) to {{site.data.keyword.filestorage_vpc_short}} (NFS), or vice versa
 - ODF to ODF (different storage tiers or pools)
 - NFS to NFS (different performance tiers)
 - Any other supported storage class combination available in your cluster
 
 Common reasons to migrate storage:
 
-- Moving VMs to higher-performance or lower-cost storage tiers
+- Moving VMs to higher-performance or lesser-cost storage tiers
 - Consolidating workloads on specific storage backends
-- Performing storage infrastructure changes without scheduling a maintenance window
+- Performing storage infrastructure changes without you scheduling a maintenance window
 
 ## About native VM storage migration
-{: #about-mtc}
+{: #about-native-storage-migration}
 
-Storage migration is **built into the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator** — no additional operator installation is required. The migration controller uses `VirtualMachineStorageMigrationPlan` custom resources to move VM disk data between storage classes within the same cluster, using live storage migration so the VM stays running throughout.
+Storage migration is built into the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator where no additional operator installation is required. The migration controller uses `VirtualMachineStorageMigrationPlan` custom resources to move VM disk data between storage classes within the same cluster. The VM stays running throughout by using live storage migration.
 
-In {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 and later, storage migration is fully native. Earlier versions of {{site.data.keyword.redhat_openshift_notm}} Container Platform used the Migration Toolkit for Containers (MTC) operator for storage migrations. MTC is no longer required and is not used in this guide. For more information, see [Migration Toolkit for Containers — End of Life announcement](https://access.redhat.com/articles/7137482){: external}.
+In {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 and later, storage migration is fully native. Earlier versions of {{site.data.keyword.redhat_openshift_notm}} Container Platform used the Migration Toolkit for Containers (MTC) operator for storage migrations. MTC is no longer required for storage migrations. For more information, see [Migration Toolkit for Containers - end of life announcement](https://access.redhat.com/articles/7137482){: external}.
 {: note}
 
 ### Key capabilities for VM storage migration
 {: #key-capabilities}
 
-- Migrate running VMs with **minimal downtime** (approximately 1-second connection loss at cutover) in {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 or later
-- Storage migration is **native to the OpenShift Virtualization operator** — no additional operator is needed
-- Migrate a **single VM** from the VM detail view, **all VMs in a project** from the project context menu, or **selected VMs** using the selective volumes option — all from the UI
-- Migration works between any two supported storage classes in the cluster
+- Live storage migration supports running VMs with minimal downtime (approximately one-second connection loss at cutover) in {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 or later.
+- Storage migration is native to the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator where no additional operator is needed.
+- You can migrate a single VM from the VM details page, all project VMs from the project menu, or selected VMs by using the Selected volumes option, all directly from the UI.
+- Migration works between any two supported storage classes in the cluster.
 
 ### Important limitations for VM storage migration
 {: #important-limitations}
 
 The following limitations apply to {{site.data.keyword.redhat_openshift_notm}} Virtualization virtual machine (VM) storage migrations:
-{: important}
 
 Same cluster only
 :   VM storage migrations are supported only within the same {{site.data.keyword.redhat_openshift_notm}} cluster.
 
 Source PVCs deleted by default
-:   By default, source PVCs are automatically deleted after a successful migration (`deleteSource` retention policy). To enable rollback, explicitly retain source PVCs **before** starting migration. See [Source PVC retention and rollback](#source-pvc-behavior).
+:   By default, source PVCs are automatically deleted after a successful migration (`deleteSource` retention policy). To enable rollback, explicitly retain source PVCs before you start migration. See [Source PVC retention and rollback](#source-pvc-behavior).
+{: important}
 
 ## Prerequisites
 {: #prerequisites}
@@ -81,17 +78,17 @@ Before you perform storage migrations, verify that the following requirements ar
 {: #required-components}
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization operator
-:   The operator must be installed and running. Storage migration is built into the operator — no additional installation is needed. For installation guidance, see [Installing the OpenShift Virtualization operator](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/#installing-virt-operator_installing-virt){: external}.
+:   The operator must be installed and running. Storage migration is built into the operator where no additional installation is needed. For installation guidance, see [Installing the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/#installing-virt-operator_installing-virt){: external}.
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization version
-:   Version 4.21 or later is required. This guide has been validated on version 4.21. Earlier versions such as 4.18 used the Migration Toolkit for Containers (MTC) operator for storage migrations, which is now sunset.
+:   Version 4.21 or later is required. The procedures in the topic are validated on version 4.21. Earlier versions such as 4.18 used the Migration Toolkit for Containers (MTC) operator for storage migrations, which is now end of life.
 
 ### VM requirements
 {: #vm-requirements}
 
-Before you migrate, confirm the following for each VM:
+Before you migrate, confirm the following details for each VM:
 
-- The VM is **powered on**. Live storage migration requires a running VM.
+- The VM is powered on. Live storage migration requires a running VM.
 - The `StorageLiveMigratable` status condition is `True`. Run the following command to check:
 
    ```sh
@@ -100,19 +97,19 @@ Before you migrate, confirm the following for each VM:
    ```
    {: pre}
 
-   If the value is not `True`, the VM cannot be live-migrated. Resolve the condition before continuing.
+   If the value is not `True`, the VM does not support live migration. Resolve the condition before you continue.
 
 - The cluster has at least two worker nodes. Live storage migration moves the VM to a different node during the process.
 
-### Verify the target StorageClass StorageProfile
+### Verify the target storage class StorageProfile
 {: #verify-storageprofile}
 
-The migration controller uses the StorageProfile of the target storage class to determine which access modes and volume modes to use for the destination PVC. If the StorageProfile has empty `claimPropertySets`, migration will stall silently. Ensure the StorageProfile of your target storage class is configured before starting migration. For more information, see [Configuring a StorageProfile](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/virtualization/storage#virt-configuring-storage-profile){: external}.
+The migration controller uses the `StorageProfile` of the target storage class to determine which access modes and volume modes to use for the destination PVC. If the `StorageProfile` has empty `claimPropertySets`, migration stalls silently. Help ensure the `StorageProfile` of your target storage class is configured before you start migration. For more information, see [Configuring a StorageProfile](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/virtualization/storage#virt-configuring-storage-profile){: external}.
 
 ### Verify cluster health
 {: #verify-cluster-health}
 
-Confirm that all worker nodes are in `Ready` state and, if ODF is involved, that the ODF cluster reports `HEALTH_OK` before initiating migration:
+Confirm that all worker nodes are in `Ready` state and, if ODF is involved, that the ODF cluster reports `HEALTH_OK` before you initiate migration:
 
 ```sh
 oc get nodes --no-headers | awk '{print $1, $2}'
@@ -123,7 +120,7 @@ oc get cephcluster -n openshift-storage -o jsonpath='{.items[0].status.ceph.heal
 ## Migrating VM storage
 {: #perform-storage-migration}
 
-All three migration scopes — single VM, all VMs in a project, or selected VMs — use the same underlying storage migration wizard and produce a `VirtualMachineStorageMigrationPlan` custom resource. The steps are identical except for how you open the wizard and which VMs you select.
+All three migration scopes, single VM, all VMs in a project, or selected VMs use the same underlying storage migration wizard and produce a `VirtualMachineStorageMigrationPlan` custom resource. The steps are identical except for how you open the wizard and which VMs you select.
 
 ### Step 1: Open the storage migration wizard
 {: #open-wizard}
@@ -131,25 +128,25 @@ All three migration scopes — single VM, all VMs in a project, or selected VMs 
 How you open the wizard depends on your migration scope:
 
 Single VM
-:   In the {{site.data.keyword.openshiftshort}} web console, click **Virtualization** > **Virtual Machines**. Select the VM, then click **Actions** > **Migration** > **Storage**.
+:   In the {{site.data.keyword.redhat_openshift_notm}} web console, click **Virtualization** > **Virtual Machines**. Select the VM, then click **Actions** > **Migration** > **Storage**.
 
 All VMs in a project
-:   In the {{site.data.keyword.openshiftshort}} web console, click **Virtualization** > **Virtual Machines**. In the left navigation tree, **right-click the project name** (namespace) and select **Migration** > **Storage**. The wizard header shows the total number of VMs and combined storage size.
+:   In the {{site.data.keyword.redhat_openshift_notm}} web console, click **Virtualization** > **Virtual Machines**. In the project navigation tree, right-click the project name (namespace) and select **Migration** > **Storage**. The wizard header shows the total number of VMs and the combined storage size.
 
 Selected VMs in a project
-:   Open the project-level wizard as described above. On the first wizard step, select **Selected volumes** instead of **Entire project**. A per-VM, per-disk checklist appears — check only the VMs and disks you want to include. VMs with no volumes checked are excluded from the plan entirely.
+:   Open the project-level wizard that uses the **All VMs in a project** steps. On the first wizard step, select **Selected volumes** instead of **Entire project**. A per-VM, per-disk checklist appears — check only the VMs and disks you want to include. VMs with no volumes checked are excluded from the plan entirely.
 
 ### Step 2: Select the destination storage class
 {: #select-storageclass}
 
 1. Select the target storage class from the dropdown list.
 
-   The access mode and volume mode are set automatically based on the StorageProfile of the target storage class.
+   The access mode and volume mode are set automatically based on the `StorageProfile` of the target storage class.
 
-2. To retain the source PVC after migration (required for rollback), select **Keep original volumes at source after successful migration**. By default this option is **not selected** and the source PVC is deleted after a successful migration.
+2. To retain the source PVC after migration (required for rollback), select **Keep original volumes at source after successful migration**. By default, this option is not selected and the system deletes the source PVC after a successful migration.
 
-   If you plan to roll back the migration, select this option before clicking **Next**. Once migration completes with the default setting, the source PVC is deleted and rollback is not possible.
-   {: important}
+   If you plan to roll back the migration, select this option before you click **Next**. After migration completes with the default setting, the system deletes the source PVC and rollback is not possible.
+{: important}
 
 3. Click **Next**.
 
@@ -183,7 +180,7 @@ oc get vm -n <namespace> -w
 
 Migration is complete when `completedOutOf` shows `1/1` (single VM) or `<n>/<n>` (multiple VMs), and all `VirtualMachineInstanceMigration` objects reach the `Succeeded` phase.
 
-The live migration percentage progress bar in the UI is not always accurate. Use the CLI commands above for reliable status.
+The live migration percentage progress bar in the UI is not always accurate. Use the CLI commands in this step for reliable status.
 {: note}
 
 ## Post-migration validation
@@ -200,7 +197,7 @@ VM status
     {: pre}
 
 PVC storage class
-:   Confirm the PVCs are bound and on the target storage class:
+:   Confirm the PVCs are bound and that they use the target storage class:
 
     ```sh
     oc get pvc -n <namespace> \
@@ -209,7 +206,7 @@ PVC storage class
     {: pre}
 
 Source PVC cleanup
-:   If the default `deleteSource` policy was used, confirm the old PVCs are no longer present. If `keepSource` was used, old PVCs remain and must be cleaned up manually when rollback is no longer needed:
+:   If you used the default `deleteSource` policy, confirm the old PVCs are no longer present. If you used `keepSource`, old PVCs remain and must be cleaned up manually when rollback is no longer needed:
 
     ```sh
     oc get pvc -n <namespace>
@@ -218,7 +215,7 @@ Source PVC cleanup
     {: pre}
 
 Node placement
-:   Confirm the VM has moved to a different worker node, which is expected behavior during live storage migration:
+:   Confirm that the VM moved to a different worker node. This is expected behavior during live storage migration:
 
     ```sh
     oc get vmi <vm-name> -n <namespace> \
@@ -232,21 +229,21 @@ Node placement
 ### Retention policy
 {: #retention-policy}
 
-Migration behavior is controlled by the `retentionPolicy` field in the migration plan:
+The `retentionPolicy` field in the migration plan controls migration behavior:
 
 | Policy | Default | Behavior |
-|---|---|---|
-| `deleteSource` | **Yes (UI default)** | Source PVCs and DataVolumes are deleted after migration completes. Rollback is not possible after this point. |
+| --- | --- | --- |
+| `deleteSource` | Yes (UI default) | Source PVCs and DataVolumes are deleted after migration completes. Rollback is not possible after this point. |
 | `keepSource` | No | Source PVCs are retained. You can roll back by updating the VM to reference the original PVC. |
-{: caption="Table 1. Migration retention policy options" caption-side="bottom"}
+{: caption="Migration retention policy options" caption-side="bottom"}
 
-In the UI wizard, this is controlled by the **Keep original volumes at source after successful migration** checkbox. The checkbox is **unchecked by default** (`deleteSource`). The `retentionPolicy` field is **immutable** — it cannot be changed after the plan is created.
+In the UI wizard, the **Keep original volumes at source after successful migration** checkbox controls this setting. The checkbox is cleared by default (`deleteSource`). The `retentionPolicy` field is immutable — it cannot be changed after the plan is created.
 {: note}
 
 ### Manual rollback (keepSource plans only)
 {: #manual-rollback}
 
-If you retained source PVCs (`retentionPolicy: keepSource` or the **Keep original volumes** checkbox was selected), you can roll back by updating the VM spec to reference the original DataVolume:
+If you retained source PVCs (`retentionPolicy: keepSource` or you selected the **Keep original volumes** checkbox), you can roll back when you update the VM spec to reference the original `DataVolume`:
 
 ```sh
 # Get the current VM volume reference
@@ -275,7 +272,7 @@ oc patch vm <vm-name> -n <namespace> --type=json -p '[
 ```
 {: pre}
 
-After rollback, delete the unused target PVC and DataVolume:
+After rollback, delete the unused target PVC and `DataVolume`:
 
 ```sh
 oc delete datavolume <target-dv-name> -n <namespace>
@@ -285,7 +282,7 @@ oc delete datavolume <target-dv-name> -n <namespace>
 ## Deleting a completed migration plan
 {: #deleting-migration-plan}
 
-After migration completes, delete the migration plan and its associated trigger object. It is best practice to clean up completed plans before starting new migrations in the same namespace.
+After migration completes, delete the migration plan and its associated trigger object. As a best practice, clean up completed plans before you start new migrations in the same namespace.
 
 ```sh
 # List plans
@@ -297,7 +294,7 @@ oc delete virtualmachinestoragemigration <migration-name> -n <namespace>
 ```
 {: pre}
 
-Deleting a plan does not delete source or target PVCs. Clean up residual PVCs and DataVolumes manually if they are no longer needed.
+Deleting a plan does not delete the source or target PVCs. Clean up residual PVCs and `DataVolumes` manually if they are no longer needed.
 {: note}
 
 ## Important considerations
@@ -309,38 +306,38 @@ Before you perform storage migrations, be aware of the following constraints and
 {: #migration-constraints}
 
 Brief connection loss at cutover
-:   Storage migration uses live storage migration (`VirtualMachineInstanceMigration`). The VM remains running and accessible throughout the entire migration process. Expect a brief connection loss of approximately 1 second at the end of the migration during the final cutover phase.
+:   Storage migration uses live storage migration (`VirtualMachineInstanceMigration`). The VM remains running and accessible throughout the entire migration process. Expect a brief connection loss of approximately one second during the final cutover phase.
 
 Node migration required
 :   The VM moves to a different worker node during live storage migration. This is expected behavior. The VM retains its IP address and network connectivity.
 
-Delete completed plans before creating new ones
-:   While the system can support multiple plans in a namespace, it is best practice to delete completed or stale plans before starting a new migration to keep the namespace clean and avoid confusion.
+Plan cleanup before new migrations
+:   Although multiple plans can exist in a namespace, as a best practice, delete completed or stale plans before starting a new migration to keep the namespace clean and prevent confusion.
 
-Use Selected volumes to limit scope
-:   When migrating from the project context menu, the default scope is all VMs in the namespace. Use **Selected volumes** on the first wizard step to get a per-VM checklist and exclude VMs you do not need to migrate.
+Scope limitation with Selected volumes
+:   When you migrate from the project menu, the default scope is all VMs in the namespace. Use **Selected volumes** on the first wizard step to get a per-VM checklist and exclude VMs you do not need to migrate.
 
 ### Post-migration behavior
 {: #post-migration-behavior}
 
 Cleanup
-:   When `keepSource` retention is used, old DataVolumes and PVCs are not automatically deleted. Manually clean up these resources after confirming successful migration and that rollback is no longer needed.
+:   When `keepSource` retention is used, old `DataVolumes` and PVCs are not automatically deleted. Manually clean up these resources after you confirm that migration is successful and that rollback is no longer needed.
 
 ### Version compatibility
 {: #version-compatibility}
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 and later
-:   Supports native live storage migration with minimal downtime (approximately 1-second connection loss at cutover).
+:   Supports native live storage migration with minimal downtime (approximately one-second connection loss at cutover).
 
 Version 4.17
-:   Does not support live storage migration natively. The Migration Toolkit for Containers (MTC) operator was used in version 4.17 and earlier for storage migrations. MTC is sunset and is no longer the recommended approach. For more information, see [Migration Toolkit for Containers — End of Life announcement](https://access.redhat.com/articles/7137482){: external}.
+:   Does not support live storage migration natively. Version 4.17 and earlier used the Migration Toolkit for Containers (MTC) operator for storage migrations. MTC is end of life and is no longer the recommended approach. For more information, see [Migration Toolkit for Containers - End of Life announcement](https://access.redhat.com/articles/7137482){: external}.
 
 ## Additional resources
 {: #additional-resources}
 
 For more information about storage migration and related topics, see the following resources.
 
-- [OpenShift Virtualization live migration](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/index#virt-configuring-live-migration){: external}
-- [OpenShift Virtualization storage overview](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/index#virt-storage-configuration-overview){: external}
+- [{{site.data.keyword.redhat_openshift_notm}} Virtualization live migration](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/index#virt-configuring-live-migration){: external}
+- [{{site.data.keyword.redhat_openshift_notm}} Virtualization storage overview](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/index#virt-storage-configuration-overview){: external}
 - [Known issues for storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-known-issues-storage-migration)
 - [Troubleshooting storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-storage-migration)
