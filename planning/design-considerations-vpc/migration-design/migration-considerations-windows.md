@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-09-17"
 
 keywords: Windows migration VPC, VirtIO drivers Windows, sysprep Windows migration, virt-v2v Windows, migrate Windows to VPC, Windows Server migration, Windows driver injection, virtio-win drivers, Windows domain migration
 
@@ -52,7 +52,7 @@ Complete the following process for `sysprep`:
    ```
    {: codeblock}
 
-3. Export and migrate by using any of the [migration methods](/docs/virtualization-solutions?group=virtual-servers-on-vpc), except for VDDK Direct Extraction, which is only for vCenter.
+3. Export and migrate by using any of the [migration methods](/docs/virtualization-solutions?group=virtual-servers-for-vpc), except for VDDK Direct Extraction, which is only for vCenter.
 4. First boot in VPC:
    - Windows runs mini-setup wizard (OOBE)
    - Detects new hardware, loads VirtIO drivers
@@ -93,7 +93,7 @@ The following is the process for `virt-v2v` driver injection:
 
 1. Install VirtIO drivers in Windows boot and recovery partitions (same as sysprep approach)
 1. Cleanly shut down Windows virtual machine
-1. Export/transfer disk to worker virtual server instance using any of the [migration methods](/docs/virtualization-solutions?group=virtual-servers-on-vpc).
+1. Export/transfer disk to worker virtual server instance using any of the [migration methods](/docs/virtualization-solutions?group=virtual-servers-for-vpc).
 1. Run virt-v2v:
 
    ```bash

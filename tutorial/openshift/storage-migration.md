@@ -2,17 +2,16 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-09-17"
 
-keywords: storage migration OpenShift, Storage vMotion equivalent, Migration Toolkit Containers MTC, OpenShift Virtualization storage, live migration VMs, storage class conversion, PVC migration OpenShift, MigCluster configuration, stage cutover rollback, persistent volume migration
-
+keywords: storage migration OpenShift, storage class conversion, OpenShift Virtualization storage, live migration VMs, PVC migration OpenShift, persistent volume migration, VirtualMachineStorageMigrationPlan, cross-namespace VM migration, storage class migration, retentionPolicy deleteSource
 
 subcollection: virtualization-solutions
 
 content-type: tutorial
-services: OpenShift Virtualization, VMware
+services: OpenShift Virtualization
 account-plan: paid
-completion-time: 60m
+completion-time: 45m
 
 ---
 
@@ -21,55 +20,54 @@ completion-time: 60m
 # Migrating virtual machine storage in Red Hat OpenShift Virtualization on IBM Cloud
 {: #storage-migration-vms}
 {: toc-content-type="tutorial"}
-{: toc-services="OpenShift Virtualization, VMware"}
-{: toc-completion-time="60m"}
+{: toc-services="OpenShift Virtualization"}
+{: toc-completion-time="45m"}
 
-## Overview of the guide
-{: #overview-of-the-guide}
-
-Migrate VM storage between storage classes in Red Hat OpenShift Virtualization on IBM Cloud using the Migration Toolkit for Containers (MTC).
+Migrate virtual machine (VM) disk storage between storage classes in {{site.data.keyword.redhat_openshift_full}} Virtualization on {{site.data.keyword.cloud}} without you having to stop your virtual machines.
 {: shortdesc}
 
-Storage migration helps you move VM disk data between storage classes within the same {{site.data.keyword.redhat_openshift_notm}} cluster and namespace, enabling you to:
+Storage migration moves a VM's persistent volume claims (PVCs) from one storage class to another within the same cluster. The VM continues running throughout the entire process by using live storage migration. Expect a brief connection loss of approximately one second during the final cutover phase.
 
-- Migrate VMs to higher-performance storage
-- Optimize storage costs by moving to different storage tiers
-- Consolidate workloads on specific storage backends
-- Perform storage infrastructure upgrades with minimal downtime
+The following storage class migration scenarios are supported, including but not limited to:
 
-## About Migration Toolkit for Containers (MTC)
-{: #about-mtc}
+- {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) to {{site.data.keyword.filestorage_vpc_short}} (NFS), or vice versa
+- ODF to ODF (different storage tiers or pools)
+- NFS to NFS (different performance tiers)
+- Any other supported storage class combination available in your cluster
 
-The Migration Toolkit for Containers (MTC) is an operator that enables the migration of stateful application workloads between {{site.data.keyword.redhat_openshift_notm}} Container Platform clusters at the namespace level. MTC provides both a web console and an application programming interface (API) that uses Kubernetes&reg; custom resources to help you control migrations and minimize application downtime.
+Common reasons to migrate storage:
+
+- Moving VMs to higher-performance or lesser-cost storage tiers
+- Consolidating workloads on specific storage backends
+- Performing storage infrastructure changes without you scheduling a maintenance window
+
+## About native VM storage migration
+{: #about-native-storage-migration}
+
+Storage migration is built into the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator where no additional operator installation is required. The migration controller uses `VirtualMachineStorageMigrationPlan` custom resources to move VM disk data between storage classes within the same cluster. The VM stays running throughout by using live storage migration.
+
+In {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 and later, storage migration is fully native. Earlier versions of {{site.data.keyword.redhat_openshift_notm}} Container Platform used the Migration Toolkit for Containers (MTC) operator for storage migrations. MTC is no longer required for storage migrations. For more information, see [Migration Toolkit for Containers - end of life announcement](https://access.redhat.com/articles/7137482){: external}.
+{: note}
 
 ### Key capabilities for VM storage migration
 {: #key-capabilities}
 
-When you use MTC for {{site.data.keyword.redhat_openshift_notm}} Virtualization VM storage migrations, you can perform the following tasks:
-
-- Move VM storage between different storage classes within the same namespace.
-- Migrate running VMs with minimal downtime in ({{site.data.keyword.redhat_openshift_notm}} Virtualization 4.18 or later).
-- Use stage, cutover, and rollback capabilities for flexible migration control.
-- Migrate between different storage providers (for example, OpenShift Data Foundation (ODF) to Network File System (NFS) or conversely).
+- Live storage migration supports running VMs with minimal downtime (approximately one-second connection loss at cutover) in {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 or later.
+- Storage migration is native to the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator where no additional operator is needed.
+- You can migrate a single VM from the VM details page, all project VMs from the project menu, or selected VMs by using the Selected volumes option, all directly from the UI.
+- Migration works between any two supported storage classes in the cluster.
 
 ### Important limitations for VM storage migration
 {: #important-limitations}
 
-The following limitations apply to {{site.data.keyword.redhat_openshift_notm}} Virtualization virtual machine (VM) storage migrations. While MTC can migrate general persistent volume claims (PVCs) across namespaces and clusters, VM-attached PVCs require stricter handling.
-{: important}
+The following limitations apply to {{site.data.keyword.redhat_openshift_notm}} Virtualization virtual machine (VM) storage migrations:
 
 Same cluster only
-:   The system supports VM storage migrations only within the same {{site.data.keyword.redhat_openshift_notm}} cluster.
+:   VM storage migrations are supported only within the same {{site.data.keyword.redhat_openshift_notm}} cluster.
 
-Same namespace only
-:   VM storage migrations stay in the same namespace. The system does not support cross-namespace migration for VMs.
-
-Single migration plan
-:   The system supports only one migration plan per namespace at a time.
-
-For non-VM workloads, MTC supports migration across different clusters and namespaces. However, for {{site.data.keyword.redhat_openshift_notm}} Virtualization VMs, the same-cluster and same-namespace restrictions always apply.
-
-For more information, refer to the [official MTC documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#about-mtc){: external}.
+Source PVCs deleted by default
+:   By default, source PVCs are automatically deleted after a successful migration (`deleteSource` retention policy). To enable rollback, explicitly retain source PVCs before you start migration. See [Source PVC retention and rollback](#source-pvc-behavior).
+{: important}
 
 ## Prerequisites
 {: #prerequisites}
@@ -80,272 +78,266 @@ Before you perform storage migrations, verify that the following requirements ar
 {: #required-components}
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization operator
-:   You must install and configure the operator. For more information, see the [installation guide](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/virtualization/#installing-virt-operator_installing-virt){: external}.
+:   The operator must be installed and running. Storage migration is built into the operator where no additional installation is needed. For installation guidance, see [Installing the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/#installing-virt-operator_installing-virt){: external}.
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization version
-:   You need version 4.18 or later.
+:   Version 4.21 or later is required. The procedures in the topic are validated on version 4.21. Earlier versions such as 4.18 used the Migration Toolkit for Containers (MTC) operator for storage migrations, which is now end of life.
 
-- Version 4.17 does not support live migration.
-- Versions earlier than 4.17 require enabling a feature gate, which disables cluster-level support.
+### VM requirements
+{: #vm-requirements}
 
-VM requirements
-:   The following apply to VMs:
+Before you migrate, confirm the following details for each VM:
 
-- You must power on VMs for live migration.
-- VMs can migrate to a different node.
-- Check the `StorageLiveMigratable` status condition of the VM object to confirm migration capability.
+- The VM is powered on. Live storage migration requires a running VM.
+- The `StorageLiveMigratable` status condition is `True`. Run the following command to check:
 
-### Configuring live migration in OpenShift Virtualization
-{: #live-migration-config}
+   ```sh
+   oc get vm <vm-name> -n <namespace> \
+     -o jsonpath='{.status.conditions[?(@.type=="StorageLiveMigratable")].status}'
+   ```
+   {: pre}
 
-Configure the live migration settings in your cluster to ensure that migration processes do not overwhelm the cluster. For more information about live migration configuration, see [Configuring live migration](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/virtualization/index#virt-configuring-live-migration){: external}.
+   If the value is not `True`, the VM does not support live migration. Resolve the condition before you continue.
 
-## Installation
-{: #installation}
+- The cluster has at least two worker nodes. Live storage migration moves the VM to a different node during the process.
 
-Complete the following steps to install the Migration Toolkit for Containers operator:
+### Verify the target storage class StorageProfile
+{: #verify-storageprofile}
 
-### Step 1: Install the MTC operator
-{: #install-mtc-operator}
+The migration controller uses the `StorageProfile` of the target storage class to determine which access modes and volume modes to use for the destination PVC. If the `StorageProfile` has empty `claimPropertySets`, migration stalls silently. Help ensure the `StorageProfile` of your target storage class is configured before you start migration. For more information, see [Configuring a StorageProfile](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/virtualization/storage#virt-configuring-storage-profile){: external}.
 
-1. In the {{site.data.keyword.openshiftshort}} web console, click **Ecosystem** > **Software catalog**.
-2. In the **Filter by keyword** field, search for **Migration Toolkit for Containers operator**.
-3. Select the **Migration Toolkit for Containers operator** and click **Install**.
-4. Click **Install** to confirm.
-5. Verify the installation by completing the following steps:
-   1. Click **Operators** > **Installed operators**.
-   2. Confirm that the **Migration Toolkit for Containers operator** appears in the `openshift-migration` project with the **Succeeded** status.
+### Verify cluster health
+{: #verify-cluster-health}
 
-### Step 2: Create migration controller instance
-{: #create-migration-controller}
+Confirm that all worker nodes are in `Ready` state and, if ODF is involved, that the ODF cluster reports `HEALTH_OK` before you initiate migration:
 
-1. Click **Migration Toolkit for Containers operator**.
-2. Under **Provided APIs**, locate the **Migration controller** tile.
-3. Click **Create Instance**.
-4. Click **Create**.
-5. Verify that the MTC pods are running by completing the following steps:
-   1. Click **Workloads** > **Pods**.
-   2. Confirm that all MTC pods are in the **Running** state.
+```sh
+oc get nodes --no-headers | awk '{print $1, $2}'
+oc get cephcluster -n openshift-storage -o jsonpath='{.items[0].status.ceph.health}'
+```
+{: pre}
 
-### Step 3: Create MigCluster resource
-{: #create-migcluster}
-
-1. Click **Migration Toolkit for Containers operator**.
-2. Under **Provided APIs**, locate the **MigCluster** tile.
-3. Click **Create MigCluster** (if the system does not create it automatically).
-4. Click **Create**.
-
-For detailed installation instructions, refer to the [official installation guide](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/migration_toolkit_for_containers/installing-mtc){: external}.
-
-## How to perform storage migration
+## Migrating VM storage
 {: #perform-storage-migration}
 
-You can perform storage migrations by using the following interfaces:
+All three migration scopes, single VM, all VMs in a project, or selected VMs use the same underlying storage migration wizard and produce a `VirtualMachineStorageMigrationPlan` custom resource. The steps are identical except for how you open the wizard and which VMs you select.
 
-{{site.data.keyword.redhat_openshift_notm}} Virtualization UI
-:   Best for migrating a single VM.
+### Step 1: Open the storage migration wizard
+{: #open-wizard}
 
-Migration Toolkit for Containers UI
-:   Recommended for migrating multiple VMs.
+How you open the wizard depends on your migration scope:
 
-### Method 1: Using OpenShift Virtualization UI (single VM)
-{: #method-virtualization-ui}
+Single VM
+:   In the {{site.data.keyword.redhat_openshift_notm}} web console, click **Virtualization** > **Virtual Machines**. Select the VM, then click **Actions** > **Migration** > **Storage**.
 
-This method is ideal for quick, single-VM migrations:
+All VMs in a project
+:   In the {{site.data.keyword.redhat_openshift_notm}} web console, click **Virtualization** > **Virtual Machines**. In the project navigation tree, right-click the project name (namespace) and select **Migration** > **Storage**. The wizard header shows the total number of VMs and the combined storage size.
 
-1. In the {{site.data.keyword.openshiftshort}} web console, click **Virtualization** > **Virtual Machines**.
-2. Select the virtual machine that you want to migrate.
-3. Click **Actions** > **Migration** > **Storage**.
-4. Select the disks to migrate. Choose to migrate the entire VM or specific disks, and then click **Next**.
-5. Select the destination storage class.
-6. Review the migration plan and click **Migrate VirtualMachine storage**.
+Selected VMs in a project
+:   Open the project-level wizard that uses the **All VMs in a project** steps. On the first wizard step, select **Selected volumes** instead of **Entire project**. A per-VM, per-disk checklist appears — check only the VMs and disks you want to include. VMs with no volumes checked are excluded from the plan entirely.
 
-The VM status changes from **Ready** to **Migrating**. The VM remains operational and accessible during migration.
+### Step 2: Select the destination storage class
+{: #select-storageclass}
 
-If you see the message "An existing MigPlan exists for this namespace," refer to the troubleshooting section.
-{: note}
+1. Select the target storage class from the dropdown list.
 
-### Method 2: Using Migration Toolkit for Containers UI (multiple VMs)
-{: #method-mtc-ui}
+   The access mode and volume mode are set automatically based on the `StorageProfile` of the target storage class.
 
-This method provides better control and is recommended for migrating multiple VMs:
+2. To retain the source PVC after migration (required for rollback), select **Keep original volumes at source after successful migration**. By default, this option is not selected and the system deletes the source PVC after a successful migration.
 
-#### Accessing the MTC UI
-{: #accessing-mtc-ui}
-
-1. In the {{site.data.keyword.openshiftshort}} web console, click **Networking** > **Routes**.
-2. Filter by the `openshift-migration` project.
-3. Locate the **migration** route.
-4. Click the URL in the **Location** column.
-
-#### MTC UI overview
-{: #mtc-ui-overview}
-
-The MTC UI includes the following sections:
-
-Clusters
-:   Add multiple {{site.data.keyword.redhat_openshift_notm}} clusters. VM storage migrations do not use this section.
-
-Replication repositories
-:   Configure S3 buckets for cross-cluster and cross-namespace migrations. VM storage migrations do not use this section.
-
-Migration plans
-:   Create and manage migration plans.
-
-Hooks
-:   Add custom scripts to run before or after migrations.
-
-#### Creating a migration plan
-{: #creating-migration-plan}
-
-1. Click **Migration Plans** > **Add migration plan**.
-2. Configure the general settings by completing the following steps:
-   1. Enter a plan name.
-   2. Select the **Storage class conversion** as the migration type.
-   3. Select your cluster in the source cluster selection.
-   4. Click **Next**.
-3. Select the namespace by completing the following steps:
-   1. Choose your namespace.
-   2. Click **Next**.
-
-   The system does not display the `default` namespace. Use the {{site.data.keyword.redhat_openshift_notm}} Virtualization UI for VMs in the default namespace.
-   {: note}
-
-4. Select the persistent volumes by completing the following steps:
-   1. Select the persistent volumes (PVs) to migrate.
-   2. Choose multiple VMs or PVs as needed.
-   3. Configure the following settings for each PV:
-      - Target storage class
-      - Target volume mode
-      - Target access mode
-   4. Click **Next**.
-
-   This step might take longer if the namespace contains many resources.
-   {: note}
-
-5. Enable live migration by completing the following steps:
-   1. Select the checkbox to enable live migration.
-   2. Click **Finish**.
-
-#### Running the migration
-{: #executing-migration}
-
-After your migration plan is created, it is listed under **Migration plans**. Select your plan and choose one of the following actions:
-
-Stage
-:   Copies data to the target storage without stopping the VM. You can run this action multiple times to reduce cutover duration.
-
-Cutover
-:   Completes the migration by switching the VM to the new storage. The VM loses connection for approximately 1 second during this phase.
-
-Rollback
-:   Reverts a completed migration if needed.
-
-Even with live migration enabled, expect a brief (approximately 1-second) connection loss during the cutover phase.
+   If you plan to roll back the migration, select this option before you click **Next**. After migration completes with the default setting, the system deletes the source PVC and rollback is not possible.
 {: important}
 
-For more information on the migration workflow, see the [official workflow documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#migration-mtc-workflow_about-mtc){: external}.
+3. Click **Next**.
 
-## Migration hooks
-{: #migration-hooks}
+### Step 3: Review and start migration
+{: #review-start}
 
-Migration hooks help you customize the migration process by running scripts at different phases. You can add up to four hooks per migration plan.
+1. Review the migration summary:
+   - **Source storage class** — the current storage class
+   - **Destination storage class** — the selected target storage class
+   - **Post-migration cleanup** — either **Decommission source volumes** (default, source deleted) or **Retain source volumes**
+2. Click **Migrate VirtualMachine storage**.
 
-### Hook execution phases
-{: #hook-execution-phases}
+The wizard closes. The VM status changes to **Migrating** in the Virtual Machines list. The VM remains operational and accessible during migration. VMs in the same project migrate concurrently.
 
-| Phase | Description |
-|-------|-------------|
-| PreBackup | Runs before the system backs up resources on the source cluster. |
-| PostBackup | Runs after the system backs up resources on the source cluster. |
-| PreRestore | Runs before the system restores resources on the target cluster. |
-| PostRestore | Runs after the system restores resources on the target cluster. |
-{: caption="Table 1. Migration hook execution phases" caption-side="bottom"}
+### Step 4: Monitor migration progress
+{: #monitor-progress}
 
-### Common use cases
-{: #hook-use-cases}
+```sh
+# Watch overall plan progress
+oc get virtualmachinestoragemigrationplans -n <namespace> \
+  -o custom-columns="NAME:.metadata.name,READY:.status.conditions[?(@.type==\"Ready\")].status,COMPLETED:.status.completedOutOf"
 
-- Customizing application quiescence
-- Manually migrating unsupported data types
-- Updating applications after migration
-- Running validation scripts
+# Monitor individual live migration objects
+oc get virtualmachineinstancemigration -n <namespace> \
+  -o custom-columns="NAME:.metadata.name,PHASE:.status.phase,VM:.spec.vmiName" -w
 
-For detailed information on how to create and use hooks, see the [Migration hooks documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#migration-hooks_advanced-migration-options-mtc){: external}.
+# Watch all VM statuses
+oc get vm -n <namespace> -w
+```
+{: pre}
+
+Migration is complete when `completedOutOf` shows `1/1` (single VM) or `<n>/<n>` (multiple VMs), and all `VirtualMachineInstanceMigration` objects reach the `Succeeded` phase.
+
+The live migration percentage progress bar in the UI is not always accurate. Use the CLI commands in this step for reliable status.
+{: note}
+
+## Post-migration validation
+{: #post-migration-validation}
+
+After any migration completes — whether single VM, entire project, or selected VMs — verify the following:
+
+VM status
+:   Confirm all migrated VMs are in **Running** state:
+
+    ```sh
+    oc get vmi -n <namespace> -o wide
+    ```
+    {: pre}
+
+PVC storage class
+:   Confirm the PVCs are bound and that they use the target storage class:
+
+    ```sh
+    oc get pvc -n <namespace> \
+      -o custom-columns="NAME:.metadata.name,SC:.spec.storageClassName,STATUS:.status.phase"
+    ```
+    {: pre}
+
+Source PVC cleanup
+:   If you used the default `deleteSource` policy, confirm the old PVCs are no longer present. If you used `keepSource`, old PVCs remain and must be cleaned up manually when rollback is no longer needed:
+
+    ```sh
+    oc get pvc -n <namespace>
+    oc get datavolume -n <namespace>
+    ```
+    {: pre}
+
+Node placement
+:   Confirm that the VM moved to a different worker node. This is expected behavior during live storage migration:
+
+    ```sh
+    oc get vmi <vm-name> -n <namespace> \
+      -o jsonpath='{.status.nodeName}{"\n"}'
+    ```
+    {: pre}
+
+## Source PVC retention and rollback
+{: #source-pvc-behavior}
+
+### Retention policy
+{: #retention-policy}
+
+The `retentionPolicy` field in the migration plan controls migration behavior:
+
+| Policy | Default | Behavior |
+| --- | --- | --- |
+| `deleteSource` | Yes (UI default) | Source PVCs and DataVolumes are deleted after migration completes. Rollback is not possible after this point. |
+| `keepSource` | No | Source PVCs are retained. You can roll back by updating the VM to reference the original PVC. |
+{: caption="Migration retention policy options" caption-side="bottom"}
+
+In the UI wizard, the **Keep original volumes at source after successful migration** checkbox controls this setting. The checkbox is cleared by default (`deleteSource`). The `retentionPolicy` field is immutable — it cannot be changed after the plan is created.
+{: note}
+
+### Manual rollback (keepSource plans only)
+{: #manual-rollback}
+
+If you retained source PVCs (`retentionPolicy: keepSource` or you selected the **Keep original volumes** checkbox), you can roll back when you update the VM spec to reference the original `DataVolume`:
+
+```sh
+# Get the current VM volume reference
+oc get vm <vm-name> -n <namespace> \
+  -o jsonpath='{.spec.template.spec.volumes[?(@.name=="rootdisk")].dataVolume.name}'
+
+# Patch the VM to reference the original DataVolume
+oc patch vm <vm-name> -n <namespace> --type=json -p '[
+  {"op":"replace","path":"/spec/dataVolumeTemplates/0","value":{
+    "apiVersion":"cdi.kubevirt.io/v1beta1",
+    "kind":"DataVolume",
+    "metadata":{"name":"<original-dv-name>"},
+    "spec":{
+      "source":{"blank":{}},
+      "storage":{
+        "resources":{"requests":{"storage":"<size>"}},
+        "storageClassName":"<original-sc>"
+      }
+    }
+  }},
+  {"op":"replace","path":"/spec/template/spec/volumes/0","value":{
+    "dataVolume":{"name":"<original-dv-name>"},
+    "name":"rootdisk"
+  }}
+]'
+```
+{: pre}
+
+After rollback, delete the unused target PVC and `DataVolume`:
+
+```sh
+oc delete datavolume <target-dv-name> -n <namespace>
+```
+{: pre}
+
+## Deleting a completed migration plan
+{: #deleting-migration-plan}
+
+After migration completes, delete the migration plan and its associated trigger object. As a best practice, clean up completed plans before you start new migrations in the same namespace.
+
+```sh
+# List plans
+oc get virtualmachinestoragemigrationplans -n <namespace>
+
+# Delete the plan and its trigger
+oc delete virtualmachinestoragemigrationplan <plan-name> -n <namespace>
+oc delete virtualmachinestoragemigration <migration-name> -n <namespace>
+```
+{: pre}
+
+Deleting a plan does not delete the source or target PVCs. Clean up residual PVCs and `DataVolumes` manually if they are no longer needed.
+{: note}
 
 ## Important considerations
 {: #important-considerations}
 
-Before you perform storage migrations, be aware of the following constraints/conditions:
+Before you perform storage migrations, be aware of the following constraints and conditions:
 
 ### Migration constraints
 {: #migration-constraints}
 
+Brief connection loss at cutover
+:   Storage migration uses live storage migration (`VirtualMachineInstanceMigration`). The VM remains running and accessible throughout the entire migration process. Expect a brief connection loss of approximately one second during the final cutover phase.
+
 Node migration required
-:   The system migrates VMs to a different node.
+:   The VM moves to a different worker node during live storage migration. This is expected behavior. The VM retains its IP address and network connectivity.
 
-Namespace limitation
-:   The system does not support cross-namespace VM migration.
+Plan cleanup before new migrations
+:   Although multiple plans can exist in a namespace, as a best practice, delete completed or stale plans before starting a new migration to keep the namespace clean and prevent confusion.
 
-Brief connection loss
-:   The VM loses connection for approximately 1 second at the end of the migration process.
-
-VM state
-:   You must power on VMs for live migration.
-
-Single plan limitation
-:   The system supports only one migration plan per namespace.
-    - To perform additional migrations in the same namespace, delete the current plan first.
-    - The system does not support modification of existing plans.
-    - Historical tracking of previous migrations does not exist.
+Scope limitation with Selected volumes
+:   When you migrate from the project menu, the default scope is all VMs in the namespace. Use **Selected volumes** on the first wizard step to get a per-VM checklist and exclude VMs you do not need to migrate.
 
 ### Post-migration behavior
 {: #post-migration-behavior}
 
 Cleanup
-:   The system does not automatically delete old data volumes (DVs) and PVCs.
-    - The system retains these resources for rollback purposes.
-    - You must manually clean up if you do not need rollback.
-
-### UI limitations
-{: #ui-limitations}
-
-Progress indicators
-:   Live migration percentage progress bar and elapsed time are not always reliable.
-
-Default namespace
-:   The MTC UI does not list VMs under the `default` namespace. Use the {{site.data.keyword.redhat_openshift_notm}} Virtualization UI for VMs in the default namespace.
+:   When `keepSource` retention is used, old `DataVolumes` and PVCs are not automatically deleted. Manually clean up these resources after you confirm that migration is successful and that rollback is no longer needed.
 
 ### Version compatibility
 {: #version-compatibility}
 
-{{site.data.keyword.redhat_openshift_notm}} Virtualization 4.17
-:   Version 4.17 does not support live migration.
+{{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 and later
+:   Supports native live storage migration with minimal downtime (approximately one-second connection loss at cutover).
 
-Earlier versions
-:   Versions earlier than 4.17 require enabling a feature gate, which removes cluster-level support.
-
-For a complete list of known issues, see the [Known issues documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#mtc-migrating-vms-known-issues_mtc-migrating-vms){: external}.
+Version 4.17
+:   Does not support live storage migration natively. Version 4.17 and earlier used the Migration Toolkit for Containers (MTC) operator for storage migrations. MTC is end of life and is no longer the recommended approach. For more information, see [Migration Toolkit for Containers - End of Life announcement](https://access.redhat.com/articles/7137482){: external}.
 
 ## Additional resources
 {: #additional-resources}
 
 For more information about storage migration and related topics, see the following resources.
 
-### Official documentation
-{: #official-documentation}
-
-For comprehensive information about MTC and {{site.data.keyword.redhat_openshift_notm}} Virtualization migration, refer to the following resources.
-
-- [Migration Toolkit for Containers overview](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#about-mtc){: external}
-- [Installing MTC](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/migration_toolkit_for_containers/installing-mtc){: external}
-- [OpenShift Virtualization live migration](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/virtualization/index#virt-configuring-live-migration){: external}
-- [Migration controller options](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migrating_from_version_3_to_4/#migration-controller-options_advanced-migration-options-3-4){: external}
-- [Migration workflow](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#migration-mtc-workflow_about-mtc){: external}
-- [Known issues](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html-single/migration_toolkit_for_containers/index#mtc-migrating-vms-known-issues_mtc-migrating-vms){: external}
+- [{{site.data.keyword.redhat_openshift_notm}} Virtualization live migration](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/index#virt-configuring-live-migration){: external}
+- [{{site.data.keyword.redhat_openshift_notm}} Virtualization storage overview](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/index#virt-storage-configuration-overview){: external}
 - [Known issues for storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-known-issues-storage-migration)
 - [Troubleshooting storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-storage-migration)
-
-### Support
-{: #support}
-
-For additional assistance or to report issues, contact Red Hat Support or consult the OpenShift Virtualization community forums.

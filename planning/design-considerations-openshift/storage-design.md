@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-08-19"
+lastupdated: "2026-09-04"
 
 keywords: OpenShift virtualization storage, Red Hat OpenShift Data Foundation, ODF storage, Ceph storage OpenShift, NVMe storage bare metal, PersistentVolumes OpenShift, File Storage VPC, IBM Cloud Object Storage, block storage encryption, storage classes OpenShift
 
@@ -103,14 +103,14 @@ Use the following table to select the right storage option based on your workloa
 | Backup data or object workloads outside the ODF cluster | IBM Cloud Object Storage | Fully managed; billed independently; not suitable for block or file VM disk workloads |
 | Block storage on virtual server (VSI) worker nodes | Block Storage for VPC | Available only on VSI worker nodes, not bare-metal |
 | Shared read-only content or import sources | File Storage for VPC | One NFS share per PVC; supports cross-zone mounting; max 32 TB per PVC |
-{: caption="Storage option selection by use case"}
+{: caption="Storage option selection by use case" caption-side="bottom"}
 
-ODF is the primary and recommended storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}. Before you provision your cluster, keep the following requirements in mind.
+ODF is the primary and recommended storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}. Review the following requirements before you provision your cluster.
 {: important}
 
-- ODF requires bare-metal worker nodes running Red Hat CoreOS. Virtualized (VSI) worker nodes are not supported for ODF storage clusters on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service.
-- The ODF storage node pool requires a minimum of 3 nodes. Single-zone and flexible-scaling deployments can expand granularly beyond the initial 3. Multi-zone deployments must use multiples of 3 (3, 6, 9, …) to maintain balanced zone distribution; non-multiples of 3 in a multi-zone topology create a zone imbalance that leads to uneven OSD weight distribution and suboptimal data placement.
-- Only replication pools (replica-3 and replica-2) are supported for production block storage on ROKS bare-metal. Erasure-coded pools for RBD are a developer preview feature (ODF 4.20+) and are not supported for production use.
+- ODF requires bare-metal worker nodes that run Red Hat CoreOS. ODF storage clusters on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service do not support virtualized (VSI) worker nodes.
+- The ODF storage node pool requires a minimum of 3 nodes. Single-zone and flexible-scaling deployments can expand granularly beyond the initial 3. Multi-zone deployments must use multiples of 3 (3, 6, 9, …) to maintain balanced zone distribution. Non-multiples of 3 in a multi-zone topology create a zone imbalance that leads to uneven OSD weight distribution and suboptimal data placement.
+- Only replication pools (replica-3 and replica-2) are supported for production block storage on ROKS bare-metal. Erasure-coded pools for RBD are a developer preview feature (ODF 4.20+) and are not available for production use.
 - For optimal performance and stability, provision a dedicated storage worker pool for ODF and a separate compute worker pool for VM workloads. Colocating ODF daemons and VM workloads on the same nodes causes resource contention.
 
 For step-by-step ODF configuration instructions after your cluster is provisioned, see [{{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) for virtual machine workloads](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads).
