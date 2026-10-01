@@ -344,4 +344,4 @@ After you configure automatic node health checking and remediation, consider the
 * Monitor your cluster's node health and remediation events through the {{site.data.keyword.redhat_openshift_notm}} console
 * Customize the health check thresholds based on your workload requirements
 * Review the [Red Hat OpenShift Virtualization documentation](/docs/openshift?topic=openshift-virt-overview) for additional high availability features
-* Explore [backup and disaster recovery options](/docs/openshift?topic=openshift-backup_restore) for your virtualization workloads
+* Explore [backup and disaster recovery options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup) for your virtualization workloads
