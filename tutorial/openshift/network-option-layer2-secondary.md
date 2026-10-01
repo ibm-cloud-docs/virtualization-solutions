@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-23"
+lastupdated: "2026-10-01"
 
 keywords: Layer 2 secondary network OpenShift, CUDN configuration, UDN setup, OVN Layer 2 secondary, isolated networks OpenShift, OpenShift Virtualization networking
 
@@ -151,7 +151,7 @@ Apply each manifest with `oc apply -f <file-name>.yml`. Use these links to go to
 {: #layer2-secondary-vm-jail-web00}
 
 ```yaml
-# Bare YAML to stand up a {{site.data.keyword.redhat_openshift_notm}} virtual server
+# Bare YAML to stand up a Red Hat OpenShift Virtualization virtual server
 ---
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
