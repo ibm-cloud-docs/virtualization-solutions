@@ -207,7 +207,7 @@ See the following example of calculations for a 3-node cluster with 8 x 3.2 TB N
 {: caption="Usable capacity by data protection type for a 3-node cluster"}
 
 
-Ceph performance degrades as cluster usage increases. The following thresholds are the default values defined by the Ceph storage system and surfaced by ODF as OSD alert conditions (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}):
+Ceph performance degrades as cluster usage increases. The following thresholds are the default values defined by the Ceph storage system and surfaced by ODF as OSD alert conditions (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}):
 
 Virtual machine workload capacity estimation: A typical virtual machine workload with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With rep3, that virtual machine workload requires 390 GB of raw storage. On the preceding 3-node cluster, you might provision approximately 196 virtual machine workloads of this size. In practice, keep Ceph usage less than 75% to maintain performance and support recovery operations.
 
@@ -969,7 +969,7 @@ oc exec -n openshift-storage ${TOOLS_POD} -- ceph df
 
 Important columns:
 
-- %RAW USED: Overall cluster usage. Keep it under 70% for optimal operation (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}).
+- %RAW USED: Overall cluster usage. Keep it under 70% for optimal operation (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}).
 - MAX AVAIL per pool: The amount of additional data that can be written to the pool, accounting for replication.
 
 #### Check pool statistics

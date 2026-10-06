@@ -198,7 +198,7 @@ For system alerts (handled by `openshift-monitoring` namespace), follow these st
     1. For example, **severity = critical** includes all critical alerts, and **severity = warning** includes all warning alerts.
     2. To send notifications for all alerts, keep this field blank.
 
-Click the **Alerting rules** tab to view the existing default rules for system alerts. For example, the alerting rules for the Ceph storage cluster trigger an alert when storage usage exceeds 75% (the default `CephOSDNearFull` threshold; see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}).
+Click the **Alerting rules** tab to view the existing default rules for system alerts. For example, the alerting rules for the Ceph storage cluster trigger an alert when storage usage exceeds 75% (the default `CephOSDNearFull` threshold; see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}).
 
 #### Creating custom alerts
 {: #observability-design-custom-alerts}

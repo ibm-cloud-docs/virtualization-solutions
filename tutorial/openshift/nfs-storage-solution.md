@@ -1395,7 +1395,7 @@ Although virtual machine persistent state storage requires `ReadWriteOnce` acces
 
 This orchestration helps help ensure that the RWO PVC is attached to only one pod at a time, while still enabling live migration. The brief pause during the handoff is typically measured in milliseconds.
 
-For more information about live migration in {{site.data.keyword.redhat_openshift_notm}} Virtualization, see [Virtual machine live migration](https://docs.openshift.com/container-platform/latest/virt/live_migration/virt-about-live-migration.html){: external}.
+For more information about live migration in {{site.data.keyword.redhat_openshift_notm}} Virtualization, see [Virtual machine live migration](https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/virtualization/live-migration#virt-about-live-migration){: external}.
 
 #### VM state StorageClass requirements
 {: #vm-state-storage-requirements}

@@ -281,7 +281,7 @@ For more information, see the following:
 
 - [Protect critical workloads across hybrid and multi-cloud environments](https://www.rackwareinc.com/rackware-platform/disaster-recovery){: external}
 - [RackWare and {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm){: external}
-- [RackWare RMM users Guide for {{site.data.keyword.cloud_notm}}](https://rackware.attachments9.freshdesk.com/data/helpdesk/attachments/production/5193588906/original/Rackware%20RMM%20Users%20Guide%20for%20IBM%20Cloud%20v2.2.pdf?response-content-type=application%2Fpdf&Expires=1764355600&Signature=gLDEmBxGd1dCMuzHjAP1FT3cCOzV6J7PGG7AHJ7dTKpTyGCvsY2IkzwQKI7VcJu~vnXprXUmkR9IUUUm0yhyD3hFdHU9tYZd4-6NfrZ7Ix2wXNfY44D2-rFWDoNy-LfiFaD2huPCdY2m-~1kw0ZtPqHLF7h5194~VPrhNgRPIrj~sfgN8wF8M8TLzkgZ84-MxbU~nn98rQFcnRgrKIc2inkfD~VYuAGaScmepjhRRoc8Gkd5LRIbPfyU1rAKWEj0L8AhfhjvLLVMGiu6CbfTGD1gLawXa24zm4ZR8-80LKdKstsJJx4vqgHEAbIQAD--XZsvY7CQ5AupWhdtPVzySA__&Key-Pair-Id=APKAJ7JARUX3F6RQIXLA) {: external}
+- [RackWare RMM users guide for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/documentation){: external}
 
 ## Next steps
 {: #virt-sol-vpc-vpc-resiliency-design-next-steps}
