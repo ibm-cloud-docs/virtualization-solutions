@@ -1,4 +1,4 @@
-﻿---
+---
 
 copyright:
   years: 2025, 2026
@@ -42,7 +42,7 @@ By default, {{site.data.keyword.redhat_openshift_notm}} provides a number of obs
 
 These are automatically deployed under the `openshift-monitoring` namespace during OpenShift deployment. The dashboards and configuration of these are available under the **Observe** section in the **Administration** view.
 
-![Observability menu](/observability-images/openshift-observ-menu.png){: caption="observability-menu"}
+![OpenShift console Observe menu showing Alerting, Metrics, Dashboards, and Targets options](../../images/openshift/openshift-observ-menu.png "OpenShift console Observe menu"){: caption="OpenShift console Observe menu" caption-side="bottom"}
 
 Alerting will display the current alerts, alerting rules, and the viewing/addition of any alert silencing rules. The Metrics page allows for the user to run PromQL queries and receive metrics data and graphs. Dashboards will display metric graphs for a preset list that can be selected from multiple dropdowns and different time periods. Targets is the defined list of endpoints that are called by the Metrics Server to receive data from different components. The Logs section will only appear after installing and configuring OpenShift Logging (see further below in this guide). For more info on the design and components see https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/monitoring/about-openshift-container-platform-monitoring#monitoring-stack-architecture
 
@@ -146,8 +146,8 @@ For system alerts (handled by the `openshift-monitoring` namespace), complete th
 
 You can click "Alerting rules" tab, which will show you the existing default alerting rules to cover the system alerts.  Take alerting rules for ceph storage cluster as an example, as the following shows, which means there should be alert triggered if the storage usage is higher than 75%.
 
-![Alerting rules](/observability-images/openshift-observ-alerting-rules.png){: caption="Altering Rules"}
-![Alerting rule details](/observability-images/openshift-observ-alerting-rule-details.png){: caption="Altering Rules Details"}
+![List of configured default alerting rules in the OpenShift console](../../images/openshift/openshift-observ-alerting-rules.png "OpenShift console alerting rules"){: caption="Configured alerting rules in OpenShift" caption-side="bottom"}
+![Details view for a Ceph storage cluster alerting rule](../../images/openshift/openshift-observ-alerting-rule-details.png "Alerting rule details"){: caption="Alerting rule details view" caption-side="bottom"}
 
 #### Creating Custom Alerts
 {: #observability-design-custom-alerts}
@@ -289,14 +289,14 @@ stringData:
 6. Stop a virtual machine by running:  virtctl stop `<vm-name>`, and wait for the vm stopped
 7. Check slack channel, and see if there could be corresponding alert like following generated
 
-![Slack Message Alert](/observability-images/openshift-observ-slack-alert.png){: caption="slack message"}
+![Slack channel notification for a virtual machine alert](../../images/openshift/openshift-observ-slack-alert.png "Slack alert notification"){: caption="Slack channel alert notification" caption-side="bottom"}
 
 You can verify the generated alert through alert manager console too. To open the alert manager console, you can run: oc -n open-cluster-management-observability port-forward pod/observability-alertmanager-0 9093:9093, then access http://localhost:9093/#/alerts, to check if the alert is generated there. An example is as following, which shows "slack-vm-not-running" alert is generated.
 
 8. Start a virtual machine by running:  virtctl start `<vm-name>`, and wait for the vm started.
 
 Once vm get started back, check the slack channel which will tip the alert is resolved, as following example shows.
-![Slack Message Alert Recovery](/observability-images/openshift-observ-slack-alert-recovery.png){: caption="slack message alert"}
+![Slack channel notification indicating alert resolution](../../images/openshift/openshift-observ-slack-alert-recovery.png "Slack alert recovery notification"){: caption="Slack alert resolution notification" caption-side="bottom"}
 
 ##### Reference links:
 {: #observability-design-ref-links}
@@ -321,7 +321,7 @@ RHACM adds preconfigured Grafana dashboards designed to monitor VM specific metr
 
 For a brief assessment of the metrics displayed in every preconfigured dashboard provided through RHACM as well as the base OpenShift observability, refer to this chart:
 
-![Dashboard Comparison Chart](/observability-images/openshift-observ-dashboards-comparison.png){: caption="Dashboard comparison}
+![Comparison chart of metrics across Red Hat Advanced Cluster Management and OpenShift dashboards](../../images/openshift/openshift-observ-dashboards-comparison.png "Dashboard metrics comparison chart"){: caption="Dashboard metrics comparison" caption-side="bottom"}
 
 #### Adding/Customizing Dashboards
 {: #observability-design-custom-dashboards}
@@ -464,9 +464,9 @@ To view the observability metrics and dashboards included in the base install of
 To view the observability metrics and dashboards with RHACM installed:
 
 1. From the OpenShift console, select All Clusters from the drop down menu at the top.
-    1. ![Dashboard View Step 1](/observability-images/openshift-observ-dashboard-view-1.png)
+    1. ![All Clusters navigation dropdown in OpenShift console](../../images/openshift/openshift-observ-dashboard-view-1.png "All Clusters navigation dropdown"){: caption="All Clusters navigation menu" caption-side="bottom"}
 2. From the Clusters page, select the Grafana link on the right.
-    1. ![Dashboard View Step 1](/observability-images/openshift-observ-dashboard-view-2.png)
+    1. ![Grafana dashboard link on the Clusters page](../../images/openshift/openshift-observ-dashboard-view-2.png "Grafana dashboard link"){: caption="Grafana dashboard link" caption-side="bottom"}
 3. This will bring up the grafana dashboards page with a list of pre-configured dashboards that come with the RHACM installation.
 
 ### Logging - Overview
@@ -518,7 +518,7 @@ To remove the {{site.data.keyword.cloud_notm}} Logs integration and delete assoc
 #### Logging UI - {{site.data.keyword.cloud_notm}} Logs
 {: #observability-design-logging-ui}
 
-![IBM Cloud Log UI](/observability-images/ibm-cloud-log-ui.png){: caption="IBM CLoud log UI"}
+![IBM Cloud Logs web interface displaying ingested log events and query filters](../../images/openshift/ibm-cloud-log-ui.png "IBM Cloud Logs interface"){: caption="IBM Cloud Logs web interface" caption-side="bottom"}
 
 #### Comparison with VMware Aria Logs  (vRealize Log Insight vs {{site.data.keyword.cloud_notm}} Logs)
 {: #observability-design-aria-logs-ui}
@@ -569,7 +569,7 @@ document: [COO Function](https://docs.redhat.com/en/documentation/red_hat_opensh
 #### Centralized Logging Architecture
 {: #observability-design-central-logging}
 
-![Logging Architecture](/observability-images/openshift-observ-logging-arch.png){: caption="logging arch"}
+![Architecture diagram showing log collection from pods and nodes via LokiStack and ClusterLogForwarder](../../images/openshift/openshift-observ-logging-arch.png "Centralized logging architecture"){: caption="Centralized logging architecture with LokiStack" caption-side="bottom"}
 
 #### Installation and configuration (Short with Refs)
 {: #observability-design-central-logging-conf}
@@ -773,7 +773,7 @@ spec:
 
 Loki Sizing:
 
-![Loki Sizing](/observability-images/openshift-observ-loki-sizing.png){: caption="loki sizing"}
+![Resource sizing chart showing CPU, memory, and storage requirements for LokiStack deployment sizes](../../images/openshift/openshift-observ-loki-sizing.png "LokiStack resource sizing reference"){: caption="LokiStack deployment resource sizing requirements" caption-side="bottom"}
 
 ref: [Loki sizing document](https://docs.redhat.com/en/documentation/red_hat_openshift_logging/6.3/html-single/configuring_logging/index#loki-sizing_configuring-the-log-store)
 
@@ -810,7 +810,7 @@ ref: [Log Forwarding Outputs](https://docs.redhat.com/en/documentation/red_hat_o
 #### Logging UI - LokiStack
 {: #observability-design-loki5}
 
-![Logging UI](/observability-images/openshift-observ-log-dashboard.png){: caption="logging ui"}
+![LokiStack log query interface in the OpenShift console](../../images/openshift/openshift-observ-log-dashboard.png "LokiStack log viewer in OpenShift console"){: caption="LokiStack log viewer in OpenShift console" caption-side="bottom"}
 
 #### Comparison with VMware Aria Logs  (vRealize Log Insight vs LokiStack)
 {: #observability-design-loki-6}
@@ -828,7 +828,7 @@ ref: [Log Forwarding Outputs](https://docs.redhat.com/en/documentation/red_hat_o
 | Dashboards        | Prebuilt content packs for VMware               | Custom dashboards (Grafana)                                                 |
 | UI / Log Viewer   | vRLI web UI; Centralized viewing                | OpenShift Console integrated logging UI (through COO); Centralized viewing  |
 | Query Language    | LIQL (VMware proprietary)                       | LogQL (Prometheus-style)                                                    |
-{: caption="Aria Logs Table}
+{: caption="Comparison between VMware Aria Logs and OpenShift LokiStack Logging" caption-side="bottom"}
 
 #### Logging Rollback/Deletion - LokiStack
 {: #observability-design-loki-7}
@@ -875,7 +875,7 @@ Openshift is able to replicate the functionality of the VMware Aria Suite though
 | Log Alerting | Aria Log Insight | LokiStack ruler/LogQL |
 | Metrics | Aria/VCF Operations | Base (additional cluster metrics provided after RHACM install) |
 | Dashboards | Aria/VCF Operations | Base (Grafana after RHACM observability install) |
-{: caption="Aria Suite Table}
+{: caption="Comparison between VMware Aria Suite and OpenShift observability features" caption-side="bottom"}
 
 #### {{site.data.keyword.cloud_notm}} Monitoring/Sysdig
 {: #observability-design-mon}
@@ -917,7 +917,7 @@ To get the Sysdig monitor api token:
 2. Access the Dashboard
 3. At the bottom left click on the user icon with the user initials
 4. In the popup, select SysDig API Tokens underneath the Secrets Management section
-    1. ![SysDig API Token location](/observability-images/observ-sysdig-api-token.png){: caption="SysDig API Token location"}
+    1. ![Sysdig API token retrieval location in settings menu](../../images/openshift/observ-sysdig-api-token.png "Sysdig API token location"){: caption="Sysdig API token setting" caption-side="bottom"}
 5. Scroll down in the new page to find the token and select copy
 
 ## OpenShift Virtualization Observability Recommendations
@@ -925,7 +925,7 @@ To get the Sysdig monitor api token:
 
 Choose the optimal observability tooling for your OpenShift Virtualization deployment based on cluster architecture, cross-cluster scope, and cost considerations.
 
-![Observability Decision Tree](/observability-images/observability-solution-decision-tree){: caption="observability decision tree"}
+![Decision flowchart for choosing between IBM Cloud Monitoring, LokiStack, and RHACM for OpenShift Virtualization](../../images/openshift/observability-solution-decision-tree.png "Observability solution decision tree"){: caption="Observability solution selection flowchart" caption-side="bottom"}
 
 {{site.data.keyword.cloud_notm}} Monitoring is the recommended solution for overall observability in {{site.data.keyword.redhat_openshift_notm}} Virtualization because it scales across multiple clusters and {{site.data.keyword.cloud_notm}} resources. If you are managing a single OpenShift cluster or working primarily within the Red Hat ecosystem, OpenShift and Red Hat Advanced Cluster Management observability tools meet most monitoring requirements.
 
