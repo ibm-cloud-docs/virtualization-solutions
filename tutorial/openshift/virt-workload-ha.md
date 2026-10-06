@@ -26,7 +26,6 @@ completion-time: 15m
 {: toc-completion-time="15m"}
 
 Configure {{site.data.keyword.redhat_openshift_notm}} Virtualization high availability by using Node Health Check and Self Node Remediation operators for automatic failure detection and workload recovery on {{site.data.keyword.cloud_notm}}.
-
 {: shortdesc}
 
 ## Objectives
@@ -89,7 +88,6 @@ NHC and SNR integration is especially critical for {{site.data.keyword.redhat_op
 By combining NHC for detection and SNR for automated remediation, OpenShift Virtualization on {{site.data.keyword.cloud_notm}} ROKS achieves faster failure response, reduced operational burden, and improved continuity for mission-critical virtualization workloads.
 
 Red Hat also provides Fence Agents Remediation (FAR) to implement remediation by hardware or power-based fencing through BMC API, which is not currently supported on worker nodes of ROKS.
-
 {: note}
 
 ## Disable outbound traffic protection and enable the operator catalog

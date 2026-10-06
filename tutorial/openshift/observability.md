@@ -330,67 +330,79 @@ For a brief assessment of the metrics displayed in every preconfigured dashboard
 New dashboards can not be added with the default grafana instance, but new dashboards can be created and customized by first creating a grafana-dev instance. This can be done by following the instructions outlined in the [RHACM Observability Documentation](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#using-grafana-dashboards) for setting up the grafana dev instance using the scripts found in https://github.com/open-cluster-management/multicluster-observability-operator.
 
 If you do not have access to the `kube:admin` user (which applies to {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}}), create a dashboard through a series of terminal commands instead. In the terminal after running the `./setup-grafana-dev.sh --deploy` command in the preceding instructions, run the following:
-1. Set the environment variable used in the upcoming commands to the observability namespace
-```bash
-export OBS_NS=open-cluster-management-observability
-```
-2. Run the following to create a json definition for the ConfigMap
-```bash
-cat <<'EOF' > full-dashboard.json
-{
-  "id": null,
-  "uid": "60EDAD96-69C2-4047-88AC-541C29BB74BA",
-  "title": "VM Metrics Dashboard",
-  "tags": ["control-plane", "cluster-metrics"],
-  "timezone": "browser",
-  "schemaVersion": 30,
-  "version": 1,
-  "panels": [
-    {
-      "type": "graph",
-      "title": "Top 50 API Server Latency",
-      "targets": [{"expr": "apiserver_request_latency_seconds_bucket"}]
-    },
-    {
-      "type": "graph",
-      "title": "etcd Latency",
-      "targets": [{"expr": "etcd_disk_wal_fsync_duration_seconds_bucket"}]
-    },
-    {
-      "type": "graph",
-      "title": "Node CPU Usage",
-      "targets": [{"expr": "node_cpu_seconds_total"}]
-    },
-    {
-      "type": "graph",
-      "title": "Node Memory Usage",
-      "targets": [{"expr": "node_memory_MemAvailable_bytes"}]
-    }
-  ]
-}
-EOF
-```
-3. Create the ConfigMap object using the yaml definition
-```bash
-cat <<EOF > full-dashboard.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: full-dashboard
-  namespace: $OBS_NS
-  labels:
-    grafana-custom-dashboard: "true"
-  annotations:
-    observability.open-cluster-management.io/dashboard-folder: Custom
-data:
-  full-dashboard.json: |-
-$(sed 's/^/    /' full-dashboard.json)
-EOF
-```
-4. Apply the new ConfigMap
-```bash
-oc apply -f full-dashboard.yaml
-```
+
+1. Set the environment variable used in the upcoming commands to the observability namespace:
+
+   ```bash
+   export OBS_NS=open-cluster-management-observability
+   ```
+   {: pre}
+
+2. Run the following to create a JSON definition for the ConfigMap:
+
+   ```bash
+   cat <<'EOF' > full-dashboard.json
+   {
+     "id": null,
+     "uid": "60EDAD96-69C2-4047-88AC-541C29BB74BA",
+     "title": "VM Metrics Dashboard",
+     "tags": ["control-plane", "cluster-metrics"],
+     "timezone": "browser",
+     "schemaVersion": 30,
+     "version": 1,
+     "panels": [
+       {
+         "type": "graph",
+         "title": "Top 50 API Server Latency",
+         "targets": [{"expr": "apiserver_request_latency_seconds_bucket"}]
+       },
+       {
+         "type": "graph",
+         "title": "etcd Latency",
+         "targets": [{"expr": "etcd_disk_wal_fsync_duration_seconds_bucket"}]
+       },
+       {
+         "type": "graph",
+         "title": "Node CPU Usage",
+         "targets": [{"expr": "node_cpu_seconds_total"}]
+       },
+       {
+         "type": "graph",
+         "title": "Node Memory Usage",
+         "targets": [{"expr": "node_memory_MemAvailable_bytes"}]
+       }
+     ]
+   }
+   EOF
+   ```
+   {: pre}
+
+3. Create the ConfigMap object using the YAML definition:
+
+   ```bash
+   cat <<EOF > full-dashboard.yaml
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     name: full-dashboard
+     namespace: $OBS_NS
+     labels:
+       grafana-custom-dashboard: "true"
+     annotations:
+       observability.open-cluster-management.io/dashboard-folder: Custom
+   data:
+     full-dashboard.json: |-
+   $(sed 's/^/    /' full-dashboard.json)
+   EOF
+   ```
+   {: pre}
+
+4. Apply the new ConfigMap:
+
+   ```bash
+   oc apply -f full-dashboard.yaml
+   ```
+   {: pre}
 
 After applying the ConfigMap, there should be a new customer Grafana dashboard created that can be further modified.
 
@@ -399,52 +411,66 @@ New dashboards can be created using PromQL queries from a wide selection of [Kub
 Custom metrics can be exported from either [Platform](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#adding-platform-metrics) or [User Workload](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#adding-user-workload-metrics) sources as described in the [Advanced Observability Configuration](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.14/html-single/observability/index#adv-config-obs) section. A list of available platform or user workload metrics targets can be viewed by navigating to the Observe at **Targets page** and filtering the Source by Platform or User, respectively.
 
 If you do not have access to the kube:admin user (as in the case for {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}}), it might be necessary to run the following commands to create a set of custom metrics. The following are some example ConfigMaps that can be created:
-For some basic metrics on Node Memory and API Server,
-1. Create a ConfigMap yaml
-```bash
-cat <<EOF > observability-platform-metrics.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: observability-metrics-custom-allowlist
-  namespace: open-cluster-management-observability
-data:
-  metrics_list.yaml: |
-    names:
-      - node_memory_MemTotal_bytes
-      - node_memory_MemAvailable_bytes
-      - kubelet_runtime_operations_duration_seconds
-    recording_rules:
-      - record: apiserver_request_duration_seconds:histogram_quantile_90
-        expr: histogram_quantile(0.90,sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver", verb!="WATCH"}[5m])) by (verb,le))
-      - record: etcd_disk_wal_fsync_duration_seconds:histogram_quantile_90
-        expr: histogram_quantile(0.90,sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket[5m])) by (instance,le))
-EOF
-```
-2. Apply the newly created ConfigMap
-```bash
-oc apply -f observability-platform-metrics.yaml
-```
+
+For some basic metrics on Node Memory and API Server:
+
+1. Create a ConfigMap YAML file:
+
+   ```bash
+   cat <<EOF > observability-platform-metrics.yaml
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     name: observability-metrics-custom-allowlist
+     namespace: open-cluster-management-observability
+   data:
+     metrics_list.yaml: |
+       names:
+         - node_memory_MemTotal_bytes
+         - node_memory_MemAvailable_bytes
+         - kubelet_runtime_operations_duration_seconds
+       recording_rules:
+         - record: apiserver_request_duration_seconds:histogram_quantile_90
+           expr: histogram_quantile(0.90,sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver", verb!="WATCH"}[5m])) by (verb,le))
+         - record: etcd_disk_wal_fsync_duration_seconds:histogram_quantile_90
+           expr: histogram_quantile(0.90,sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket[5m])) by (instance,le))
+   EOF
+   ```
+   {: pre}
+
+2. Apply the newly created ConfigMap:
+
+   ```bash
+   oc apply -f observability-platform-metrics.yaml
+   ```
+   {: pre}
+
 For some user workload metrics:
-3. Create a ConfigMap yaml
-```bash
-cat <<EOF > observability-uwl-metrics.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: observability-metrics-custom-allowlist
-  namespace: open-cluster-management-observability
-data:
-  uwl_metrics_list.yaml: |
-    names:
-      - node_memory_MemTotal_bytes
-      - node_memory_MemAvailable_bytes
-EOF
-```
-4. Apply the newly created ConfigMap
-```bash
-oc apply -f observability-uwl-metrics.yaml
-```
+
+1. Create a ConfigMap YAML file:
+
+   ```bash
+   cat <<EOF > observability-uwl-metrics.yaml
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     name: observability-metrics-custom-allowlist
+     namespace: open-cluster-management-observability
+   data:
+     uwl_metrics_list.yaml: |
+       names:
+         - node_memory_MemTotal_bytes
+         - node_memory_MemAvailable_bytes
+   EOF
+   ```
+   {: pre}
+
+2. Apply the newly created ConfigMap:
+
+   ```bash
+   oc apply -f observability-uwl-metrics.yaml
+   ```
+   {: pre}
 
 #### RightSizing Recommendation Dashboard
 {: #observability-design-dashboards-rightsize}

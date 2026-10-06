@@ -146,6 +146,7 @@ To create the MigCluster custom resource, perform the following steps:
 2. Under **Provided APIs**, locate the **MigCluster** tile.
 3. Click **Create MigCluster** (if the system does not create it automatically).
 4. Click **Create**.
+
 ```sh
 oc get nodes --no-headers | awk '{print $1, $2}'
 oc get cephcluster -n openshift-storage -o jsonpath='{.items[0].status.ceph.health}'
@@ -187,8 +188,10 @@ To open the Migration Toolkit for Containers web interface from the OpenShift co
 2. Filter by the `openshift-migration` project.
 3. Locate the **migration** route.
 4. Click the URL in the **Location** column.
+
    If you plan to roll back the migration, select this option before clicking **Next**. Once migration completes with the default setting, the source PVC is deleted and rollback is not possible.
    {: important}
+
 3. Click **Next**.
 
 ### Step 3: Review and start migration
