@@ -496,7 +496,7 @@ NOTE:
 
 To provision {{site.data.keyword.cloud_notm}} Logs and connect it to your OpenShift cluster, perform the following steps:
 
-1. Create a {{site.data.keyword.cloud_notm}} Logs instance
+1. Create {{site.data.keyword.cloud_notm}} Logs instance
     1. ref: [Provision Instance](http://%20https//cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-instance-provision&interface=ui)
     2. This can be done through UI and CLI
 2. Create a Storage Data Bucket
