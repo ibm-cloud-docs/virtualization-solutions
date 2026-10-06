@@ -539,7 +539,7 @@ To remove the {{site.data.keyword.cloud_notm}} Logs integration and delete assoc
 1. Delete the Cloud Logs instance
     1. ref: [Delete ICL instance](/docs/cloud-logs?topic=cloud-logs-instance-remove&interface=ui)
 2. Delete the Storage Data Bucket
-    1. ref: [Delete Bucket](/docs/cloud-object-storage?topic=cloud-object-storage-provision#deleting-a-service-instance)
+    1. ref: [Delete Bucket](/docs/cloud-object-storage?topic=cloud-object-storage-deleting)
 
 #### Logging UI - {{site.data.keyword.cloud_notm}} Logs
 {: #observability-design-logging-ui}

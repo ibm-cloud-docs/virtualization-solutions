@@ -281,7 +281,7 @@ For more information, see the following:
 
 - [Protect critical workloads across hybrid and multi-cloud environments](https://www.rackwareinc.com/rackware-platform/disaster-recovery){: external}
 - [RackWare and {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm){: external}
-- [RackWare RMM users guide for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/documentation){: external}
+- [RackWare RMM users guide for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/resources){: external}
 
 ## Next steps
 {: #virt-sol-vpc-vpc-resiliency-design-next-steps}

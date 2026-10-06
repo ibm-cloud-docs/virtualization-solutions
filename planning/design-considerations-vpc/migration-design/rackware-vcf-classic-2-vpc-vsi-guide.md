@@ -508,5 +508,5 @@ The process is as follows:
 ## References
 {: #virt-sol-vpc-migration-design-rmm-guide-references}
 
-* [RackWare RMM users guide for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/documentation){: external}
-* [RackWare RMM getting started for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/documentation){: external}
+* [RackWare RMM users guide for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/resources){: external}
+* [RackWare RMM getting started for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/resources){: external}
