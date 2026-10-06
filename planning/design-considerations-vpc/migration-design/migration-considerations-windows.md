@@ -282,9 +282,9 @@ The following table is the design decision matrix for Windows
 
 To explore migration execution steps and alternative operating system workflows, review the following resources:
 
-- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-0-overview)
-- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-2)
-- [Method 4: VDDK direct extraction](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-4)
-- [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-migration-considerations-linux)
-- [RackWare RMM migration guide](/docs/virtualization-solutions?topic=virtualization-solutions-rackware-vcf-classic-2-vpc-vsi-guide)
+- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods)
+- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
+- [Method 4: VDDK direct extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
+- [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
+- [RackWare RMM migration guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
 - [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)

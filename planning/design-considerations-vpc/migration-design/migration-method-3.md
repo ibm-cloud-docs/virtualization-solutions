@@ -167,10 +167,10 @@ Live network transfer migration is ideal for large-scale migrations (10+ virtual
 
 To explore alternative migration methods and operational troubleshooting, review the following resources:
 
-- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-0-overview)
-- [Method 1: Image import](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-1)
-- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-2)
-- [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-4)
-- [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-migration-considerations-linux)
-- [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-migration-considerations-windows)
+- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods)
+- [Method 1: Image import](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1)
+- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
+- [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
+- [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
+- [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
 - [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)

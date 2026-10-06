@@ -98,7 +98,7 @@ Explanation
 :   The migration controller may update the VM's `dataVolumeTemplates` with an incorrect `volumeMode` for the target storage class during a stalled migration. Because the DataVolume spec is immutable, the PVC cannot be corrected without recreating the DataVolume. Before the DataVolume can be deleted, the VM's `dataVolumeTemplates` must also be patched. Otherwise, the VM controller immediately recreates it.
 
 Workaround
-:   Follow the recovery procedure in the [VM stuck after failed migration](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-storage-migration#error-vm-spec-updated) troubleshooting section.
+:   Follow the recovery procedure in the [Troubleshooting storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-storage-migration#additional-troubleshooting-resources) troubleshooting section.
 
 ### Issue: NFS target migration fails with SubnetFindFailed — VPC subnet and resource group mismatch
 {: #issue-subnet-find-failed}

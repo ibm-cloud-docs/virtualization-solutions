@@ -133,4 +133,4 @@ Refer to the following resources:
 - [VPC solution tutorials](/docs?tab=solutions)
 - [Libguestfs and virt-v2v](https://libguestfs.org/){: external}
 - [{{site.data.keyword.redhat_full}} Migration Toolkit for Virtualization](https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.11){: external}
-- [VMware VDDK documentation](https://developer.broadcom.com/sdks/vmware-virtual-disk-development-kit-vddk/7.0){: external}
+- [VMware VDDK documentation](https://developer.broadcom.com/sdks/vmware-virtual-disk-development-kit-vddk/latest){: external}

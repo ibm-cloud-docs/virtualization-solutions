@@ -523,13 +523,13 @@ NOTE:
 To provision {{site.data.keyword.cloud_notm}} Logs and connect it to your OpenShift cluster, perform the following steps:
 
 1. Create {{site.data.keyword.cloud_notm}} Logs instance
-    1. ref: [Provision Instance](http://%20https//cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-instance-provision&interface=ui)
+    1. ref: [Provision instance](/docs/cloud-logs?topic=cloud-logs-instance-provision&interface=ui)
     2. This can be done through UI and CLI
 2. Create a Storage Data Bucket
-    1. ref: [Configure Bucket](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-configure-data-bucket)
+    1. ref: [Configure Bucket](/docs/cloud-logs?topic=cloud-logs-configure-data-bucket)
     2. This is required if you want long term data retention or search. the standard Cloud Logs instance has 7 days minimum and 90 days maximum priority log retention
 3. Enable logging with {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster
-    1. ref: [Connect ICL with {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service](https://cloud.ibm.com/docs/openshift?topic=openshift-logging)
+    1. ref: [Connect ICL with {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service](/docs/openshift?topic=openshift-logging)
 
 #### Logging Rollback/Deletion - {{site.data.keyword.cloud_notm}} Logs
 {: #observability-design-logging}
@@ -537,9 +537,9 @@ To provision {{site.data.keyword.cloud_notm}} Logs and connect it to your OpenSh
 To remove the {{site.data.keyword.cloud_notm}} Logs integration and delete associated resources, perform the following steps:
 
 1. Delete the Cloud Logs instance
-    1. ref:  [Delete ICL instance](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-instance-remove&interface=ui)
+    1. ref: [Delete ICL instance](/docs/cloud-logs?topic=cloud-logs-instance-remove&interface=ui)
 2. Delete the Storage Data Bucket
-    1. ref: [Delete Bucket](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-provision#deleting-a-service-instance)
+    1. ref: [Delete Bucket](/docs/cloud-object-storage?topic=cloud-object-storage-provision#deleting-a-service-instance)
 
 #### Logging UI - {{site.data.keyword.cloud_notm}} Logs
 {: #observability-design-logging-ui}
@@ -924,14 +924,14 @@ Many of these features are already available with the OpenShift base observabili
 ##### Installation Instructions
 {: #observability-design-install}
 
-For more information, see [Manual installation process for Sysdig on OpenShift](https://docs.sysdig.com/en/administration/onprem-manual-installation-openshift/){: external} and [Adding an OpenShift cluster to {{site.data.keyword.cloud_notm}} Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-openshift_cluster){: external}.
+For more information, see [Manual installation process for Sysdig on OpenShift](https://docs.sysdig.com/en/administration/onprem-manual-installation-openshift/){: external} and [Adding an OpenShift cluster to {{site.data.keyword.cloud_notm}} Monitoring](/docs/monitoring?topic=monitoring-openshift_cluster).
 
 ##### Agent-based virtual server installation instructions
 {: #observability-design-install-agent}
 
-To install the monitoring agent on Linux virtual server instances, go to **Monitoring Sources** in your {{site.data.keyword.cloud_notm}} Monitoring instance details in the {{site.data.keyword.cloud_notm}} console, and click the **Linux** tab. For more information, see [Monitoring an Ubuntu Linux VPC server instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu){: external}.
+To install the monitoring agent on Linux virtual server instances, go to **Monitoring Sources** in your {{site.data.keyword.cloud_notm}} Monitoring instance details in the {{site.data.keyword.cloud_notm}} console, and click the **Linux** tab. For more information, see [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu).
 
-To install the monitoring agent on Windows virtual server instances, install the exporter that sends metrics to {{site.data.keyword.cloud_notm}} Monitoring. For more information, see [Sysdig Windows integration](https://docs.sysdig.com/en/docs/sysdig-monitor/integrations/integration-library/windows/){: external} and [Monitoring a Windows VPC instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-windows){: external}.
+To install the monitoring agent on Windows virtual server instances, install the exporter that sends metrics to {{site.data.keyword.cloud_notm}} Monitoring. For more information, see [Sysdig Windows integration](https://docs.sysdig.com/en/docs/sysdig-monitor/integrations/integration-library/windows/){: external} and [Monitoring a Windows VPC instance](/docs/monitoring?topic=monitoring-windows).
 
 When installing the Windows agent:
 
@@ -967,16 +967,16 @@ Because both solutions use Prometheus-based data gathering, the decision comes d
 ### {{site.data.keyword.cloud_notm}} Monitoring
 {: #vpc-observability-monitoring}
 
-{{site.data.keyword.cloud_notm}} VPC provides basic monitoring for virtual server instances in the {{site.data.keyword.cloud_notm}} console, including historical compute, networking, storage, and memory usage. Additional monitoring capabilities are available through {{site.data.keyword.cloud_notm}} Monitoring integration, such as defining alerts and designing custom dashboards. This integration requires installing a monitoring agent on each virtual server instance. For an example installation on an Ubuntu virtual server instance, see [Monitoring an Ubuntu Linux VPC server instance](https://cloud.ibm.com/docs/monitoring?topic=monitoring-ubuntu#ubuntu_step3){: external}. For additional instructions, see [Agent-based virtual server installation instructions](#agent-based-virtual-server-installation-instructions).
+{{site.data.keyword.cloud_notm}} VPC provides basic monitoring for virtual server instances in the {{site.data.keyword.cloud_notm}} console, including historical compute, networking, storage, and memory usage. Additional monitoring capabilities are available through {{site.data.keyword.cloud_notm}} Monitoring integration, such as defining alerts and designing custom dashboards. This integration requires installing a monitoring agent on each virtual server instance. For an example installation on an Ubuntu virtual server instance, see [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu#ubuntu_step3). For additional instructions, see [Agent-based virtual server installation instructions](#observability-design-install-agent).
 
-Beyond VSIs, {{site.data.keyword.cloud_notm}} Monitoring supports monitoring overall VPC resource consumption and other VPC services. See [Getting started with {{site.data.keyword.cloud_notm}} Monitoring](https://cloud.ibm.com/docs/monitoring?topic=monitoring-getting-started) for instructions to integrate {{site.data.keyword.cloud_notm}} VPC with {{site.data.keyword.cloud_notm}} Monitoring. See [{{site.data.keyword.cloud_notm}} VPC monitoring dashboards](https://cloud.ibm.com/docs/vpc?topic=vpc-ibm-monitoring) for the list of available dashboards and additional details for each.
+Beyond VSIs, {{site.data.keyword.cloud_notm}} Monitoring supports monitoring overall VPC resource consumption and other VPC services. See [Getting started with {{site.data.keyword.cloud_notm}} Monitoring](/docs/monitoring?topic=monitoring-getting-started) for instructions to integrate {{site.data.keyword.cloud_notm}} VPC with {{site.data.keyword.cloud_notm}} Monitoring. See [{{site.data.keyword.cloud_notm}} VPC monitoring dashboards](/docs/vpc?topic=vpc-ibm-monitoring) for the list of available dashboards and additional details for each.
 
 ### {{site.data.keyword.cloud_notm}} Logs
 {: #vpc-observability-logs}
 
-{{site.data.keyword.cloud_notm}} VPC supports integration with {{site.data.keyword.cloud_notm}} Logs. Platform events generated by {{site.data.keyword.cloud_notm}} VPC can be routed to an {{site.data.keyword.cloud_notm}} Logs instance using {{site.data.keyword.cloud_notm}} Logs Routing. For more information such as the type of platform logs generated, see [Logging for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-logging). Activity tracking events can be routed to an {{site.data.keyword.cloud_notm}} Logs instance using {{site.data.keyword.cloud_notm}} Activity Tracker Events Routing. For more information such as the type of activity tracker events generated, see [Activity tracking events for {{site.data.keyword.cloud_notm}} VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-at_events).
+{{site.data.keyword.cloud_notm}} VPC supports integration with {{site.data.keyword.cloud_notm}} Logs. Platform events generated by {{site.data.keyword.cloud_notm}} VPC can be routed to an {{site.data.keyword.cloud_notm}} Logs instance using {{site.data.keyword.cloud_notm}} Logs Routing. For more information such as the type of platform logs generated, see [Logging for VPC](/docs/vpc?topic=vpc-logging). Activity tracking events can be routed to an {{site.data.keyword.cloud_notm}} Logs instance using {{site.data.keyword.cloud_notm}} Activity Tracker Events Routing. For more information such as the type of activity tracker events generated, see [Activity tracking events for {{site.data.keyword.cloud_notm}} VPC](/docs/vpc?topic=vpc-at_events).
 
-To setup log forwarding to {{site.data.keyword.cloud_notm}} Logs, steps are provided for [Linux](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-linux) and [Windows](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-windows). After initial setup, further configuration can be done to the agent to support the following:
+To setup log forwarding to {{site.data.keyword.cloud_notm}} Logs, steps are provided for [Linux](/docs/cloud-logs?topic=cloud-logs-agent-linux) and [Windows](/docs/cloud-logs?topic=cloud-logs-agent-windows). After initial setup, further configuration can be done to the agent to support the following:
 
 - Collect and route Rsyslog messages from a Syslog server
 - Collect and forward logs from Windows Event Log
