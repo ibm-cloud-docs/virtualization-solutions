@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-07-21"
+  years: 2025, 2026
+lastupdated: "2026-10-06"
 
-keywords: VDDK migration, vCenter API migration, VMware VDDK extraction, libguestfs VDDK, nbdkit VDDK plugin, automated vCenter migration, single-command migration, vSphere API migration, virt-v2v VDDK, programmatic VM extraction
+keywords: VDDK migration VPC, VMware VDDK extraction IBM Cloud, vCenter API migration VPC, nbdkit VDDK plugin, virt-v2v VDDK migration, automated vCenter VM migration IBM Cloud, vSphere API migration VPC, libguestfs VDDK VPC, programmatic VMware migration IBM Cloud, VDDK direct extraction VPC
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrate to IBM Cloud virtual servers using VDDK direct extraction from vCenter
+# {{site.data.keyword.cloud_notm}} VPC: Migrating VMware VMs by using VDDK direct extraction
 {: #virt-sol-vpc-migration-design-method4}
 
-Use VDDK direct extraction with virt-v2v to migrate VMware VMs from vCenter to IBM Cloud VPC virtual servers with automated disk conversion.
+Use VDDK direct extraction with virt-v2v to migrate VMware VMs from vCenter to {{site.data.keyword.cloud_notm}} VPC virtual servers with automated disk conversion.
 {: shortdesc}
 
 ## Architecture components
@@ -35,7 +35,9 @@ The following table describes the architecture components of a VDDK Direct Extra
 ## Overview of the VDDK Direct Extraction migration process
 {: #virt-sol-vpc-migration-design-method4-process}
 
-The following steps layout the process to migrate using VDDK Direct Extraction.
+VDDK direct extraction communicates directly with vCenter and ESXi host APIs to extract, transform, and stream virtual disk data into VPC block devices using `virt-v2v`.
+
+Before you begin, ensure that you have access to vCenter credentials with API privileges, downloaded the VMware VDDK library, and provisioned a RHEL VPC worker instance.
 
 1. Provision RHEL (Red Hat Enterprise Linux) Worker virtual server instance
    1. RHEL 8 or 9 instance
@@ -143,3 +145,16 @@ The following table lists the constraints and limitations of a VDDK Direct Extra
 {: caption="Limitations and constraints for VDDK direct extraction migration method" caption-side="bottom"}
 
 VDDK Direct Extraction migration is powerful for large-scale vCenter migrations where the upfront investment in setup and tooling builds pays off across many virtual machines. Not recommended for small migrations or VCFaaS environments. If you choose this method, budget time for tool setup and testing.
+
+## Related topics
+{: #virt-sol-vpc-migration-design-method4-related}
+
+To explore alternative migration methods and operational troubleshooting, review the following resources:
+
+- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-0-overview)
+- [Method 1: Image import](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-1)
+- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-2)
+- [Method 3: Live network transfer](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-3)
+- [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-migration-considerations-linux)
+- [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-migration-considerations-windows)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)

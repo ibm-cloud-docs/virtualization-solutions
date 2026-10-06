@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: pre-migration planning VPC, workload assessment migration, VMware discovery tools, Transit Gateway connectivity, instance profile selection, VPC storage profiles, migration re-IP planning, security group migration, RVTools VMware inventory, BYOL VPC migration
+keywords: pre-migration planning IBM Cloud VPC, VMware workload assessment IBM Cloud, VMware discovery tools IBM Cloud, Transit Gateway connectivity IBM Cloud, instance profile selection VPC, VPC storage profiles migration, migration re-IP planning IBM Cloud, security group migration IBM Cloud, RVTools VMware inventory IBM Cloud, BYOL VPC migration IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Planning and designing your pre-migration to IBM Cloud VPC
+# Planning {{site.data.keyword.cloud_notm}} VPC pre-migration design
 {: #virt-sol-vpc-migration-design-premigration}
 
-Assess VMware workloads, design Transit Gateway connectivity, and select VPC instance profiles before migrating to IBM Cloud VPC.
+Assess VMware workloads, design Transit Gateway connectivity, select {{site.data.keyword.cloud_notm}} VPC instance profiles, and plan storage before starting your migration.
 {: shortdesc}
 
 ## Workload assessment and categorization
@@ -54,12 +54,12 @@ Keep this information available during the migration process.
 
 Your virtual server might need to talk to each other during migration. It is expected that you migrate one subnet at a time, but you might need multiple subnets if latency is a problem. See the following information about migration connectivity.
 
-### IBM Cloud Transit Gateway
+### {{site.data.keyword.cloud_notm}} Transit Gateway
 {: #virt-sol-vpc-migration-design-premigration-connectivity-tgw}
 
 Transit Gateway is the primary mechanism to connect your VMware environment to your VPC. Think of it as a cloud router that connects different network domains.
 
-From IBM Cloud Classic (VMware on Classic infrastructure)
+From {{site.data.keyword.cloud_notm}} Classic (VMware on Classic infrastructure)
 
 - Transit Gateway connects directly to your Classic account
 - Provides routing between Classic VLANs and VPC subnets
@@ -92,7 +92,7 @@ Instance profiles combine CPU generation, virtual central processing unit (vCPU)
 
 VMware uses oversubscription ratios of 4:1 or 8:1 for vCPU to physical core (pCore). VPC standard instance profiles guarantee a 1:1 ratio of virtual CPUs to hyperthreaded cores. This oversubscription means that an 8 vCPU instance in VPC has 8 dedicated hyperthreads (not 8 vCPUs that can potentially share fewer cores).
 
-IBM Cloud offers burstable virtual servers that you can use for oversubscription ratios of 2:1, 4:1, and 10:1, with the ability to burst up to 2x the guaranteed allocation. For more information about burstable virtual servers, see [Burstable virtual servers](/docs/vpc?topic=vpc-burstable-virtual-servers).
+{{site.data.keyword.cloud_notm}} offers burstable virtual servers that you can use for oversubscription ratios of 2:1, 4:1, and 10:1, with the ability to burst up to 2x the guaranteed allocation. For more information about burstable virtual servers, see [Burstable virtual servers](/docs/vpc?topic=vpc-burstable-virtual-servers).
 
 ### Network bandwidth allocation
 {: #virt-sol-vpc-migration-design-premigration-instance-network}
@@ -143,7 +143,7 @@ Because of these limitations, don't use `sdp` for boot volumes. `sdp` is best fo
 ## Security groups and encryption
 {: #virt-sol-vpc-migration-design-premigration-security}
 
-IBM Cloud VPC offers security groups and encryption options.
+{{site.data.keyword.cloud_notm}} VPC offers security groups and encryption options.
 
 ### Security groups
 {: #virt-sol-vpc-migration-design-premigration-sg}
@@ -174,25 +174,25 @@ VPC encryption details:
 
 - All volumes support encryption at rest by provider-managed or user-managed keys through Key Protect or Hyper Protect Crypto Services (HPCS).
 - Confidential computing profiles offer extra security with Intel SGX and TDX and secure boot.
-- Data in transit between virtual servers and storage is encrypted by the IBM Cloud infrastructure.
+- Data in transit between virtual servers and storage is encrypted by the {{site.data.keyword.cloud_notm}} infrastructure.
 
 Migration considerations:
 
-- For most workloads, IBM Cloud-managed encryption is sufficient and requires no migration-specific work.
+- For most workloads, {{site.data.keyword.cloud_notm}}-managed encryption is sufficient and requires no migration-specific work.
 - For compliance-driven encryption, use Key Protect or HPCS with user-managed keys.
 - If you require secure boot, use a confidential computing profile and avoid `sdp` storage.
 
 ## Licensing options
 {: #virt-sol-vpc-migration-design-premigration-license}
 
-IBM Cloud offers different licensing options for operating systems.
+{{site.data.keyword.cloud_notm}} offers different licensing options for operating systems.
 
-- [IBM Cloud stock images](/docs/vpc?topic=vpc-getting-started-images-on-vpc-stock)
-- [IBM Cloud catalog images](/docs/vpc?topic=vpc-custom-image-cloud-private-catalog)
+- [{{site.data.keyword.cloud_notm}} stock images](/docs/vpc?topic=vpc-getting-started-images-on-vpc-stock)
+- [{{site.data.keyword.cloud_notm}} catalog images](/docs/vpc?topic=vpc-custom-image-cloud-private-catalog)
 - [BYOL (Bring Your Own License)](/docs/vpc?topic=vpc-byol-vpc-about)
 
 Licensing considerations:
 
 - BYOL requires custom images
 - License portability rules vary by vendor - verify compliance
-- IBM Cloud-provided licenses include OS support
+- {{site.data.keyword.cloud_notm}}-provided licenses include OS support

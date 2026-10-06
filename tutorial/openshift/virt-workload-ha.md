@@ -2,10 +2,11 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-01"
+lastupdated: "2026-10-06"
 lasttested: "[{LAST_TESTED_DATE}]"
 
-keywords: Red Hat OpenShift Virtualization, ROVS, NHC, SNR, VM migration, high availability
+keywords: OpenShift Virtualization high availability IBM Cloud, Node Health Check OpenShift IBM Cloud, Self Node Remediation IBM Cloud, ROKS VM high availability, configure HA OpenShift Virtualization IBM Cloud, automatic VM recovery IBM Cloud, NHC SNR OpenShift IBM Cloud, OpenShift Virtualization workload HA, node failure recovery ROKS, high availability VM workloads IBM Cloud
+
 
 subcollection: virtualization-solutions
 
@@ -18,13 +19,14 @@ completion-time: 15m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Configuring high availability for virtualization workloads on Red Hat OpenShift
+# Configuring {{site.data.keyword.redhat_openshift_notm}} Virtualization high availability
 {: #virt-workload-ha}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="15m"}
 
-Learn how to configure Node Health Check (NHC) and Self-Node Remediation (SNR) operators to enable automatic failure detection and recovery for virtualization workloads on {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_full}} on Virtual Private Cloud (VPC) (ROVS).
+Configure {{site.data.keyword.redhat_openshift_notm}} Virtualization high availability by using Node Health Check and Self Node Remediation operators for automatic failure detection and workload recovery on {{site.data.keyword.cloud_notm}}.
+
 {: shortdesc}
 
 ## Objectives
@@ -52,25 +54,27 @@ For more information about setting up the CLI tools, see [Setting up the CLI](/d
 ## High availability for virtualization workloads
 {: #virt-workload-ha-overview}
 
-High availability (HA) for virtualization workloads on ROVS helps ensure that virtual machines (VMs) continue to operate reliably despite infrastructure failures such as worker node outages or hardware issues.
+High availability (HA) for virtualization workloads on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service (ROKS) ensures that virtual machines (VMs) continue to operate reliably despite infrastructure failures such as worker node outages or hardware issues.
+
 
 In a {{site.data.keyword.redhat_openshift_notm}} Virtualization environment running on ROVS, ROVS provides HA through tight integration among {{site.data.keyword.redhat_openshift_notm}} control plane services, Kubernetes scheduling, and {{site.data.keyword.redhat_openshift_notm}} Virtualization operators. The platform continuously monitors the health of worker nodes and VMs. When a worker node becomes unavailable, {{site.data.keyword.redhat_openshift_notm}} automatically detects the failure and triggers recovery actions.
 
-When a node fails, the cluster automatically restarts or migrates the affected virtual machines to healthy worker nodes. Shared, resilient storage — both {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) and Network File System (NFS) — enables VM restart and migration, and helps ensure that VM disks remain accessible across nodes during failover events.
+Virtual machines affected by a node failure are automatically restarted or migrated to healthy worker nodes in the cluster. This process is enabled by shared, resilient storage, both {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) and NFS, which ensures that VM disks remain accessible across nodes during failover events.
 
-Key capabilities that enable HA on {{site.data.keyword.cloud_notm}} ROVS include:
+Key capabilities that enable HA on {{site.data.keyword.cloud_notm}} ROKS include:
+
 
 * Operator-driven node remediation through NHC and SNR to detect unhealthy nodes and recover VMs automatically
 * Kubernetes-based scheduling to place recovered VMs on available worker nodes
 * Resilient, shared storage by using ODF and NFS to support VM restart and migration
 * Reduced operational complexity and recovery time through minimal manual intervention
 
-By using {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}} ROVS, you can run critical virtualization workloads with improved reliability and built-in high availability to meet enterprise availability and business continuity requirements. NHC and SNR implement this capability on ROVS by automating failure detection and node remediation, which delivers faster recovery and reduces operational burden for mission-critical workloads.
+By using OpenShift Virtualization on {{site.data.keyword.cloud_notm}} ROKS, you can run critical virtualization workloads with improved reliability, faster recovery, and built-in high availability aligned with enterprise availability and business continuity requirements.
 
 ### Node Health Check and Self-Node Remediation integration
 {: #virt-workload-ha-nhc-snr}
 
-To further enhance high availability for virtualization workloads on {{site.data.keyword.cloud_notm}} ROVS, Node Health Check (NHC) and Self-Node Remediation (SNR) work together to automatically detect unhealthy worker nodes and recover them without manual intervention.
+To further enhance high availability for virtualization workloads on {{site.data.keyword.cloud_notm}} ROKS, Node Health Check (NHC) and Self Node Remediation (SNR) work together to automatically detect unhealthy worker nodes and recover them without manual intervention. This proactive remediation helps prevent prolonged outages and improves overall cluster resilience.
 
 Node Health Check (NHC) continuously monitors the health of worker nodes by evaluating conditions such as node readiness, `kubelet` status, and heartbeat signals. When a node becomes unhealthy or unresponsive beyond a defined threshold, NHC determines that the node requires remediation and triggers corrective actions.
 
@@ -82,7 +86,10 @@ NHC and SNR integration is especially critical for {{site.data.keyword.redhat_op
 * The cluster automatically migrates virtual machines from failed nodes to healthy nodes.
 * The cluster allows remediated nodes to safely rejoin and resume hosting workloads after recovery.
 
-Red Hat&reg; also provides Fence Agents Remediation (FAR) to implement remediation by hardware or power-based fencing through Baseboard Management Controller (BMC) API, which ROVS worker nodes do not currently support.
+By combining NHC for detection and SNR for automated remediation, OpenShift Virtualization on {{site.data.keyword.cloud_notm}} ROKS achieves faster failure response, reduced operational burden, and improved continuity for mission-critical virtualization workloads.
+
+Red Hat also provides Fence Agents Remediation (FAR) to implement remediation by hardware or power-based fencing through BMC API, which is not currently supported on worker nodes of ROKS.
+
 {: note}
 
 ## Disable outbound traffic protection and enable the operator catalog
@@ -131,8 +138,8 @@ If outbound traffic protection is enabled (the default setting), the Red Hat Ope
    ```
    {: pre}
 
-To view the list of operators in each `CatalogSource`, in the {{site.data.keyword.redhat_openshift_notm}} console, go to **Administration** > **CustomResourceDefinitions** > **OperatorHub details**.
-{: tip}
+You can view the list of operators in each CatalogSource from the {{site.data.keyword.redhat_openshift_notm}} Console by navigating to **Administration** > **CustomResourceDefinitions** > **OperatorHub details**.
+
 
 ## Install the Node Health Check and Self-Node Remediation operators
 {: #virt-workload-ha-install-operators}
@@ -267,7 +274,9 @@ The `NodeHealthCheck` custom resource (CR) defines the specific criteria and thr
 ### Create a `NodeHealthCheck` resource
 {: #virt-workload-ha-create-nhc}
 
-1. In the {{site.data.keyword.redhat_openshift_notm}} console, go to **Operators** > **Installed Operators** (**Project:** ***openshift-workload-availability***) > **Node Health Check Operator** > **Node Health Check**.
+To define node health criteria and configure remediation triggers by using the OpenShift console or CLI, perform the following steps:
+
+1. In the OpenShift Console, navigate to **Operators** > **Installed Operators** (Project: `openshift-workload-availability`) > **Node Health Check Operator** > **Node Health Check**.
 
 2. Click **Create NodeHealthCheck** and provide the required parameters.
 

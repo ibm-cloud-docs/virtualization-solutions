@@ -2,10 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-08-20"
+lastupdated: "2026-10-06"
 
 keywords: Red Hat OpenShift Virtualization, virtual servers, Red Hat OpenShift Kubernetes Service, VSI, ODF, RBD, OpenShift Data Foundation ODF, Ceph storage virtual machines, ODF storage classes configuration, VM live migration storage, replicated pools erasure coding, RBD block storage VMs, ODF capacity planning, snapshot backup VMs, bare metal NVMe storage, vSAN migration ODF
-
 
 subcollection: virtualization-solutions
 
@@ -22,7 +21,8 @@ completion-time: 60m
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-Deploy {{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) for VM workloads: configure Ceph storage pools, set up storage classes, enable live migration, and implement backup solutions.
+
+Configure {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) as the storage backend for virtual machine workloads on {{site.data.keyword.cloud_notm}} OpenShift Virtualization.
 {: shortdesc}
 
 {{site.data.keyword.redhat_openshift_full}} Data Foundation (ODF) is the validated and supported storage solution for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service. It is recommended that you use ODF as the storage backend for {{site.data.keyword.redhat_openshift_notm}} Virtualization.
@@ -206,6 +206,9 @@ See the following example of calculations for a 3-node cluster with 8 x 3.2 TB N
 | rep1 (nonresilient) | 1.0x | 76.8 TB | 100% |
 {: caption="Usable capacity by data protection type for a 3-node cluster"}
 
+
+Ceph performance degrades as cluster usage increases. The following thresholds are the default values defined by the Ceph storage system and surfaced by ODF as OSD alert conditions (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}):
+
 Virtual machine workload capacity estimation: A typical virtual machine workload with a 30 GB root disk and a 100 GB data disk uses 130 GB of usable storage. With rep3, that virtual machine workload requires 390 GB of raw storage. On the preceding 3-node cluster, you might provision approximately 196 virtual machine workloads of this size. In practice, keep Ceph usage less than 75% to maintain performance and support recovery operations.
 
 Ceph performance degrades as cluster usage increases. ODF fires the `CephOSDNearFull` Prometheus alert when any OSD exceeds 75% usage. At 85%, Ceph sets the native `nearfull` OSD flag (`mon_osd_nearfull_ratio`) and ODF fires the `CephOSDCriticallyFull` alert. At 90%, Ceph stops backfill and recovery operations to the affected OSD (`mon_osd_backfillfull_ratio`). At 95%, Ceph marks the OSD `full` (`mon_osd_full_ratio`), blocks all writes, and issues `HEALTH_ERR`. Plan your capacity so that usage stays under 70% during normal operations, allowing headroom for data recovery and rebalancing during node maintenance or failures.
@@ -291,7 +294,7 @@ ODF supports deduplication only for object storage through the Multicloud Object
 
 For more information, see [ODF Essentials versus Advanced](/docs/openshift?topic=openshift-ocs-storage-prep&interface=cli#odf-essentials-vs-advanced).
 
-## Set up ODF on Red Hat OpenShift Kubernetes Service
+## Set up ODF on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service
 {: #set-up-odf-storage}
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service VPC clusters currently supports only bare metal worker nodes. Virtualized worker nodes are not supported for ODF storage clusters.
@@ -383,7 +386,7 @@ To allow workloads to automatically use high-performance ODF-backed persistent b
 ## Running virtual servers on ODF
 {: #running-vms-on-odf}
 
-Use the following information to run virtual servers on ODF.
+Learn how to deploy, configure, and manage virtual machine workloads backed by persistent {{site.data.keyword.redhat_openshift_notm}} Data Foundation storage.
 
 ### Prerequisites: Install the Red Hat OpenShift virtualization operator
 {: #prerequisites-for-odf}
@@ -458,6 +461,9 @@ Generic RBD StorageClasses remain suitable for container workloads, but virtuali
 {: #separate-compute-storage}
 
 To implement separate worker pools for compute and storage on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, first plan your cluster architecture with dedicated worker pools. Create a storage worker pool that uses storage-optimized profiles for ODF. Then, create one or more compute worker pools that use balanced or compute-optimized profiles for application workloads.
+
+
+The following diagram shows the recommended ODF cluster architecture with dedicated storage and compute worker pools on {{site.data.keyword.cloud_notm}} VPC.
 
 When you install the ODF add-on, specify the storage worker pool, which automatically applies taints to prevent nonstorage pods or virtual machines from scheduling on those nodes from storage worker pool.
 
@@ -629,6 +635,9 @@ ODF supports BlueStore inline compression on Ceph block pools, which can reduce 
 #### How it works
 {: #how-compression-works}
 
+
+When you enable compression on a pool, Ceph compresses each data chunk before writing it to disk. On read, Ceph transparently decompresses the chunk. The `compression_required_ratio` parameter sets a threshold: if a chunk does not compress to at least 87.5% of its original size, Ceph stores the data uncompressed to avoid wasting CPU cycles on negligible savings (see [BlueStore compression in the Ceph documentation](https://docs.ceph.com/en/latest/rados/configuration/bluestore-config-ref/#inline-compression){: external}). ODF does not retroactively compress data that was written before compression was enabled; only new writes are affected.
+
 - If a chunk does not compress to at least 87.5% of its original size
 - Ceph stores that it decompressed to avoid wasting CPU on negligible savings.
 - Data written before compression was enabled is not retroactively compressed; only new writes are affected.
@@ -643,6 +652,8 @@ ODF supports BlueStore inline compression on Ceph block pools, which can reduce 
 | zlib | Moderate | Moderate | Middle ground between snappy and zstd. |
 | zstd | 36–50% | 21–66% IOPS reduction | Best compression ratio, but highest CPU cost. Not recommended for latency-sensitive workloads. |
 {: caption="BlueStore compression algorithms compared"}
+
+Space savings and IOPS impact figures are based on general-purpose workload benchmarks from the Ceph community. Actual results vary by data compressibility and storage hardware. For reference, see [BlueStore compression in the Ceph documentation](https://docs.ceph.com/en/latest/rados/configuration/bluestore-config-ref/#inline-compression){: external}.
 
 #### Compression use cases
 {: #compression-use-cases}
@@ -923,7 +934,7 @@ Health states:
 | ------ | ------- | ------ |
 | `HEALTH_OK` | All components are working correctly, all data fully replicated. | None, normal operation. |
 | `HEALTH_WARN` | Noncritical issue. The cluster is operational, but something needs attention. | Investigate with `ceph health detail`. Common causes: almost full OSDs, degraded PGs recovering, clock skew between MONs. |
-| `HEALTH_ERR` | Critical issue. Data availability or durability might be at risk. | Investigate immediately. Common causes: OSDs down, PGs not recovering, cluster full. |
+| `HEALTH_ERR` | Critical issue. Data availability or durability is at risk. | Investigate immediately. Common causes: OSDs down, PGs not recovering, cluster full. |
 {: caption="Ceph health states and recommended actions"}
 
 To see detailed warnings, use the following command:
@@ -958,8 +969,8 @@ oc exec -n openshift-storage ${TOOLS_POD} -- ceph df
 
 Important columns:
 
-- %RAW USED: Overall cluster usage. Keep it under 70% for optimal operation.
-- MAX AVAIL*per pool: The amount of additional data that can be written to the pool, accounting for replication.
+- %RAW USED: Overall cluster usage. Keep it under 70% for optimal operation (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}).
+- MAX AVAIL per pool: The amount of additional data that can be written to the pool, accounting for replication.
 
 #### Check pool statistics
 {: #checking-pool-statistics}
@@ -972,7 +983,7 @@ oc exec -n openshift-storage ${TOOLS_POD} -- ceph osd pool stats
 
 This command outputs real-time I/O statistics per pool, which help identify which pools are under load.
 
-#### Monitor through the Red Hat OpenShift web console
+#### Monitor through the {{site.data.keyword.redhat_openshift_notm}} web console
 {: #monitoring-web-console}
 
 ODF integrates with the **{{site.data.keyword.redhat_openshift_notm}} web console** to provide the following information.
@@ -981,7 +992,7 @@ ODF integrates with the **{{site.data.keyword.redhat_openshift_notm}} web consol
 - Observe > Alerting shows automated alerts on Ceph health warnings (for example, `CephClusterNearFull`, `CephOSDDown`, `CephPGNotScrubbed`).
 - Observe > Metrics for Prometheus-based queries on Ceph metrics (for example, `ceph_osd_op_r_latency`, `ceph_osd_op_w_latency`).
 
-### Upgrading ODF on Red Hat OpenShift Kubernetes Service
+### Upgrading ODF on {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service
 {: #upgrading-odf}
 
 The {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) addon automatically applies z-stream updates within the same minor release. These updates are managed through {{site.data.keyword.cloud_notm}}.
@@ -1090,7 +1101,7 @@ Write latency returns to baseline after rebalancing completes. Plan node additio
 - Plan capacity to stay under 70% cluster usage. For multi-zone clusters, scale ODF nodes in multiples of 3; single-zone and flexible-scaling clusters can scale granularly.
 - Install the QEMU guest agent in all production VMs for application-consistent snapshots.
 - Monitor Ceph health regularly and investigate `HEALTH_WARN` promptly before issues escalate.
-- Use the **Performance** resource profile for all bare-metal NVMe production deployments. The Balanced profile does not provide sufficient Ceph daemon resources for high-density NVMe nodes and caps IOPS before the hardware is saturated.
+- Use the **Performance** profile for all bare-metal NVMe production deployments. The Balanced profile does not provide sufficient Ceph daemon resources for high-density NVMe nodes and caps IOPS before the hardware is saturated.
 - After ODF is deployed on bare-metal, apply the recommended Ceph NVMe tuning parameters (`osd_memory_target`, `osd_op_num_shards_ssd`, RocksDB write buffer settings) to maximize IOPS for VM disk workloads. See [Ceph performance tuning for NVMe bare-metal](#ceph-performance-tuning).
 - When selecting nodes during StorageSystem creation, select only nodes in the dedicated storage worker pool, not all cluster nodes. Selecting all nodes creates a LocalVolumeSet with no `nodeSelector`, which causes future non-ODF worker nodes to be automatically detected and require manual cleanup.
 - Flexible scaling is automatically enabled for single-zone and fewer-than-3-AZ clusters; those deployments use a `host` failure domain and can scale granularly. Multi-zone clusters use a `zone` failure domain and must grow in multiples of 3. Flexible scaling behavior is fixed at initial deployment and cannot be changed afterward.

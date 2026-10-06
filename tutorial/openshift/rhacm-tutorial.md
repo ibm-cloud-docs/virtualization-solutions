@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: RHACM observability tutorial, multi-cluster monitoring OpenShift, Grafana dashboard configuration, custom alert rules Prometheus, Thanos metrics collection, Alertmanager notification setup, OpenShift Virtualization monitoring, VM metrics dashboards, Slack alert integration, right-sizing recommendations
+keywords: RHACM observability tutorial IBM Cloud, multi-cluster monitoring OpenShift IBM Cloud, Grafana dashboard OpenShift Virtualization IBM Cloud, Prometheus custom alert rules ROKS, Thanos metrics collection IBM Cloud, Alertmanager notification OpenShift IBM Cloud, OpenShift Virtualization VM metrics IBM Cloud, RHACM monitoring dashboards IBM Cloud, right-sizing VMs OpenShift IBM Cloud, RHACM Grafana IBM Cloud tutorial
 
 
 subcollection: virtualization-solutions
@@ -21,7 +21,7 @@ compliance: HIPPA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Implementing observability with Red Hat Advanced Cluster Management (RHACM)
+# {{site.data.keyword.redhat_openshift_notm}} Virtualization: RHACM observability
 {: #rhacm-overview}
 {: #vsphere-openshift-rhacm}
 {: #tutorial-rhacm-overview}
@@ -32,7 +32,7 @@ compliance: HIPPA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPPA"}
 
-Set up Red Hat Advanced Cluster Management (RHACM) observability for Red Hat OpenShift Virtualization on IBM Cloud, including Grafana dashboards and custom Prometheus alert rules.
+Set up Red Hat Advanced Cluster Management (RHACM) observability for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, including Grafana dashboards, Prometheus metrics, and custom alert rules.
 {: shortdesc}
 
 ## Introduction to Red Hat Openshift Virtualization
@@ -50,7 +50,7 @@ By default, {{site.data.keyword.redhat_openshift_notm}} provides several observa
 - Thanos Querier - Provides an interface to collect query metrics
 - Alertmanager - Receives alerts from Prometheus and sends them to external systems
 
-{{site.data.keyword.redhat_openshift_notm}} automatically deploys these components in the **Openshift-monitoring namespace** during the Red Hat OpenShift Container Platform deployment. You can access dashboards and configuration of these components from the **Observe** section in the **Administration view**.
+{{site.data.keyword.redhat_openshift_notm}} automatically deploys these components in the **Openshift-monitoring namespace** during the {{site.data.keyword.redhat_openshift_notm}} Container Platform deployment. You can access dashboards and configuration of these components from the **Observe** section in the **Administration view**.
 
 Alerting displays the current alerts, alerting rules, and supports viewing and adding alert silencing rules. You use the metrics page to run PromQL queries and to receive metrics data. Dashboards display graphs from a preset list. Targets are the defined list of endpoints that the metrics server calls to receive data from different components. The logs section appears after you install and configure {{site.data.keyword.redhat_openshift_notm}} Logging. For more information about the design and components, see [Monitoring stack architecture](https://docs.redhat.com/en/documentation/monitoring_stack_for_red_hat_openshift/4.20/html/about_monitoring/index#monitoring-stack-architecture){: external}
 
@@ -69,9 +69,9 @@ For more information, see [RHACM Observability architecture](https://docs.redhat
 {: #openshift-virt-observ-installing}
 {: step}
 
-To install Red Hat Advanced Cluster Management on an Red Hat OpenShift Container Platform instance, use the following steps.
+To install Red Hat Advanced Cluster Management on an {{site.data.keyword.redhat_openshift_notm}} Container Platform instance, use the following steps.
 
-1. Log in to your Red Hat OpenShift Container Platform instance.
+1. Log in to your {{site.data.keyword.redhat_openshift_notm}} Container Platform instance.
 2. Go to **Ecosystem > Software catalog** and select a **namespace**.
 3. Search for **Advanced cluster management for Kubernetes**.
 4. Click **Install** if it is not installed.
@@ -88,7 +88,7 @@ To install Red Hat Advanced Cluster Management on an Red Hat OpenShift Container
 If you use ODF, verify that the **ocs-storagecluster-ceph-rdb-virtualization** class is set as the default. If it is not, click the three dots on the **StorageClass required** and select **Set as default**.
 {: note}
 
-If you configure Thanos with IBM Cloud Object Storage, the `thanos-object-storage.yaml` looks similar to the following example.
+If you configure Thanos with {{site.data.keyword.cloud_notm}} Object Storage, the `thanos-object-storage.yaml` looks similar to the following example.
 
 ```yaml
 apiVersion: v1
@@ -187,7 +187,7 @@ You can set up **Custom alerts** if default system alerts. The Red Hat Advanced 
 
 For system alerts (handled by `openshift-monitoring` namespace), follow these steps to configure alerts. System alerts support integration with Pagerduty, Slack, email, and other notification services.
 
-1. Log in to your Red Hat OpenShift Container Platform instance.
+1. Log in to your {{site.data.keyword.redhat_openshift_notm}} Container Platform instance.
 2. Go to **Administration > Cluster settings > Alertmanager**.
 3. Configure the existing **Receivers** that are listed at the end of the table, or click **Create receiver** and enter an appropriate name.
 4. In the **Receiver type**, select one from the receiver list.
@@ -198,7 +198,7 @@ For system alerts (handled by `openshift-monitoring` namespace), follow these st
     1. For example, **severity = critical** includes all critical alerts, and **severity = warning** includes all warning alerts.
     2. To send notifications for all alerts, keep this field blank.
 
-Click the **Alerting rules** tab to view the existing default rules for system alerts. For example, the alerting rules for the Ceph storage cluster trigger an alert when storage usage exceeds 75%.
+Click the **Alerting rules** tab to view the existing default rules for system alerts. For example, the alerting rules for the Ceph storage cluster trigger an alert when storage usage exceeds 75% (the default `CephOSDNearFull` threshold; see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}).
 
 #### Creating custom alerts
 {: #observability-design-custom-alerts}
@@ -420,7 +420,7 @@ See the following links for extra Observability information.
 After you implement Observability for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, consider the following information.
 
 - Backup and recovery: [Implement backup solutions for your virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup)
-- Migration: [Learn about migrating workloads to Red Hat OpenShift Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design-mtv)
+- Migration: [Learn about migrating workloads to {{site.data.keyword.redhat_openshift_notm}} Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-migration-design-mtv)
 - Design considerations: Review comprehensive design guidance for production deployments:
    - [Compute design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-compute-design)
    - [Networking design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design)

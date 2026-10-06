@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: Veeam restore performance troubleshooting, slow restore VBR VPC, worker instance restore bottlenecks, COS archive tier retrieval, SOBR restore performance issues, network throughput restore optimization, VBR recovery time objectives RTO, temporary worker VSI resources, Veeam restore job failures, VPC restore connectivity problems
+keywords: Veeam restore troubleshooting IBM Cloud, slow restore Veeam VBR IBM Cloud VPC, worker instance restore bottlenecks IBM Cloud, COS archive tier retrieval IBM Cloud, SOBR restore performance IBM Cloud, Veeam restore RTO IBM Cloud VPC, temporary worker VSI restore IBM Cloud, Veeam restore connectivity failures IBM Cloud, Veeam VBR restore IBM Cloud troubleshooting, network throughput restore IBM Cloud VPC
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Troubleshooting Veeam Backup & Replication restore issues on IBM Cloud VPC
+# Troubleshooting Veeam Backup & Replication restores on {{site.data.keyword.cloud_notm}} VPC
 {: #troubleshooting-vbr-vpc-vsi-integration-restore}
 
-Troubleshoot Veeam Backup & Replication restore issues on IBM Cloud VPC, including slow restore performance and connectivity failures.
+Troubleshoot Veeam Backup & Replication restore issues on {{site.data.keyword.cloud_notm}} VPC, including slow restore performance, connectivity failures, and worker server configuration.
 {: shortdesc}
 
 The troubleshooting section helps you identify common restore issues and provide actions to resolve them.
@@ -33,7 +33,7 @@ When restoring virtual server instances using Veeam Backup & Replication, the re
 ### What is happening?
 {: #tsSymptoms-vbr-vpc-vsi-integration-restore-slow}
 
-You might experience one or more of the following symptoms:
+This issue produces one or more of the following symptoms:
 
 - The restore job shows slow progress in the Veeam Backup & Replication console, with transfer rates significantly below expected throughput.
 - The estimated time remaining for the restore operation continues to increase or remains unusually high.
@@ -46,10 +46,10 @@ You might experience one or more of the following symptoms:
 
 Several factors can contribute to slow restore performance:
 
-- Network connectivity issues: Poor network connectivity between the temporary worker virtual server instance and the Veeam Backup & Replication server can significantly impact restore speeds. This includes high latency, packet loss, or insufficient bandwidth.
-- Repository performance bottlenecks: The Scale-Out Backup Repository (SOBR) might be experiencing performance issues due to high concurrent operations, storage backend limitations, or insufficient resources on the repository server.
+- Network connectivity issues: Poor network connectivity between the temporary worker virtual server instance and the Veeam Backup & Replication (VBR) server can significantly impact restore speeds. This includes high latency, packet loss, or insufficient bandwidth.
+- Repository performance bottlenecks: Scale-Out Backup Repository (SOBR) performance bottlenecks cause slow restores when concurrent operations are high, storage backend capacity is limited, or the repository server has insufficient resources.
 - {{site.data.keyword.cos_short}} tier limitations: If backups are stored in {{site.data.keyword.cos_full}} archive or cold storage tiers, retrieval times are significantly slower than standard storage tiers. Data must be restored from archive storage before it can be accessed.
-- Insufficient worker virtual server instance resources: The temporary worker virtual server instance might not have adequate CPU, memory, or network bandwidth to handle the restore operation efficiently.
+- Insufficient worker virtual server instance resources: Restore operations fail or run slowly when the temporary worker virtual server instance has insufficient CPU, memory, or network bandwidth.
 - Firewall or security group restrictions: Overly restrictive firewall rules or security group configurations can limit network throughput or cause connection timeouts during the restore process.
 - Concurrent backup or restore operations: Multiple simultaneous backup or restore jobs competing for the same resources can reduce the performance of individual operations.
 - Geographic distance: Large geographic distances between the Veeam server, {{site.data.keyword.cos_short}} bucket, and target virtual server instance can introduce latency that affects restore performance.

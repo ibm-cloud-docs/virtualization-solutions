@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: storage migration troubleshooting OpenShift, Calico network policy rollback error, live migration size mismatch, MTC migration toolkit errors, KubeVirt live migration failures, PVC size mismatch migration, calico-tier-getter permissions, bandwidthPerMigration configuration, OpenShift VM storage migration, migration rollback RBAC issues
+keywords: storage migration troubleshooting IBM Cloud, Calico network policy rollback error IBM Cloud, live migration size mismatch IBM Cloud, MTC migration toolkit errors IBM Cloud, KubeVirt live migration failures IBM Cloud, PVC size mismatch VPC migration, calico-tier-getter permissions IBM Cloud, bandwidthPerMigration configuration IBM Cloud, OpenShift VM storage migration IBM Cloud, migration rollback RBAC IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Troubleshooting storage migration in IBM Cloud VPC
+# Troubleshooting storage migration in {{site.data.keyword.cloud_notm}} VPC
 {: #troubleshooting-storage-migration}
 
-Troubleshoot storage migration in IBM Cloud VPC, including Calico network policy forbidden errors and live migration size mismatch failures.
+Troubleshoot storage migration in {{site.data.keyword.cloud_notm}} VPC, including Calico network policy forbidden errors and live migration size mismatch failures.
 {: shortdesc}
 
 If you encounter issues during storage migration, review the following common problems and their solutions.
@@ -58,6 +58,8 @@ For more information, refer to the [GitHub Issue #10110](https://github.com/proj
 
 ### How do you fix it?
 {: #tsResolve-live-migration-size}
+
+To resolve live migration disk size mismatch errors, perform the following steps:
 
 1. Verify the VM storage class in {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 2. Check whether the migration succeeded despite the error.

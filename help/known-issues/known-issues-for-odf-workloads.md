@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: OpenShift Data Foundation ODF issues, NVMe drive mounting problems, ROKS cluster provisioning NVMe, bare metal NVMe disk visibility, ODF storage node troubleshooting, NVMe disk recovery OpenShift, cluster provisioning storage issues, OpenShift NVMe configuration, ODF bare metal known issues, NVMe drive verification ROKS
+keywords: ODF known issues IBM Cloud, NVMe drive mounting problems IBM Cloud, ROKS bare metal NVMe issues, ODF storage node troubleshooting IBM Cloud, NVMe disk recovery OpenShift IBM Cloud, bare metal NVMe disk visibility IBM Cloud, ODF bare metal known issues IBM Cloud, OpenShift Data Foundation issues IBM Cloud, NVMe drive verification ROKS, ROKS cluster provisioning NVMe IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,15 +13,15 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Known issues and limitations for Red Hat OpenShift Data Foundation workloads
+# {{site.data.keyword.redhat_openshift_notm}} Virtualization ODF workloads: Known issues
 {: #known-issues-for-odf-workloads}
 
-Review known issues for Red Hat OpenShift Data Foundation workloads on IBM Cloud, including NVMe drive mounting failures and workarounds.
+Review known ODF storage workload issues on {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, including NVMe drive mounting failures and recommended workarounds.
 {: shortdesc}
 
 This list reflects known issues and limitations at the time of publication. Review this page periodically for updates as new capabilities are released.
 
-## NVMe drives not mounting correctly after Red Hat OpenShift Kubernetes Service cluster provisioning
+## NVMe drives not mounting correctly after {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster provisioning
 {: #nvme-drives-not-mounting-after-cluster-provisioning}
 
 **Issue**: In some cases, NVMe drives do not mount correctly after the {{site.data.keyword.redhat_openshift_full}} Kubernetes Service cluster is provisioned.

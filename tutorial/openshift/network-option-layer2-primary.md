@@ -2,10 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-22"
+lastupdated: "2026-10-06"
 lasttested: "[{LAST_TESTED_DATE}]"
 
-keywords: Layer 2 primary network OpenShift, CUDN OpenShift Virtualization, User-Defined Network tutorial, OVN-Kubernetes Layer 2, BGP routing OpenShift, three-tier application OpenShift, namespace networking, FRR BGP configuration, ClusterUserDefinedNetwork, FRR configuration, static routes
+keywords: Layer 2 primary network OpenShift IBM Cloud, CUDN OpenShift Virtualization IBM Cloud, OVN-Kubernetes Layer 2 IBM Cloud, BGP routing OpenShift IBM Cloud, three-tier application OpenShift Virtualization, ClusterUserDefinedNetwork tutorial, FRR BGP configuration OpenShift, namespace networking OpenShift IBM Cloud, OVN Layer 2 primary UDN IBM Cloud, user-defined network tutorial ROKS
 
 subcollection: virtualization-solutions
 
@@ -18,22 +18,19 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Layer 2 primary user-defined network (UDN) examples for Red Hat OpenShift Virtualization
+# Configuring Layer 2 primary UDN for {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #layer-2-primary-udn-examples-for-red-hat-openshift-virtualization}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
-Configure CUDN Layer 2 primary networks on Red Hat OpenShift Virtualization on IBM Cloud, with BGP route advertisement to VPC subnets.
+Configure CUDN Layer 2 primary networks on {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, with BGP route advertisement and static routing to {{site.data.keyword.cloud_notm}} VPC subnets.
 {: shortdesc}
 
 ## Overview
 {: #layer2-primary-overview}
 
-Create a three-tier application that uses CUDN layer 2 primary networks on Red Hat OpenShift Virtualization with BGP route advertisement and {{site.data.keyword.vpc_short}} static routing.
-{: shortdesc}
-
-This tutorial shows you how to create an example three-tier application by using Cluster-User-Defined Network (CUDN) layer 2 primary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on {{site.data.keyword.containerlong_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization to layer 2 primary networks. The tutorial also shows how Border Gateway Protocol (BGP) advertises pod subnets back into {{site.data.keyword.vpc_short}} by using static {{site.data.keyword.vpc_short}} routes. For more information about network types, see [Open Virtual Network (OVN) networking in Red Hat OpenShift for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
+This tutorial shows you how to create an example three-tier application by using Cluster-User-Defined Network (CUDN) layer 2 primary networks and namespaces on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on {{site.data.keyword.containerlong_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization to layer 2 primary networks. The tutorial also shows how Border Gateway Protocol (BGP) advertises pod subnets back into {{site.data.keyword.vpc_short}} by using static {{site.data.keyword.vpc_short}} routes. For more information about network types, see [Open Virtual Network (OVN) networking in {{site.data.keyword.redhat_openshift_notm}} for vSphere administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
 
 The example deploys a three-tier application with two layer 2 primary networks, each in its own namespace. The `green` namespace hosts the web and database tiers on one layer 2 network, and the `white` namespace hosts the application tier on a separate layer 2 network. BGP route advertisements from OVN-Kubernetes combined with static {{site.data.keyword.vpc_short}} routes that point the CUDN subnets to the worker node IP addresses provide routing between the cluster networks and the rest of {{site.data.keyword.vpc_short}}.
 
@@ -60,7 +57,7 @@ Each code block in this tutorial can be copied to a file and applied with `oc ap
 {: #layer2-primary-review-network-prerequisites}
 {: step}
 
-If you use {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, review [Red Hat OpenShift Kubernetes Service OVN UDN/CUDN network prerequisites](/docs/virtualization-solutions?topic=virtualization-solutions-udn-prerequisites) before you begin.
+If you use {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, review [{{site.data.keyword.redhat_openshift_notm}} Kubernetes Service OVN UDN/CUDN network prerequisites](/docs/virtualization-solutions?topic=virtualization-solutions-udn-prerequisites) before you begin.
 
 ## Creating a BGP peering or placeholder
 {: #layer2-primary-bgp}

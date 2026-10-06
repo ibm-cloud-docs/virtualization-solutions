@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-09-17"
+lastupdated: "2026-10-06"
 
 keywords: storage migration known issues OpenShift, VirtualMachineStorageMigrationPlan existing plan error, storage class conversion problems, nodeSelector migration warnings, volume capacity mismatch migration, OpenShift storage class migration, namespace migration plan conflicts, PVC migration issues OpenShift, migration plan deletion workflow, SubnetFindFailed VPC file storage, deleteSource retentionPolicy, source PVC deleted migration, ibm-cloud-provider-data subnet vpc file csi driver, SubnetFindFailed RC:404, VPC subnet resource group mismatch
 
@@ -12,10 +12,11 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Storage migration known issues and limitations
+# {{site.data.keyword.cloud_notm}} OpenShift Virtualization storage migration: Known issues
 {: #known-issues-storage-migration}
 
-Review known issues for VM storage migration on {{site.data.keyword.redhat_openshift_notm}} Virtualization.
+
+Review known issues for VM storage migration on {{site.data.keyword.cloud_notm}} OpenShift Virtualization, including MigPlan conflicts and volume capacity mismatches.
 {: shortdesc}
 
 This list reflects known issues and limitations at the time of publication. Review this page periodically for updates as new capabilities are released.
@@ -75,6 +76,9 @@ Workaround
 
 Warning message
 :   "Migrating data of the following volumes can result in a failure either due to mismatch in their requested and actual capacities or disk usage close to 100%."
+
+This message is emitted verbatim by the Migration Toolkit for Containers (MTC) controller. The value `100%` in this context is a threshold condition reported by the MTC controller, not a measured percentage.
+{: note}
 
 Explanation
 :   The storage class API does not report which access modes it supports or whether a capacity mismatch exists between the source and target PVC.

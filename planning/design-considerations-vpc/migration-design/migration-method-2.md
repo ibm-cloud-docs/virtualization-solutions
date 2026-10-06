@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-07-21"
+  years: 2025, 2026
+lastupdated: "2026-10-06"
 
-keywords: volume copy migration, multi-disk migration VPC, virt-v2v driver injection, worker VM migration, ephemeral instance VPC, direct volume copy, qemu-img raw conversion, network transfer migration, libguestfs tools, VPC volume attachment
+keywords: direct volume copy migration VPC, multi-disk VMware migration IBM Cloud, virt-v2v driver injection VPC, worker VM migration IBM Cloud, ephemeral instance VPC, qemu-img raw conversion VPC, libguestfs tools migration, VPC volume attachment migration, IBM Cloud VPC volume copy, multi-disk VM migration method
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating multi-disk VMware virtual machines to IBM Cloud with direct volume copy
+# {{site.data.keyword.cloud_notm}} VPC: Multi-disk VMware VM migration by direct volume copy
 {: #virt-sol-vpc-migration-design-method2}
 
-Migrate multi-disk VMware virtual machines (VMs) to IBM Cloud VPC virtual servers using direct volume copy with qemu-img or virt-v2v for full disk-level control.
+Migrate multi-disk VMware VMs to {{site.data.keyword.cloud_notm}} VPC virtual servers by using direct volume copy with qemu-img or virt-v2v for full disk-level migration control.
 {: shortdesc}
 
 ## Architecture components
@@ -35,7 +35,9 @@ The following table lists the architecture components of a direct volume copy mi
 ## Overview of the copying direct volume migration process
 {: #virt-sol-vpc-migration-design-method2-process}
 
-The following steps layout the process to migrate by using direct volume copy.
+Direct volume copy is a volume-level migration approach that converts VMDK files to raw format and writes them directly to pre-provisioned VPC Block Storage volumes.
+
+Before you begin, ensure that you have provisioned an ephemeral VPC worker instance, confirmed network connectivity or transfer storage for VMDK files, and installed `qemu-img` and `libguestfs-tools`.
 
 1. Provision worker virtual server instance
    1. Ubuntu or RHEL instance with adequate workspace
@@ -104,14 +106,16 @@ The following table lists the constraints and limitations of a direct volume cop
 | Limitation or Constraint | Description |
 | ----------- | ------------------ |
 | Orchestration complexity | There are more steps and moving parts. You need solid runbooks and preferably automation (Terraform, Ansible, scripts). |
-| Volume attachment limitations | The IBM Cloud user interface (UI) doesn't support attaching secondary volumes during virtual server instance creation. You must do one of the following:  \n  \n - Use command-line interface (CLI): `ibmcloud is instance-create ... --volume-attach ...`  \n  \n - Use API/Terraform for full automation \n  \n - Create the virtual server instance, stop it, attach volumes, then start it |
+| Volume attachment limitations | The {{site.data.keyword.cloud_notm}} user interface (UI) doesn't support attaching secondary volumes during virtual server instance creation. You must do one of the following:  \n  \n - Use command-line interface (CLI): `ibmcloud is instance-create ... --volume-attach ...`  \n  \n - Use API/Terraform for full automation \n  \n - Create the virtual server instance, stop it, attach volumes, then start it |
 | Export overhead | If you're exporting VMDKs from VMware, you still incur that overhead (though less than OVA export). |
 {: caption="Limitations and constraints for direct volume copy migration method" caption-side="bottom"}
 
 ## Skip export by using network transfer
 {: #virt-sol-vpc-migration-design-method2-network-transfer}
 
-You can combine Method 2 with network transfer techniques (detailed in Method 3) to avoid exporting VMDKs entirely. Boot your source VM from an ISO, establish network connectivity to your worker virtual server instance, and stream the disk contents directly:
+Network streaming transfers live disk blocks across a private network directly into target VPC volumes without creating intermediate export files. You can combine Method 2 with network transfer techniques (detailed in Method 3) to avoid exporting VMDKs entirely.
+
+Before executing the stream, verify network routing between the source host and the VPC worker instance, ensure port 8080 is accessible in security group rules, and boot the source VM from a live Linux ISO.
 
 1. On the worker virtual server instance (destination), issue the following command:
 
@@ -131,3 +135,16 @@ This process eliminates export time and export storage requirements.
 
 
 Using this process for multi-disk VMs, for scenarios where you want precise control, or where avoiding custom image proliferation is important. You can improve efficiency with network transfer too.
+
+## Related topics
+{: #virt-sol-vpc-migration-design-method2-related}
+
+To explore alternative migration methods and operational troubleshooting, review the following resources:
+
+- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-0-overview)
+- [Method 1: Image import](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-1)
+- [Method 3: Live network transfer](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-3)
+- [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-4)
+- [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-migration-considerations-linux)
+- [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-migration-considerations-windows)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)

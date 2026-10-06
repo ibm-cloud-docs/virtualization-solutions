@@ -2,10 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 lasttested: "[{LAST_TESTED_DATE}]"
 
-keywords: Kasten backup OpenShift, Veeam backup OpenShift, OpenShift Virtualization backup, Kasten data protection, immutable backups OpenShift, snapshot policies Kasten, Kasten location profiles, Kasten restore points, S3 backup OpenShift, NFS backup location, Kasten blueprints
+keywords: Kasten backup OpenShift IBM Cloud, Veeam Kasten IBM Cloud VPC, OpenShift Virtualization backup IBM Cloud, Kasten data protection ROKS, immutable backups OpenShift IBM Cloud, Kasten snapshot policies IBM Cloud, Kasten S3 backup OpenShift, NFS backup location OpenShift, Kasten restore VMs IBM Cloud, backup OpenShift Virtualization VMs IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -18,14 +18,14 @@ completion-time: 120m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Backing up virtual machines on Red Hat OpenShift Virtualization with Veeam Kasten
+# Backing up {{site.data.keyword.redhat_openshift_notm}} Virtualization VMs by using Veeam Kasten
 {: #virt-sol-openshift-backup}
 {: #tutorial-backup-vms}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="120m"}
 
-Install and configure Veeam Kasten on IBM Cloud Red Hat OpenShift Virtualization to back up VMs, create policies, and restore namespaces.
+Back up {{site.data.keyword.redhat_openshift_notm}} Virtualization VMs on {{site.data.keyword.cloud_notm}} by installing Veeam Kasten, configuring data protection policies, and restoring namespaces or virtual servers.
 {: shortdesc}
 
 This tutorial uses Kasten version 8.5.1. If a newer version is available, the installation steps and user interface may vary. Check the release notes for your installed version before you begin.
@@ -117,6 +117,8 @@ After you install Veeam Kasten and annotate StorageClasses, complete the configu
 ### Accessing the Veeam Kasten web interface
 {: #virt-sol-openshift-backup-kasten-web}
 
+To access the Veeam Kasten web dashboard and log in by using your OpenShift authentication token, perform the following steps:
+
 1. Verify that **Project: kasten-io** is selected.
 2. From the web console, go to **Networking** > **Routes**.
 3. Locate the **K10-route** entry and click the link in the **Location** value. The path for Kasten UI is `/K10/#/dashboard`. For example, `https://<openshift-console-fqdn>/k10/#/dashboard`.
@@ -125,7 +127,7 @@ After you install Veeam Kasten and annotate StorageClasses, complete the configu
 6. Click **Copy login command** > **Display Token**.
 7. Copy the `Your API token is` value to the Kasten login prompt.
 
-### Validating the Red Hat OpenShift Storage Cluster configuration
+### Validating the {{site.data.keyword.redhat_openshift_notm}} Storage Cluster configuration
 {: #virt-sol-openshift-backup-kasten-validate}
 
 You also use the same Veeam Kasten prerequisite checker tool to verify that Veeam Kasten is configured correctly. For more information, see [Veeam Kasten Primer Block Mount Check](https://docs.kasten.io/latest/operating/k10tools/#primer-block-mount-check){: external}.
@@ -164,16 +166,18 @@ For details on location configuration options, see [Veeam Kasten location config
 ### Creating a S3-compatible location profile
 {: #virt-sol-openshift-backup-kasten-location-s3}
 
-Before you create an IBM Cloud Object Storage bucket location profile, you have the following prerequisites:
+Before you create an {{site.data.keyword.cloud_notm}} Object Storage bucket location profile, you have the following prerequisites:
 
-- IBM Cloud Object Storage bucket that is already defined with a networking path for access from Veeam Kasten on {{site.data.keyword.redhat_openshift_notm}}
+- {{site.data.keyword.cloud_notm}} Object Storage bucket that is already defined with a networking path for access from Veeam Kasten on {{site.data.keyword.redhat_openshift_notm}}
 - S3 access key
 - S3 secret
-- IBM Cloud Object Storage bucket endpoint URL
+- {{site.data.keyword.cloud_notm}} Object Storage bucket endpoint URL
 - Bucket region
 
-Enable the object-locking option on the IBM Cloud Object Storage bucket. This option is required for immutable backups.
+Enable the object-locking option on the {{site.data.keyword.cloud_notm}} Object Storage bucket. This option is required for immutable backups.
 {: note}
+
+To create an S3-compatible location profile that targets your {{site.data.keyword.cloud_notm}} Object Storage bucket, perform the following steps:
 
 1. From the Veeam Kasten web interface, go to **Profiles > Location** and click **Create profile**.
 2. In the **Name and Provider** page, enter the `Location Profile Name` and in the **Storage Provider** dropdown menu, select **S3 Compatible**
@@ -451,7 +455,7 @@ See the following best practices to follow the 3-2-1 backup rule.
 
 - Keep one backup copy off-site. Set up backup copy jobs to transfer your backups offsite to another location, such as a public cloud provider or auxiliary storage in a separate site. Exporting backups to a locally hosted profile through NFS file storage is not considered offsite.
 
-You can follow the 3-2-1 rule in several ways. The simplest is to export your backup data to an IBM Cloud Object Storage bucket. You can also use Veeam SOBR for enhanced 3-2-1 rule. You have the same backup copy on performance tier and capacity tier.
+You can follow the 3-2-1 rule in several ways. The simplest is to export your backup data to an {{site.data.keyword.cloud_notm}} Object Storage bucket. You can also use Veeam SOBR for enhanced 3-2-1 rule. You have the same backup copy on performance tier and capacity tier.
 
 ### Immutability
 {: #virt-sol-openshift-backup-kasten-best-practices-immutability}
@@ -484,6 +488,8 @@ For more information, see the [Kasten DR documentation](https://docs.kasten.io/l
 
 ## Additional information
 {: #additional-information}
+
+Review advanced Veeam Kasten capabilities and operational resources for multi-cluster management.
 
 ### Kasten multi-cluster feature
 {: #additional-information-multi-cluster}
@@ -530,8 +536,7 @@ For more information, see [Veeam Kasten Transforms](https://docs.kasten.io/lates
 
 After you configure Veeam Kasten for back up and recovery, consider these next steps:
 
-- **Explore migration**: Learn how to [migrate workloads from VMWARE to Red Hat OpenShift Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration)
-- **Review architecture**: Understand the [Red Hat OpenShift Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)
+- **Explore migration**: Learn how to [migrate workloads from VMware to {{site.data.keyword.redhat_openshift_notm}} Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration)
+- **Review architecture**: Understand the [{{site.data.keyword.redhat_openshift_notm}} Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)
 - **Design considerations**: Explore [resiliency design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design) for your environment
 - **Veeam documentation**: Access the complete [Veeam Kasten documentation](https://docs.kasten.io/latest/){: external} for advanced features
-- **Veeam documentation**: Access the [Veeam Kasten documentation](https://docs.kasten.io/latest/){: external} for advanced features

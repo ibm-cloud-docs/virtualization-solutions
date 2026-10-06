@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: Migration Toolkit for Virtualization, warm migration, cold migration, MTV OpenShift, VMware to OpenShift migration, OVA migration, vCenter to OpenShift, virtual machine migration toolkit
+keywords: Migration Toolkit for Virtualization IBM Cloud, warm migration MTV OpenShift, cold migration MTV, MTV OpenShift IBM Cloud, VMware to OpenShift Virtualization migration, OVA migration OpenShift, vCenter to OpenShift IBM Cloud, MTV migration toolkit IBM Cloud, MTV warm cold migration comparison, VMware to ROKS VM migration
 
 subcollection: virtualization-solutions
 
@@ -12,15 +12,15 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrate VMware VMs to Red Hat OpenShift Virtualization with Migration Toolkit for Virtualization (MTV)
+# {{site.data.keyword.redhat_openshift_notm}} Virtualization: Migrating VMware VMs by using MTV
 {: #virt-sol-openshift-migration-design-mtv}
 
-Use MTV to migrate VMs from VMware vSphere, Red Hat Virtualization, or OpenStack to Red Hat OpenShift Virtualization on IBM Cloud.
+Use MTV to migrate VMs from VMware vSphere, Red Hat Virtualization, or OpenStack to {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, with support for warm and cold migrations.
 {: shortdesc}
 
-MTV provides a web user interface (UI) and application programming interface (API) for discovery, planning, and execution of migrations that uses persistent volume cloning or streaming for disk data while it maintains virtual server configuration and networking. MTV integrates with Red Hat OpenShift Virtualization to run migrated virtual servers alongside containers by using Kubernetes-native storage and networking constructs.
+MTV provides a web user interface (UI) and application programming interface (API) for discovery, planning, and execution of migrations that uses persistent volume cloning or streaming for disk data while it maintains virtual server configuration and networking. MTV integrates with {{site.data.keyword.redhat_openshift_notm}} Virtualization to run migrated virtual servers alongside containers by using Kubernetes-native storage and networking constructs.
 
-For VMware migrations, the Migration Toolkit for Virtualization (MTV) integrates with vCenter to discover virtual machines and inventory data, map virtual machine resources (clusters, networks, data stores) to Red Hat OpenShift equivalents, and automate bulk or selective migrations. It supports disk data transfer with warm or cold migration, preserves virtual machine configuration (CPU, memory, NICs), and converts VMware constructs into Kubernetes-native resources for seamless execution in Red Hat OpenShift Virtualization.
+For VMware migrations, the Migration Toolkit for Virtualization (MTV) integrates with vCenter to discover virtual machines and inventory data, map virtual machine resources (clusters, networks, data stores) to {{site.data.keyword.redhat_openshift_notm}} equivalents, and automate bulk or selective migrations. It supports disk data transfer with warm or cold migration, preserves virtual machine configuration (CPU, memory, NICs), and converts VMware constructs into Kubernetes-native resources for seamless execution in {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 
 ## Migration Types Supported
 {: #migration-types-supported}
@@ -50,7 +50,7 @@ The table below compares the characteristics, advantages, and disadvantages of c
 | **Best Use Case** | Shortest duration for VMs with a large amount of data on a single disk. | Shortest downtime for VMs. Shortest duration for VMs with data spread across multiple disks. | Migrating offline VM images stored as OVAs on an NFS share. |
 {: caption="Migration Option Comparison" caption-side="bottom"}
 
-## Red Hat OpenShift migrations
+## {{site.data.keyword.redhat_openshift_notm}} migrations
 {: #virt-sol-openshift-migration-design-migration-type}
 
 Migration Toolkit for Virtualization (MTV) supports two types of migration.
@@ -60,7 +60,7 @@ Migration Toolkit for Virtualization (MTV) supports two types of migration.
 
 When you compare the migration speeds of cold and warm migrations, you can observe that the single disk transfer and disk conversion are approximately the same for each option. The benefit of warm migration is that the transfer of the snapshot happens in the background while the virtual server runs. The default snapshot time is every 60 minutes. If virtual servers change substantially, more data needs to be transferred than in cold migration when the virtual server is stopped. The cutover time, meaning the shutdown of the virtual machine and last snapshot transfer, depends on how much the virtual server was changed after the last snapshot.
 
-## Red Hat OpenShift cold migration
+## {{site.data.keyword.redhat_openshift_notm}} cold migration
 {: #virt-sol-openshift-cold-migration}
 
 Cold migration is the default migration type. The source virtual machines are shut down while the data is copied.
@@ -68,7 +68,7 @@ Cold migration is the default migration type. The source virtual machines are sh
 To enable MTV to automatically install `qemu-guest-agent` on the migrated virtual servers, make sure that your package manager can install the daemon during the first start of the virtual server after the migration. If that isn't possible, use your preferred automated or manual procedure to install `qemu-guest-agent`.
 {: note}
 
-## Red Hat OpenShift warm migration
+## {{site.data.keyword.redhat_openshift_notm}} warm migration
 {: #virt-sol-openshift-warm-migration}
 
 During a warm migration, the virtual server isn't stopped during the precopy stage. A warm migration is a two-step process. Most of the data is copied during the precopy stage while the source virtual servers run. Then, the virtual servers are stopped and the remaining data is copied during the cutover stage.

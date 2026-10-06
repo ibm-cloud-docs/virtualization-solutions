@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-30"
+lastupdated: "2026-10-06"
 
-keywords: VMware migration, IBM Cloud, VPC, Red Hat OpenShift Virtualization, Hyper-V, workload migration
+keywords: VMware migration IBM Cloud, migrate VMware to IBM Cloud, VMware workload migration guide, IBM Cloud VPC migration, OpenShift Virtualization migration, Hyper-V migration IBM Cloud, VMware alternatives cloud, VMware to VPC migration, VMware to OpenShift migration, migration platform comparison
 
 subcollection: virtualization-solutions
 
@@ -14,10 +14,10 @@ content-type: overview
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating VMware workloads to IBM Cloud virtualization platforms
+# Migrating VMware workloads to {{site.data.keyword.cloud_notm}} virtualization platforms
 {: #vmware-migration-guide}
 
-Evaluate migration paths, compare target platforms, and find the technical resources that you need to plan and run your VMware&reg; workload migration to {{site.data.keyword.cloud}}.
+Evaluate VMware migration paths, compare {{site.data.keyword.cloud_notm}} VPC and OpenShift Virtualization targets, and find technical resources for planning your workload migration.
 {: shortdesc}
 
 ## Before you begin
@@ -40,6 +40,8 @@ Use your answers to select the platform that best fits your needs.
 
 ## Choosing the right platform
 {: #vmware-migration-guide-platform-selection}
+
+Select the target {{site.data.keyword.cloud_notm}} virtualization platform that best fits your technical requirements, operational preferences, and modernization roadmap.
 
 ### At a glance
 {: #vmware-migration-guide-at-a-glance}
@@ -83,6 +85,8 @@ The following diagram shows the position of each platform on the spectrum from a
 
 ## Detailed platform comparison
 {: #vmware-migration-guide-detailed-comparison}
+
+Compare compute, networking, storage, resiliency, and management capabilities across {{site.data.keyword.cloud_notm}} VPC Virtual Servers, {{site.data.keyword.redhat_openshift_notm}} Virtualization, and Hyper-V on VPC Bare Metal.
 
 ### High-level guidance
 {: #vmware-migration-guide-high-level-guidance}
@@ -207,6 +211,8 @@ For each platform, the following table lists the migration process steps and lin
 
 ## Summary and next steps
 {: #vmware-migration-guide-next-steps}
+
+To complete your migration planning, perform the following steps:
 
 1. Review [Choosing the right platform](#vmware-migration-guide-platform-selection) to identify the platform that best aligns with your requirements.
 2. Evaluate the [detailed platform comparison](#vmware-migration-guide-detailed-comparison) to understand key differences and technical constraints.

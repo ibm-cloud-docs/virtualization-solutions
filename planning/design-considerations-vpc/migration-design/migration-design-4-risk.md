@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: migration risk mitigation, migration rollback strategy, network connectivity failure, data corruption prevention, performance degradation troubleshooting, migration rollback procedures, VPC migration troubleshooting, application startup failure, security group configuration, source VM preservation
+keywords: migration risk mitigation IBM Cloud VPC, migration rollback strategy IBM Cloud, network connectivity failure VPC migration, data corruption prevention migration IBM Cloud, performance degradation VPC migration, migration rollback procedures IBM Cloud, IBM Cloud VPC migration troubleshooting, application startup failure migration, security group migration IBM Cloud, source VM preservation IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Mitigating risks and rollback strategies for migration to IBM Cloud VPC
+# Mitigating {{site.data.keyword.cloud_notm}} VPC migration risks and rollback strategies
 {: #virt-sol-vpc-migration-design-risk}
 
-Mitigate IBM Cloud VPC migration risks — network failures, data corruption, performance issues — and implement rollback procedures.
+Mitigate {{site.data.keyword.cloud_notm}} VPC migration risks, including network failures, data corruption, and performance issues, and implement tested rollback procedures for each wave.
 {: shortdesc}
 
 ## Common migration risks
@@ -119,12 +119,12 @@ Prevention:
 ## Rollback strategy design
 {: #virt-sol-vpc-migration-design-risk-rollback}
 
-Use the following criteria to determine whether you need to roll back.
+Use the following criteria to determine whether you need to roll back. These thresholds reflect {{site.data.keyword.cloud_notm}} migration practice and should be adjusted to match your organization's SLAs and risk tolerance.
 
 - More than 20% of virtual servers in a wave fails to start
 - Critical applications fail functional testing
 - Corrupted data is found in migrated virtual servers
-- Performance degradation greater than 50% from baseline with no quick fix
+- Performance degradation greater than 50% from pre-migration baseline with no quick fix
 - Security group configuration errors expose sensitive services
 
 Rollback decision authority:

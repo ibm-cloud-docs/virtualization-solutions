@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: NFS storage OpenShift, File Storage for VPC, OpenShift Virtualization storage, persistent volumes NFS
+keywords: NFS storage OpenShift Virtualization IBM Cloud, IBM Cloud File Storage VPC OpenShift, configure NFS persistent volumes OpenShift IBM Cloud, File Storage for VPC virtualization, OpenShift Virtualization NFS storage class, live migration NFS IBM Cloud, ReadWriteMany storage OpenShift IBM Cloud, NFS StorageClass ROKS, File Storage VPC OpenShift Virtualization IBM Cloud, persistent volumes NFS OpenShift IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -18,7 +18,7 @@ completion-time: 60m
 {{site.data.keyword.attribute-definition-list}}
 
 
-# Configuring IBM Cloud File Storage for VPC with Red Hat OpenShift Virtualization
+# {{site.data.keyword.cloud_notm}} File Storage for {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #file-storage-vpc-virtualization}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMWare"}
@@ -26,7 +26,7 @@ completion-time: 60m
 {: toc-completion-time="60m"}
 
 
-Configure IBM Cloud File Storage for VPC as persistent storage for OpenShift Virtualization VMs, with StorageClass and live migration support.
+Configure {{site.data.keyword.cloud_notm}} File Storage for VPC as persistent storage for OpenShift Virtualization VMs, with StorageClass and live migration support.
 {: shortdesc}
 
 Explore the sections to access the guide:
@@ -40,11 +40,13 @@ Explore the sections to access the guide:
 ## Product overview and planning information
 {: #product-overview-and-planning-information}
 
+{{site.data.keyword.cloud_notm}} File Storage for VPC delivers persistent, network-attached NFS storage designed to provide scalable and resilient shared file systems for virtual machines running on OpenShift Virtualization.
+
 ### Key benefits
 {: #key-benefits}
 
 - Network File System (NFS)-based shared storage. Network-attached file storage is accessible across multiple zones and virtual server instances within your Virtual Private Cloud (VPC).
-- Native Red Hat OpenShift integration. Full integration with Kubernetes&reg; PersistentVolumeClaims (PVCs) through the IBM VPC File Container Storage Interface (CSI) driver.
+- Native {{site.data.keyword.redhat_openshift_notm}} integration. Full integration with Kubernetes&reg; PersistentVolumeClaims (PVCs) through the IBM VPC File Container Storage Interface (CSI) driver.
 - Managed service. This fully managed {{site.data.keyword.cloud_notm}} service includes automated provisioning and lifecycle management and can help ensure storage resiliency if hardware failures occur.
 - Cost-effective pricing. Use a pay-as-you-go model for file share storage capacity and performance with no additional licensing fees.
 - Flexible performance tiers. Multiple IOPS options are available to match workload requirements.
@@ -63,7 +65,7 @@ For more information and considerations, see [Enabling the {{site.data.keyword.c
 {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}} provides predefined StorageClasses that specify the type of IBM VPC File Storage to provision, including available size, IOPS, file system, and retention policy.
 
 
-### File storage profiles for Red Hat OpenShift Virtualization
+### File storage profiles for {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #file-storage-profiles}
 
 For {{site.data.keyword.redhat_openshift_notm}} Virtualization workloads, use zonal file shares, which provide the optimal balance of performance, cost, and reliability for virtual machine storage.
@@ -229,7 +231,7 @@ spec:
 ```
 {: codeblock}
 
-#### Red Hat OpenShift Virtualization default storage class
+#### {{site.data.keyword.redhat_openshift_notm}} Virtualization default storage class
 {: #virtualization-default-annotation}
 
 The {{site.data.keyword.redhat_openshift_notm}} Virtualization default `StorageClass` is identified by the `storageclass.kubevirt.io/is-default-virt-class: "true"` annotation.
@@ -315,7 +317,7 @@ When {{site.data.keyword.redhat_openshift_notm}} Virtualization needs to create 
 
 `CDI` supports three clone strategies: `snapshot`, `copy`, and `csi-clone`. To learn more about the clone strategies, see [Customizing the storage profile default cloning strategy](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/virtualization/storage#virt-customizing-storage-profile-default-cloning-strategy_virt-configuring-storage-profile){: external}.
 
-#### Clone strategy for IBM Cloud File Storage
+#### Clone strategy for {{site.data.keyword.cloud_notm}} File Storage
 {: #clone-strategy-vpc-file}
 
 For IBM VPC File Storage, both `snapshot` and `host cloning` strategies are supported, with `snapshot` as the recommended approach. Note that the `csi-clone` strategy is not supported for this provider.
@@ -363,7 +365,7 @@ When `dataImportCronSourceFormat` is set to `snapshot`, `CDI` stores the boot vo
 
 With IBM VPC File Storage, this approach still helps avoid repeated snapshot creation from the same source file share during concurrent virtual machine provisioning. However, you must also understand that `CDI` snapshot-based boot volume handling assumes backend snapshot behavior that differs from the current IBM VPC File Storage provider implementation.
 
-#### Clone strategy considerations for IBM Cloud File Storage
+#### Clone strategy considerations for {{site.data.keyword.cloud_notm}} File Storage
 {: #clone-strategy-considerations-for-ibm-cloud-storage}
 
 Before you configure IBM VPC File Storage as the default backend storage for {{site.data.keyword.redhat_openshift_notm}} Virtualization, consider which clone strategy best fits your virtual machine provisioning requirements. Your choice depends on provisioning speed needs, IOPS diversity, and operational preferences.
@@ -424,6 +426,8 @@ For configuration instructions, see [Configuring the host-assisted clone strateg
 ## Installation and configuration
 {: #installation-and-configuration}
 
+Install the File Storage for VPC add-on, configure storage profiles, and prepare virtual machines by following the end-to-end setup procedure.
+
 ### Prerequisites
 {: #prerequisites}
 
@@ -434,7 +438,7 @@ Before you set up IBM VPC File Storage with {{site.data.keyword.redhat_openshift
 #### Cluster requirements
 {: #cluster-requirements}
 
-- {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster on VPC infrastructure. Cluster running on IBM Cloud VPC.
+- {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster on VPC infrastructure. Cluster running on {{site.data.keyword.cloud_notm}} VPC.
 - Bare metal worker nodes. Required for {{site.data.keyword.redhat_openshift_notm}} Virtualization. Must run Red Hat CoreOS&reg;.
 - {{site.data.keyword.redhat_openshift_notm}} version. Version 4.18 or later for {{site.data.keyword.redhat_openshift_notm}} Virtualization support.
 - Outbound traffic protection. Disabled for pulling the image.
@@ -498,11 +502,10 @@ For a complete list of default `StorageClasses` and their characteristics, inclu
 
 For a list of available features and instructions on creating custom `StorageClasses`, see [Creating your own storage class](/docs/openshift?topic=openshift-storage-file-vpc-apps#storage-file-vpc-custom-sc).
 
-### Setting up IBM VPC File Storage for Red Hat OpenShift Virtualization
+### Setting up IBM VPC File Storage for {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #setup-virtualization}
 
-Currently, IBM VPC File Storage requires manual configuration to work optimally with {{site.data.keyword.redhat_openshift_notm}} Virtualization. IBM is working to provide special support for this integration in a future release. The section guides you through the required manual configuration steps.
-{: shortdesc}
+Currently, IBM VPC File Storage requires manual configuration to work optimally with {{site.data.keyword.redhat_openshift_notm}} Virtualization. The section guides you through the required manual configuration steps.
 
 Until these enhancements are available, you must complete the following manual configuration steps:
 {: important}
@@ -688,6 +691,8 @@ You can create VMs through the {{site.data.keyword.redhat_openshift_notm}} web c
 #### By using the web console
 {: #create-vm-console}
 
+To create a virtual machine by using the OpenShift Virtualization web console, perform the following steps:
+
 1. Browse to **Virtualization** > **virtual machines**
 2. Click **Create** > **From template** or **From InstanceType**
 3. Select your wanted template or instance type
@@ -829,7 +834,7 @@ Live migration is triggered automatically during:
 
 After you deploy your virtual machines with IBM VPC File Storage, you can adjust storage performance and capacity to meet changing workload requirements. The section covers how to modify IOPS, bandwidth, and storage capacity for existing file shares.
 
-### Finding your file share in the IBM Cloud UI
+### Finding your file share in the {{site.data.keyword.cloud_notm}} UI
 {: #finding-file-share}
 
 To adjust IOPS or bandwidth through the {{site.data.keyword.cloud_notm}} console, you need to locate your file share by using its ID. You can retrieve the file share ID from your PVC:
@@ -853,11 +858,11 @@ To adjust IOPS or bandwidth through the {{site.data.keyword.cloud_notm}} console
 ### Adjusting IOPS for zonal file shares
 {: #adjusting-iops}
 
-For zonal file shares (dp2 profile), you can increase or decrease IOPS at any time to optimize performance and cost. IOPS adjustments are made through the IBM Cloud console, not from the {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster.
+For zonal file shares (dp2 profile), you can increase or decrease IOPS at any time to optimize performance and cost. IOPS adjustments are made through the {{site.data.keyword.cloud_notm}} console, not from the {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster.
 
 Important considerations:
 
-- IOPS adjustments must be performed through the IBM Cloud VPC UI
+- IOPS adjustments must be performed through the {{site.data.keyword.cloud_notm}} VPC UI
 - You can both increase and decrease IOPS values
 - IOPS must remain within the valid range for your file share capacity (see [IOPS and Capacity Relationship for Zonal File Shares](#iops-capacity))
 - No downtime is required - VMs can remain running during IOPS adjustments
@@ -873,7 +878,7 @@ You can expand the capacity of your file shares to accommodate growing data requ
 Important considerations:
 
 - Capacity expansion must be performed by editing the PVC in your {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster.
-- Do not resize the file share directly from the IBM Cloud VPC UI. Always update the PVC to ensure proper synchronization.
+- Do not resize the file share directly from the {{site.data.keyword.cloud_notm}} VPC UI. Always update the PVC to ensure proper synchronization.
 - You can only expand storage capacity. Reducing capacity is not supported.
 - No downtime is required. VMs can remain running during capacity expansion.
 - The file share must have been created with `allowVolumeExpansion: true` in the StorageClass. All default IBM StorageClasses support this setting.
@@ -930,6 +935,8 @@ When a file share is deleted, its snapshots are deleted automatically.
 
 #### By using the web console
 {: #snapshot-console}
+
+To take a VM snapshot from the OpenShift Virtualization web console, perform the following steps:
 
 1. In the navigation menu, select **Virtualization** > **virtual machines**.
 2. Select your VM.
@@ -990,6 +997,8 @@ To restore a VM from a snapshot, you must first create a bootable volume from th
 #### Step 1: Create a bootable volume from a snapshot
 {: #create-boot-volume}
 
+To create a bootable volume from an existing volume snapshot, perform the following steps:
+
 1. In the {{site.data.keyword.redhat_openshift_notm}} web console, go to **Virtualization** > **Catalog**
 2. Select the **InstanceTypes** tab
 3. Click **Add volume**
@@ -1007,6 +1016,8 @@ To restore a VM from a snapshot, you must first create a bootable volume from th
 #### Step 2: Create a VM from the bootable volume
 {: #create-vm-from-boot-volume}
 
+To launch a new virtual machine from your restored bootable volume, perform the following steps:
+
 1. Browse to **Virtualization** > **Catalog** > **InstanceTypes**
 2. Find your newly created boot volume
 3. Click **Create virtual machine**
@@ -1015,6 +1026,8 @@ To restore a VM from a snapshot, you must first create a bootable volume from th
 
 #### Step 3: Verify and clean up
 {: #verify-cleanup}
+
+To verify the restored virtual machine and clean up temporary artifacts, perform the following steps:
 
 1. Verify that the VM starts successfully
 2. Verify that your data is present
@@ -1125,6 +1138,8 @@ For detailed instructions on creating static PV/PVC, refer to [Attaching existin
 #### Step 4: Create a bootable volume from the static PVC
 {: #create-boot-from-static}
 
+To generate a bootable volume from your static PVC in the catalog, perform the following steps:
+
 1. Browse to **Virtualization** > **Catalog** > **InstanceTypes**
 2. Click **Add volume**
 3. Configure:
@@ -1137,6 +1152,8 @@ For detailed instructions on creating static PV/PVC, refer to [Attaching existin
 
 #### Step 5: Create and verify the VM
 {: #create-verify-vm-replica}
+
+To launch and validate the recovered virtual machine from the replica bootable volume, perform the following steps:
 
 1. Create a VM from the bootable volume
 2. Verify that the VM starts successfully
@@ -1196,7 +1213,7 @@ oc -n openshift-marketplace get catalogsource
 
 You can see catalog sources such as `redhat-operators` in a `READY` state.
 
-#### Install Red Hat OpenShift Virtualization Operator
+#### Install {{site.data.keyword.redhat_openshift_notm}} Virtualization Operator
 {: #install-virt-operator}
 
 To install the {{site.data.keyword.redhat_openshift_notm}} Virtualization Operator see [{{site.data.keyword.redhat_openshift_notm}} Virtualization installation documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/virtualization/installing#installing-virt-operator_installing-virt){: external}.
@@ -1270,7 +1287,7 @@ This StorageClass uses the Delete reclaim policy, which automatically cleans up 
 This setting applies to general cluster workloads. In Step 3, you configure a different StorageClass with a Retain reclaim policy as the {{site.data.keyword.redhat_openshift_notm}} Virtualization default.
 {: note}
 
-#### Step 3: Set the Red Hat OpenShift Virtualization default storage class
+#### Step 3: Set the {{site.data.keyword.redhat_openshift_notm}} Virtualization default storage class
 {: #set-virt-default}
 
 Before you configure the default StorageClass for {{site.data.keyword.redhat_openshift_notm}} Virtualization, review the clone strategy options to determine which approach best fits your virtual machine provisioning requirements. For detailed guidance, see [Clone strategy considerations for IBM VPC File Storage](#clone-strategy-considerations-for-ibm-cloud-storage).
@@ -1520,7 +1537,7 @@ spec:
 ```
 {: codeblock}
 
-#### Configuring Red Hat OpenShift Virtualization to use VM state storage
+#### Configuring {{site.data.keyword.redhat_openshift_notm}} Virtualization to use VM state storage
 {: #configure-hyperconverged-vm-state}
 
 After you create and configure the VM state StorageClass, configure {{site.data.keyword.redhat_openshift_notm}} Virtualization to use it for virtual machine persistent state storage. If you skip this configuration, {{site.data.keyword.redhat_openshift_notm}} Virtualization uses the cluster default StorageClass for virtual machine state storage, which does not meet the required settings.
@@ -1542,7 +1559,7 @@ spec:
 
 Save and exit the editor. {{site.data.keyword.redhat_openshift_notm}} Virtualization now uses this StorageClass for all virtual machine persistent state PVCs, including vTPM and UEFI firmware storage.
 
-If `vmStateStorageClass` is not set, {{site.data.keyword.redhat_openshift_notm}} Virtualization uses the cluster default `StorageClass` for virtual machine state storage, which might not work correctly because of the different requirements.
+If `vmStateStorageClass` is not set, {{site.data.keyword.redhat_openshift_notm}} Virtualization uses the cluster default `StorageClass` for virtual machine state storage. This can cause failures because the default StorageClass does not meet the access mode and performance requirements for virtual machine state storage.
 {: note}
 
 Verify the configuration:
@@ -1698,6 +1715,8 @@ Solutions:
 
 ## Best practices and recommendations
 {: #best-practices}
+
+Follow these architectural recommendations to optimize performance, storage tiering, data protection, and operational efficiency for File Storage on OpenShift Virtualization.
 
 ### Storage class selection
 {: #storageclass-selection}

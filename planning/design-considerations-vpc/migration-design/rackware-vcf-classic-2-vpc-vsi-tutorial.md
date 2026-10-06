@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: RackWare RMM tutorial, VCF-Automated migration tutorial, bridge server configuration, RMM wave creation, delta sync migration, SSH key setup, Direct Sync tutorial, RackWare Passthrough setup, migration cutover process, hands-on RMM migration
+keywords: RackWare RMM tutorial IBM Cloud, VCF-Automated migration tutorial VPC, bridge server configuration RackWare, RMM wave creation IBM Cloud, delta sync migration VPC, RackWare Passthrough setup IBM Cloud, migration cutover VPC tutorial, hands-on RackWare VPC migration, SSH key setup RackWare, RackWare VCF to VPC step-by-step
 
 
 subcollection: virtualization-solutions
@@ -21,7 +21,7 @@ compliance: HIPAA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrate IBM Cloud VMware VCF Classic to VPC virtual servers with RackWare RMM
+# Migrating VMware VCF Classic to {{site.data.keyword.cloud_notm}} VPC by using RackWare RMM
 {: #virt-sol-vpc-migration-design-rmm-tutorial}
 {: #tutorial-rackware-rmm}
 {: toc-content-type="tutorial"}
@@ -31,28 +31,28 @@ compliance: HIPAA
 {: toc-industry="Software and Platform Applications"}
 {: toc-compliance="HIPAA"}
 
-Migrate IBM Cloud VMware VCF Classic VMs to VPC virtual servers with RackWare RMM using a bridge server and Transit Gateway connection.
+Migrate {{site.data.keyword.cloud_notm}} VMware VCF Classic VMs to VPC virtual servers by using RackWare RMM with a bridge server, Transit Gateway connection, and delta sync for cutover.
 {: shortdesc}
 
-While RMM has an auto-provision feature to automatically provision an IBM Cloud VPC virtual server instance, appropriately sized, this feature was not used in this tutorial. Therefore, this guide manually provisions the target virtual server instances and associated data disk.
+While the RackWare Management Module (RMM) has an auto-provision feature to automatically provision an {{site.data.keyword.cloud_notm}} VPC virtual server instance, appropriately sized, this feature was not used in this tutorial. Therefore, this guide manually provisions the target virtual server instances and associated data disk.
 
-RackWare's RMM Server Migration solution provides an easy, automated, and simplified process to migrate existing IBM Cloud VMware VCF-Automated virtual machines (VM) from their current location to IBM Cloud VPC virtual server instances.
+RackWare's RMM Server Migration solution provides an easy, automated, and simplified process to migrate existing {{site.data.keyword.cloud_notm}} VMware VCF-Automated virtual machines (VM) from their current location to {{site.data.keyword.cloud_notm}} VPC virtual server instances.
 
-The RackWare Management Module (RMM) migration solution provides a seamless virtual-to-virtual re-platforming for these VMware virtual machines to IBM Cloud virtual server instance migration. Its intuitive GUI allows you to move the OS, application, and data from VMware ESXi to IBM Cloud VPC virtual server instance.
+The RMM migration solution provides a seamless virtual-to-virtual re-platforming for these VMware virtual machines to {{site.data.keyword.cloud_notm}} virtual server instance migration. Its intuitive GUI allows you to move the OS, application, and data from VMware ESXi to {{site.data.keyword.cloud_notm}} VPC virtual server instance.
 
 1. Create Source virtual machines.
 1. RMM Install:
       1. Create a VPC.
       1. Create subnet for the RMM server.
       1. Create a SSH key.
-      1. Deploy the RMM server from the IBM Cloud catalog.
+      1. Deploy the RMM server from the {{site.data.keyword.cloud_notm}} catalog.
 1. Obtain Licensing from RackWare.
 1. Create a Transit Gateway with connections to Classic and VPC.
 1. Order a portable private subnet.
 1. Order a static private subnet.
 1. Deploy a virtual machine for use as a bridge server.
 1. Configure bridge server.
-1. Generate the RMM’s ssh keys
+1. Generate the RMM's ssh keys
 1. Gather information about the source virtual machines.
 1. Order the target virtual server instances.
 1. Prepare the source virtual machine.
@@ -66,8 +66,8 @@ The RackWare Management Module (RMM) migration solution provides a seamless virt
 
 This tutorial migrates an Ubuntu virtual machine and a Microsoft Windows 2019 virtual machine. This tutorial assumes that you have:
 
-1. Read [Migrating from IBM Cloud VMware VCF-Automated to VPC virtual servers with RackWare RMM Technical Guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide).
-1. Have existing IBM Cloud VMware-Automated instance and hosting virtual machines on NSX overlay segments. These overlay segments do not have native access to the IBM Cloud Classic private network.
+1. Read [Migrating from {{site.data.keyword.cloud_notm}} VMware VCF-Automated to VPC virtual servers with RackWare RMM Technical Guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide).
+1. Have existing {{site.data.keyword.cloud_notm}} VMware-Automated instance and hosting virtual machines on NSX overlay segments. These overlay segments do not have native access to the {{site.data.keyword.cloud_notm}} Classic private network.
 1. Created one or more resource groups.
 1. Created a VPC with prefixes that cover your required networks.
 1. Created a subnet for the RMM server.
@@ -87,7 +87,7 @@ First, you need to set up your source virtual machine. This section has examples
 {: #virt-sol-vpc-migration-design-rmm-tutorial-ubuntu-vm}
 {: step}
 
-Deploy a virtual machine on the IBM Cloud VCF-Automated instance with the following specification:
+Deploy a virtual machine on the {{site.data.keyword.cloud_notm}} VCF-Automated instance with the following specification:
 
 - CPU: 2
 - Memory: 1GB
@@ -116,7 +116,7 @@ echo "Test content" | sudo tee /mnt/sdb/testfile.txt
 ### Windows Source virtual machine
 {: #virt-sol-vpc-migration-design-rmm-tutorial-step1-windows}
 
-A virtual machine was deployed on the IBM Cloud VCF-Automated instance with the following specification:
+A virtual machine was deployed on the {{site.data.keyword.cloud_notm}} VCF-Automated instance with the following specification:
 
 - CPU: 2
 - Memory: 4GB
@@ -139,19 +139,21 @@ Use the VPC product documentation to:
 1. [Create a VPC](/docs/vpc?topic=vpc-creating-vpc-resources-with-cli-and-api&interface=cli#create-a-vpc-cli).
 1. [Create subnet](/docs/vpc?topic=vpc-creating-vpc-resources-with-cli-and-api&interface=cli#create-a-subnet-cli) for the RMM server.
 1. [Create a SSH key](/docs/vpc?topic=vpc-creating-vpc-resources-with-cli-and-api&interface=cli#add-ssh-key-cli).
-1. Deploy the RMM server from the IBM Cloud catalog.
+1. Deploy the RMM server from the {{site.data.keyword.cloud_notm}} catalog.
 
    The RMM server has a public IP address for connectivity and a default login.
 
 1. After you deploy, log in to the RMM server.
 1. In the RMM server, change the default password, create users, and create an SSH key.
-1. Upload the SSH key to IBM Cloud VPC.
+1. Upload the SSH key to {{site.data.keyword.cloud_notm}} VPC.
 
 You might need to update the RMM version. If so, email RackWare to request access to their FTP repository and instructions to upgrade.
 
 ## Obtain Licensing from RackWare
 {: #virt-sol-vpc-migration-design-rmm-tutorial-rackware-license}
 {: step}
+
+Before you can run migration jobs, obtain and activate a valid license on the RMM server by using the following steps:
 
 1. Obtain licenses from RackWare by emailing the generated preinstall file to RackWare licensing.
 1. To generate a preinstall file in `/etc/rackware`, run the following command using your public key name and IP address.
@@ -203,23 +205,23 @@ You might need to update the RMM version. If so, email RackWare to request acces
 {: #virt-sol-vpc-migration-design-rmm-tutorial-transit-gateway}
 {: step}
 
-An IBM Cloud Transit Gateway is a fully managed hub-and-spoke networking service that provides centralized, private connectivity between IBM Cloud infrastructure environments including IBM Cloud VPCs and IBM Cloud Classic infrastructure.
+An {{site.data.keyword.cloud_notm}} Transit Gateway is a fully managed hub-and-spoke networking service that provides centralized, private connectivity between {{site.data.keyword.cloud_notm}} infrastructure environments including {{site.data.keyword.cloud_notm}} VPCs and {{site.data.keyword.cloud_notm}} Classic infrastructure.
 
 It acts as a routing hub where multiple VPCs and Classic connections attach, allowing traffic to flow securely without requiring complex VPN meshes or manual route management.
 
-Connections to VPCs use native VPC attachments that automatically exchange routes, while Classic connectivity is established via a Classic Infrastructure connection that integrates with the IBM Cloud backbone, enabling seamless private IP communication between VPC subnets and Classic VLANs.
+Connections to VPCs use native VPC attachments that automatically exchange routes, while Classic connectivity is established via a Classic Infrastructure connection that integrates with the {{site.data.keyword.cloud_notm}} backbone, enabling seamless private IP communication between VPC subnets and Classic VLANs.
 
-Using the IBM Cloud documentation create a local transit gateway and connect your VPC and your IBM Cloud Classic network. For more information, see [Creating a transit gateway](/docs/transit-gateway?topic=transit-gateway-ordering-transit-gateway&interface=cli).
+Using the {{site.data.keyword.cloud_notm}} documentation create a local transit gateway and connect your VPC and your {{site.data.keyword.cloud_notm}} Classic network. For more information, see [Creating a transit gateway](/docs/transit-gateway?topic=transit-gateway-ordering-transit-gateway&interface=cli).
 
 ## Order a portable private subnet
 {: #virt-sol-vpc-migration-design-rmm-tutorial-order-subnet}
 {: step}
 
-An IBM Cloud Classic portable private subnet is a block of private IP addresses that can be assigned to your Classic resources. While you already have a number of subnets associated with your IBM Cloud VMware-Automated instance, the IP addresses on these subnets are assigned by the automation and you should not manually assign IP addresses from these subnets.
+An {{site.data.keyword.cloud_notm}} Classic portable private subnet is a block of private IP addresses that can be assigned to your Classic resources. While you already have a number of subnets associated with your {{site.data.keyword.cloud_notm}} VMware-Automated instance, the IP addresses on these subnets are assigned by the automation and you should not manually assign IP addresses from these subnets.
 
 It is good practice to order a new portable private subnet and assign IP addresses to virtual machines as needed. This subnet will be used to host the outside interfaces of the one or more RMM bridge servers, therefore, only a small subnet is required.
 
-Using the IBM Cloud documentation order a new portable private subnet in the IBM Cloud Private VLAN named `Private management VLAN`. For more information, see [Customer-owned subnets for Classic](/docs/subnets?topic=subnets-customer-owned-subnets).
+Using the {{site.data.keyword.cloud_notm}} documentation order a new portable private subnet in the {{site.data.keyword.cloud_notm}} Private VLAN named `Private management VLAN`. For more information, see [Customer-owned subnets for Classic](/docs/subnets?topic=subnets-customer-owned-subnets).
 
 Assign an IP address for the RMM Bridge Server deployed later in this tutorial.
 
@@ -227,17 +229,17 @@ Assign an IP address for the RMM Bridge Server deployed later in this tutorial.
 {: #virt-sol-vpc-migration-design-rmm-tutorial-order-static-subnet}
 {: step}
 
-An IBM Cloud Classic Static Subnet provides a block of IP addresses that are permanently routed to a specific endpoint, in our use case the RMM Bridge Server.
+An {{site.data.keyword.cloud_notm}} Classic Static Subnet provides a block of IP addresses that are permanently routed to a specific endpoint, in our use case the RMM Bridge Server.
 
 All IP addresses in the subnet are useable e.g. a /30 subnet has 4 useable IP addresses or a /29 subnet has 8 usable IP addresses.
 
-Using the IBM Cloud documentation order a new static private subnet in the IBM Cloud Private VLAN named `Private management VLAN` and targeting the IP address in the portable private subnet that you will use for the RMM Bridge Server. For more information, see [Customer-owned subnets for Classic](/docs/subnets?topic=subnets-customer-owned-subnets).
+Using the {{site.data.keyword.cloud_notm}} documentation order a new static private subnet in the {{site.data.keyword.cloud_notm}} Private VLAN named `Private management VLAN` and targeting the IP address in the portable private subnet that you will use for the RMM Bridge Server. For more information, see [Customer-owned subnets for Classic](/docs/subnets?topic=subnets-customer-owned-subnets).
 
 ## Deploy a virtual machine for use as a bridge server
 {: #virt-sol-vpc-migration-design-rmm-tutorial-deploy-bridge-server}
 {: step}
 
-A virtual machine was deployed on the IBM Cloud VCF-Automated instance with the following specification:
+A virtual machine was deployed on the {{site.data.keyword.cloud_notm}} VCF-Automated instance with the following specification:
 
 - CPU: 2
 - Memory: 1GB
@@ -320,7 +322,7 @@ A virtual machine was deployed on the IBM Cloud VCF-Automated instance with the 
 {: #virt-sol-vpc-migration-design-rmm-tutorial-bridge-server}
 {: step}
 
-This example uses an Ubuntu virtual machine hosted on the IBM Cloud VCF-Automated instance. The virtual machine is deployed with two interfaces.
+This example uses an Ubuntu virtual machine hosted on the {{site.data.keyword.cloud_notm}} VCF-Automated instance. The virtual machine is deployed with two interfaces.
 
 1. Connect to the virtual machine via SSH:
    1. Update the system with the following command
@@ -404,9 +406,11 @@ This example uses an Ubuntu virtual machine hosted on the IBM Cloud VCF-Automate
       ```
       {: codeblock}
 
-## Generate the RMM’s ssh keys
+## Generate the RMM's ssh keys
 {: #virt-sol-vpc-migration-design-rmm-tutorial-ssh-keys}
 {: step}
+
+Generate an SSH key pair on the RMM server to allow password-less authentication to target and source servers by using the following steps:
 
 1. SSH to the RMM Server
 
@@ -415,7 +419,7 @@ This example uses an Ubuntu virtual machine hosted on the IBM Cloud VCF-Automate
    ```
    {: pre}
 
-1. From the RMM’s console window generate an SSH key pair.
+1. From the RMM's console window generate an SSH key pair.
 
    ```bash
    # Generate RSA key (4096-bit) without prompts
@@ -442,7 +446,7 @@ This example uses an Ubuntu virtual machine hosted on the IBM Cloud VCF-Automate
 {: #virt-sol-vpc-migration-design-rmm-tutorial-source-vm-info}
 {: step}
 
-While RMM supports auto-provisioning, where the RMM server creates the target servers in IBM Cloud VPC with CPU, RAM, and disk specifications that match the source server, this tutorial manually creates the target virtual server instance in IBM Cloud VPC. Collect the source virtual machine specifications, including the IP address and assigned NAT IP address. For example:
+While RMM supports auto-provisioning, where the RMM server creates the target servers in {{site.data.keyword.cloud_notm}} VPC with CPU, RAM, and disk specifications that match the source server, this tutorial manually creates the target virtual server instance in {{site.data.keyword.cloud_notm}} VPC. Collect the source virtual machine specifications, including the IP address and assigned NAT IP address. For example:
 
 | Hostname | OS | IP Address | NAT IP Address |
 | --- | --- | --- | --- |
@@ -454,10 +458,12 @@ While RMM supports auto-provisioning, where the RMM server creates the target se
 {: #virt-sol-vpc-migration-design-rmm-tutorial-step11}
 {: step}
 
-1. Follow the IBM Cloud instructions to create the required subnet in the VPC, the CIDR should match the CIDR of the source network.
-1. Follow the IBM Cloud instructions to create the required security group in the VPC for the target virtual server instances. Ensure that SSH is allowed from the RMM to the target virtual server instances. For the Windows virtual server instance, also include RDP to connect to the virtual server instance and configure it for use by RMM.
-1. Follow the IBM Cloud instructions to create the required SSH keys in the VPC for the target virtual server instances. Because this tutorial provisions the Ubuntu target virtual server instance manually, upload the RMM public key that was created earlier and include it when you provision the virtual server instance. This enables RMM to use password-less SSH. For the Windows virtual server instance, this key is used to encrypt the password.
-1. With the information gathered in the previous step and using the IBM Cloud documentation order the IBM Cloud VPC virtual server instance servers and associated data volumes.
+Before migrating workloads, provision target virtual server instances in {{site.data.keyword.cloud_notm}} VPC by using the following steps:
+
+1. Follow the {{site.data.keyword.cloud_notm}} instructions to create the required subnet in the VPC, the CIDR should match the CIDR of the source network.
+1. Follow the {{site.data.keyword.cloud_notm}} instructions to create the required security group in the VPC for the target virtual server instances. Ensure that SSH is allowed from the RMM to the target virtual server instances. For the Windows virtual server instance, also include RDP to connect to the virtual server instance and configure it for use by RMM.
+1. Follow the {{site.data.keyword.cloud_notm}} instructions to create the required SSH keys in the VPC for the target virtual server instances. Because this tutorial provisions the Ubuntu target virtual server instance manually, upload the RMM public key that was created earlier and include it when you provision the virtual server instance. This enables RMM to use password-less SSH. For the Windows virtual server instance, this key is used to encrypt the password.
+1. With the information gathered in the previous step and using the {{site.data.keyword.cloud_notm}} documentation order the {{site.data.keyword.cloud_notm}} VPC virtual server instance servers and associated data volumes.
 
 ### Ubuntu Target virtual server instance
 {: #virt-sol-vpc-migration-design-rmm-tutorial-step11-ubuntu}
@@ -494,7 +500,7 @@ To install RackWare SSHD Service in the target virtual server instance:
 1. Click **Next**. The SSHD Configuration window is displayed.
 1. On the SSHD Configuration window:
 1. Because RMM accesses the Windows host as the SYSTEM user, the username field shows SYSTEM.
-1. Enter the RMM’s public SSH key, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
+1. Enter the RMM's public SSH key, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
 1. Then press Next and the Confirm Installation screen will be shown.
 1. Press Next to begin the installation.
 1. After the installation completes, you will see the Installation Complete window.
@@ -528,7 +534,7 @@ msiexec.exe /i "C:\Temp\RWSSHDService_x64.msi" /passive /L*v C:\Temp\rwsshd.log 
 ```
 {: codeblock}
 
-After configuring all of the above steps for SSH-only, verify that the SSH public key authentication (aka “passwordless SSH”) is working by running the following command from the RMM `ssh SYSTEM@<ip_address>` e.g. `ssh SYSTEM@192.168.10.12`.
+After configuring all of the above steps for SSH-only, verify that the SSH public key authentication (aka "passwordless SSH") is working by running the following command from the RMM `ssh SYSTEM@<ip_address>` e.g. `ssh SYSTEM@192.168.10.12`.
 
 If you have any issues with the RMM's keys, they are located in the following location `C:\Program Files (x86)\Rackware-winutil\etc\authorized_keys`
 
@@ -536,6 +542,7 @@ If you have any issues with the RMM's keys, they are located in the following lo
 {: #virt-sol-vpc-migration-design-rmm-tutorial-prepare-source-vm}
 {: step}
 
+Configure source operating systems with the required user permissions, routes, and utilities to enable RMM data discovery and live volume synchronization.
 
 ### Ubuntu Source virtual machine
 {: #virt-sol-vpc-migration-design-rmm-tutorial-prepare-source-vm-ubuntu}
@@ -549,9 +556,9 @@ The RMM must be able to ssh without using a password to the source server:
     - RMM bridge server inside IP: 192.168.10.254
 - Create a user `rackware`
 - Edit the `sudoers` file with the contents of the sudoers information contained in `opt/rackware/docs/sudo-config.txt` in the RMM server.
-- Paste the contents of the RMM public key file created earlier into the source host’s authorized_keys file for the rackware user.
+- Paste the contents of the RMM public key file created earlier into the source host's authorized_keys file for the rackware user.
 
-1. Login to your source host through SSH as user with root privileges or with full sudo privileges, and prepend ‘sudo’ to the commands on the source server.
+1. Login to your source host through SSH as user with root privileges or with full sudo privileges, and prepend 'sudo' to the commands on the source server.
 1. Add a route to the RMM server via the bridge server, for example in Ubuntu `sudo nano /etc/netplan/50-cloud-init.yaml`:
 
    ```yaml
@@ -614,7 +621,7 @@ The RMM must be able to ssh without using a password to the source server:
    ```
    {: codeblock}
 
-1. Paste the contents of the RMM public key file created earlier into the source host’s authorized_keys file for the rackware user.
+1. Paste the contents of the RMM public key file created earlier into the source host's authorized_keys file for the rackware user.
 1. You might need to enable RSA keys in some Linux distributions (for example, Ubuntu 22.04) by editing the SSH server config:
 
    ```bash
@@ -679,7 +686,7 @@ To install RackWare SSHD Service in the source virtual machine:
 1. Click **Next**. The SSHD Configuration window is displayed.
 1. On the SSHD Configuration window:
 1. Because RMM accesses the Windows host as the SYSTEM user, the username field shows SYSTEM.
-1. Enter the RMM’s public SSH key, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
+1. Enter the RMM's public SSH key, which is the contents of the file /root/.ssh/id_rsa.pub on the RMM server.
 1. Then press Next and the Confirm Installation screen will be shown.
 1. Press Next to begin the installation.
 1. After the installation completes, you will see the Installation Complete window.
@@ -713,7 +720,7 @@ msiexec.exe /i "C:\Temp\RWSSHDService_x64.msi" /passive /L*v C:\Temp\rwsshd.log 
 ```
 {: codeblock}
 
-After configuring all of the above steps for SSH-only, verify that the SSH public key authentication (aka “passwordless SSH”) is working by running the following command from the RMM `ssh SYSTEM@<ip_address>` e.g. `ssh SYSTEM@10.194.177.83`.
+After configuring all of the above steps for SSH-only, verify that the SSH public key authentication (aka "passwordless SSH") is working by running the following command from the RMM `ssh SYSTEM@<ip_address>` e.g. `ssh SYSTEM@10.194.177.83`.
 
 If you have any issues with the RMM's keys, they are located in the following location `C:\Program Files (x86)\Rackware-winutil\etc\authorized_keys`
 
@@ -733,7 +740,7 @@ RackWare RMM follows a phased approach that minimizes downtime through delta syn
    You can migrate servers one by one or run multiple, simultaneous migrations. If you are running multiple, simultaneous migrations, download the CSV template from the RMM server and populate the appropriate fields. This tutorial does not use this method.
 
 1. To bring up the GUI, point a web browser at the Floating IP address of the RMM server.
-1. Use `admin` as the Username. `rackware` is the default Password. If you have not already changed the password for the `admin` user, do so by using the standard Linux ‘passwd’ command. Press the Login button. The RMM home page will then be shown.
+1. Use `admin` as the Username. `rackware` is the default Password. If you have not already changed the password for the `admin` user, do so by using the standard Linux 'passwd' command. Press the Login button. The RMM home page will then be shown.
 1. This step is only required, if you are using the auto-provisioning feature. Navigate to Configuration, Environments and click Add Environment.
    1. In the form add the following values and then click Add:
       - Name
@@ -794,13 +801,13 @@ The replications should complete. Once completed, you can connect to the target 
 {: #virt-sol-vpc-migration-design-rmm-tutorial-delta-sync}
 {: step}
 
-Delta syncs from the source environment to the IBM Cloud VPC virtual server instances capture changes to the source virtual machines since the initial replication was performed.
+Delta syncs from the source environment to the {{site.data.keyword.cloud_notm}} VPC virtual server instances capture changes to the source virtual machines since the initial replication was performed.
 
 ## Cut-over
 {: #virt-sol-vpc-migration-design-rmm-tutorial-cutover}
 {: step}
 
-In this step we quiesce the applications and perform a cut-over/final delta sync from the source virtual machines to the IBM Cloud VPC virtual server instances.
+In this step we quiesce the applications and perform a cut-over/final delta sync from the source virtual machines to the {{site.data.keyword.cloud_notm}} VPC virtual server instances.
 
 1. Quiesce the applications on the source virtual machines. This step minimizes I/O during the final sync and ensures data consistency:
       - Stop applications/databases on the source virtual machines
@@ -814,7 +821,7 @@ In this step we quiesce the applications and perform a cut-over/final delta sync
       - Monitor the wave status in the RMM console
       - Ensure sync completes successfully with no errors
 1. Shutdown source virtual machines
-1. Network cutover. Redirect user traffic to the new environment in VPC. This step depends on how you have been connecting to your IBM Cloud VMware VCF-Automated instance but could include:
+1. Network cutover. Redirect user traffic to the new environment in VPC. This step depends on how you have been connecting to your {{site.data.keyword.cloud_notm}} VMware VCF-Automated instance but could include:
       - routing traffic to the VPC.
       - removing prefix filters from the transit gateway connection.
       - redirecting traffic from the VPN tunnels to the VPC.
@@ -826,3 +833,9 @@ In this step we quiesce the applications and perform a cut-over/final delta sync
 
 ## Next steps
 {: #virt-sol-vpc-migration-design-rmm-tutorial-step-next}
+
+After completing the migration, review the following next steps:
+
+- Decommission the source VMware environment after confirming all workloads and data are running stably in {{site.data.keyword.cloud_notm}} VPC.
+- Configure automated backups and disaster recovery policies for your newly migrated VPC virtual server instances.
+- Optimize instance sizing and network security rules based on post-migration monitoring and workload performance.

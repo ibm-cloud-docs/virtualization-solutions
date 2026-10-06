@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-23"
+lastupdated: "2026-10-06"
 
-keywords: Veeam VBR configuration troubleshooting, COS repository connection errors, VBR agent installation failures, backup performance optimization VPC, HMAC credentials Veeam COS, insufficient space backup repository, Veeam firewall port configuration, SOBR capacity tier offload, VBR VPC integration issues, Veeam backup job failures
+keywords: Veeam VBR configuration troubleshooting IBM Cloud, Veeam COS connection errors IBM Cloud, VBR agent installation failures IBM Cloud, backup performance optimization IBM Cloud VPC, HMAC credentials Veeam COS IBM Cloud, insufficient space backup repository IBM Cloud, Veeam firewall ports IBM Cloud, SOBR capacity tier IBM Cloud, Veeam VPC integration issues IBM Cloud, Veeam backup failures IBM Cloud VPC
 
 
 subcollection: virtualization-solutions
@@ -13,15 +13,15 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Troubleshooting Veeam Backup & Replication configuration and backup issues on IBM Cloud VPC
+# Troubleshooting Veeam Backup & Replication on {{site.data.keyword.cloud_notm}} VPC
 {: #troubleshooting-vbr-vpc-vsi-integration-configuration}
 
-Troubleshoot Veeam Backup & Replication on IBM Cloud VPC, covering Object Storage connectivity, slow backups, and agent failures.
+Troubleshoot Veeam Backup & Replication configuration issues on {{site.data.keyword.cloud_notm}} VPC, including Object Storage connectivity, slow backups, agent failures, and space errors.
 {: shortdesc}
 
 If you encounter issues while configuring or running Veeam Backup & Replication in {{site.data.keyword.vpc_short}}, review the following common problems and solutions. Each troubleshooting scenario includes symptoms, potential causes, and step-by-step resolutions.
 
-## Cannot connect to IBM Cloud Object Storage repository
+## Cannot connect to {{site.data.keyword.cloud_notm}} Object Storage repository
 {: #veeam-vbr-vpc-troubleshoot-cos}
 
 Use this section to troubleshoot connectivity issues between Veeam Backup & Replication and your {{site.data.keyword.cos_full_notm}} repository.
@@ -35,7 +35,7 @@ Veeam cannot connect to {{site.data.keyword.cos_full_notm}} repository.
 {: #tsCauses-cos}
 
 - Repository settings are incorrect.
-- When the VBR server cannot reach the Cloud Object Storage (COS) endpoint.
+- When the Veeam Backup & Replication (VBR) server cannot reach the Cloud Object Storage (COS) endpoint.
 - Incorrect HMAC credentials.
 - An invalid endpoint format.
 - Missing bucket access.
@@ -43,6 +43,8 @@ Veeam cannot connect to {{site.data.keyword.cos_full_notm}} repository.
 
 ### How do you fix it?
 {: #tsResolve-cos}
+
+To resolve Object Storage repository connection errors, perform the following verification steps:
 
 1. Verify that the hash-based message authentication code (HMAC) credentials are correct:
    - Check `access_key_id` and `secret_access_key`.
@@ -80,6 +82,8 @@ Backups take longer than expected or fail to complete within the backup window.
 
 ### How do you fix it?
 {: #tsResolve-performance}
+
+To troubleshoot and optimize slow backup performance, perform the following steps:
 
 1. Check network bandwidth:
    - Verify network connectivity between the VBR server and target virtual servers.
@@ -121,6 +125,8 @@ Veeam agent fails to install on a target virtual server.
 ### How do you fix it?
 {: #tsResolve-agent-fails}
 
+To resolve Veeam agent installation failures on target virtual servers, perform the following steps:
+
 1. Verify minimum system requirements for the virtual server:
    - Ensure that the system is running with Windows Server 2012 R2 or later.
    - Ensure that Linux systems use supported distributions such as Red Hat Enterprise Linux, Ubuntu, and SUSE Linux Enterprise Server.
@@ -154,6 +160,8 @@ Backup jobs fail because of insufficient disk space.
 
 ### How do you fix it?
 {: #tsResolve-space}
+
+To resolve repository capacity issues and avoid out-of-space backup failures, perform the following steps:
 
 1. Monitor local repository space:
    - Check the available space on the `E:` drive.

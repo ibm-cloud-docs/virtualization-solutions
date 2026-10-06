@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-07-21"
+  years: 2025, 2026
+lastupdated: "2026-10-06"
 
-keywords: image import migration, template-based migration VPC, QCOW2 conversion, OVF export VMware, custom image VPC, Cloud Object Storage migration, qemu-img convert, single-disk migration, VMDK to QCOW2, VPC custom image creation
+keywords: image import migration VPC, IBM Cloud custom image migration, VMDK to QCOW2 conversion, OVF export VMware VPC, VPC custom image creation, Cloud Object Storage migration, qemu-img convert VPC, single-disk VMware migration IBM Cloud, template-based VM migration, VMDK import IBM Cloud VPC
 
 
 subcollection: virtualization-solutions
@@ -13,16 +13,18 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrate to IBM Cloud virtual servers using Image Import
+# {{site.data.keyword.cloud_notm}} VPC: Migrating VMware VMs by using image import
 {: #virt-sol-vpc-migration-design-method1}
 
-Migrate single-disk VMware virtual machines to IBM Cloud VPC by exporting Open Virtualization Archive (OVA) or Virtual Machine Disk (VMDK) files and importing them as custom images.
+Migrate single-disk VMware VMs to {{site.data.keyword.cloud_notm}} VPC by exporting OVA or VMDK files and importing them as custom images using the {{site.data.keyword.cloud_notm}} image import workflow.
 {: shortdesc}
 
 ## Overview of the migration process
 {: #virt-sol-vpc-migration-design-method1-process}
 
-The following steps layout the process to migrate by using image imports.
+Image import is a file-based migration workflow that transfers VMDK images from VMware into {{site.data.keyword.cloud_notm}} Object Storage and registers them as VPC custom images.
+
+Before you begin, ensure that you have access to vCenter or VMware Cloud Foundation as a Service (VCFaaS), sufficient storage in {{site.data.keyword.cloud_notm}} Object Storage, and the `qemu-img` utility installed on your conversion workstation.
 
 1. Export virtual machine from VMware
    - From vCenter: Shut down virtual machine, use "Actions → Template → Export Open Virtualization Format (OVF) Template"
@@ -37,7 +39,7 @@ The following steps layout the process to migrate by using image imports.
    ```
    {: pre}
 
-3. Upload to IBM Cloud Object Storage
+3. Upload to {{site.data.keyword.cloud_notm}} Object Storage
    1. Create an {{site.data.keyword.cos_full}} instance and bucket if needed
    2. Use web upload (for smaller files) or Aspera high-speed transfer (for large files)
    3. Configure bucket access (public read for import, or use authorized service access)
@@ -77,3 +79,15 @@ The following table describes the constraints and limitations of an image import
 {: caption="Limitations and constraints for image import migration method" caption-side="bottom"}
 
 Use image import migration for true template scenarios (deploying multiple identical virtual machines from a base image) and for simple single-disk virtual machines where image management overhead is acceptable.
+
+## Related topics
+{: #virt-sol-vpc-migration-design-method1-related}
+
+To explore alternative migration methods and operational troubleshooting, review the following resources:
+
+- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-0-overview)
+- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-2)
+- [Method 3: Live network transfer](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-3)
+- [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-migration-method-4)
+- [VMware migration planning guide](/docs/virtualization-solutions?topic=virtualization-solutions-vmware-migration-guide)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)

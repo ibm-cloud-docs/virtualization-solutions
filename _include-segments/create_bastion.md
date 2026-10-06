@@ -2,7 +2,7 @@
 {: #virt-sol-vpc-migration-tutorial-create-bastion-virtual-server}
 {: step}
 
-Learn how to create a bastion virtual server to securely access VPC resources by following this step-by-step tutorial.
+Create an IBM Cloud VPC bastion virtual server to securely access private VPC resources through SSH proxy, with a floating IP and security group configuration.
 {: shortdesc}
 
 Create a Bastion virtual server to securely access the resources in the VPC.

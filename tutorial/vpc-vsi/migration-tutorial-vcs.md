@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: VMware VCS to VPC migration, virtual machine disk transfer, virt-v2v conversion tool, transit gateway VCS VPC, virtIO drivers Windows RHEL, NSX firewall configuration, Ubuntu live boot migration, netcat disk transfer, cloud-init configuration, VMware workload migration
+keywords: VMware VCS to IBM Cloud VPC migration, VCF Classic to VPC tutorial, virt-v2v IBM Cloud migration, Transit Gateway VCS VPC, VirtIO drivers Windows RHEL IBM Cloud, NSX firewall migration VPC, Ubuntu live boot migration IBM Cloud, netcat disk transfer VPC, cloud-init IBM Cloud VPC configuration, VMware VCF Classic VPC migration tutorial
 
 
 subcollection: virtualization-solutions
@@ -18,13 +18,13 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating VMware VCF for Classic workloads to IBM Cloud virtual servers for VPC
+# Migrating VMware VCF Classic workloads to {{site.data.keyword.cloud_notm}} VPC
 {: #virt-sol-vcs-vpc-migration-tutorial-overview}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-Migrate VMware VCF for Classic workloads to IBM Cloud Virtual Servers for VPC using a Transit Gateway connection.
+Migrate VMware VCF Classic Windows and RHEL workloads to {{site.data.keyword.cloud_notm}} VPC virtual servers by using a Transit Gateway connection to transfer virtual server disks.
 {: shortdesc}
 
 {{./../../_include-segments/objective.md}}
@@ -445,6 +445,8 @@ Use the following information to prepare the RHEL virtual server for migration.
 {: #virt-sol-vpc-migration-tutorial-prep-windows-vm}
 {: step}
 
+Configure Source Network Address Translation (SNAT) rules in NSX to enable network communication between the VCS instance and {{site.data.keyword.cloud_notm}} VPC by using the following steps:
+
 1. Enable SNAT rule to allow from VCS instance to VPC.
    1. Find the credentials to NSX.
       1. Log in to the {{site.data.keyword.cloud_notm}} console.
@@ -489,6 +491,8 @@ Use the following information to prepare the RHEL virtual server for migration.
 ## Migrating the Windows virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-windows-vm}
 {: step}
+
+Boot the Windows virtual machine from an Ubuntu live ISO and stream its disk data to the {{site.data.keyword.cloud_notm}} VPC worker virtual server instance by using the following steps:
 
 1. Find the credentials to vCenter.
    1. Log in to the {{site.data.keyword.cloud_notm}} console.
@@ -661,6 +665,8 @@ For more information, see [About Block Storage for VPC](/docs/vpc?topic=vpc-bloc
 ## Migrating the RHEL virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-rhel-vm}
 {: step}
+
+Boot the RHEL virtual machine from an Ubuntu live ISO and stream its disk data to the {{site.data.keyword.cloud_notm}} VPC worker virtual server instance by using the following steps:
 
 1. Go to the vCenter portal.
 2. Get the IP address of the RHEL virtual server.

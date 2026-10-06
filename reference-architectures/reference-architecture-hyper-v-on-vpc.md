@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: Hyper-V on VPC, VPC bare metal servers, Hyper-V cluster, failover cluster VPC, Cluster Shared Volumes, Active Directory VPC, Windows Server VPC, type-1 hypervisor, Hyper-V reference architecture, BYOL virtualization
+keywords: Hyper-V IBM Cloud VPC, Hyper-V bare metal VPC reference architecture, failover cluster IBM Cloud VPC, Cluster Shared Volumes VPC, Active Directory IBM Cloud VPC, Windows Server IBM Cloud VPC, BYOL Hyper-V IBM Cloud, Hyper-V on IBM Cloud VPC, Hyper-V cluster IBM Cloud, bare metal Hyper-V reference architecture IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Deploying Hyper-V on IBM Cloud VPC: Reference architecture
+# Deploying Hyper-V on {{site.data.keyword.cloud_notm}} VPC: Reference architecture
 {: #virt-sol-hyperv-on-vpc-architecture}
 
-Explore the reference architecture for deploying Microsoft Hyper-V on IBM Cloud Virtual Private Cloud (VPC) bare metal servers as a Bring Your Own License (BYOL) virtualization solution.
+Learn how to deploy Microsoft Hyper-V on {{site.data.keyword.cloud_notm}} VPC bare metal servers as a BYOL virtualization solution, including networking, storage, and failover design.
 {: shortdesc}
 
 Currently, Hyper-V on {{site.data.keyword.vpc_short}} is a BYOL solution. You must bring your own Windows&reg; Server 2025 Datacenter license to activate the bare metal server operating system (OS).
@@ -23,7 +23,7 @@ Currently, Hyper-V on {{site.data.keyword.vpc_short}} is a BYOL solution. You mu
 
 Hyper-V is Microsoft's enterprise-grade hypervisor technology that is built into Windows Server and Windows. It provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale. As a type-1 hypervisor, Hyper-V can run on bare metal servers hosted on {{site.data.keyword.vpc_short}} to deliver near-native performance and isolation for virtualized workloads by using its infrastructure capabilities.
 
-## Hyper-V on IBM Cloud VPC architecture overview
+## Hyper-V on {{site.data.keyword.cloud_notm}} VPC architecture overview
 {: #virt-sol-hyperv-on-vpc-architecture-diagram}
 
 The following diagram shows the high-level reference architecture to set up a typical Hyper-V cluster on {{site.data.keyword.vpc_short}}.

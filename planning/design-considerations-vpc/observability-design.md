@@ -1,18 +1,18 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: VPC observability design, IBM Cloud Monitoring, IBM Cloud Logs, Workload Protection agent, monitoring metrics, log collection, vulnerability scanning, threat detection, unified agent, compliance monitoring
+keywords: VPC observability design IBM Cloud, IBM Cloud Monitoring VPC, IBM Cloud Logs VPC virtual servers, Workload Protection agent IBM Cloud, monitoring metrics VPC IBM Cloud, log collection IBM Cloud VPC, vulnerability scanning IBM Cloud, threat detection IBM Cloud VPC, unified agent IBM Cloud VPC, compliance monitoring IBM Cloud VPC
 
 subcollection: virtualization-solutions
 ---
 {{site.data.keyword.attribute-definition-list}}
 
-# Designing observability for IBM Cloud VPC virtual servers
+# Designing observability for {{site.data.keyword.cloud_notm}} VPC virtual servers
 {: #virt-sol-vpc-observability-design-overview}
 
-Learn how to implement observability for virtual server instances in IBM Cloud VPC, ensuring visibility and insights into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
+Implement observability for {{site.data.keyword.cloud_notm}} VPC virtual servers by using {{site.data.keyword.cloud_notm}} Monitoring and {{site.data.keyword.cloud_notm}} Logs for metrics, logs, and proactive issue detection.
 {: shortdesc}
 
 Observability in {{site.data.keyword.cloud}} provides the visibility and insights that are needed to monitor, troubleshoot, and optimize applications and infrastructure across hybrid and multicloud environments. It extends beyond traditional monitoring by offering end-to-end visibility into metrics, logs, and traces, enabling proactive detection of issues and faster root-cause analysis.
@@ -209,10 +209,10 @@ The message resource is present but the message was not found in the message tab
 | Service | Description | Agent deployment metrics collection |
 | -------------- | -------------- | -------------- |
 | {{site.data.keyword.monitoringfull_notm}} | {{site.data.keyword.monitoringfull_notm}} is a cloud-native, container-intelligence management system that provides operational visibility into the performance and health of applications, services, and platforms. It offers administrators, DevOps teams, and developers full-stack telemetry with advanced features for monitoring, troubleshooting, alerting, and custom dashboard creation. | To monitor infrastructure, networks, and applications, deploy Monitoring agents on supported hosts. The agent type depends on the host platform and determines which metrics are automatically collected. When a Monitoring agent is configured, default metrics are collected automatically, including metadata for labeling, segmentation, and filtering. No additional instrumentation is required to gain insights from these automatically collected metrics. For more information, see [Getting started with {{site.data.keyword.monitoringfull_notm}}](/docs/monitoring?topic=monitoring-getting-started), [Monitoring a Windows environment](/docs/monitoring?topic=monitoring-windows) and [Monitoring an Ubuntu Linux VPC server instance](/docs/monitoring?topic=monitoring-ubuntu). |
-| {{site.data.keyword.logs_full_notm}} | {{site.data.keyword.logs_full_notm}} is an observability service that is designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, {{site.data.keyword.logs_full_notm}} provides actionable insights into system behavior. | {{site.data.keyword.logs_full_notm}} supports log collection from: \n - IBM Cloud services and resources \n - On-premises infrastructure \n - Third-party cloud providers \n - Security and audit logs generated in IBM Cloud \n \n To collect logs, deploy the {{site.data.keyword.logs_full_notm}} agent on supported hosts. The agent type depends on the host platform and determines which logs are automatically collected. When an {{site.data.keyword.logs_full_notm}} agent is configured, logs are collected automatically and sent to your {{site.data.keyword.logs_full_notm}} instance for analysis and alerting. \n \n For more information, see [Getting started with {{site.data.keyword.logs_full_notm}}](/docs/cloud-logs?topic=cloud-logs-getting-started) and [Configuring the {{site.data.keyword.logs_full_notm}} agent](/docs/cloud-logs?topic=cloud-logs-agent-about). |
+| {{site.data.keyword.logs_full_notm}} | {{site.data.keyword.logs_full_notm}} is an observability service that is designed to help organizations monitor, troubleshoot, analyze, and alert on application and infrastructure performance in real time and over extended periods. By collecting and analyzing logs from cloud-native applications, servers, databases, and IT systems, {{site.data.keyword.logs_full_notm}} provides actionable insights into system behavior. | {{site.data.keyword.logs_full_notm}} supports log collection from: \n - {{site.data.keyword.cloud_notm}} services and resources \n - On-premises infrastructure \n - Third-party cloud providers \n - Security and audit logs generated in {{site.data.keyword.cloud_notm}} \n \n To collect logs, deploy the {{site.data.keyword.logs_full_notm}} agent on supported hosts. The agent type depends on the host platform and determines which logs are automatically collected. When an {{site.data.keyword.logs_full_notm}} agent is configured, logs are collected automatically and sent to your {{site.data.keyword.logs_full_notm}} instance for analysis and alerting. \n \n For more information, see [Getting started with {{site.data.keyword.logs_full_notm}}](/docs/cloud-logs?topic=cloud-logs-getting-started) and [Configuring the {{site.data.keyword.logs_full_notm}} agent](/docs/cloud-logs?topic=cloud-logs-agent-about). |
 {: caption="{{site.data.keyword.monitoringfull_notm}} and {{site.data.keyword.logs_full_notm}} details" caption-side="bottom"}
 
-For IBM Cloud Linux virtual server instances and IBM Cloud Windows virtual server instances, the agent that is used with {{site.data.keyword.logs_full_notm}} supports both the Service ID application programming interface (API) key and Trusted Profiles authentication methods.
+For {{site.data.keyword.cloud_notm}} Linux virtual server instances and {{site.data.keyword.cloud_notm}} Windows virtual server instances, the agent that is used with {{site.data.keyword.logs_full_notm}} supports both the Service ID application programming interface (API) key and Trusted Profiles authentication methods.
 
 ### Combined observability benefits
 {: #virt-sol-vpc-observability-design-combined-benefits}

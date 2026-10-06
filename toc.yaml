@@ -14,26 +14,26 @@ toc:
       id: overview
       topics:
       - topic: overview/overview.md
-        navtitle: Enable flexible workload deployments with IBM Cloud Virtualization
+        navtitle: Deploy flexible workloads with IBM Cloud virtualization solutions
   - navgroup:
       id: architecture
       topics:
       - topic: reference-architectures/reference-architecture-openshift.md
-        navtitle: OpenShift Virtualization Architecture
+        navtitle: 'Red Hat OpenShift Virtualization on IBM Cloud VPC: Architecture'
       - topic: reference-architectures/reference-architecture-vsi.md
-        navtitle: Virtual Servers for VPC Architecture
+        navtitle: Deploying virtual servers on IBM Cloud VPC
       - topic: reference-architectures/reference-architecture-hyper-v-on-vpc.md
-        navtitle: Hyper-V on IBM VPC Architecture
+        navtitle: 'Deploying Hyper-V on IBM Cloud VPC: Reference architecture'
   - navgroup:
       id: plan
       topics:
       - topic: planning/vmware-migration-guide.md
-        navtitle: Migrating VMware workloads to IBM Cloud Virtualization platforms
+        navtitle: Migrating VMware workloads to IBM Cloud virtualization platforms
       - topicgroup:
           label: OpenShift Virtualization
           topics:
           - topic: planning/design-considerations-openshift/migration-design/migration-design.md
-            navtitle: Red Hat OpenShift Migration Infrastructure Design
+            navtitle: Red Hat OpenShift Virtualization migration infrastructure design
           - topic: planning/design-considerations-openshift/migration-design/migration-overview.md
             navtitle: Migration Workloads to Red Hat OpenShift Virtualization
           - topicgroup:
@@ -42,55 +42,55 @@ toc:
               - topic: planning/design-considerations-openshift/migration-design/migration-toolkit.md
                 navtitle: Migration Toolkit for Virtualization
               - topic: planning/design-considerations-openshift/migration-design/vmware-requirements.md
-                navtitle: VMware Requirements
+                navtitle: VMware prerequisites for Red Hat OpenShift Virtualization
           - topic: planning/design-considerations-openshift/security-design.md
-            navtitle: Security
+            navtitle: Securing Red Hat OpenShift Virtualization on IBM Cloud
           - topic: planning/design-considerations-openshift/resiliency-design.md
-            navtitle: Resiliency
+            navtitle: Red Hat OpenShift Virtualization resilience design on IBM Cloud
           - topic: planning/design-considerations-openshift/observability-design.md
-            navtitle: Observability
+            navtitle: Red Hat OpenShift Virtualization observability design on IBM Cloud
           - topic: planning/design-considerations-openshift/storage-design.md
-            navtitle: Storage
+            navtitle: Designing storage for Red Hat OpenShift virtualization on IBM Cloud
           - topic: planning/design-considerations-openshift/compute-design.md
-            navtitle: Compute
+            navtitle: Red Hat OpenShift Virtualization compute design on IBM Cloud VPC
           - topic: planning/design-considerations-openshift/networking-design.md
-            navtitle: Networking
+            navtitle: Red Hat OpenShift Virtualization networking design on IBM Cloud VPC
       - topicgroup:
           label: Virtual Servers for VPC
           topics:
           - topic: planning/design-considerations-vpc/migration-design/migration-overview.md
-            navtitle: Overview VMware to Virtual Servers on VPC migration
+            navtitle: Migrating VMware workloads to IBM Cloud VPC virtual servers
           - topic: planning/design-considerations-vpc/migration-design/migration-design-0-overview.md
-            navtitle: Overview Virtual Servers migration design
+            navtitle: Designing your VMware migration to IBM Cloud VPC
           - topicgroup:
               label: Workload Migration
               topics:
               - topic: planning/design-considerations-vpc/migration-design/migration-design-1-premigration.md
-                navtitle: Pre-migration
+                navtitle: Planning IBM Cloud VPC pre-migration design
               - topic: planning/design-considerations-vpc/migration-design/migration-design-2-wave.md
-                navtitle: Wave Planning
+                navtitle: Planning IBM Cloud VPC migration waves
               - topic: planning/design-considerations-vpc/migration-design/migration-design-3-postmigration.md
-                navtitle: Post-migration
+                navtitle: Validating IBM Cloud VPC workloads after migration
               - topic: planning/design-considerations-vpc/migration-design/migration-design-4-risk.md
-                navtitle: Risk Mitigation
+                navtitle: Mitigating IBM Cloud VPC migration risks and rollback strategies
               - topic: planning/design-considerations-vpc/migration-design/migration-method-0-overview.md
-                navtitle: Migration Methods
+                navtitle: IBM Cloud VPC migration methods for VMware VMs
               - topic: planning/design-considerations-vpc/migration-design/migration-considerations-linux.md
-                navtitle: Linux Considerations
+                navtitle: IBM Cloud VPC Linux migration considerations
               - topic: planning/design-considerations-vpc/migration-design/migration-considerations-windows.md
-                navtitle: Windows Considerations
+                navtitle: Drivers, licensing, and preparation for IBM Cloud VPC Windows migration
           - topic: planning/design-considerations-vpc/security-design.md
-            navtitle: Security
+            navtitle: Securing IBM Cloud VPC virtual servers
           - topic: planning/design-considerations-vpc/resiliency-design.md
-            navtitle: Resiliency
+            navtitle: Designing resilience for IBM Cloud VPC virtual servers
           - topic: planning/design-considerations-vpc/observability-design.md
-            navtitle: Observability
+            navtitle: Designing observability for IBM Cloud VPC virtual servers
           - topic: planning/design-considerations-vpc/storage-design.md
-            navtitle: Storage
+            navtitle: Designing storage for IBM Cloud VPC virtual servers
           - topic: planning/design-considerations-vpc/compute-design.md
-            navtitle: Compute
+            navtitle: Designing compute for IBM Cloud VPC virtual servers
           - topic: planning/design-considerations-vpc/networking-design.md
-            navtitle: Networking
+            navtitle: Designing a secure network for IBM Cloud VPC virtual servers
   - navgroup:
       id: tutorial
       topics:
@@ -98,54 +98,61 @@ toc:
           label: Hyper-V on IBM VPC
           topics:
           - topic: tutorial/hyper-v/hyper-v-on-vpc-feature.md
-            navtitle: Hyper-V on IBM VPC
+            navtitle: Deploying a Hyper-V cluster on IBM Cloud VPC
       - topicgroup:
           label: OpenShift Virtualization
           topics:
           - topic: tutorial/openshift/migration-toolkit.md
             navtitle: Migration Toolkit Tutorial
           - topic: tutorial/openshift/backup_solution.md
-            navtitle: Backups Virtual Machines using Veeam Kasten
+            navtitle: Backing up Red Hat OpenShift Virtualization VMs by using Veeam Kasten
           - topic: tutorial/openshift/ibm-logging.md
-            navtitle: Logging for Red Hat OpenShift Virtualization
+            navtitle: Configuring IBM Cloud Logs for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/rhacm-tutorial.md
-            navtitle: Observability with Red Hat Advanced Cluster Management
+            navtitle: Red Hat Advanced Cluster Management Observability
           - topic: tutorial/openshift/storage-migration.md
-            navtitle: Storage migration for virtual machines in OpenShift Virtualization
+            navtitle: Migrating Red Hat OpenShift Virtualization VM storage on IBM Cloud
           - topic: tutorial/openshift/nfs-storage-solution.md
-            navtitle: NFS Storage Solution
+            navtitle: IBM Cloud File Storage for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/virt-workload-ha.md
             navtitle: Configuring high availability for virtualization workloads on Red Hat OpenShift
           - topic: tutorial/openshift/storage-solution.md
-            navtitle: Red Hat OpenShift Data Foundation (ODF) for virtual machine workloads
+            navtitle: Configuring ODF storage for Red Hat OpenShift Virtualization
       - topicgroup:
           label: OpenShift Networking
           topics:
           - topic: tutorial/openshift/network-options.md
-            navtitle: OVN networking in OpenShift for vSphere administrators
+            navtitle: Red Hat OpenShift Virtualization OVN networking for vSphere admins
           - topic: tutorial/openshift/network-option-layer2-primary.md
-            navtitle: Layer 2 primary UDN examples for Red Hat OpenShift Virtualization
+            navtitle: Configuring Layer 2 primary UDN for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/network-option-layer2-secondary.md
             navtitle: Layer 2 secondary UDN examples for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/network-option-localnet.md
-            navtitle: Localnet UDN examples for Red Hat OpenShift Virtualization
+            navtitle: Configuring Localnet UDN for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/network-prerequisites.md
-            navtitle: UDN Prerequisites for Red Hat OpenShift Virtualization
+            navtitle: Configuring OVN user-defined networks on Red Hat OpenShift
       - topicgroup:
           label: Virtual Servers for VPC
           topics:
           - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-tutorial.md
-            navtitle: RackWare Tutorial
+            navtitle: Migrating VMware VCF Classic to IBM Cloud VPC by using RackWare RMM
           - topic: tutorial/vpc-vsi/migration-tutorial.md
-            navtitle: VMware Migration Tutorial - VCFaaS
+            navtitle: Migrating VMware VCFaaS workloads to IBM Cloud VPC virtual servers
           - topic: tutorial/vpc-vsi/migration-tutorial-vcs.md
-            navtitle: VMware Migration Tutorial - VCF for Classic
+            navtitle: Migrating VMware VCF Classic workloads to IBM Cloud VPC
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-configuration.md
-            navtitle: "VMware Migration Tutorial - Configuring VBR with VSI"
+            navtitle: Configuring Veeam Backup & Replication for IBM Cloud VPC VSIs
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-backup.md
-            navtitle: "VMware Migration Tutorial - Backing up VSI with VBR"
+            navtitle: Backing up IBM Cloud VPC VSIs with Veeam Backup & Replication
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-restore.md
-            navtitle: "VMware Migration Tutorial - Restoring VSI with VBR"
+            navtitle: Restoring IBM Cloud VPC VSIs with Veeam Backup & Replication
+      - topicgroup:
+          label: Red Hat OpenShift High Availability
+          topics:
+          - topic: tutorial/openshift/virt-workload-ha.md
+            navtitle: Configuring Red Hat OpenShift Virtualization high availability
+          - topic: tutorial/openshift/observability.md
+            navtitle: Red Hat OpenShift Virtualization observability on IBM Cloud
   - navgroup:
       id: howto
       topics:
@@ -153,7 +160,7 @@ toc:
           label: OpenShift Virtualization
           topics:
           - topic: planning/design-considerations-openshift/migration-design/migration-workflow.md
-            navtitle: Migration Workflow
+            navtitle: VMware migration workflow
           - link:
               label: Red Hat OpenShift Virtualization Service
               href: https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview
@@ -164,18 +171,18 @@ toc:
               label: Migrating virtual server options
               topics:
               - topic: planning/design-considerations-vpc/migration-design/migration-method-1.md
-                navtitle: Image Import (Template-Based Migration)
+                navtitle: 'IBM Cloud VPC: Migrating VMware VMs by using image import'
               - topic: planning/design-considerations-vpc/migration-design/migration-method-2.md
-                navtitle: Copying direct volume (multi-disk method)
+                navtitle: 'IBM Cloud VPC: Multi-disk VMware VM migration by direct volume copy'
               - topic: planning/design-considerations-vpc/migration-design/migration-method-3.md
-                navtitle: Live Network Transfer
+                navtitle: 'IBM Cloud VPC: Migrating VMware VMs by using live network transfer'
               - topic: planning/design-considerations-vpc/migration-design/migration-method-4.md
-                navtitle: VDDK Direct Extraction
+                navtitle: 'IBM Cloud VPC: Migrating VMware VMs by using VDDK direct extraction'
   - navgroup:
       id: reference
       topics:
       - topic: planning/design-considerations-vpc/migration-design/rackware-vcf-classic-2-vpc-vsi-guide.md
-        navtitle: RackWare Technical Guide
+        navtitle: Migrating IBM Cloud VMware VCF to IBM Cloud VPC by using RackWare
   - navgroup:
       id: help
       topics:
@@ -183,21 +190,21 @@ toc:
           label: Known Issues
           topics:
           - topic: help/known-issues/known-issues-for-odf-workloads.md
-            navtitle: Known issues for ODF workloads
+            navtitle: 'Red Hat OpenShift Virtualization ODF workloads: Known issues'
           - topic: help/known-issues/known-issues-for-storage-migration.md
-            navtitle: Known issues for storage migration
+            navtitle: 'IBM Cloud OpenShift Virtualization storage migration: Known issues'
           - topic: help/known-issues/known-issues-for-networking.md
-            navtitle: Known issues for networking
+            navtitle: 'Red Hat OpenShift Virtualization networking: Known issues'
       - topicgroup:
           label: Troubleshooting
           topics:
           - topic: help/troubleshooting/troubleshooting-odf-workloads.md
-            navtitle: Troubleshooting ODF workloads
+            navtitle: Troubleshooting ODF workloads on Red Hat OpenShift bare metal servers
           - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-configuration.md
-            navtitle: Troubleshooting Veeam Backup & Replication configuration and backup issues
+            navtitle: Troubleshooting Veeam Backup & Replication on IBM Cloud VPC
           - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-restore.md
-            navtitle: Troubleshooting Veeam Backup & Replication restore issues
+            navtitle: Troubleshooting Veeam Backup & Replication restores on IBM Cloud VPC
           - topic: help/troubleshooting/troubleshooting-storage-migration.md
-            navtitle: Troubleshooting storage migration
+            navtitle: Troubleshooting storage migration in IBM Cloud VPC
           - topic: help/troubleshooting/troubleshooting-mtv-migration.md
-            navtitle: Troubleshooting MTV migrations from VMware vSphere
+            navtitle: Troubleshooting Red Hat OpenShift Virtualization MTV migrations

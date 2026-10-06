@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: OpenShift virtualization compute, bare metal servers OpenShift, IBM Cloud bare metal VPC, OpenShift worker nodes, NVMe storage OpenShift, virtual servers OpenShift, multizone cluster OpenShift, compute profiles VPC
+keywords: OpenShift virtualization compute IBM Cloud, bare metal servers OpenShift IBM Cloud, IBM Cloud bare metal VPC OpenShift, OpenShift worker node profiles, NVMe storage OpenShift IBM Cloud, virtual servers OpenShift Virtualization, multizone cluster OpenShift IBM Cloud, dedicated infrastructure nodes ROKS, compute design OpenShift Virtualization IBM Cloud, bare metal compute design ROKS
 
 
 subcollection: virtualization-solutions
@@ -13,13 +13,13 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Designing compute for Red Hat OpenShift virtualization on IBM Cloud VPC
+# {{site.data.keyword.redhat_openshift_notm}} Virtualization compute design on {{site.data.keyword.cloud_notm}} VPC
 {: #virt-sol-openshift-compute-design}
 
-Choose virtual server or bare metal worker node profiles for Red Hat OpenShift Virtualization VM workloads on IBM Cloud VPC.
+Choose virtual server or bare metal worker node profiles for {{site.data.keyword.redhat_openshift_notm}} Virtualization workloads on {{site.data.keyword.cloud_notm}} VPC, and plan dedicated infrastructure nodes.
 {: shortdesc}
 
-IBM Cloud VPC offers two compute options:
+{{site.data.keyword.cloud_notm}} VPC offers two compute options:
 
 - [Virtual servers](/docs/vpc?topic=vpc-about-advanced-virtual-servers)
 - [Bare metal server](/docs/vpc?topic=vpc-about-bare-metal-servers)
@@ -28,53 +28,53 @@ The key compute architecture elements are shown in the following diagram.
 
 ![Red Hat OpenShift Virtualization on IBM Cloud Compute](../../images/openshift/openshift-virtualization-high-level-compute.svg "Red Hat OpenShift Virtualization on IBM Cloud Compute"){: caption="Red Hat OpenShift Virtualization on IBM Cloud Compute" caption-side="bottom"}
 
-## Red Hat OpenShift worker nodes
+## {{site.data.keyword.redhat_openshift_notm}} worker nodes
 {: #virt-sol-openshift-compute-design-workers}
 
 {{site.data.keyword.redhat_openshift_full}} Kubernetes Service is a managed service that uses {{site.data.keyword.redhat_openshift_notm}} clusters where you can deploy and manage virtualized and containerized applications. A {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster has a managed control plane and one or more worker pools. A worker pool consists of two or more compute hosts that are called worker nodes. Worker pools contain worker nodes of the same profile of CPU, memory, operating system, attached storage, and other properties. The worker nodes are managed by the Kubernetes control plane, which controls and monitors all Kubernetes resources that are in the cluster. The Kubernetes scheduler decides which worker node to deploy resources on and accounts for deployment requirements and available capacity in the cluster.
 
 After a cluster is created, you can add more worker nodes to a pool by resizing it or by adding extra worker pools. Clusters that have a worker pool in only one zone are called single zone clusters. For high availability, you can create multizone clusters with worker pools that span multiple availability zones. You can create multizone clusters, but they are not recommended for virtualization workloads because of storage latency.
 
-IBM Cloud Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads because Red Hat supports only bare metal worker nodes for production virtualized workloads. The bare metal nodes must be provisioned with local NVMe drives. So they can be used by Red Hat OpenShift Data Foundation (ODF) as backing storage.
+{{site.data.keyword.cloud_notm}} Bare Metal Servers for VPC are recommended in the worker pool to run your production virtualized workloads because Red Hat supports only bare metal worker nodes for production virtualized workloads. The bare metal nodes must be provisioned with local NVMe drives. So they can be used by {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) as backing storage.
 
 For more information, see [Red Hat OpenShift Virtualization Service overview](/docs/openshift?topic=openshift-virt-overview).
 
-## IBM Cloud Virtual Servers for VPC
+## {{site.data.keyword.cloud_notm}} Virtual Servers for VPC
 {: #virt-sol-openshift-compute-design-vsi}
 
-IBM Cloud Virtual Servers for VPC provide secure, isolated virtual machines that are deployed within a Virtual Private Cloud environment. You can use these instances for production workloads, and development and test environments that require flexible resource allocation and comprehensive infrastructure control.
+{{site.data.keyword.cloud_notm}} Virtual Servers for VPC provide secure, isolated virtual machines that are deployed within a Virtual Private Cloud environment. You can use these instances for production workloads, and development and test environments that require flexible resource allocation and comprehensive infrastructure control.
 
 For more information about virtual servers, see [About virtual server instances for VPC](/docs/vpc?topic=vpc-about-advanced-virtual-servers).
 
-The following table lists the key features for IBM Cloud Virtual Servers for VPC.
+The following table lists the key features for {{site.data.keyword.cloud_notm}} Virtual Servers for VPC.
 
 | Feature | Description |
 | -------------- | -------------- |
 | Customizable profiles | Balanced, compute-optimized, memory-optimized, GPU, and high memory configurations |
 | Flexible tenancy | Shared tenancy infrastructure with optional dedicated host placement for compliance requirements |
 | Advanced networking | Integration with VPC Security Groups, Network access control lists (ACLs), Load Balancers, and virtual private network (VPN) connectivity |
-| Persistent storage | IBM Cloud Block Storage and File Storage for VPC with configurable input/output operations per second (IOPS) and encryption |
+| Persistent storage | {{site.data.keyword.cloud_notm}} Block Storage and File Storage for VPC with configurable input/output operations per second (IOPS) and encryption |
 | Operating system flexibility | IBM-provided stock images or bring-your-own custom images |
 | Scalability | Vertical scaling through profile changes and horizontal scaling through instance groups with auto-scaling |
-{: caption="IBM Cloud Virtual Servers for VPC key features" caption-side="bottom"}
+{: caption="{{site.data.keyword.cloud_notm}} Virtual Servers for VPC key features" caption-side="bottom"}
 
-For more information about virtual server instance profiles that are supported by {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, see [IBM Cloud Docs - Worker Nodes VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
+For more information about virtual server instance profiles that are supported by {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service, see [{{site.data.keyword.cloud_notm}} Docs - Worker Nodes VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
 
-## IBM Cloud Bare Metal Servers for VPC
+## {{site.data.keyword.cloud_notm}} Bare Metal Servers for VPC
 {: #virt-sol-openshift-compute-design-bms}
 
-IBM Cloud Bare Metal Servers for VPC provide single-tenant, dedicated physical servers that deliver maximum performance, security, and control. These servers are required for production deployments of Red Hat OpenShift Virtualization.
+{{site.data.keyword.cloud_notm}} Bare Metal Servers for VPC provide single-tenant, dedicated physical servers that deliver maximum performance, security, and control. These servers are required for production deployments of {{site.data.keyword.redhat_openshift_notm}} Virtualization.
 
-The following table lists the key features for IBM Cloud Bare Metal Servers for VPC.
+The following table lists the key features for {{site.data.keyword.cloud_notm}} Bare Metal Servers for VPC.
 
 | Feature | Description |
 | -------------- | -------------- |
 | Single-tenant isolation | Dedicated physical hardware with no resource sharing |
-| High-performance NVMe storage | Local Non-Volatile Memory Express (NVMe) drives for Red Hat OpenShift Data Foundation deployments |
+| High-performance NVMe storage | Local Non-Volatile Memory Express (NVMe) drives for {{site.data.keyword.redhat_openshift_notm}} Data Foundation deployments |
 | Consistent performance | Predictable performance without virtualization resource overuse |
 | Large memory configurations | Support for memory-intensive virtualization workloads |
 | Network performance | High-bandwidth, low-latency networking for VM traffic |
-{: caption="IBM Cloud Bare Metal Servers for VPC key features" caption-side="bottom"}
+{: caption="{{site.data.keyword.cloud_notm}} Bare Metal Servers for VPC key features" caption-side="bottom"}
 
 Bare Metal worker nodes that are supported by {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service varies by region and Availability Zone. For more information, see [worker node VPC flavors](/docs/openshift?topic=openshift-vpc-flavors).
 
@@ -95,9 +95,10 @@ For more information about bare metal servers, see [About Bare Metal Servers for
 ## Next steps
 {: #virt-sol-openshift-compute-design-next-steps}
 
-Now that you understand the compute design for Red Hat OpenShift Virtualization, explore these related topics:
+Now that you understand the compute design for {{site.data.keyword.redhat_openshift_notm}} Virtualization, explore these related topics and practical tutorials:
 
-- **Networking**: Review [networking design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) for Red Hat OpenShift and OVN.
-- **Storage**: Explore [storage design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) including Red Hat OpenShift Data Foundation.
-- **Security**: Learn about [security design patterns](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-security-design-overview) for Red Hat OpenShift workloads.
-- **Migration**: Review [migration strategies](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration) that use MTV.
+- **Networking**: Review [networking design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) and follow the [Deploying OVN secondary networks tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-ovn-deployment-guide)
+- **Storage**: Explore [storage design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) and follow the [Deploying ODF storage tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-storage-solution)
+- **Observability**: Review [observability design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-observability-design-overview) and follow the [Configuring observability tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-observability)
+- **Resiliency & HA**: Review [resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design-overview) and explore [Workload high availability](/docs/virtualization-solutions?topic=virtualization-solutions-virt-workload-ha) and [Backup configuration](/docs/virtualization-solutions?topic=virtualization-solutions-backup_solution)
+- **Migration**: Review [migration design](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration) and follow the [Deploying MTV tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-migration-toolkit)
