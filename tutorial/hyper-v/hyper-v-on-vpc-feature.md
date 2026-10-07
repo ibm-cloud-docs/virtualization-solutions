@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: Hyper-V deployment tutorial, VPC bare metal servers, Hyper-V failover cluster, Storage Spaces Direct, Active Directory VPC, Cluster Shared Volumes, live migration Hyper-V, Windows Server 2025, BYOL Hyper-V, Hyper-V cluster configuration
+keywords: Hyper-V deployment tutorial IBM Cloud, VPC bare metal servers Hyper-V, Hyper-V failover cluster IBM Cloud VPC, Storage Spaces Direct IBM Cloud, Active Directory IBM Cloud VPC, Cluster Shared Volumes VPC, live migration Hyper-V IBM Cloud, BYOL Hyper-V IBM Cloud, Hyper-V cluster IBM Cloud VPC, bare metal Hyper-V cluster tutorial
 
 subcollection: virtualization-solutions
 
@@ -17,13 +17,13 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Deploying and configuring a Hyper-V cluster on IBM Cloud VPC infrastructure
+# Deploying a Hyper-V cluster on {{site.data.keyword.cloud_notm}} VPC
 {: #virt-sol-hyperv-on-vpc-tutorial}
 {: toc-content-type="tutorial"}
 {: toc-services="Hyper-V, VPC VSI, VPC Bare-metal"}
 {: toc-completion-time="60m"}
 
-Deploy a Hyper-V cluster on IBM Cloud VPC bare metal servers with Active Directory, network setup, live migration, and failover clustering.
+Deploy a Hyper-V cluster on {{site.data.keyword.cloud_notm}} VPC bare metal servers, including Active Directory setup, network configuration, live migration, and failover clustering.
 {: shortdesc}
 
 Hyper-V is a Microsoft&reg; enterprise-grade hypervisor technology that is built into the Windows&reg; Server and Windows operating system. Hyper-V on {{site.data.keyword.vpc_short}} provides hardware virtualization capabilities that enable organizations to create, manage, and run virtual machines at scale on Windows-based environments that are hosted on bare metal servers within the {{site.data.keyword.vpc_short}} isolated and secured private cloud.
@@ -51,7 +51,7 @@ Deploying Hyper-V on {{site.data.keyword.vpc_short}} provides several advantages
 ## Planning for Hyper-V installation
 {: #virt-sol-hyperv-on-vpc-planning-installation}
 
-To plan for the installation of a typical Hyper-V cluster on {{site.data.keyword.vpc_short}} infrastructure, refer to the [Reference Architecture of Hyper-V on IBM Cloud](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-hyperv-on-vpc-architecture).
+To plan for the installation of a typical Hyper-V cluster on {{site.data.keyword.vpc_short}} infrastructure, refer to the [Reference Architecture of Hyper-V on {{site.data.keyword.cloud_notm}}](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-hyperv-on-vpc-architecture).
 
 This tutorial requires the following prerequisites.
 

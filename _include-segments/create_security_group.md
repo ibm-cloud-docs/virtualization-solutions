@@ -1,4 +1,4 @@
-## Configuring security groups for bastion virtual servers in VPC
+## Creating security groups for bastion virtual servers in IBM Cloud VPC
 {: #virt-sol-vpc-migration-tutorial-create-security-group}
 {: step}
 

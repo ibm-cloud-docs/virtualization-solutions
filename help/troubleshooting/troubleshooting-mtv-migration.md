@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-31"
+lastupdated: "2026-10-06"
 
-keywords: MTV troubleshooting, Migration Toolkit for Virtualization troubleshooting, VMware vSphere migration troubleshooting, OpenShift Virtualization migration errors, VMware to OpenShift Virtualization migration, warm migration retry limit, CBT snapshot limit, VDDK image pull denied, ESXi DNS resolution, virt-v2v read-only file system, preserve static IP migration, ForkliftController file system overhead, VMware migration plan failure, OpenShift Virtualization migration troubleshooting
+keywords: MTV troubleshooting IBM Cloud, Migration Toolkit for Virtualization errors IBM Cloud, VMware to OpenShift Virtualization migration errors, warm migration retry limit IBM Cloud, VDDK image pull denied MTV, ESXi DNS resolution MTV IBM Cloud, virt-v2v read-only file system troubleshoot, preserve static IP migration MTV, ForkliftController overhead IBM Cloud, VMware migration plan failure OpenShift, MTV IBM Cloud troubleshooting guide, CBT snapshot limit MTV IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -14,15 +14,10 @@ content-type: troubleshoot
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Troubleshooting MTV migrations from VMware vSphere to Red Hat OpenShift Virtualization
+# Troubleshooting {{site.data.keyword.redhat_openshift_notm}} Virtualization MTV migrations
 {: #troubleshooting-mtv-migration}
 
-Troubleshoot common Migration Toolkit for Virtualization (MTV) errors when you
-migrate VMware vSphere&reg; virtual machines (VMs) to
-{{site.data.keyword.redhat_openshift_notm}} Virtualization, including warm
-migration retry limits, Virtual Disk Development Kit (VDDK) image pull
-failures, Domain Name System (DNS) resolution issues, `virt-v2v` file system
-errors, and preserve static IP problems.
+Troubleshoot Migration Toolkit for Virtualization (MTV) migration errors on {{site.data.keyword.redhat_openshift_notm}} Virtualization, including warm migration retry limits, VMware Virtual Disk Development Kit (VDDK) pull failures, DNS issues, and static IP conflicts.
 {: shortdesc}
 
 ## Warm import retry limit reached
@@ -44,6 +39,8 @@ exceeded, the warm migration cannot continue.
 
 ### How do you fix it?
 {: #tsResolve-warm-import-retry}
+
+To resolve warm migration failures caused by CBT snapshot limits, perform the following steps:
 
 1. Delete older CBT snapshots on the source VM to reduce the count to fewer
    than 28 snapshots.
@@ -70,6 +67,8 @@ assumes. As a result, there is insufficient space for the root partition.
 
 ### How do you fix it?
 {: #tsResolve-disk-resize}
+
+To accommodate root file system overhead on block storage, adjust the Forklift controller settings by using the following steps:
 
 1. Edit the `ForkliftController` custom resource (CR).
 2. Increase the `controller_filesystem_overhead` parameter to a value greater
@@ -98,7 +97,7 @@ validator pod cannot authenticate to the internal
 {: #tsResolve-plan-fails-after-creation}
 
 Grant pull access to the `default` service account in the target namespace. Run
-the following command in the Red Hat OpenShift web terminal or from a local system that
+the following command in the {{site.data.keyword.redhat_openshift_notm}} web terminal or from a local system that
 has the `oc` CLI installed.
 
 ```sh
@@ -170,6 +169,8 @@ read/write access.
 ### How do you fix it?
 {: #tsResolve-virt-v2v-read-only}
 
+To prevent NTFS hibernation locking before migration, perform the following steps:
+
 1. Disable Fast Startup on the source Windows VM. Go to **Control Panel** >
    **Power Options** > **Choose what the power buttons do**, and clear the
    **Turn on fast startup** checkbox.
@@ -221,6 +222,8 @@ preservation to work correctly.
 
 ### How do you fix it?
 {: #tsResolve-static-ip-free-ip-assigned}
+
+To recover the correct IP assignment and re-execute the migration, perform the following steps:
 
 1. Delete the incorrectly migrated VM.
 2. Verify that the VMware guest agent (VMware Tools or `open-vm-tools`) is

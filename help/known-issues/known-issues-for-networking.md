@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: OpenShift Virtualization networking known issues, VNI limitations, floating attachment restrictions, VNI modification known issues, cluster-scoped dynamic attachments, VNI security group changes, Infrastructure NAT VNI settings, OpenShift networking limitations, VNI detach reattach workflow, floating IP VNI restrictions, OpenShift VNI troubleshooting
+keywords: OpenShift Virtualization networking known issues IBM Cloud, VNI limitations IBM Cloud, floating IP VNI restrictions IBM Cloud, VNI modification known issues ROKS, cluster-scoped dynamic attachments OpenShift, VNI security group changes IBM Cloud, Infrastructure NAT VNI settings, OpenShift networking limitations IBM Cloud, VNI detach reattach workflow, OpenShift Virtualization VNI IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Known issues for networking in Red Hat OpenShift Virtualization on IBM Cloud
+# {{site.data.keyword.redhat_openshift_notm}} Virtualization networking: Known issues
 {: #known-issues-for-networking}
 
-Review known networking issues for Red Hat OpenShift Virtualization on IBM Cloud, including VNI modification restrictions and workarounds.
+Review known {{site.data.keyword.redhat_openshift_notm}} Virtualization networking issues on {{site.data.keyword.cloud_notm}}, including VNI attachment modification restrictions and available workarounds for each issue.
 {: shortdesc}
 
 This list reflects known issues and limitations at the time of publication. Review this page periodically for updates as new capabilities are released.

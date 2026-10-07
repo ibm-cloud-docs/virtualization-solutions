@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: VPC virtual servers, virtual server architecture, VPC compute instances, VMware to VPC migration, virtual machine infrastructure, cloud VM deployment, VPC virtualization, virtual server reference architecture
+keywords: VPC virtual server reference architecture IBM Cloud, IBM Cloud VPC virtual servers, VMware to VPC migration architecture, VPC compute instances IBM Cloud, virtual machine infrastructure VPC, cloud VM deployment IBM Cloud, VPC virtualization architecture, IBM Cloud virtual server deployment, VPC virtual server design, VPC VSI architecture IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -17,10 +17,10 @@ production: false
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Deploying virtual servers on IBM Cloud VPC: Flexible compute resources
+# Deploying virtual servers on {{site.data.keyword.cloud_notm}} VPC
 {: #virt-sol-vpc-vsi-architecture}
 
-Explore the IBM Cloud Virtual Servers for Virtual Private Cloud (VPC) reference architecture, including compute, networking, storage, and security components.
+Explore the {{site.data.keyword.cloud_notm}} VPC virtual servers reference architecture, covering compute, networking, storage, security components, and deployment patterns.
 {: shortdesc}
 
 The platform includes networking features such as security groups, network access control lists (ACLs), virtual private network (VPN) connectivity, and load balancers. These options provide network isolation and security controls.
@@ -29,7 +29,7 @@ Storage options include boot and data volumes by using {{site.data.keyword.block
 
 For enterprise management and governance, {{site.data.keyword.cloud_notm}} services such as {{site.data.keyword.monitoringlong}}, {{site.data.keyword.logs_routing_full_notm}}, and {{site.data.keyword.cloud_notm}} Security and Compliance Center provide visibility, audit trails, and compliance scanning across your VPC infrastructure.
 
-## IBM Cloud Virtual Servers for VPC architecture overview
+## {{site.data.keyword.cloud_notm}} Virtual Servers for VPC architecture overview
 {: #virt-sol-vpc-vsi-architecture-diagram}
 
 The following diagram shows the high-level reference architecture for your virtual servers.
@@ -47,8 +47,8 @@ The following table outlines the products or services that are used in the archi
 | | 3rd-party migration tools | Tools that are in the {{site.data.keyword.cloud_notm}} catalog such as RackWare RMM, Wanclouds. |
 | | Self-service | Direct migration by using image import, instance provisioning, and configuration management tools. |
 | [**Security**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-security-design-overview) | 3rd party Virtual network functions | 3rd party firewalls |
-| | IBM Cloud Key Protect | IBM Key Protect for IBM Cloud® service helps you provision and store encrypted keys for apps across IBM Cloud services, so you can see and manage data encryption and the entire key lifecycle from one central location. |
-| | IBM Cloud Security and Compliance Center Workload Protection | IBM Cloud Security and Compliance Center Workload Protection to find and prioritize software vulnerabilities, detect and respond to threats, and manage configurations, permissions, and compliance. |
+| | {{site.data.keyword.cloud_notm}} Key Protect | IBM Key Protect for IBM Cloud® service helps you provision and store encrypted keys for apps across {{site.data.keyword.cloud_notm}} services, so you can see and manage data encryption and the entire key lifecycle from one central location. |
+| | {{site.data.keyword.cloud_notm}} Security and Compliance Center Workload Protection | {{site.data.keyword.cloud_notm}} Security and Compliance Center Workload Protection to find and prioritize software vulnerabilities, detect and respond to threats, and manage configurations, permissions, and compliance. |
 | [**Resiliency**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-vpc-resiliency-design) | {{site.data.keyword.cloud_notm}} Snapshots | Point-in-time copies of block storage volumes for backup and recovery. |
 | | {{site.data.keyword.cloud_notm}} VPC Backup Service | Scheduled point-in-time copies of Block Storage volumes for backup and recovery. |
 | | {{site.data.keyword.cloud_notm}} Backup and recovery | Agent-based backup service for file-level and folder-level backup. |
@@ -57,7 +57,7 @@ The following table outlines the products or services that are used in the archi
 | [**Observability**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-observability-design-overview) | {{site.data.keyword.cloud_notm}} Console, command-line interface (CLI), or application programming interface (API) | Web-based console, CLI, and REST APIs for managing VPC resources. |
 | | {{site.data.keyword.monitoringlong}} | Agent-based monitoring for metrics collection. |
 | | {{site.data.keyword.logs_routing_full_notm}} | Agent-based log aggregation and analysis. |
-| | {{site.data.keyword.cloud_notm}} IBM Cloud Activity Tracker Event Routing | Audit logging for VPC resource management activities. |
+| | {{site.data.keyword.cloud_notm}} {{site.data.keyword.cloud_notm}} Activity Tracker Event Routing | Audit logging for VPC resource management activities. |
 | | {{site.data.keyword.cloud_notm}} security and compliance center | Posture management and compliance scanning for your VPC infrastructure. |
 | [**Storage**](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-storage-design-overview) | {{site.data.keyword.block_storage_is_short}} | High-performance block storage volumes with configurable input/output operations per second (IOPS) for boot and data disks. |
 | | {{site.data.keyword.filestorage_vpc_short}} | Persistent, fast, and flexible network-attached, NFS-based file storage. |

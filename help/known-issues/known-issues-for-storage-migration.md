@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-09-17"
+lastupdated: "2026-10-06"
 
 keywords: storage migration known issues OpenShift, VirtualMachineStorageMigrationPlan existing plan error, storage class conversion problems, nodeSelector migration warnings, volume capacity mismatch migration, OpenShift storage class migration, namespace migration plan conflicts, PVC migration issues OpenShift, migration plan deletion workflow, SubnetFindFailed VPC file storage, deleteSource retentionPolicy, source PVC deleted migration, ibm-cloud-provider-data subnet vpc file csi driver, SubnetFindFailed RC:404, VPC subnet resource group mismatch
 
@@ -12,10 +12,11 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Storage migration known issues and limitations
+# {{site.data.keyword.cloud_notm}} OpenShift Virtualization storage migration: Known issues
 {: #known-issues-storage-migration}
 
-Review known issues for VM storage migration on {{site.data.keyword.redhat_openshift_notm}} Virtualization.
+
+Review known issues for VM storage migration on {{site.data.keyword.cloud_notm}} OpenShift Virtualization, including MigPlan conflicts and volume capacity mismatches.
 {: shortdesc}
 
 This list reflects known issues and limitations at the time of publication. Review this page periodically for updates as new capabilities are released.
@@ -76,6 +77,9 @@ Workaround
 Warning message
 :   "Migrating data of the following volumes can result in a failure either due to mismatch in their requested and actual capacities or disk usage close to 100%."
 
+This message is emitted verbatim by the Migration Toolkit for Containers (MTC) controller. The value `100%` in this context is a threshold condition reported by the MTC controller, not a measured percentage.
+{: note}
+
 Explanation
 :   The storage class API does not report which access modes it supports or whether a capacity mismatch exists between the source and target PVC.
 
@@ -94,7 +98,7 @@ Explanation
 :   The migration controller may update the VM's `dataVolumeTemplates` with an incorrect `volumeMode` for the target storage class during a stalled migration. Because the DataVolume spec is immutable, the PVC cannot be corrected without recreating the DataVolume. Before the DataVolume can be deleted, the VM's `dataVolumeTemplates` must also be patched. Otherwise, the VM controller immediately recreates it.
 
 Workaround
-:   Follow the recovery procedure in the [VM stuck after failed migration](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-storage-migration#error-vm-spec-updated) troubleshooting section.
+:   Follow the recovery procedure in the [Troubleshooting storage migration](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-storage-migration#additional-troubleshooting-resources) troubleshooting section.
 
 ### Issue: NFS target migration fails with SubnetFindFailed — VPC subnet and resource group mismatch
 {: #issue-subnet-find-failed}

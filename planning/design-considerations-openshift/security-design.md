@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
 keywords: OpenShift virtualization security, IBM Cloud IAM, Key Protect encryption, Hyper Protect Crypto Services, RBAC OpenShift, data encryption at rest, network security OpenShift, compliance GDPR HIPAA, security groups VPC, Workload Protection
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Designing secure Red Hat OpenShift virtualization on IBM Cloud
+# Securing {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}
 {: #virt-sol-openshift-security-design-overview}
 
-Design security for Red Hat OpenShift Virtualization on IBM Cloud, covering IAM, data encryption, network security, and compliance frameworks.
+Design security for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}, covering IAM, data encryption, network security, and compliance frameworks.
 {: shortdesc}
 
 The key security architecture elements are shown in the following diagram.
@@ -27,16 +27,16 @@ For workload migration and deployment, robust security capabilities are essentia
 ## Shared responsibility
 {: #virt-sol-openshift-security-design-shared-responsibility}
 
-{{site.data.keyword.cloud_notm}} uses a shared responsibility model that defines which security and compliance responsibilities are managed by {{site.data.keyword.cloud_notm}} and which ones are yours. Understanding this model is critical to implement effective security controls. For more information, see [Shared responsibilities for using IBM Cloud products](/docs/overview?topic=overview-shared-responsibilities) and [Infrastructure-as-a-service](/docs/overview?topic=overview-shared-responsibilities#iaas-services-responsibilities).
+{{site.data.keyword.cloud_notm}} uses a shared responsibility model that defines which security and compliance responsibilities are managed by {{site.data.keyword.cloud_notm}} and which ones are yours. Understanding this model is critical to implement effective security controls. For more information, see [Shared responsibilities for using {{site.data.keyword.cloud_notm}} products](/docs/overview?topic=overview-shared-responsibilities) and [Infrastructure-as-a-service](/docs/overview?topic=overview-shared-responsibilities#iaas-services-responsibilities).
 
-{{site.data.keyword.cloud_notm}} compliance results from a platform and services that are built on best-in-industry security standards, including General Data Protection Regulation (GDPR), Health Insurance Portability and Accountability Act (HIPAA), ISO 9001, ISO 27001, ISO 27017, ISO 27018, Payment Card Industry (PCI), Service Organization Controls 2 (SOC2), and others. See [Understanding compliance in IBM Cloud](/docs/overview?topic=overview-compliance).
+{{site.data.keyword.cloud_notm}} compliance results from a platform and services that are built on best-in-industry security standards, including General Data Protection Regulation (GDPR), Health Insurance Portability and Accountability Act (HIPAA), ISO 9001, ISO 27001, ISO 27017, ISO 27018, Payment Card Industry (PCI), Service Organization Controls 2 (SOC2), and others. See [Understanding compliance in {{site.data.keyword.cloud_notm}}](/docs/overview?topic=overview-compliance).
 
 ## Identity and access management
 {: #virt-sol-openshift-security-design-iam}
 
 {{site.data.keyword.cloud_notm}} Identity and Access Management (IAM) provides centralized access control for {{site.data.keyword.cloud_notm}} resources to manage users, service IDs, access groups, and policies across the {{site.data.keyword.cloud_notm}} platform.
 
-For Red Hat OpenShift on {{site.data.keyword.cloud_notm}}, Identity and Access Management (IAM) integrates with Kubernetes Role-Based Access Control (RBAC).
+For {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}}, Identity and Access Management (IAM) integrates with Kubernetes Role-Based Access Control (RBAC).
 
 The following table details the features of both IAM and RBAC.
 
@@ -48,10 +48,10 @@ The following table details the features of both IAM and RBAC.
 {: caption="Identity and Access Management features" caption-side="bottom"}
 {: summary="This table provides all the features for Identity and Access Management."}
 {: #vpc-iam}
-{: tab-title="IBM Cloud IAM"}
+{: tab-title="{{site.data.keyword.cloud_notm}} IAM"}
 {: tab-group="Identity-Access-Management"}
 
-| Red Hat OpenShift RBAC features | Description |
+| {{site.data.keyword.redhat_openshift_notm}} RBAC features | Description |
 | -------------- | -------------- |
 | Platform access | - IAM platform roles determine cluster infrastructure actions \n - Administrator, Editor, Operator, and Viewer roles \n - Cluster creation, deletion, and configuration management \n - Worker node and networking operations |
 | Service access | - IAM service roles map to Kubernetes RBAC policies \n - Manager, Writer, and Reader roles \n - Namespace-level and cluster-level access \n - Custom role definitions for specific workloads |
@@ -65,15 +65,15 @@ The following table details the features of both IAM and RBAC.
 ## Data encryption
 {: #virt-sol-openshift-security-design-encryption}
 
-{{site.data.keyword.cloud_notm}} provides comprehensive encryption capabilities to protect data at rest and in transit across VPC and Red Hat OpenShift environments.
+{{site.data.keyword.cloud_notm}} provides comprehensive encryption capabilities to protect data at rest and in transit across VPC and {{site.data.keyword.redhat_openshift_notm}} environments.
 
 The following table details each encryption service and the encryption capabilities available with that service.
 
 | Service | Description |
 | -------------- | -------------- |
-| VPC block storage encryption | - Provider-managed encryption by default (IBM-managed keys). \n - Customer-managed encryption by using IBM Cloud Key Protect or Hyper Protect Crypto Services \n - Advanced Encryption Standard (AES)-256 encryption standard \n - Encryption of virtual server boot volumes and data volumes. |
-| Red Hat OpenShift cluster encryption | - etcd data and worker disks encrypted by IBM-managed Linux Unified Key Setup (LUKS) encryption keys. \n - Integration with IBM Cloud Key Protect allows bring your own root of trust encryption keys that wrap the LUKS key that is used to encrypt etcd storage and worker disks. \n - Kubernetes secrets encryption at rest. \n - Persistent volume encryption through storage providers. |
-| IBM Cloud Key Protect | - Bring-your-own-key (BYOK) model with keys that are protected by Federal Information Processing Standard (FIPS) 140-2 Level 2 cloud HSM. \n - Centralized key lifecycle management. \n - Key rotation and versioning. \n - Provides audit logs for key operations. \n - Integration with VPC and Red Hat OpenShift services |
+| VPC block storage encryption | - Provider-managed encryption by default (IBM-managed keys). \n - Customer-managed encryption by using {{site.data.keyword.cloud_notm}} Key Protect or Hyper Protect Crypto Services \n - Advanced Encryption Standard (AES)-256 encryption standard \n - Encryption of virtual server boot volumes and data volumes. |
+| {{site.data.keyword.redhat_openshift_notm}} cluster encryption | - etcd data and worker disks encrypted by IBM-managed Linux Unified Key Setup (LUKS) encryption keys. \n - Integration with {{site.data.keyword.cloud_notm}} Key Protect allows bring your own root of trust encryption keys that wrap the LUKS key that is used to encrypt etcd storage and worker disks. \n - Kubernetes secrets encryption at rest. \n - Persistent volume encryption through storage providers. |
+| {{site.data.keyword.cloud_notm}} Key Protect | - Bring-your-own-key (BYOK) model with keys that are protected by Federal Information Processing Standard (FIPS) 140-2 Level 2 cloud HSM. \n - Centralized key lifecycle management. \n - Key rotation and versioning. \n - Provides audit logs for key operations. \n - Integration with VPC and {{site.data.keyword.redhat_openshift_notm}} services |
 | IBM Hyper Protect Crypto Services | - Keep-your-own-key (KYOK) model that uses FIPS 140-2 Level 4 cloud HSM. \n - Customer-controlled Hardware Security Module (HSM). \n - Exclusive customer control over encryption keys. \n - Enhanced compliance for regulated industries. |
 {: caption="Encryption-at-rest encryption capabilities" caption-side="bottom"}
 {: summary="This table provides all the encryption-at-rest encryption capabilities."}
@@ -84,7 +84,7 @@ The following table details each encryption service and the encryption capabilit
 | Service | Description |
 | -------------- | -------------- |
 | Network encryption | - End-to-end encryption is possible when you use secure endpoints, such as HTTPS servers on port 443 or by using Transport Layer Security/Secure Sockets Layer (TLS/SSL) for application layer security. \n - VPN gateway encryption by using Internet Protocol security (IPsec). \n - Direct Link with Media Access Control security (MACsec) encryption for private connectivity. |
-| Red Hat OpenShift network encryption | - TLS encryption for Red Hat OpenShift API server communication.  \n - Encrypted control plane to worker node communication. |
+| {{site.data.keyword.redhat_openshift_notm}} network encryption | - TLS encryption for {{site.data.keyword.redhat_openshift_notm}} API server communication.  \n - Encrypted control plane to worker node communication. |
 {: caption="Encryption-in-transit encryption capabilities" caption-side="bottom"}
 {: summary="This table provides all the encryption-in-transit encryption capabilities."}
 {: #openshift-encryption-in-transit}
@@ -96,7 +96,7 @@ The following table details each encryption service and the encryption capabilit
 
 {{site.data.keyword.cloud_notm}} VPC provides multiple layers of network security controls to protect workloads and control traffic flow.
 
-Red Hat OpenShift provides network policies and security context constraints (SCCs).
+{{site.data.keyword.redhat_openshift_notm}} provides network policies and security context constraints (SCCs).
 
 | VPC security control | Description | Key features |
 | -------------- | -------------- | -------------- |
@@ -108,7 +108,7 @@ Red Hat OpenShift provides network policies and security context constraints (SC
 {: tab-title="VPC security controls"}
 {: tab-group="network-security"}
 
-| Red Hat OpenShift | Description |
+| {{site.data.keyword.redhat_openshift_notm}} | Description |
 | -------------- | -------------- |
 | Network policies | - Kubernetes NetworkPolicy resources for pod-to-pod traffic control  \n - Namespace isolation and segmentation. \n - Application-level micro-segmentation. \n - Ingress and egress rule definition |
 | Security context constraints (SCCs) | - Control pod security capabilities and permissions. \n - Restrict privileged container execution. \n - Define allowed volume types and host access. \n - Enforce security best practices for workload deployment |
@@ -123,10 +123,10 @@ Red Hat OpenShift provides network policies and security context constraints (SC
 
 {{site.data.keyword.cloud_notm}} provides comprehensive compliance capabilities and certifications to meet regulatory requirements across industries.
 
-### IBM Cloud compliance certifications
+### {{site.data.keyword.cloud_notm}} compliance certifications
 {: #virt-sol-openshift-security-design-certifications}
 
-Red Hat OpenShift on {{site.data.keyword.cloud_notm}} includes automatic compliance with HIPAA, PCI, SOC2, and ISO standards, including the following industry certifications.
+{{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}} includes automatic compliance with HIPAA, PCI, SOC2, and ISO standards, including the following industry certifications.
 
 - ISO 27001, 27017, 27018 (Information Security Management)
 - SOC 1, SOC 2, SOC 3 (Service Organization Controls)
@@ -135,7 +135,7 @@ Red Hat OpenShift on {{site.data.keyword.cloud_notm}} includes automatic complia
 - Federal Risk and Authorization Management Program (FedRAMP)
 - General Data Protection Regulation (GDPR) compliance support
 
-### IBM Cloud Security and Compliance Center Workload Protection (SCC WP)
+### {{site.data.keyword.cloud_notm}} Security and Compliance Center Workload Protection (SCC WP)
 {: #virt-sol-openshift-security-design-scc}
 
 | Feature | Description |
@@ -143,24 +143,24 @@ Red Hat OpenShift on {{site.data.keyword.cloud_notm}} includes automatic complia
 | Posture management | - Continuous security posture assessment. \n - Configuration compliance scanning. \n - Drift detection from security baselines. \n - Remediation guidance and automation |
 | Compliance monitoring | - Regulatory compliance validation. \n - Custom control framework definition. \n - Evidence collection for audits. \n - Compliance dashboards and reporting |
 | Workload protection | - Runtime threat detection. \n - Vulnerability scanning for VMs and containers. \n - File integrity monitoring. \n - Compliance scanning for CIS benchmarks and other frameworks |
-{: caption="IBM Cloud Security and Compliance Center Workload Protection" caption-side="bottom"}
+{: caption="{{site.data.keyword.cloud_notm}} Security and Compliance Center Workload Protection" caption-side="bottom"}
 
 ### Activity tracking and logging
 {: #virt-sol-openshift-security-design-logging}
 
 | Feature | Description |
 | -------------- | -------------- |
-| IBM Cloud Activity Tracker | - Audit logging for all {{site.data.keyword.cloud_notm}} API calls \n - User activity tracking and attribution \n - Resource lifecycle event logging |
+| {{site.data.keyword.cloud_notm}} Activity Tracker | - Audit logging for all {{site.data.keyword.cloud_notm}} API calls \n - User activity tracking and attribution \n - Resource lifecycle event logging |
 | VPC Flow Logs | - Network traffic capture and analysis  \n - Troubleshooting connectivity issues \n - Security incident investigation \n - Compliance evidence collection |
-| Red Hat OpenShift Audit Logs | - Kubernetes API server audit logs \n - User and service account activity tracking \n - RBAC policy enforcement logging. \n - Integration with {{site.data.keyword.cloud_notm}} Logging |
+| {{site.data.keyword.redhat_openshift_notm}} Audit Logs | - Kubernetes API server audit logs \n - User and service account activity tracking \n - RBAC policy enforcement logging. \n - Integration with {{site.data.keyword.cloud_notm}} Logging |
 {: caption="Activity Tracking and Logging" caption-side="bottom"}
 
 ## Next steps
 {: #virt-sol-openshift-security-design-next-steps}
 
-Now that you understand the security design for Red Hat OpenShift Virtualization, explore these related topics:
+Now that you understand the security design for {{site.data.keyword.redhat_openshift_notm}} Virtualization, explore these related topics:
 
 - **Networking**: Review [networking security controls](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) including network policies
 - **Compliance**: Learn about [observability and compliance monitoring](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-openshift-observability-design-overview)
 - **Storage**: Explore [storage encryption options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) for data protection
-- **Reference architecture**: Review the complete [Red Hat OpenShift Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)
+- **Reference architecture**: Review the complete [{{site.data.keyword.redhat_openshift_notm}} Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture)

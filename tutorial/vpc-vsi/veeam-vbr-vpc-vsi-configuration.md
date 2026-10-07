@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-23"
+lastupdated: "2026-10-06"
 
-keywords: Veeam Backup Replication VPC, VBR deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, HMAC credentials COS integration, VPC backup configuration guide
+keywords: configure Veeam IBM Cloud VPC, Veeam Backup Replication IBM Cloud configuration, SOBR configuration IBM Cloud VPC, scale-out backup repository IBM Cloud, Cloud Object Storage Veeam IBM Cloud, HMAC credentials Veeam COS IBM Cloud, ReFS backup repository IBM Cloud VPC, Veeam VBR configuration tutorial IBM Cloud, two-tier backup repository IBM Cloud, Veeam IBM Cloud VPC setup guide
 
 
 subcollection: virtualization-solutions
@@ -18,13 +18,13 @@ completion-time: 120m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Configuring Veeam Backup & Replication for IBM Cloud VPC virtual servers
+# Configuring Veeam Backup & Replication for {{site.data.keyword.cloud_notm}} VPC VSIs
 {: #veeam-vbr-vpc-vsi-configuration}
 {: toc-content-type="tutorial"}
 {: toc-services="vpc, cloud object storage"}
 {: toc-completion-time="120m"}
 
-Deploy and configure Veeam Backup & Replication (VBR) on IBM Cloud VPC virtual server, with a two tier Scale-Out Backup Repository (SOBR) as backup destination.
+Configure Veeam Backup & Replication on {{site.data.keyword.cloud_notm}} VPC virtual servers, with a two-tier Scale-Out Backup Repository and {{site.data.keyword.cloud_notm}} Object Storage as the backup destination.
 {: shortdesc}
 
 ## Objectives
@@ -47,7 +47,7 @@ You learn how to build a production-ready backup infrastructure that combines lo
 Before you begin, ensure that you meet the following prerequisites:
 
 - An {{site.data.keyword.cloud_notm}} account with {{site.data.keyword.vpc_short}} access.
-- Appropriate IBM Cloud Identity and Access Management (IAM) permissions to create and manage virtual private cloud (VPC) resources.
+- Appropriate {{site.data.keyword.cloud_notm}} Identity and Access Management (IAM) permissions to create and manage virtual private cloud (VPC) resources.
 - A valid Veeam Backup & Replication license (trial or purchased).
 - A basic understanding of backup and recovery concepts.
 - Familiarity with Windows Server administration.
@@ -77,7 +77,7 @@ Use these network practices to keep backup traffic efficient, private, and predi
    - `TCP 2500-3300`: Veeam Backup & Replication services
    - `TCP 6160-6163`: Veeam Agent communication
    - `TCP 9392-9394`: Veeam Backup Enterprise Manager (if used)
-- Ensure adequate bandwidth between the VBR server and target virtual servers. A minimum of 1 Gbps is recommended.
+- Ensure adequate bandwidth between the Veeam Backup & Replication (VBR) server and target virtual servers. A minimum of 1 Gbps is recommended.
 - Use VPC routing to avoid using the internet gateway for backup traffic.
 
 ### Security
@@ -87,7 +87,7 @@ Use these security practices to protect backup data, credentials, and administra
 
 - Enable encryption: Use backup encryption for data at rest and in transit.
 - Secure credentials: Store Veeam credentials in a password manager.
-- IAM policies: Apply least-privilege access to {{site.data.keyword.cos_short}} buckets.
+- Identity and Access Management (IAM) policies: Apply least-privilege access to {{site.data.keyword.cos_short}} buckets.
 - Network isolation: Use security groups to restrict VBR server access.
 - Regular updates: Keep Veeam software updated with the latest patches.
 - Audit logs: Enable and review Veeam audit logs regularly.
@@ -339,7 +339,7 @@ Complete the following steps to install Veeam Backup & Replication on the Window
       - If a restart is not needed, click **Close**.
 4. Verify that the Veeam Backup & Replication Console starts automatically.
 
-## Creating an IBM Cloud Object Storage instance
+## Creating an {{site.data.keyword.cloud_notm}} Object Storage instance
 {: #veeam-vbr-vpc-create-cos}
 {: step}
 
@@ -382,7 +382,7 @@ Complete the following steps to create {{site.data.keyword.cos_full_notm}} insta
        Alternatively, you can use a direct endpoint such as `s3.direct.us-south.cloud-object-storage.appdomain.cloud`. This option requires a VPE.
        {: note}
 
-## Configuring IBM Cloud Object Storage in Veeam
+## Configuring {{site.data.keyword.cloud_notm}} Object Storage in Veeam
 {: #veeam-vbr-vpc-configure-cos-repo}
 {: step}
 

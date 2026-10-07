@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: VMware VPC migration, migrate VMware to VPC, VMware Cloud Foundation migration, VCF to VPC, VMware workload migration, cloud migration strategy, RackWare migration, VMware alternatives, VCFaaS migration
+keywords: VMware VPC migration, migrate VMware to VPC, IBM Cloud VPC migration, VMware Cloud Foundation migration, VCF to VPC, VMware workload migration, RackWare RMM migration, VCFaaS to VPC migration, managed migration service IBM Cloud, IBM Cloud VMware migration strategy
 
 subcollection: virtualization-solutions
 
@@ -12,15 +12,15 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating VMware workloads to IBM Cloud VPC virtual servers: Options and best practices
+# Migrating VMware workloads to {{site.data.keyword.cloud_notm}} VPC virtual servers
 {: #virt-sol-vpc-migration-design-migration}
 
-Migrate VMware workloads to IBM Cloud VPC virtual servers using do-it-yourself (DIY) methods, RackWare Migration Manager (RMM), or managed migration services from IBM partners.
+Migrate VMware workloads to {{site.data.keyword.cloud_notm}} VPC virtual servers by using DIY methods, RackWare RMM, or managed migration services from IBM partners to reduce downtime.
 {: shortdesc}
 
 - A service provider such as WanClouds or PrimaryIO can manage your migration. For more information, see the documentation for your chosen service.
-- RackWare RMM - for more information about using RackWare RMM to migrate, see [Migrating from IBM Cloud VMware VCF-Automated to VPC virtual servers with RackWare RMM Technical Guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide).
-- DIY (do-it-yourself) migrations are migration methods that don't use a service provider or RackWare RMM. You use techniques that work best for you.
+- RackWare Management Module (RMM) - for more information about using RMM to migrate, see [Migrating from {{site.data.keyword.cloud_notm}} VMware VCF-Automated to VPC virtual servers with RackWare RMM Technical Guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide).
+- DIY (do-it-yourself) migrations are migration methods that don't use a service provider or RMM. You use techniques that work best for you.
 
 The following diagram shows the key compute architecture elements.
 
@@ -55,8 +55,8 @@ For more information about DIY migration, see the following links.
 
 For more information about RackWare RMM, see the following links.
 
-* [Migrating from IBM Cloud VMware VCF-automated to VPC virtual servers with RackWare RMM technical guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
-* [Migrating from IBM Cloud VMware VCF-automated to VPC virtual servers with RackWare RMM tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-tutorial)
+* [Migrating from {{site.data.keyword.cloud_notm}} VMware VCF-automated to VPC virtual servers with RackWare RMM technical guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
+* [Migrating from {{site.data.keyword.cloud_notm}} VMware VCF-automated to VPC virtual servers with RackWare RMM tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-tutorial)
 
 ## DIY migration methods comparison
 {: #virt-sol-vpc-migration-design-migration-diy-overview}
@@ -88,7 +88,7 @@ See the following migration considerations for Windows and Linux virtual servers
 ## RackWare Migration Manager (RMM) migration overview
 {: #virt-sol-vpc-migration-design-migration-rmm}
 
-RackWare Migration Manager (RMM) is a commercial migration platform that is available from the IBM Cloud catalog. RMM automates VMware workload migrations to IBM Cloud VPC virtual server instances. Unlike the previous manual migration methods, RackWare offers a migration experience with a graphical interface and centralized orchestration. For more information, see [RackWare and IBM Cloud](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm){: external}.
+RackWare Migration Manager (RMM) is a commercial migration platform that is available from the {{site.data.keyword.cloud_notm}} catalog. RMM automates VMware workload migrations to {{site.data.keyword.cloud_notm}} VPC virtual server instances. Unlike the previous manual migration methods, RackWare offers a migration experience with a graphical interface and centralized orchestration. For more information, see [RackWare and {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm){: external}.
 
 ### How RackWare RMM works
 {: #virt-sol-vpc-migration-design-migration-rmm-how}
@@ -104,7 +104,7 @@ RMM supports bridge servers that enable NAT for the source virtual servers that 
 ### RackWare RMM BYOL
 {: #virt-sol-vpc-migration-design-migration-rmm-availability}
 
-RackWare RMM is available as a bring-your-own-license (BYOL) offering in the IBM Cloud catalog. You provision the RackWare Management Server as a virtual server instance in your VPC, and licensing is handled directly with RackWare based on the number of workloads you plan to migrate. IBM has a partnership with RackWare, and the solution is validated and supported for VMware to VPC migrations. You can find RackWare in the catalog under Migration tools or by searching for "RackWare".
+RackWare RMM is available as a bring-your-own-license (BYOL) offering in the {{site.data.keyword.cloud_notm}} catalog. You provision the RackWare Management Server as a virtual server instance in your VPC, and licensing is handled directly with RackWare based on the number of workloads you plan to migrate. IBM has a partnership with RackWare, and the solution is validated and supported for VMware to VPC migrations. You can find RackWare in the catalog under Migration tools or by searching for "RackWare".
 
 The deployment process involves the following actions.
 
@@ -112,7 +112,7 @@ The deployment process involves the following actions.
 * Configuring network connectivity (typically through Transit Gateway) between your VMware environment and VPC
 * Configuring and running migrations from the RackWare web interface
 
-RackWare provides [documentation](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm){: external} and supports specific to IBM Cloud VPC target environments.
+RackWare provides [documentation](https://www.rackwareinc.com/solutions/cloud-environments/rackware-and-ibm){: external} and supports specific to {{site.data.keyword.cloud_notm}} VPC target environments.
 
 ### Use cases for RackWare RMM
 {: #virt-sol-vpc-migration-design-migration-rmm-suitability}
@@ -123,7 +123,7 @@ RMM is best for organizations that have the following situations.
 - You need to minimize downtime for production workloads with strict availability requirements. An RMM migration with delta sync runs most of the data transfer while the main applications stay running. This process helps reduce cutover windows from hours to minutes.
 - Cloud expertise is limited. RackWare manages complex operations such as driver injection, operating system preparation, and cloud-specific configurations.
 - You need workflow automation. Use cases that have compliance requirements or standardized change management, RMM provides workflow automation, audit logging, and repeatability, which can be difficult with manual migration methods.
-- Support is important. Unlike the open source tools (libguestfs, virt-v2v), RackWare provides enterprise support, regular updates, and validated configurations for IBM Cloud VPC.
+- Support is important. Unlike the open source tools (libguestfs, virt-v2v), RackWare provides enterprise support, regular updates, and validated configurations for {{site.data.keyword.cloud_notm}} VPC.
 
 RMM might not be the best tool for the following situations.
 

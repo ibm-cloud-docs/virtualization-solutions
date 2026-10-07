@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
 keywords: IBM Cloud virtualization, virtualization solutions, OpenShift virtualization, VPC virtual servers, VMware migration, hybrid cloud virtualization, container virtualization, virtual machine migration, cloud virtualization platform, Kubernetes virtualization
 
@@ -12,20 +12,20 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Deploy flexible workloads with IBM Cloud virtualization solutions
+# Deploy flexible workloads with {{site.data.keyword.cloud_notm}} virtualization solutions
 {: #overview}
 
-Run virtualized workloads on IBM Cloud using Virtual Servers for Virtual Private Cloud (VPC) or Red Hat OpenShift Virtualization in a secure, scalable environment.
+Run virtualized workloads on {{site.data.keyword.cloud_notm}} using {{site.data.keyword.cloud_notm}} VPC virtual servers or {{site.data.keyword.redhat_openshift_notm}} Virtualization in a secure, scalable, and flexible environment.
 {: shortdesc}
 
 By abstracting physical resources into virtualized environments, organizations can optimize their infrastructure usage, reduce operational complexity, and accelerate application delivery.
 
 {{site.data.keyword.cloud_notm}} offers two primary virtualization services.
 
-- **{{site.data.keyword.cloud_notm}} Virtual Servers for VPC** – {{site.data.keyword.cloud_notm}} Virtual Servers for VPC offer fast-provisioning compute capacity with the highest network speeds and most secure software-defined networking resources available on {{site.data.keyword.cloud_notm}}. Built on the {{site.data.keyword.vpc_full}} (VPC), this developer-friendly infrastructure helps drive modern workloads with pre-set instance profiles, rapid deployment, and private network control in an agile public cloud environment. Pay-as-you-use by the hour or reserve your capacity in advance for reduced costs. For more information, see [IBM Cloud Virtual Servers for VPC](https://www.ibm.com/products/virtual-servers).
-- **{{site.data.keyword.redhat_openshift_notm}} Virtualization Service on {{site.data.keyword.cloud_notm}}** – {{site.data.keyword.redhat_openshift_notm}} Virtualization Service on {{site.data.keyword.cloud_notm}} is a fully managed cloud service that is designed with built-in security to help you efficiently build, deploy, and scale critical applications. The service is highly available and integrated with {{site.data.keyword.cloud_notm}} to bring your team the full power of the platform. For more information, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization Service on IBM Cloud](https://www.ibm.com/products/openshift-virtualization){: external}.
+- **{{site.data.keyword.cloud_notm}} Virtual Servers for VPC** – {{site.data.keyword.cloud_notm}} Virtual Servers for VPC offer fast-provisioning compute capacity with the highest network speeds and most secure software-defined networking resources available on {{site.data.keyword.cloud_notm}}. Built on the {{site.data.keyword.vpc_full}} (VPC), this developer-friendly infrastructure helps drive modern workloads with pre-set instance profiles, rapid deployment, and private network control in an agile public cloud environment. Pay-as-you-use by the hour or reserve your capacity in advance for reduced costs. For more information, see [{{site.data.keyword.cloud_notm}} Virtual Servers for VPC](https://www.ibm.com/products/virtual-servers).
+- **{{site.data.keyword.redhat_openshift_notm}} Virtualization Service on {{site.data.keyword.cloud_notm}}** – {{site.data.keyword.redhat_openshift_notm}} Virtualization Service on {{site.data.keyword.cloud_notm}} is a fully managed cloud service that is designed with built-in security to help you efficiently build, deploy, and scale critical applications. The service is highly available and integrated with {{site.data.keyword.cloud_notm}} to bring your team the full power of the platform. For more information, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization Service on {{site.data.keyword.cloud_notm}}](https://www.ibm.com/products/openshift-virtualization){: external}.
 
-## IBM Cloud Virtual Servers for VPC
+## {{site.data.keyword.cloud_notm}} Virtual Servers for VPC
 {: #virt-sol-overview-vsi}
 
 [Virtual Servers for VPC]{: tag-blue}
@@ -78,27 +78,27 @@ The following table details the high-level, key responsibilities for {{site.data
 
 For a comprehensive list of responsibilities, see [Understanding your responsibilities when you use Virtual Private Cloud](/docs/vpc?topic=vpc-responsibilities-vpc).
 
-## Red Hat OpenShift Virtualization on IBM Cloud
+## {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}
 {: #virt-sol-overview-rove}
 
-[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on Red Hat OpenShift on IBM Cloud, enabling you to run virtual machines with minimal setup.
+[Red Hat OpenShift Virtualization Service](https://cloud.ibm.com/containers/cluster-management/rovs/create) is a new service offering that delivers a ready-to-use virtualization platform on {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}}, enabling you to run virtual machines with minimal setup.
 {: important}
 
-[Red Hat OpenShift Virtualization]{: tag-red}
+[{{site.data.keyword.redhat_openshift_notm}} Virtualization]{: tag-red}
 
-Red Hat OpenShift Virtualization on {{site.data.keyword.cloud_notm}} extends Kubernetes by enabling virtual servers to run alongside containers.
+{{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}} extends Kubernetes by enabling virtual servers to run alongside containers.
 
-See the following key features of Red Hat OpenShift.
+See the following key features of {{site.data.keyword.redhat_openshift_notm}}.
 
 - Unifies infrastructure management by using a single Kubernetes-based platform that orchestrates both virtual servers and containers that eliminate the need for separate virtualization and containerization stacks.
-- Enables gradual modernization by migrating existing virtual servers to Red Hat OpenShift while you run them alongside containerized workloads, which supports incremental application refactoring without disruption.
+- Enables gradual modernization by migrating existing virtual servers to {{site.data.keyword.redhat_openshift_notm}} while you run them alongside containerized workloads, which supports incremental application refactoring without disruption.
 - Provides enterprise orchestration by using Red Hat Advanced Cluster Management for multi-cluster deployments, disaster recovery, and centralized governance across hybrid environments.
 - Delivers consistent DevOps workflows by using the same continuous integration/continuous delivery (CI/CD) pipelines, GitOps practices, and Kubernetes-native tools to both virtual servers and container workloads.
 - Integrates with {{site.data.keyword.cloud_notm}} infrastructure, by natively connecting to {{site.data.keyword.cloud_notm}} Block Storage, File Storage, Object Storage, Identity and Access Management (IAM), and virtual private network (VPN) services.
-- Red Hat OpenShift Data Foundation provides persistent storage for virtual servers with features such as snapshots, cloning, and disaster recovery replication.
-- Reduces operational usage as {{site.data.keyword.cloud_notm}} manages the Red Hat OpenShift control plane, worker node maintenance, and platform updates, so you can focus on workload management.
+- {{site.data.keyword.redhat_openshift_notm}} Data Foundation provides persistent storage for virtual servers with features such as snapshots, cloning, and disaster recovery replication.
+- Reduces operational usage as {{site.data.keyword.cloud_notm}} manages the {{site.data.keyword.redhat_openshift_notm}} control plane, worker node maintenance, and platform updates, so you can focus on workload management.
 
-The following table details the high-level, key responsibilities for Red Hat OpenShift Virtualization on {{site.data.keyword.cloud_notm}}.
+The following table details the high-level, key responsibilities for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}.
 
 | Responsibility |
 | -------------- |
@@ -108,11 +108,11 @@ The following table details the high-level, key responsibilities for Red Hat Ope
 | Virtual server networking policy (NetworkAttachmentDefinitions, Services) |
 | Backup and disaster recovery implementation |
 | Monitoring and logging setup |
-| Red Hat OpenShift operators and workload configuration |
+| {{site.data.keyword.redhat_openshift_notm}} operators and workload configuration |
 | Worker node scaling |
-| Red Hat OpenShift Data Foundation scaling |
+| {{site.data.keyword.redhat_openshift_notm}} Data Foundation scaling |
 | Network configuration within VPC |
-{: caption="Red Hat OpenShift Virtualization key responsibilities" caption-side="bottom"}
+{: caption="{{site.data.keyword.redhat_openshift_notm}} Virtualization key responsibilities" caption-side="bottom"}
 {: tab-title="Your responsibilities"}
 {: tab-group="red-hat-openshift-responsibilities"}
 {: class="simple-tab-table"}
@@ -120,22 +120,22 @@ The following table details the high-level, key responsibilities for Red Hat Ope
 
 | Responsibility |
 | -------------- |
-| Red Hat OpenShift control plane management and updates |
+| {{site.data.keyword.redhat_openshift_notm}} control plane management and updates |
 | Worker node operating system maintenance and security fixes |
 | VPC network infrastructure |
 | Hardware maintenance |
-{: caption="Red Hat OpenShift Virtualization key responsibilities" caption-side="bottom"}
+{: caption="{{site.data.keyword.redhat_openshift_notm}} Virtualization key responsibilities" caption-side="bottom"}
 {: tab-title="IBM's responsibilities"}
 {: tab-group="red-hat-openshift-responsibilities"}
 {: class="simple-tab-table"}
 {: #simpletabtable4}
 
- For a comprehensive list of responsibilities, see [Red Hat OpenShift Virtualization on IBM Cloud](/docs/openshift?topic=openshift-responsibilities_iks).
+ For a comprehensive list of responsibilities, see [{{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}](/docs/openshift?topic=openshift-responsibilities_iks).
 
 ## Next steps
 {: #virt-sol-overview-next-steps}
 
-Now that you understand the virtualization options available on IBM Cloud, explore the following resources to get started:
+Now that you understand the virtualization options available on {{site.data.keyword.cloud_notm}}, explore the following resources to get started:
 
 ### For Virtual Servers for VPC
 {: #virt-sol-overview-next-vsi}
@@ -145,9 +145,9 @@ Now that you understand the virtualization options available on IBM Cloud, explo
 - Follow the [VMware Cloud Foundation as a Service migration tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vcfaas-vpc-migration-tutorial-overview) to migrate your workload
 - Follow the [VMware Cloud Foundation for Classic](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vcs-vpc-migration-tutorial-overview) to migrate your workload
 
-### For Red Hat OpenShift Virtualization
+### For {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #virt-sol-overview-next-openshift}
 
-- Review the [Red Hat OpenShift Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture) to understand the complete solution design
+- Review the [{{site.data.keyword.redhat_openshift_notm}} Virtualization reference architecture](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-rove-architecture) to understand the complete solution design
 - Learn about [migration from VMware using the Migration Toolkit for Virtualization (MTV)](/docs/virtualization-solutions?topic=virtualization-solutions-vsphere-openshift-migration)
 - Explore [backup solutions for OpenShift Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup)

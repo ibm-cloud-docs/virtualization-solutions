@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: post-migration validation VPC, migration performance testing, right-sizing VPC instances, cloud-native optimization, VPC monitoring integration, migration functional validation, instance profile optimization, storage tier optimization, VPC autoscale configuration, managed services migration
+keywords: post-migration validation IBM Cloud VPC, migration performance testing IBM Cloud, right-sizing VPC instances IBM Cloud, cloud-native optimization IBM Cloud, VPC monitoring integration migration, migration functional validation IBM Cloud, instance profile optimization IBM Cloud VPC, storage tier optimization IBM Cloud, VPC autoscale configuration, managed services migration IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Validating and optimizing workloads after migration to IBM Cloud VPC
+# Validating {{site.data.keyword.cloud_notm}} VPC workloads after migration
 {: #virt-sol-vpc-migration-design-post}
 
-Validate and optimize IBM Cloud VPC workloads after migration using functional testing, right-sizing, and performance benchmarking.
+Validate {{site.data.keyword.cloud_notm}} VPC workloads after migration by running functional tests, right-sizing instances, and benchmarking performance to optimize cloud-native operations.
 {: shortdesc}
 
 ## Functional validation checklist
@@ -61,13 +61,13 @@ Use the following information to help you compare post-migration metrics to prem
 ## Right-sizing opportunities
 {: #virt-sol-vpc-migration-design-rightsize}
 
-Initial migrations often use "lift and shift" sizing (same vCPU and RAM as VMware). After a migration, optimize the following resources:
+Initial migrations often use "lift and shift" sizing (same vCPU and RAM as VMware). After a migration, optimize the following resources. The thresholds below reflect {{site.data.keyword.cloud_notm}} migration practice; adjust them to match your workload characteristics.
 
 CPU right-sizing:
 
 - If average CPU is < 20%, consider a smaller instance profile
 - If CPU bursts greater than 80% frequently, consider a larger profile or a burstable profile
-- Use VPC monitoring to track CPU usage over 2-4 weeks
+- Use VPC monitoring to track CPU usage over 2–4 weeks
 
 Memory right-sizing:
 
@@ -94,7 +94,7 @@ After migration stabilizes, consider the following cloud-native enhancements:
 
 Managed services
 
-- Replace self-managed databases with IBM Cloud databases
+- Replace self-managed databases with {{site.data.keyword.cloud_notm}} databases
 - Replace file servers with VPC file storage or object storage
 - Replace load balancers with VPC Application Load Balancers
 
@@ -108,10 +108,10 @@ Backup and disaster recovery
 
 - Use VPC snapshots for backup
 - Implement cross-region snapshot copies for disaster recovery
-- Consider IBM Cloud Backup for file-level backup
+- Consider {{site.data.keyword.cloud_notm}} Backup for file-level backup
 
 Monitoring and observability
 
-- Integrate with IBM Cloud Monitoring
-- Implement log aggregation with IBM Cloud Logs
+- Integrate with {{site.data.keyword.cloud_notm}} Monitoring
+- Implement log aggregation with {{site.data.keyword.cloud_notm}} Logs
 - Use VPC Flow Logs for network traffic analysis

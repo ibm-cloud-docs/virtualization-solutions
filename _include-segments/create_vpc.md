@@ -1,4 +1,4 @@
-## Creating a virtual private cloud (VPC) for migration on IBM Cloud
+## Creating a Virtual Private Cloud on IBM Cloud for migration
 {: #virt-sol-vpc-migration-tutorial-create-vpc}
 {: step}
 

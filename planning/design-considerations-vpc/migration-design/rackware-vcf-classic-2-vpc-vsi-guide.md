@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-07-21"
+  years: 2025, 2026
+lastupdated: "2026-10-06"
 
-keywords: RackWare RMM migration, VCF-Automated to VPC, Direct Sync migration, RackWare Passthrough, bridge server NAT, reverse SSH tunnel migration, RackWare microkernel, isolated network migration, IP address retention, VMware to VPC VSI
+keywords: RackWare RMM migration IBM Cloud, VCF-Automated to VPC migration, RackWare Direct Sync IBM Cloud, bridge server NAT VPC, reverse SSH tunnel RackWare, IP address retention VPC migration, VMware VCF to IBM Cloud VPC, RackWare microkernel migration, RackWare Passthrough VPC, migrate VMware VCF to VPC VSI
 
 
 subcollection: virtualization-solutions
@@ -13,17 +13,17 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating IBM Cloud VMware VCF to VPC virtual servers using RackWare RMM
+# Migrating {{site.data.keyword.cloud_notm}} VMware VCF to {{site.data.keyword.cloud_notm}} VPC by using RackWare
 {: #virt-sol-vpc-migration-design-rmm-guide}
 
-Migrate IBM Cloud VMware VCF VMs to VPC virtual servers with RackWare RMM, retaining IP addresses via Direct Sync and a bridge server.
+Migrate {{site.data.keyword.cloud_notm}} VMware VCF VMs to VPC virtual servers by using RackWare RMM with IP address retention, Direct Sync, and a bridge server for data transfer.
 {: shortdesc}
 
-This guide focuses on using the RackWare Management Module (RMM) to migrate IBM Cloud VCF-Automated virtual machines to IBM Cloud virtual private cloud (VPC) virtual server instances. There is an associated tutorial that steps through the process.
+This guide focuses on using the RackWare Management Module (RMM) to migrate {{site.data.keyword.cloud_notm}} VCF-Automated virtual machines to {{site.data.keyword.cloud_notm}} virtual private cloud (VPC) virtual server instances. There is an associated tutorial that steps through the process.
 
-IBM Cloud VCF-Automated virtual machine OS licenses are the responsibility of the customer and are not provided by IBM Cloud. When creating the target virtual server instances, be aware of the provisioning options for [Bring Your Own License](/docs/vpc?topic=vpc-byol-vpc-about).
+{{site.data.keyword.cloud_notm}} VCF-Automated virtual machine OS licenses are the responsibility of the customer and are not provided by {{site.data.keyword.cloud_notm}}. When creating the target virtual server instances, be aware of the provisioning options for [Bring Your Own License](/docs/vpc?topic=vpc-byol-vpc-about).
 
-The majority of virtual machines hosted on IBM Cloud VCF-Automated are connected to NSX overlay segments which don't have native access to the IBM Cloud Classic networks. To ensure that the target virtual server instances have the same IP addresses as the source virtual machines, the NSX overlay segment and the target virtual server instance VPC subnets must be isolated. You accomplish this with the following RMM features:
+The majority of virtual machines hosted on {{site.data.keyword.cloud_notm}} VCF-Automated are connected to NSX overlay segments which don't have native access to the {{site.data.keyword.cloud_notm}} Classic networks. To ensure that the target virtual server instances have the same IP addresses as the source virtual machines, the NSX overlay segment and the target virtual server instance VPC subnets must be isolated. You accomplish this with the following RMM features:
 
 * Direct Sync (Host Sync) - Data transfers directly from the source virtual machine to the target virtual server instance without being stored on the RMM server. The RMM orchestrates the operation.
 * Passthrough - The target virtual server instance cannot reach the source virtual machine directly, so RMM uses Secure Shell (SSH) to connect to the target virtual server instance and from there initiate a reverse SSH tunnel to the source virtual machine. Data flows: Source → RMM → Target, with the RMM acting as a network relay/proxy for the data transfer.
@@ -104,35 +104,35 @@ IBM Cloud VMware-Automated    Bridge Server              IBM Cloud VPC
 The diagram above shows a logical connection view of the components. The name of `bridge server` is misleading as it does not use layer 2 bridging but layer 3 NAT.
 
 Source VM:
-- Location: IBM Cloud VCF Automated VMware instance
+- Location: {{site.data.keyword.cloud_notm}} VCF Automated VMware instance
 - Example: VM running Ubuntu 22.04
 - Real IP: 192.168.10.11 (NSX overlay segment)
-- Accessible via: VM has access to the Internet via SNAT, and native access to the client network but no access to the IBM Cloud network
+- Accessible via: VM has access to the Internet via SNAT, and native access to the client network but no access to the {{site.data.keyword.cloud_notm}} network
 
 Bridge Server:
 - Purpose: Provides layer 3 network connectivity between isolated networks
-- Function: Uses SNAT to make isolated NSX overlay segment accessible to IBM Cloud VPC networks
+- Function: Uses SNAT to make isolated NSX overlay segment accessible to {{site.data.keyword.cloud_notm}} VPC networks
 - Interfaces:
     - `ens192`: 192.168.10.254 - Inside network (192.168.10.0/24)
     - `ens224`: 10.134.54.62 - Outside network (10.134.54.0/26)
 
 RMM Server:
-- Location: IBM Cloud VPC
+- Location: {{site.data.keyword.cloud_notm}} VPC
 - Purpose: Orchestrates migration/sync operations
 - IP: 10.68.70.11
 - Runs: RackWare software, hosts UI, coordinates data transfer, acts as proxy for network comminations in passthrough mode
 
 Target VSI
-- Location: IBM Cloud VPC
+- Location: {{site.data.keyword.cloud_notm}} VPC
 - Example: Virtual Server Instance (VSI)
 - IP: 192.168.10.11
 - Purpose: Destination for migrated data
 
-IBM Cloud Private Static Subnet:
-- Location: IBM Cloud Classic
+{{site.data.keyword.cloud_notm}} Private Static Subnet:
+- Location: {{site.data.keyword.cloud_notm}} Classic
 - Example: Deploy a /30 portable subnet (4 IPs)
 - IP: 10.194.177.82/30. Usable IPs: 10.194.177.82 - 10.194.177.85
-- Purpose: Provides IP address for NAT that the IBM Cloud classic network routes to: 10.134.54.62 (bridge server's ens224 IP). IBM's network infrastructure knows that any traffic destined for 10.194.177.82/30 should be sent to 10.134.54.62
+- Purpose: Provides IP address for NAT that the {{site.data.keyword.cloud_notm}} classic network routes to: 10.134.54.62 (bridge server's ens224 IP). IBM's network infrastructure knows that any traffic destined for 10.194.177.82/30 should be sent to 10.134.54.62
 
 ## Bridge Server
 {: #virt-sol-vpc-migration-design-rmm-guide-bridge}
@@ -173,6 +173,8 @@ For Windows servers, the RackWare SSHD utility is used. RackWare SSHD for Window
 
 ### Authentication Flow
 {: #virt-sol-vpc-migration-design-rmm-guide--ssh-authentication}
+
+The authentication sequence across migration components proceeds in three stages:
 
 1. RMM → Source VM (via bridge server)
    - Uses: RMM's SSH key
@@ -423,6 +425,8 @@ The process is as follows:
    ```
    {: codeblock}
 
+   The tunnel creation process involves the following actions:
+
    1. RMM initiates SSH connection to the target VSI
    1. Creates a listening port (23) ON the target
    1. Any connection to `localhost:23` on target gets forwarded:
@@ -488,6 +492,8 @@ The process is as follows:
 
 1. Close Tunnel
 
+   To terminate the data transfer session and release ports, RMM performs the following steps:
+
    1. RMM closes the SSH tunnel to target
    1. Port 23 stops listening on target
 
@@ -502,5 +508,5 @@ The process is as follows:
 ## References
 {: #virt-sol-vpc-migration-design-rmm-guide-references}
 
-* [RackWare RMM users Guide for IBM Cloud](https://rackware.attachments9.freshdesk.com/data/helpdesk/attachments/production/5193588906/original/Rackware%20RMM%20Users%20Guide%20for%20IBM%20Cloud%20v2.2.pdf?response-content-type=application%2Fpdf&Expires=1765450579&Signature=IaPrBrAPnhNyJO0aufGdguvyaqFe05gyogvm6~ThDJFVmbnjdDQ~EqGwlURZApSykyAyV7oopPoQSlGDKU83ytjBiFSlmwvmWyzyepUD9pbquPVgL9ytuhvbcp8K1ODUKuyanLWtcqfTEqTuE453zXXd78ST8uGCCeJcGx3LbluMNB6ZY4EEem7uvp6biJ14M9OMLrGYmiAOwjVZ3C~MJKbmeXOQldMPIfHr9ZmQwPx9BXnW5Bbw3dyQTuNPPM4vC~Xb-KpneAuAWC4ays0YNzV17TGmSfbfOYVTaHF0JNqIJkdtvK4tafiFM8sr~Pk1eADAIBZRA9JTmC55VhCYbA__&Key-Pair-Id=APKAJ7JARUX3F6RQIXLA)
-* [RackWare RMM Getting Started for IBM Cloud](https://rackware.attachments9.freshdesk.com/data/helpdesk/attachments/production/5194762642/original/RackWare%20RMM%20Getting%20Started%20for%20IBM%20Cloud-1.1.pdf?response-content-type=application%2Fpdf&Expires=1765450748&Signature=eQVX8qOpyYbgW2FAcYi9JSle5z56iBrermpYesqzCJlbOOGssqgf2Sh6RK73Bh8c84n4-82acsKAnlU6xQToBynvt9JEy5YSA1~SEAh1-JAPDZRjneyKpzS--MgyRKrYIFk5emAefyExDEGlRUPnNseQqExaFrmkUtmPKZVxv22cR6WkPQCgCfvT6VVs0EfDUZs~GmvgbvzYhWuAz7rRi6vgQloSrqXy8~X41XzLPyROOGuHU8iBK2oy1dxU1PA6tDIQz07IFvZAsxu6lYaaQv1M6gstmEYpF7233ujCKVDsAwAQ6QXIbAxnbA1t1hRSB7ccuf121BtkVbGc7Dv8Kw__&Key-Pair-Id=APKAJ7JARUX3F6RQIXLA)
+* [RackWare RMM users guide for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/resources){: external}
+* [RackWare RMM getting started for {{site.data.keyword.cloud_notm}}](https://www.rackwareinc.com/resources){: external}

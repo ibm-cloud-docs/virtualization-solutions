@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: IBM Cloud Logs tutorial, OpenShift Virtualization logging, centralized logging OpenShift, log forwarding configuration, Cloud Logs bucket setup, log retention policies, OpenShift cluster logging, IBM Cloud Monitoring integration, virtual machine log analysis
+keywords: IBM Cloud Logs OpenShift Virtualization, configure IBM Cloud Logs ROKS, centralized logging OpenShift IBM Cloud, log forwarding OpenShift agent, Cloud Logs bucket setup IBM Cloud, OpenShift VM log collection IBM Cloud, IBM Cloud Logs tutorial ROKS, virtual machine log analysis IBM Cloud, IBM Cloud Monitoring logging integration, OpenShift Virtualization logging IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -20,7 +20,7 @@ compliance: HIPPA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Configuring IBM Cloud Logs for Red Hat OpenShift Virtualization
+# Configuring {{site.data.keyword.cloud_notm}} Logs for {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #logging-rove-design}
 {: #vsphere-openshift-logging}
 {: #tutorial-observability-logging}
@@ -31,10 +31,10 @@ compliance: HIPPA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPPA"}
 
-Configure IBM Cloud Logs for Red Hat OpenShift Virtualization on IBM Cloud to collect and forward virtual machine (VM) logs with agent-based installation.
+Configure {{site.data.keyword.cloud_notm}} Logs for {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}} to collect and forward virtual machine (VM) logs with agent-based installation.
 {: shortdesc}
 
-## Overview of IBM Cloud Logs with Red Hat OpenShift Virtualization
+## Overview of {{site.data.keyword.cloud_notm}} Logs with {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #openshift-virt-ibm-logs-overview}
 
 {{site.data.keyword.cloud}} Logs is a fully managed logging service that provides a centralized logging solution for your cloud resources. It provides a unified view of your cloud resources, including infrastructure, applications, and services. You can use {{site.data.keyword.cloud_notm}} Logs to monitor your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, which also includes:
@@ -55,13 +55,13 @@ Configure IBM Cloud Logs for Red Hat OpenShift Virtualization on IBM Cloud to co
 
 Before you configure logging for your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment, make sure that the following requirements are met:
 
-1. Create an IBM Cloud Logs instance
-   - Provision an IBM Cloud Logs instance to start collecting and managing log data. For more information, see [Provision Instance](/docs/cloud-logs?topic=cloud-logs-instance-provision).
+1. Create an {{site.data.keyword.cloud_notm}} Logs instance
+   - Provision an {{site.data.keyword.cloud_notm}} Logs instance to start collecting and managing log data. For more information, see [Provision Instance](/docs/cloud-logs?topic=cloud-logs-instance-provision).
    - Configure a Cloud Logs bucket to enable long‑term log retention and advanced search capabilities. For more information, see [Configure Bucket](/docs/cloud-logs?topic=cloud-logs-configure-data-bucket). You need this configuration if you want long-term data retention or search. The standard Cloud Logs instance provides a minimum retention period of 7 days and a maximum retention period of 90 days for priority logs.
    - Create a Cloud Object Storage bucket that stores your long‑term log data. For more information, see [Creating a Cloud Object Storage bucket](/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage).
 
 2. Enable logging with a {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster
-   - You enable integrated logging for your {{site.data.keyword.redhat_openshift_notm}} on IBM Cloud {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster by connecting it to the IBM Cloud Logs. For more information, see [Connect ICL with {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service](/docs/openshift?topic=openshift-logging).
+   - You enable integrated logging for your {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}} {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service cluster by connecting it to the {{site.data.keyword.cloud_notm}} Logs. For more information, see [Connect ICL with {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service](/docs/openshift?topic=openshift-logging).
 
 ## {{site.data.keyword.monitoringfull_notm}}
 {: #openshift-virt-ibm-monitoring}
@@ -72,39 +72,39 @@ This integration requires that you install a monitoring agent on your virtual se
 
 For more information, see [Installing an agent-based virtual server](#observability-design-install-agent).
 
-{{site.data.keyword.monitoringfull_notm}} also supports monitoring overall VPC resource consumption and other VPC services. For more information, see [IBM Cloud VPC monitoring dashboards](/docs/vpc?topic=vpc-ibm-monitoring).
+{{site.data.keyword.monitoringfull_notm}} also supports monitoring overall VPC resource consumption and other VPC services. For more information, see [{{site.data.keyword.cloud_notm}} VPC monitoring dashboards](/docs/vpc?topic=vpc-ibm-monitoring).
 
-## IBM Cloud Logs
+## {{site.data.keyword.cloud_notm}} Logs
 {: #vpc-observability-logs}
 
-{{site.data.keyword.vpc_short}} supports integration with IBM Cloud Logs. IBM Cloud VPC generates platform events and routes them to an IBM Cloud Logs instance by using {{site.data.keyword.logs_routing_full}}. For more information, see [Logging for VPC](/docs/vpc?topic=vpc-logging).
+{{site.data.keyword.vpc_short}} supports integration with {{site.data.keyword.cloud_notm}} Logs. {{site.data.keyword.cloud_notm}} VPC generates platform events and routes them to an {{site.data.keyword.cloud_notm}} Logs instance by using {{site.data.keyword.logs_routing_full}}. For more information, see [Logging for VPC](/docs/vpc?topic=vpc-logging).
 
-IBM Cloud Activity Tracker Events Routing routes the events to an IBM Cloud Logs instance. For more information about the type of activity tracker events generated, see [Activity tracking events for IBM Cloud VPC](/docs/vpc?topic=vpc-at_events).
+{{site.data.keyword.cloud_notm}} Activity Tracker Events Routing routes the events to an {{site.data.keyword.cloud_notm}} Logs instance. For more information about the type of activity tracker events generated, see [Activity tracking events for {{site.data.keyword.cloud_notm}} VPC](/docs/vpc?topic=vpc-at_events).
 
-To set up log forwarding to IBM Cloud Logs, follow the steps for [Linux](/docs/cloud-logs?topic=cloud-logs-agent-linux) and [Windows](/docs/cloud-logs?topic=cloud-logs-agent-windows).
+To set up log forwarding to {{site.data.keyword.cloud_notm}} Logs, follow the steps for [Linux](/docs/cloud-logs?topic=cloud-logs-agent-linux) and [Windows](/docs/cloud-logs?topic=cloud-logs-agent-windows).
 
-### Installing IBM Cloud Monitoring
+### Installing {{site.data.keyword.cloud_notm}} Monitoring
 {: #observability-design-install}
 {: step}
 
-To install and configure IBM Cloud Monitoring for your {{site.data.keyword.redhat_openshift_notm}} cluster, use the following steps:
+To install and configure {{site.data.keyword.cloud_notm}} Monitoring for your {{site.data.keyword.redhat_openshift_notm}} cluster, use the following steps:
 
 1. Manually install Sysdig on your {{site.data.keyword.redhat_openshift_notm}} cluster. For more information, see the [Manual installation process for Sysdig on {{site.data.keyword.redhat_openshift_notm}}](https://docs.sysdig.com/en/administration/onprem-manual-installation-openshift/){: external}.
-2. Add your {{site.data.keyword.redhat_openshift_notm}} cluster to {{site.data.keyword.monitoringfull_notm}}. For more information, see [Adding a {{site.data.keyword.redhat_openshift_notm}} cluster to IBM Cloud Monitoring](/docs/monitoring?topic=monitoring-openshift_cluster).
+2. Add your {{site.data.keyword.redhat_openshift_notm}} cluster to {{site.data.keyword.monitoringfull_notm}}. For more information, see [Adding a {{site.data.keyword.redhat_openshift_notm}} cluster to {{site.data.keyword.cloud_notm}} Monitoring](/docs/monitoring?topic=monitoring-openshift_cluster).
 
 ### Installing an agent-based virtual server
 {: #observability-design-install-agent}
 
-To install IBM Logging Agents on a Linux VPC virtual server, go to the **Monitoring Sources** in your **IBM Cloud Monitoring instance** details in IBM Cloud Console. Then, click the **Linux** tab to deploy the monitoring agent on your Linux VPC virtual server. For more information, see
+To install IBM Logging Agents on a Linux VPC virtual server, go to the **Monitoring Sources** in your **{{site.data.keyword.cloud_notm}} Monitoring instance** details in {{site.data.keyword.cloud_notm}} Console. Then, click the **Linux** tab to deploy the monitoring agent on your Linux VPC virtual server. For more information, see
 [Linux Agent Installation](/docs/monitoring?topic=monitoring-ubuntu).
 
 To install IBM Logging Agents on a Windows VPC virtual server, see [Windows Agent Installation](/docs/monitoring?topic=monitoring-windows).
 
 When you install the Windows agent, configure the Prometheus remote write ingestion endpoint and provide the required API token. For more information, see [Prometheus Remote Write ingestion endpoints](/docs/monitoring?topic=monitoring-endpoints#prometheus_remote_write_endpoints).
 
-To get the IBM Cloud Log monitoring API token, use the following steps
+To get the {{site.data.keyword.cloud_notm}} Log monitoring API token, use the following steps
 
-1. Log in to your IBM Cloud Monitoring instance.
+1. Log in to your {{site.data.keyword.cloud_notm}} Monitoring instance.
 2. Open the **Dashboard**
 3. Click the **User** icon that displays your initials at the end of the page
 4. Under **Secrets management**, select **SysDig API tokens**.

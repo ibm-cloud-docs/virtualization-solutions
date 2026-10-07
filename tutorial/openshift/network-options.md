@@ -2,10 +2,10 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
 
-keywords: OVN networking OpenShift, OVN-Kubernetes networking, User Defined Network UDN, Cluster User Defined Network CUDN, Localnet network type, masquerade network OpenShift, ROKS networking
+keywords: OVN networking OpenShift IBM Cloud, OVN-Kubernetes IBM Cloud VPC, user-defined network UDN OpenShift, CUDN OpenShift Virtualization IBM Cloud, Localnet network OpenShift IBM Cloud, masquerade network OpenShift IBM Cloud, ROKS OVN networking, bare metal OVN networking IBM Cloud, OVN networking vSphere admins IBM Cloud, OpenShift Virtualization network options IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -17,18 +17,18 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Open Virtual Network (OVN) networking in Red Hat OpenShift for vSphere administrators
+# {{site.data.keyword.redhat_openshift_notm}} Virtualization OVN networking for vSphere admins
 {: #virt-sol-network-options-overview}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
-Learn how Open Virtual Networking (OVN) networking in Red Hat OpenShift on IBM Cloud compares to NSX-T, and how to use User-Defined Network (UDN), Cluster User-Defined Network (CUDN), and Localnet network types.
+Learn how OVN networking in {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}} compares to NSX-T, and how to use UDN, CUDN, and Localnet network types for VM workloads.
 {: shortdesc}
 
 If you have used NSX-T, you already understand the core idea. Open Virtual Networking (OVN) is the software-defined networking layer built into OpenShift. It replaces the older Calico networking stack in the same way NSX-T replaced standard vSwitches, by moving network intelligence into software rather than relying on the underlying physical network. OVN handles all internal cluster networking: how VMs talk to each other, how they reach external networks, and how traffic is isolated between tenants or workloads.
 
-When deploying a new ROKS cluster, you choose either OVN or Calico at deployment time. There is no migration path between them, just as you cannot switch between a standard vSwitch and a dvSwitch on a running VM without a planned transition.
+When deploying a new {{site.data.keyword.redhat_openshift_notm}} Kubernetes Service (ROKS) cluster, you choose either OVN or Calico at deployment time. There is no migration path between them, just as you cannot switch between a standard vSwitch and a dvSwitch on a running VM without a planned transition.
 
 OVN is the software-defined networking layer that is built into {{site.data.keyword.openshiftlong_notm}}. Similar to how NSX-T replaces standard vSwitches, OVN replaces the older Calico networking stack by moving network intelligence into software instead of relying on the underlying physical network. OVN handles all internal cluster networking, including how virtual machines communicate with each other, how they reach external networks, and how traffic is isolated between tenants or workloads.
 
@@ -82,6 +82,8 @@ A namespace does not need a cluster infrastructure network. If your virtual mach
 
 ## Network topologies
 {: #virt-sol-network-options-topologies}
+
+Explore the primary OVN network topology configurations available for {{site.data.keyword.redhat_openshift_notm}} Virtualization workloads and their corresponding VMware NSX-T patterns.
 
 ### Masquerade - cluster infrastructure network (NAT)
 {: #virt-sol-network-options-masquerade}

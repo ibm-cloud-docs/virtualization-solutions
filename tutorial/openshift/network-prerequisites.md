@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-31"
+lastupdated: "2026-10-06"
 
-keywords: OpenShift Virtualization networking prerequisites, VPC networking setup, Localnet configuration, CUDN prerequisites, UDN setup, VLAN configuration OpenShift, VNI networking, OVN configuration
+keywords: OVN user-defined network prerequisites IBM Cloud, CUDN prerequisites OpenShift IBM Cloud, Localnet prerequisites ROKS, configure CUDN IBM Cloud VPC, UDN setup OpenShift Virtualization, VLAN configuration OpenShift IBM Cloud, VNI networking prerequisites IBM Cloud, OVN cluster prerequisites IBM Cloud, one-time CUDN setup ROKS, OpenShift Virtualization network setup IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -18,23 +18,23 @@ completion-time: 60m
 {{site.data.keyword.attribute-definition-list}}
 
 
-# Prerequisites for configuring Open Virtual Network (OVN) User-Defined Networks (UDN) on Red Hat OpenShift on IBM Cloud
+# Configuring OVN user-defined networks on {{site.data.keyword.redhat_openshift_notm}}
 {: #udn-prerequisites}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
-Configure the one-time OVN Cluster User-Defined Network (CUDN) prerequisites for Localnet and Layer 2 Primary networks on Red Hat OpenShift on IBM Cloud.
+Configure the one-time Open Virtual Networking (OVN) Cluster User-Defined Network (CUDN) prerequisites for Localnet and Layer 2 Primary networks on {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}}.
 {: shortdesc}
 
-This tutorial shows how to set up the prerequisites for CUDN Localnets, and Layer 2 Primaries on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on IBM Cloud. All tasks described in this tutorial are performed once per cluster.
+This tutorial shows how to set up the prerequisites for CUDN Localnets, and Layer 2 Primaries on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service on {{site.data.keyword.cloud_notm}}. All tasks described in this tutorial are performed once per cluster.
 
 ## Localnet overview
 {: #localnet-prerequisites}
 
-Red Hat OpenShift Kubernetes Service Localnet networks require additional setup that customers do not perform in ROVS. This tutorial explains the required steps.
+{{site.data.keyword.redhat_openshift_notm}} Kubernetes Service Localnet networks require additional setup that customers do not perform in ROVS. This tutorial explains the required steps.
 
-### Preparing the Red Hat OpenShift on IBM Cloud cluster
+### Preparing the {{site.data.keyword.redhat_openshift_notm}} on {{site.data.keyword.cloud_notm}} cluster
 {: #localnet-prepare-roks}
 {: step}
 

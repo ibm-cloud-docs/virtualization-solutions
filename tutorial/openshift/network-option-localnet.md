@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-22"
+lastupdated: "2026-10-06"
 
-keywords: Localnet network OpenShift, CUDN configuration, UDN setup, VLAN-backed network OpenShift, VNI networking, OVN Localnet, OpenShift Virtualization networking
+keywords: Localnet network OpenShift IBM Cloud, OVN Localnet IBM Cloud VPC, VLAN-backed network OpenShift Virtualization, VNI Localnet IBM Cloud, CUDN Localnet configuration IBM Cloud, configure Localnet UDN ROKS, OpenShift Virtualization Localnet networking, VPC subnet Localnet OpenShift, Localnet UDN tutorial IBM Cloud, OVN Localnet bare metal IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -17,13 +17,13 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Localnet UDN examples for Red Hat OpenShift Virtualization
+# Configuring Localnet UDN for {{site.data.keyword.redhat_openshift_notm}} Virtualization
 {: #localnet-udn-examples}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="60m"}
 
-Attach OpenShift Virtualization VMs to IBM Cloud VPC subnets using CUDN Localnet networks for VLAN-backed, namespace-isolated traffic.
+Attach {{site.data.keyword.redhat_openshift_notm}} Virtualization VMs to {{site.data.keyword.cloud_notm}} VPC subnets by using Cluster User-Defined Network (CUDN) Localnet networks for VLAN-backed, namespace-isolated traffic across tiers.
 {: shortdesc}
 
 This tutorial shows how to create an example three-tier application by using Virtual Private Cloud (VPC) subnets, Cluster User-Defined Networks (CUDNs), localnets, and namespaces on {{site.data.keyword.openshiftlong_notm}} on {{site.data.keyword.cloud_notm}}. The example demonstrates how to attach virtual servers that run on {{site.data.keyword.redhat_openshift_notm}} Virtualization directly to VPC subnets by using virtual local area network (VLAN)-backed localnet networks. For more information about network types, see [Open Virtual Network (OVN) networking in {{site.data.keyword.redhat_openshift_notm}} for vSphere&reg; administrators](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-network-options-overview).
@@ -202,7 +202,7 @@ Keep the following considerations in mind:
 - The `VLAN ID` is not attached in this step.
 - You must look up the security group to use in this step. Run `ic is sgs` to list available security groups.
 - You can run this step in bulk.
-- 256 VNIs per host is the cap. Keep usage less than 85% to allow for failover and migrations from other hosts.
+- 256 VNIs per host is the cap. As an {{site.data.keyword.cloud_notm}} operational guideline, keep usage below 85% to allow headroom for failover and live migrations from other hosts.
 
 ### Creating reserved IPs in each subnet
 {: #localnet-create-reserved-ips}

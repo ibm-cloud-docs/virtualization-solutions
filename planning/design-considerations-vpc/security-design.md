@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
 keywords: VPC security design, IBM Cloud IAM, security groups VPC, network ACLs, data encryption VPC, Key Protect encryption VPC, Hyper Protect Crypto Services VPC, Security and Compliance Center, VPC Flow Logs, compliance monitoring
 
@@ -12,29 +12,29 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Designing security for IBM Cloud VPC virtual servers
+# Securing {{site.data.keyword.cloud_notm}} VPC virtual servers
 {: #virt-sol-vpc-security-design-overview}
 
-Design security for IBM Cloud Virtual Private Cloud (VPC) virtual servers, covering Identity and Access Management (IAM), data encryption, network security, and compliance governance.
+Design security for {{site.data.keyword.cloud_notm}} VPC virtual servers, covering IAM, data encryption, network security groups, and compliance governance frameworks.
 {: shortdesc}
 
 The key security architecture elements are shown in the following diagram.
 
 ![IBM Cloud VPC VSI Security](../../images/vpc-vsi/vpc-vsi-high-level-security.svg "IBM Cloud VPC VSI Security"){: caption="IBM Cloud VPC VSI Security" caption-side="bottom"}
 
-For workload migration and deployment, robust security capabilities are essential to maintain confidentiality, integrity, and availability while meeting regulatory and compliance requirements. IBM Cloud's security services integrate with native platform capabilities to provide end-to-end protection for virtualization and container workloads.
+For workload migration and deployment, robust security capabilities are essential to maintain confidentiality, integrity, and availability while meeting regulatory and compliance requirements. {{site.data.keyword.cloud_notm}}'s security services integrate with native platform capabilities to provide end-to-end protection for virtualization and container workloads.
 
 ## Shared responsibility model
 {: #virt-sol-vpc-security-design-shared-responsibility}
 
-IBM Cloud uses a shared responsibility model that defines which security and compliance responsibilities are managed by IBM Cloud and which ones lie with customers. Understanding this model is critical for implementing effective security controls. See [Shared responsibilities for using IBM Cloud products](/docs/overview?topic=overview-shared-responsibilities) and [Infrastructure-as-a-service](/docs/overview?topic=overview-shared-responsibilities#iaas-services-responsibilities).
+{{site.data.keyword.cloud_notm}} uses a shared responsibility model that defines which security and compliance responsibilities are managed by {{site.data.keyword.cloud_notm}} and which ones lie with customers. Understanding this model is critical for implementing effective security controls. See [Shared responsibilities for using {{site.data.keyword.cloud_notm}} products](/docs/overview?topic=overview-shared-responsibilities) and [Infrastructure-as-a-service](/docs/overview?topic=overview-shared-responsibilities#iaas-services-responsibilities).
 
-IBM Cloud provides a secure cloud platform that you can trust. IBM Cloud compliance results from a platform and services that are built on best-in-industry security standards, including General Data Protection Regulation (GDPR), Health Insurance Portability and Accountability Act (HIPAA), ISO 9001, ISO 27001, ISO 27017, ISO 27018, Payment Card Industry (PCI), SOC 2, and others. See [Understanding compliance in IBM Cloud](/docs/overview?topic=overview-compliance).
+{{site.data.keyword.cloud_notm}} provides a secure cloud platform that you can trust. {{site.data.keyword.cloud_notm}} compliance results from a platform and services that are built on best-in-industry security standards, including General Data Protection Regulation (GDPR), Health Insurance Portability and Accountability Act (HIPAA), ISO 9001, ISO 27001, ISO 27017, ISO 27018, Payment Card Industry (PCI), SOC 2, and others. See [Understanding compliance in {{site.data.keyword.cloud_notm}}](/docs/overview?topic=overview-compliance).
 
 ## Identity and access management
 {: #virt-sol-vpc-security-design-iam}
 
-IBM Cloud Identity and Access Management (IAM) provides centralized access control for IBM Cloud resources, enabling organizations to manage users, service IDs, access groups, and policies across the entire IBM Cloud platform.
+{{site.data.keyword.cloud_notm}} Identity and Access Management (IAM) provides centralized access control for {{site.data.keyword.cloud_notm}} resources, enabling organizations to manage users, service IDs, access groups, and policies across the entire {{site.data.keyword.cloud_notm}} platform.
 
 ### IAM components
 {: #virt-sol-vpc-security-design-iam-components}
@@ -49,12 +49,12 @@ IBM Cloud Identity and Access Management (IAM) provides centralized access contr
 ## Data encryption
 {: #virt-sol-vpc-security-design-encryption}
 
-IBM Cloud provides comprehensive encryption capabilities to protect data at rest and in transit across VPC environments. The following table details each encryption service and the encryption capabilities available with that service.
+{{site.data.keyword.cloud_notm}} provides comprehensive encryption capabilities to protect data at rest and in transit across VPC environments. The following table details each encryption service and the encryption capabilities available with that service.
 
 | Service | Description |
 | -------------- | -------------- |
-| VPC block storage encryption | - Provider-managed encryption by default (IBM-managed keys). \n - Customer-managed encryption by using IBM Cloud Key Protect or Hyper Protect Crypto Services \n - AES-256 encryption standard \n - Encryption of virtual server instance boot volumes and data volumes |
-| IBM Cloud Key Protect | - Bring-your-own-key (BYOK) model with keys protected by Federal Information Processing Standard (FIPS) 140-2 Level 2 cloud hardware security module (HSM). \n - Centralized key lifecycle management. \n - Key rotation and versioning. \n - Audit logging for key operations. \n - Integration with VPC and Red Hat OpenShift services |
+| VPC block storage encryption | - Provider-managed encryption by default (IBM-managed keys). \n - Customer-managed encryption by using {{site.data.keyword.cloud_notm}} Key Protect or Hyper Protect Crypto Services \n - AES-256 encryption standard \n - Encryption of virtual server instance boot volumes and data volumes |
+| {{site.data.keyword.cloud_notm}} Key Protect | - Bring-your-own-key (BYOK) model with keys protected by Federal Information Processing Standard (FIPS) 140-2 Level 2 cloud hardware security module (HSM). \n - Centralized key lifecycle management. \n - Key rotation and versioning. \n - Audit logging for key operations. \n - Integration with VPC and {{site.data.keyword.redhat_openshift_notm}} services |
 | IBM Hyper Protect Crypto Services | - Keep-your-own-key (KYOK) model utilizing FIPS 140-2 Level 4 cloud HSM (the only cloud vendor to offer this level) \n - Customer-controlled HSM \n - Exclusive customer control over encryption keys \n - Enhanced compliance for regulated industries |
 {: caption="Encryption-at-rest encryption capabilities" caption-side="bottom"}
 {: summary="This table provides all the encryption-at-rest encryption capabilities."}
@@ -74,20 +74,20 @@ IBM Cloud provides comprehensive encryption capabilities to protect data at rest
 ## Network security
 {: #virt-sol-vpc-security-design-network}
 
-IBM Cloud VPC provides multiple layers of network security controls to protect workloads and control traffic flow.
+{{site.data.keyword.cloud_notm}} VPC provides multiple layers of network security controls to protect workloads and control traffic flow.
 
 | VPC security control | Description | Key features |
 | -------------- | -------------- | -------------- |
-| VPC Security Groups | Security Groups are stateful firewall controls that protect virtual instances on IBM Cloud VPC, with stateful rules where responses are automatically allowed when a request is permitted. | - Instance-level (network interface) security  \n - Stateful traffic filtering  \n - Attached to virtual server instance network interface controllers (NICs) or load balancers  \n - Ingress (inbound) and egress (outbound) rules  \n - Support for protocol, port, and source/destination specification |
+| VPC Security Groups | Security Groups are stateful firewall controls that protect virtual instances on {{site.data.keyword.cloud_notm}} VPC, with stateful rules where responses are automatically allowed when a request is permitted. | - Instance-level (network interface) security  \n - Stateful traffic filtering  \n - Attached to virtual server instance network interface controllers (NICs) or load balancers  \n - Ingress (inbound) and egress (outbound) rules  \n - Support for protocol, port, and source/destination specification |
 | VPC Access Control Lists (ACLs) | ACLs control traffic to and from subnets, acting as built-in virtual firewalls at the subnet level. | - Subnet-level security  \n - Stateless traffic filtering - if you want to permit traffic both ways on a target you must set up two rules  \n - All resources in a subnet with an associated ACL follow ACL rules  \n - Rules evaluated in numerical order (priority-based)  \n - Allow and deny rules for granular control  \n - Use ACLs for broad subnet-level controls  \n - Combine ACLs with security groups for defense-in-depth  \n - Implement explicit deny rules for known malicious traffic  \n - Order rules efficiently (most specific first)  \n - Document ACL rule purposes and maintenance procedures |
 {: caption="VPC network security controls" caption-side="bottom"}
 
 ## Compliance and governance
 {: #virt-sol-vpc-security-design-compliance}
 
-IBM Cloud provides comprehensive compliance capabilities and certifications to meet regulatory requirements across industries.
+{{site.data.keyword.cloud_notm}} provides comprehensive compliance capabilities and certifications to meet regulatory requirements across industries.
 
-### IBM Cloud Security and Compliance Center Workload Protection
+### {{site.data.keyword.cloud_notm}} Security and Compliance Center Workload Protection
 {: #virt-sol-vpc-security-design-scc}
 
 | Feature | Description |
@@ -95,14 +95,14 @@ IBM Cloud provides comprehensive compliance capabilities and certifications to m
 | Posture management | - Continuous security posture assessment. \n - Configuration compliance scanning. \n - Drift detection from security baselines. \n - Remediation guidance and automation |
 | Compliance monitoring | - Regulatory compliance validation. \n - Custom control framework definition. \n - Evidence collection for audits. \n - Compliance dashboards and reporting |
 | Workload protection | - Runtime threat detection. \n - Vulnerability scanning for VMs and containers. \n - File integrity monitoring. \n - Compliance scanning for CIS benchmarks and other frameworks |
-{: caption="IBM Cloud Security and Compliance Center Workload Protection" caption-side="bottom"}
+{: caption="{{site.data.keyword.cloud_notm}} Security and Compliance Center Workload Protection" caption-side="bottom"}
 
 ### Activity tracking and logging
 {: #virt-sol-vpc-security-design-logging}
 
 | Feature | Description |
 | -------------- | -------------- |
-| IBM Cloud Activity Tracker | - Audit logging for all {{site.data.keyword.cloud_notm}} application programming interface (API) calls \n - User activity tracking and attribution \n - Resource lifecycle event logging |
+| {{site.data.keyword.cloud_notm}} Activity Tracker | - Audit logging for all {{site.data.keyword.cloud_notm}} application programming interface (API) calls \n - User activity tracking and attribution \n - Resource lifecycle event logging |
 | VPC Flow Logs | - Network traffic capture and analysis  \n - Troubleshooting connectivity issues \n - Security incident investigation \n - Compliance evidence collection |
 {: caption="Activity tracking and logging" caption-side="bottom"}
 

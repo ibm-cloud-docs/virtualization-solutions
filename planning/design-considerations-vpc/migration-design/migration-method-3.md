@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2025
-lastupdated: "2026-07-21"
+  years: 2025, 2026
+lastupdated: "2026-10-06"
 
-keywords: live network transfer, Transit Gateway migration, live ISO migration, netcat streaming, parallel migration VPC, no export migration, compressed disk transfer, virt-p2v migration, large-scale migration, network bandwidth migration
+keywords: live network transfer VPC migration, IBM Cloud Transit Gateway migration, netcat disk streaming VPC, virt-v2v live migration, large-scale VMware migration IBM Cloud, no export VM migration, compressed disk transfer VPC, parallel migration IBM Cloud VPC, VMware live network transfer, virt-p2v IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrate VMware VMs to IBM Cloud virtual servers with live network transfer
+# {{site.data.keyword.cloud_notm}} VPC: Migrating VMware VMs by using live network transfer
 {: #virt-sol-vpc-migration-design-method3}
 
-Migrate VMware virtual machines (VMs) to IBM Cloud VPC virtual servers by streaming disk data over the network using virt-v2v and a Transit Gateway connection.
+Migrate VMware VMs to {{site.data.keyword.cloud_notm}} VPC virtual servers by streaming disk data over a Transit Gateway connection by using virt-v2v, minimizing downtime and data transfer.
 {: shortdesc}
 
 ## Architecture components
@@ -35,10 +35,12 @@ The architecture components of a live network transfer migration are:
 ## Overview of the live network transfer migration process
 {: #virt-sol-vpc-migration-design-method3-process}
 
-The following steps layout the process to migrate using live network transfer.
+Live network transfer establishes a direct TCP network stream across {{site.data.keyword.cloud_notm}} Transit Gateway to copy source VM disk blocks into VPC block storage targets.
+
+Before you begin, ensure that you have established routing across {{site.data.keyword.cloud_notm}} Transit Gateway, configured a live Linux ISO in VMware, and created VPC target storage volumes.
 
 1. Provision Transit Gateway
-   1. Create Transit Gateway in IBM Cloud
+   1. Create Transit Gateway in {{site.data.keyword.cloud_notm}}
    1. Connect it to your VMware environment:
      - Classic: Direct connection to Classic account
      - NSX: GRE tunnels to NSX edges
@@ -143,7 +145,9 @@ The following table describes the constraints and limitations of a live network 
 ## virt-p2v Integration
 {: #virt-sol-vpc-migration-design-method3-advanced}
 
-virt-p2v Integration is more automated but requires building libguestfs with RHEL/Ubuntu hybrid components.
+Red Hat `virt-p2v` is a specialized live conversion environment that coordinates with a target `virt-v2v` conversion server to automate disk streaming and driver injection.
+
+Before running a `virt-p2v` migration, confirm that your VPC worker instance has `virt-v2v` running in listening mode and that the source VM has mounted the `virt-p2v` ISO.
 
 Red Hat's `virt-p2v` ISO is purpose-built for this use case. It provides:
 - Graphical interface for selecting disks to transfer
@@ -157,3 +161,16 @@ virt-p2v Integration Process
 1. Resulting volumes are ready to attach to virtual server instance
 
 Live network transfer migration is ideal for large-scale migrations (10+ virtual machines), for scenarios where export overhead is prohibitive, and when you have the expertise to set up Transit Gateway and live ISO environments. The initial setup cost is higher, but the per-virtual machine migration efficiency is superior.
+
+## Related topics
+{: #virt-sol-vpc-migration-design-method3-related}
+
+To explore alternative migration methods and operational troubleshooting, review the following resources:
+
+- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods)
+- [Method 1: Image import](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1)
+- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
+- [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
+- [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
+- [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)

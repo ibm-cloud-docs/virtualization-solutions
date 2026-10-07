@@ -2,7 +2,7 @@
 {: #virt-sol-vpc-migration-tutorial-create-virtual-server}
 {: step}
 
-Learn how to create a worker virtual server for running migrations in IBM Cloud VPC.
+Create an IBM Cloud VPC worker virtual server instance to run migration operations, transfer virtual server disks, and host migrated workloads during the migration process.
 {: shortdesc}
 
 Use these steps to create a worker virtual server that is used to run migrations.

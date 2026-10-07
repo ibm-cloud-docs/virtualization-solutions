@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: Veeam VBR volume restore VPC, disaster recovery VSI tutorial, boot volume restore Windows Linux, worker instance restore workflow, preserved volume recovery VPC, Veeam agent volume-level restore, temporary VSI restore operations, VPC instance recreation tutorial, Windows Linux disaster recovery
+keywords: Veeam restore IBM Cloud VPC, Veeam VBR disaster recovery IBM Cloud, boot volume restore IBM Cloud VSI, worker instance restore IBM Cloud VPC, Veeam agent volume-level restore IBM Cloud, temporary VSI restore IBM Cloud, VPC instance recreation restore, Windows Linux disaster recovery IBM Cloud, preserved volume recovery IBM Cloud VPC, Veeam IBM Cloud VPC restore tutorial
 
 
 subcollection: virtualization-solutions
@@ -18,13 +18,13 @@ completion-time: 90m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Restoring IBM Cloud VPC virtual servers with Veeam Backup & Replication
+# Restoring {{site.data.keyword.cloud_notm}} VPC VSIs with Veeam Backup & Replication
 {: #veeam-vbr-vpc-vsi-restore}
 {: toc-content-type="tutorial"}
 {: toc-services="vpc"}
 {: toc-completion-time="90m"}
 
-Restore IBM Cloud VPC virtual servers from Veeam Backup & Replication by recovering preserved volumes and rebuilding instances using a worker virtual server instance.
+Restore {{site.data.keyword.cloud_notm}} VPC virtual servers by using Veeam Backup & Replication to recover preserved volumes and rebuild instances from a worker virtual server.
 {: shortdesc}
 
 ## Objectives
@@ -104,6 +104,8 @@ This approach enables data restoration without losing the original storage volum
 Open the required ports on the Windows virtual server instance. For more information, see [Veeam's documentation](https://helpcenter.veeam.com/docs/vbr/userguide/used_ports.html){: external}. In this example, the Windows Firewall is disabled.
 {: note}
 
+To provision the Windows worker virtual server instance used to mount recovery volumes, perform the following steps:
+
 1. Log in to the [{{site.data.keyword.cloud_notm}} console](https://cloud.ibm.com){: external}.
 2. From the **Navigation menu**, go to **Infrastructure** > **Compute** > **Virtual server instances**.
 3. Create a new virtual server instance.
@@ -137,6 +139,8 @@ Open the required ports on the Windows virtual server instance. For more informa
 ## Creating a boot volume for restored Windows virtual server instance
 {: #veeam-vbr-vpc-restore-windows}
 {: step}
+
+Create a temporary Windows virtual server instance to generate a target boot volume for the restore operation by using the following steps:
 
 1. Delete the original Windows virtual server instance.
 2. Deploy a virtual server instance to create the boot volume.
@@ -221,6 +225,8 @@ Open the required ports on the Windows virtual server instance. For more informa
 {: #veeam-vbr-vpc-connect-windows-vbr}
 {: step}
 
+Add the Windows worker virtual server instance to a Veeam protection group to prepare it for volume recovery by using the following steps:
+
 1. In the Veeam Backup & Replication console, go to **Inventory**.
 2. Create a new protection group for Windows servers.
    1. In the left navigation pane, right-click **Physical & Cloud Infrastructure**.
@@ -265,6 +271,8 @@ Open the required ports on the Windows virtual server instance. For more informa
 ## Restoring Windows volumes by using VBR
 {: #veeam-vbr-vpc-restore-windows-volumes}
 
+Restore the backed-up Windows volumes to the target disk attached to your Windows worker instance by using the following steps:
+
 1. In the Veeam Backup & Replication console, click **Backups**.
 2. Right-click the Windows virtual server instance, and then select **Restore Volumes...**
    1. In the **Restore point** page, select the restore point.
@@ -285,6 +293,8 @@ Open the required ports on the Windows virtual server instance. For more informa
 
 ## Restoring the Windows virtual server instance
 {: #veeam-agent-vpc-restore-windows-volumes}
+
+Detach the restored volume from the worker instance and attach it as the boot volume for a new production virtual server instance by using the following steps:
 
 1. Log in to the [{{site.data.keyword.cloud_notm}} console](https://cloud.ibm.com){: external}.
 2. Remove the attached block storage volume.

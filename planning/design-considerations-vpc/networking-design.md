@@ -1,9 +1,9 @@
 ---
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: VPC networking design, VPC subnets, security groups VPC, network ACLs, Application Load Balancer, Network Load Balancer, Virtual Private Endpoints, Transit Gateway, Direct Link VPC, VPN for VPC
+keywords: VPC networking design IBM Cloud, IBM Cloud VPC subnets, security groups IBM Cloud VPC, network ACLs IBM Cloud VPC, Application Load Balancer IBM Cloud, IBM Cloud Transit Gateway, Virtual Private Endpoints IBM Cloud, Direct Link IBM Cloud VPC, VPN for VPC IBM Cloud, secure network design IBM Cloud VPC
 
 subcollection: virtualization-solutions
 
@@ -11,26 +11,26 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Designing a secure network for IBM Cloud VPC virtual servers
+# Designing a secure network for {{site.data.keyword.cloud_notm}} VPC virtual servers
 {: #virt-sol-network-design}
 
-Design networking for IBM Cloud Virtual Private Cloud (VPC) virtual servers, covering subnets, security groups, load balancers, Virtual Private Endpoints (VPEs), and external connectivity.
+Design networking for {{site.data.keyword.cloud_notm}} VPC virtual servers, covering subnets, security groups, load balancers, Virtual Private Endpoints, and external connectivity options.
 {: shortdesc}
 
-Networking is the backbone of any cloud architecture and plays a critical role in enabling secure, reliable, and high-performance connectivity for workloads. In IBM Cloud, networking services provide the foundation for virtualization, container orchestration, and hybrid cloud integration, ensuring that applications and data can move seamlessly across environments.
+Networking is the backbone of any cloud architecture and plays a critical role in enabling secure, reliable, and high-performance connectivity for workloads. In {{site.data.keyword.cloud_notm}}, networking services provide the foundation for virtualization, container orchestration, and hybrid cloud integration, ensuring that applications and data can move seamlessly across environments.
 
-For workload migration and deployment, robust networking capabilities are essential to maintain application availability, security, and compliance. IBM Cloud offers advanced networking features such as Virtual Private Cloud (VPC), subnets, security groups, load balancing, and Direct Link for private connectivity to on-premises environments. These services enable organizations to design architectures that support scalable deployments, multi-zone resilience, and secure interconnectivity across hybrid and multicloud landscapes.
+For workload migration and deployment, robust networking capabilities are essential to maintain application availability, security, and compliance. {{site.data.keyword.cloud_notm}} offers advanced networking features such as Virtual Private Cloud (VPC), subnets, security groups, load balancing, and Direct Link for private connectivity to on-premises environments. These services enable organizations to design architectures that support scalable deployments, multi-zone resilience, and secure interconnectivity across hybrid and multicloud landscapes.
 
-By using IBM Cloud networking, businesses can confidently deploy and migrate workloads while maintaining performance and governance, paving the way for modernization and innovation.
+By using {{site.data.keyword.cloud_notm}} networking, businesses can confidently deploy and migrate workloads while maintaining performance and governance, paving the way for modernization and innovation.
 
 The key network architecture elements are shown in the following diagram.
 
 ![IBM Cloud VPC VSI Network](../../images/vpc-vsi/vpc-vsi-high-level-network.svg "IBM Cloud VPC VSI Network"){: caption="IBM Cloud VPC VSI Network" caption-side="bottom"}
 
-## IBM Cloud VPC Networking
+## {{site.data.keyword.cloud_notm}} VPC Networking
 {: #virt-sol-network-design-vpc-networking}
 
-IBM Cloud VPC is a secure, isolated, and highly configurable networking environment that enables organizations to deploy and manage cloud resources with fine-grained control. It provides the foundation for modern workloads, including virtual servers, containers, and bare metal deployments, while ensuring network segmentation, security, and scalability.
+{{site.data.keyword.cloud_notm}} VPC is a secure, isolated, and highly configurable networking environment that enables organizations to deploy and manage cloud resources with fine-grained control. It provides the foundation for modern workloads, including virtual servers, containers, and bare metal deployments, while ensuring network segmentation, security, and scalability.
 
 ### Default private networking with subnets
 {: #virt-sol-network-design-vpc-networking-subnets}
@@ -42,10 +42,10 @@ See the architecture diagram in [About networking for VPC](/docs/vpc?topic=vpc-a
 ### Load-balancers
 {: #virt-sol-network-design-vpc-networking-lb}
 
-IBM Cloud provides two families of load balancers for VPC: Application Load Balancer (ALB) and Network Load Balancer (NLB), each designed for different use cases and operating at different layers of the Open Systems Interconnection (OSI) model.
+{{site.data.keyword.cloud_notm}} provides two families of load balancers for VPC: Application Load Balancer (ALB) and Network Load Balancer (NLB), each designed for different use cases and operating at different layers of the Open Systems Interconnection (OSI) model.
 
 **Application Load Balancer (ALB)**
-Application Load Balancer provides layer 7 and layer 4 load balancing on IBM Cloud, but ALBs are primarily intended for layer 7, web-based workloads. ALBs support public and private configurations with Secure Sockets Layer (SSL) offloading capabilities. Key features:
+Application Load Balancer provides layer 7 and layer 4 load balancing on {{site.data.keyword.cloud_notm}}, but ALBs are primarily intended for layer 7, web-based workloads. ALBs support public and private configurations with Secure Sockets Layer (SSL) offloading capabilities. Key features:
 
 * Layer 7 (application) and Layer 4 (transport) load balancing
 * Secure Sockets Layer (SSL)/Transport Layer Security (TLS) termination and offloading
@@ -65,7 +65,7 @@ Choose Application Load Balancer when:
 * Multi-zone high availability with DNS-based failover is acceptable
 
 **Network Load Balancer (NLB)**
-Network Load Balancer provides only layer 4 load balancing on IBM Cloud and does not support SSL offloading. NLB uses Direct Server Return (DSR), where information processed by backend targets is sent directly back to the client, minimizing latency and optimizing throughput performance. Key features:
+Network Load Balancer provides only layer 4 load balancing on {{site.data.keyword.cloud_notm}} and does not support SSL offloading. NLB uses Direct Server Return (DSR), where information processed by backend targets is sent directly back to the client, minimizing latency and optimizing throughput performance. Key features:
 
 * Layer 4 (transport) load balancing
 * Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) protocol support
@@ -84,11 +84,11 @@ Choose Network Load Balancer when:
 ### Virtual Private Endpoints
 {: #virt-sol-network-design-vpc-networking-vpe}
 
-IBM Cloud Virtual Private Endpoint (VPE) for VPC enables you to access supported IBM Cloud services remotely by using the IP addresses of your choice, which are allocated from a subnet within your VPC.
+{{site.data.keyword.cloud_notm}} Virtual Private Endpoint (VPE) for VPC enables you to access supported {{site.data.keyword.cloud_notm}} services remotely by using the IP addresses of your choice, which are allocated from a subnet within your VPC.
 
 VPEs are virtual IP interfaces that are bound to an endpoint gateway created on a per-service or service-instance basis. The endpoint gateway is a virtualized function that scales horizontally, is redundant and highly available, and spans all availability zones of your VPC. Key characteristics:
 
-* Endpoint gateways enable communications from virtual server instances within your VPC and IBM Cloud service on the private backbone
+* Endpoint gateways enable communications from virtual server instances within your VPC and {{site.data.keyword.cloud_notm}} service on the private backbone
 * Private IP addresses allocated from customer-defined VPC subnets
 * No public internet connectivity required
 * Horizontal scaling and high availability across availability zones
@@ -122,11 +122,11 @@ See [Security in your VPC](/docs/vpc?topic=vpc-security-in-your-vpc) for additio
 ### Interconnectivity
 {: #virt-sol-network-design-vpc-networking-interconnectivity}
 
-**IBM Cloud Direct Link** and **VPN for VPC** enable secure connectivity between a VPC and on-premises networks. Direct Link provides dedicated, low-latency private connections, while VPN offers encrypted connectivity over the internet.
+**{{site.data.keyword.cloud_notm}} Direct Link** and **VPN for VPC** enable secure connectivity between a VPC and on-premises networks. Direct Link provides dedicated, low-latency private connections, while VPN offers encrypted connectivity over the internet.
 
-**IBM Cloud Transit Gateway** interconnects VPCs with each other, PowerVS Workspaces and with IBM Cloud Classic infrastructure, providing a hub for routing traffic across multiple cloud environments. Transit Gateway simplifies network topology management in hybrid and multicloud architectures.
+**{{site.data.keyword.cloud_notm}} Transit Gateway** interconnects VPCs with each other, PowerVS Workspaces and with {{site.data.keyword.cloud_notm}} Classic infrastructure, providing a hub for routing traffic across multiple cloud environments. Transit Gateway simplifies network topology management in hybrid and multicloud architectures.
 
-For guidance on selecting the appropriate connectivity option, see [Interconnecting your VPC using IBM Cloud offerings](/docs/vpc?topic=vpc-interconnectivity) and [Getting started with IBM Cloud Transit Gateway](/docs/transit-gateway?topic=transit-gateway-getting-started).
+For guidance on selecting the appropriate connectivity option, see [Interconnecting your VPC using {{site.data.keyword.cloud_notm}} offerings](/docs/vpc?topic=vpc-interconnectivity) and [Getting started with {{site.data.keyword.cloud_notm}} Transit Gateway](/docs/transit-gateway?topic=transit-gateway-getting-started).
 
 ## Next steps
 {: #virt-sol-network-design-next-steps}

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: VMware Cloud Foundation migration, VCFaaS to VPC, virtual server migration tutorial, VPC migration guide, VMware workload migration, VCFaaS migration, VCFaaS to VPC migration, netcat disk transfer tutorial, virt-v2v Windows conversion, transit gateway VCFaaS VPC, virtIO drivers Windows RHEL, cloud-init VPC configuration, VMware Cloud Director migration, VCFaaS VPC connectivity, Windows RHEL VPC migration
+keywords: VMware VCFaaS to VPC migration tutorial, IBM Cloud VPC migration guide, VCFaaS migration IBM Cloud, netcat disk transfer IBM Cloud VPC, virt-v2v Windows conversion IBM Cloud, Transit Gateway VCFaaS VPC, VirtIO drivers Windows RHEL VPC, cloud-init IBM Cloud VPC, VMware Cloud Director to VPC, IBM Cloud VPC VCFaaS migration tutorial
 
 
 subcollection: virtualization-solutions
@@ -18,13 +18,13 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating VMware Cloud Foundation (VCFaaS) workloads to IBM Cloud virtual servers for VPC
+# Migrating VMware VCFaaS workloads to {{site.data.keyword.cloud_notm}} VPC virtual servers
 {: #virt-sol-vcfaas-vpc-migration-tutorial-overview}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization, VMware"}
 {: toc-completion-time="60m"}
 
-Migrate VMware VMware Cloud Foundation as a Service (VCFaaS) Windows and Red Hat Enterprise Linux (RHEL) workloads to IBM Cloud Virtual Servers for VPC using a Transit Gateway private connection.
+Migrate VMware VCFaaS Windows and RHEL workloads to {{site.data.keyword.cloud_notm}} VPC virtual servers by using a Transit Gateway private connection to transfer virtual server disks.
 {: shortdesc}
 
 {{./../../_include-segments/objective.md}}
@@ -60,11 +60,11 @@ For more information, see [Managing IAM access for VCFaaS](/docs/vmware-service?
 
 Use the following steps to configure networking in your VMware Cloud Director (VCFaaS) environment to enable outbound internet access to install the required packages on the virtual servers.
 
-1. Log in to the IBM Cloud console.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
 2. Go to the VCFaaS tenant portal.
    1. From the **Navigation menu**, click **VMware > Resources > VCF as a Service**.
    2. From the list of available resources, select your Director site and click **VMware console**.
-   3. Click **Sign in with OIDC** and follow the prompts to log in with your IBM Cloud account.
+   3. Click **Sign in with OIDC** and follow the prompts to log in with your {{site.data.keyword.cloud_notm}} account.
 3. Create a routed Virtual Data Center (VDC) Network.
    1. In the side window, click **Data centers**.
    2. From the list of available data centers, select your VDC.
@@ -129,7 +129,7 @@ Use the following steps to configure networking in your VMware Cloud Director (V
 Use the following steps to create a catalog in VCFaaS and upload an Ubuntu Server ISO into it. This ISO is used later to boot the virtual servers into a shell for disk migration.
 
 1. Go to [Get Ubuntu Server](https://ubuntu.com/download/server) and download the ISO of the most recent LTS version of Ubuntu Server.
-2. Log in to the IBM Cloud console.
+2. Log in to the {{site.data.keyword.cloud_notm}} console.
 3. Go to the VCFaaS tenant portal.
 4. Create a catalog
    1. From the side window, click **Content hub**.
@@ -154,7 +154,7 @@ Use the following steps to create a catalog in VCFaaS and upload an Ubuntu Serve
 
 Use the following steps to create Windows and RHEL virtual servers in VCFaaS. These servers are migrated to the VPC.
 
-1. Log in to the IBM Cloud console.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
 2. Go to the VCFaaS tenant portal.
 3. Create a Windows virtual server.
    1. From the side window, click **Data centers**
@@ -222,9 +222,9 @@ Use the following steps to create Windows and RHEL virtual servers in VCFaaS. Th
 {: #virt-sol-vpc-migration-tutorial-load-virtio-iso}
 {: step}
 
-Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers. These drivers help ensure compatibility with IBM Cloud VPC. This ISO file on the Windows virtual server is used to patch the Windows recovery image in a later step.
+Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers. These drivers help ensure compatibility with {{site.data.keyword.cloud_notm}} VPC. This ISO file on the Windows virtual server is used to patch the Windows recovery image in a later step.
 
-1. Log in to the IBM Cloud console.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
 2. Go to the VCFaaS tenant portal.
 3. Create a temporary RHEL virtual server.
    1. From the side window, click **Data centers**.
@@ -289,7 +289,7 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
 
 The Windows virtual server also needs Cloud-init installed on it to run as a virtual server in your VPC. Use the following steps to obtain the installer from the internet.
 
-1. Log in to the IBM Cloud console.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
 2. Go to the VCFaaS tenant portal.
 3. Get the password of the Windows virtual server.
 4. Open a Web Console window to the Windows virtual server.
@@ -305,7 +305,7 @@ The Windows virtual server also needs Cloud-init installed on it to run as a vir
 
 Use the following steps to create a transit gateway to securely connect your VCFaaS instance and VPC over the {{site.data.keyword.cloud_notm}} private network.
 
-1. Log in to the IBM Cloud console.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
 2. Create a transit gateway.
    1. From the **Navigation menu**, click **Infrastructure > Network > Transit gateway**.
    2. Click **Create**
@@ -325,7 +325,7 @@ Use the following steps to create a transit gateway to securely connect your VCF
       4. For **Available connections**, select **vpc-migration**.
       5. Click **Add**.
 4. Connect the VCFaaS instance to the transit gateway.
-   1. Follow the steps that are in [Using transit gateway to interconnect VCF as a Service with IBM Cloud services](/docs/vmware-service?topic=vmware-service-tgw-adding-connections) to connect the VCFaaS instance to the transit gateway.
+   1. Follow the steps that are in [Using transit gateway to interconnect VCF as a Service with {{site.data.keyword.cloud_notm}} services](/docs/vmware-service?topic=vmware-service-tgw-adding-connections) to connect the VCFaaS instance to the transit gateway.
 5. Create a security group to allow traffic between the virtual server on the VPC environment and the VCFaaS instance.
    1. From the **Navigation menu**, click **Infrastructure > Network > Security groups**.
    2. Click **Create**.
@@ -409,9 +409,9 @@ Use the following steps to create a transit gateway to securely connect your VCF
 {: #virt-sol-vpc-migration-tutorial-load-virtio-iso-worker}
 {: step}
 
-Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers onto the worker virtual server. These drivers help ensure compatibility with IBM Cloud VPC. This ISO file on the worker virtual server is used to facilitate disk image conversion in a later step.
+Use the following steps to obtain and transfer the ISO that contains the Windows virtIO drivers onto the worker virtual server. These drivers help ensure compatibility with {{site.data.keyword.cloud_notm}} VPC. This ISO file on the worker virtual server is used to facilitate disk image conversion in a later step.
 
-1. Log in to the IBM Cloud console.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
 2. Go to the VCFaaS tenant portal.
 3. Get the password of the temporary RHEL virtual server.
     1. From the side window, click **Data centers**.
@@ -459,7 +459,7 @@ Use the following steps to obtain and transfer the ISO that contains the Windows
 
 Before you can migrate the virtual server, you must install the necessary drivers and configure Cloud-init on the Windows virtual server. Use the following steps to prepare the Windows virtual server for migration.
 
-1. Log in to the IBM Cloud console.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
 2. Go to the VCFaaS tenant portal.
 3. Get the password of the Windows virtual server.
 4. Open a Web Console window to the Windows virtual server.
@@ -483,6 +483,8 @@ Before you can migrate the virtual server, you must install the necessary driver
 ## Migrating the Windows virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-windows-vm}
 {: step}
+
+Boot the Windows virtual machine from an Ubuntu live ISO and stream its disk data to the {{site.data.keyword.cloud_notm}} VPC worker virtual server instance by using the following steps:
 
 1. Go to the VCFaaS tenant portal.
 2. Get the IP of the Windows virtual server by specifying the following information:
@@ -590,7 +592,7 @@ Before you can migrate the virtual server, you must install the necessary driver
        1. `echo $?`
 
     If the `virt-v2v-in-place` command was not successful, then the image on mounted boot volume will be in an indeterminate state. Check the output for any error messages. Any issue will need to be resolved first. Afterwards, the data from the source Windows virtual server will need to be re-transferred to the mounted boot volume on the worker virtual server before retrying the `virt-v2v-in-place` command.
-18. Log in to the IBM Cloud console.
+18. Log in to the {{site.data.keyword.cloud_notm}} console.
 19. Create a Windows virtual server from the attached boot volume by specifying the following information:
     1. From the **Navigation menu**, click **Infrastructure > Storage > Block storage volumes**.
     2. From the list of available resources, select **vpc-migration-vsi-win22-boot-volume**.
@@ -614,7 +616,7 @@ Before you can migrate the virtual server, you must install the necessary driver
     3. Copy the reserved IP of the Windows virtual server from the list of results.
 21. Get the password of the Windows virtual server.
     1. This should be the same Administrator password as it was on the source Windows virtual server.
-    2. Log in to the IBM Cloud console.
+    2. Log in to the {{site.data.keyword.cloud_notm}} console.
     3. Go to the VCFaaS tenant portal.
     4. Get the password of the Windows virtual server
          1. From the side window, click **Data centers**.
@@ -645,7 +647,7 @@ You need to configure the RHEL virtual server with virtIO drivers and Cloud-init
 
 Use the following information to prepare the RHEL virtual server for migration.
 
-1. Log in to the IBM Cloud console.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
 2. Go to the VCFaaS tenant portal.
 3. Get the password of the RHEL virtual server.
 4. Open a Web Console window to the RHEL virtual server.
@@ -717,6 +719,8 @@ For more information, see [About Block Storage for VPC](/docs/vpc?topic=vpc-bloc
 ## Migrating the RHEL virtual server
 {: #virt-sol-vpc-migration-tutorial-migrate-rhel-vm}
 {: step}
+
+Boot the RHEL virtual machine from an Ubuntu live ISO and stream its disk data to the {{site.data.keyword.cloud_notm}} VPC worker virtual server instance by using the following steps:
 
 1. Go to the VCFaaS tenant portal.
 2. Get the IP of the RHEL virtual server by specifying the following information:

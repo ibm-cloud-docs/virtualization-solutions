@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: VMware migration, VPC virtual server instances, migration design, VMware to VPC, VMware to VPC migration, VPC migration design, VMware workload migration, hypervisor differences VPC, VPC networking Layer 3, VPC storage migration, migration methods comparison, virt-v2v migration, VDDK migration VPC
+keywords: VMware to VPC migration design, IBM Cloud VPC migration planning, hypervisor differences VMware VPC, VPC networking Layer 3, VPC storage migration design, migration methods comparison IBM Cloud, virt-v2v migration VPC, VDDK migration VPC, VMware workload migration IBM Cloud, VPC migration design overview
 
 subcollection: virtualization-solutions
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Designing your migration from VMware to IBM Cloud VPC
+# Designing your VMware migration to {{site.data.keyword.cloud_notm}} VPC
 {: #virt-sol-vpc-migration-design-design-overview}
 
-Understand VMware-to-VPC differences in networking, storage, and hypervisor to guide your migration design to IBM Cloud VPC.
+Understand {{site.data.keyword.cloud_notm}} VPC networking, storage, and hypervisor differences from VMware to plan a successful migration design and workload placement strategy.
 {: shortdesc}
 
 ## Understanding the destination: VPC virtual server instances for VMware administrators
@@ -133,4 +133,4 @@ Refer to the following resources:
 - [VPC solution tutorials](/docs?tab=solutions)
 - [Libguestfs and virt-v2v](https://libguestfs.org/){: external}
 - [{{site.data.keyword.redhat_full}} Migration Toolkit for Virtualization](https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.11){: external}
-- [VMware VDDK documentation](https://developer.broadcom.com/sdks/vmware-virtual-disk-development-kit-vddk/7.0){: external}
+- [VMware VDDK documentation](https://techdocs.broadcom.com){: external}

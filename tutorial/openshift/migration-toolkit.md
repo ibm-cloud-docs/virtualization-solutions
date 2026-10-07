@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-31"
+lastupdated: "2026-10-06"
 
-keywords: VMware vSphere migration OpenShift Virtualization, Migration Toolkit for Virtualization MTV, MTV Operator installation IBM Cloud, warm migration cold migration MTV, VDDK image configuration MTV, VMware to OpenShift VM migration, IBM Cloud VPC bare metal migration, MTV migration plan creation, MTV troubleshooting ForkliftController, preserve static IP migration OpenShift, LUKS BitLocker encrypted VM migration, concurrent VM migration performance tuning
+keywords: MTV tutorial IBM Cloud, migrate VMware vSphere to OpenShift Virtualization, Migration Toolkit for Virtualization IBM Cloud, MTV Operator installation ROKS, warm migration cold migration MTV IBM Cloud, VDDK configuration MTV IBM Cloud, VMware to OpenShift VM migration tutorial, MTV migration plan creation IBM Cloud, preserve static IP migration OpenShift, MTV troubleshooting IBM Cloud, encrypted VM migration OpenShift, concurrent VM migration IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -20,7 +20,7 @@ compliance: HIPAA
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrate VMware VMs to Red Hat OpenShift Virtualization by using MTV
+# {{site.data.keyword.redhat_openshift_notm}} Virtualization: Migrating VMware VMs by using MTV
 {: #vsphere-openshift-migration}
 {: #tutorial-rove-migration-toolkit}
 {: toc-content-type="tutorial"}
@@ -30,13 +30,13 @@ compliance: HIPAA
 {: toc-industry="Software and platform applications"}
 {: toc-compliance="HIPAA"}
 
-Migrate VMware vSphere virtual machines (VMs) to {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}} by using the Migration Toolkit for Virtualization (MTV). Configure VDDK images, install the MTV Operator, create migration plans, run warm and cold migrations, tune performance for large-scale workloads, and resolve common migration errors.
+Migrate VMware vSphere VMs to {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}} by using MTV, including VDDK configuration, MTV Operator installation, and warm and cold migrations.
 {: shortdesc}
 
 ## Overview
 {: #mtv-overview}
 
-MTV migrates VMs to {{site.data.keyword.redhat_openshift_notm}} Virtualization running on {{site.data.keyword.redhat_openshift_notm}}.
+The Migration Toolkit for Virtualization (MTV) migrates VMs to {{site.data.keyword.redhat_openshift_notm}} Virtualization running on {{site.data.keyword.redhat_openshift_notm}}.
 
 MTV supports migration from the following VMware vSphere source providers:
 
@@ -45,6 +45,8 @@ MTV supports migration from the following VMware vSphere source providers:
 
 ## Migration prerequisites and environment requirements
 {: #prerequisites-requirements}
+
+Verify software version compatibility, network connectivity, guest operating system support, and encryption requirements before initiating VM migration.
 
 ### Software compatibility
 {: #software-compatibility}
@@ -94,7 +96,7 @@ Operating system (OS) certification
 :   The VM operating system must be certified and supported as a guest operating system for conversion.
 
 Boot features
-:   Virtual machines with Secure Boot enabled might not be migrated automatically, as this prevents them from booting on the destination provider. To resolve this, disable Secure Boot on the destination.
+:   Virtual machines with Secure Boot enabled cannot be migrated automatically, because Secure Boot prevents the VM from booting on the destination provider. To resolve this, disable Secure Boot on the destination.
 
 VMware guest agents
 :   VMware Tools or open-vm-tools are required when **Preserve static IPs** is enabled.
@@ -119,6 +121,8 @@ MTV supports migrating VMs by using the following encryption types:
 ## VMware vSphere specific prerequisites
 {: #vmware-prerequisites}
 {: step}
+
+Prepare your VMware vSphere environment with the required agent tools, disk libraries, permissions, and host configurations before migration.
 
 ### VMware Tools
 {: #vmware-tools}
@@ -189,8 +193,12 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 {: #migrating-vms-ui}
 {: step}
 
+Use the MTV web console to register source providers, configure mapping rules, create migration plans, and monitor execution.
+
 ### Add VMware vSphere source provider
 {: #add-vmware-source}
+
+To connect your VMware vSphere environment to MTV as a source provider, perform the following steps:
 
 1. Go to **Migration for Virtualization** > **Providers** and click **Create provider**.
 2. Select **VMware** and specify the provider resource name and endpoint type (vCenter or ESXi).
@@ -202,6 +210,8 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 
 ### Creating a migration plan
 {: #creating-migration-plan}
+
+To define a migration plan for selected VMware virtual machines, perform the following steps:
 
 1. General: Define plan name, project, source provider, and target provider/project.
 
@@ -244,6 +254,8 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 {: #post-creation-configuration}
 {: step}
 
+After creating the migration plan, verify plan conditions and fine-tune optional settings by using the following steps:
+
 1. Review the **Plan details** page, especially for settings not in the wizard.
 
    - The **Plan details** page contains important settings not visible in the wizard.
@@ -253,6 +265,8 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 ### Running and monitoring
 {: #running-monitoring}
 {: step}
+
+Execute your migration plan and monitor VM data transfer progress by using the following steps:
 
 1. Pre-migration activities
 
@@ -298,6 +312,8 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 {: #performance-troubleshooting}
 {: step}
 
+Use the following guidelines and recommendations to optimize migration throughput, manage concurrency, and troubleshoot MTV operations.
+
 1. Networking, storage, and host tuning for migration throughput
 
    - Ensure fast networking and storage: Both VMware and {{site.data.keyword.redhat_openshift_notm}} Container Platform (OCP) environments require fast storage and network speeds.
@@ -320,7 +336,7 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 
 4. Warm migration tuning
 
-   - Disk concurrency limit: Testing that is involved up to 400 parallel disk transfers (200 VMs with two disks each). Limit parallel disk migrations to 200 or fewer disks for the fastest migration rate, as speeds decrease by about 25% beyond this threshold.
+   - Disk concurrency limit: In IBM testing, up to 400 parallel disk transfers (200 VMs with two disks each) were evaluated. Limit parallel disk migrations to 200 or fewer disks for the fastest migration rate, as speeds decrease by about 25% beyond this threshold.
    - Immediate cutover: To minimize overall warm migration time and ensure only one precopy runs per VM, set the cutover to occur immediately after the migration plan starts.
    - Adjusting precopy interval: If you have adequate time between the migration start and cutover, increase the `controller_precopy_interval` parameter (default 60 minutes) to between 120 and 240 minutes to reduce the total number of snapshots and disk transfers before cutover.
 
@@ -339,7 +355,7 @@ For more information, see [Configuring the MTV Operator](https://docs.redhat.com
 ## Troubleshooting
 {: #troubleshooting}
 
-If you encounter errors during migration, see [Troubleshooting MTV migrations from VMware vSphere to Red Hat OpenShift Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-mtv-migration) for resolutions to common issues, including snapshot limits, VDDK pull failures, DNS resolution failures, and static IP preservation problems.
+If you encounter errors during migration, see [Troubleshooting MTV migrations from VMware vSphere to {{site.data.keyword.redhat_openshift_notm}} Virtualization](/docs/virtualization-solutions?topic=virtualization-solutions-troubleshooting-mtv-migration) for resolutions to common issues, including snapshot limits, VDDK pull failures, DNS resolution failures, and static IP preservation problems.
 
 ## Additional resources
 {: #additional-resources}

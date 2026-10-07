@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: migration wave planning, VMware migration waves, pilot migration VPC, cutover window planning, migration dependency mapping, parallel migration VPC, migration rollback strategy, migration velocity estimation, subnet migration planning, application stack migration
+keywords: migration wave planning IBM Cloud VPC, VMware migration waves IBM Cloud, pilot migration VPC, cutover window planning IBM Cloud, migration dependency mapping IBM Cloud, parallel migration IBM Cloud VPC, migration rollback strategy IBM Cloud, migration velocity estimation VPC, subnet migration planning IBM Cloud, application stack migration IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,10 +13,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Planning migration waves for virtual servers on IBM Cloud VPC
+# Planning {{site.data.keyword.cloud_notm}} VPC migration waves
 {: #virt-sol-vpc-migration-design-wave}
 
-Plan IBM Cloud VPC migration waves by mapping virtual machine (VM) dependencies, estimating velocity, and scheduling cutover windows for application stacks.
+Plan {{site.data.keyword.cloud_notm}} VPC migration waves by mapping VM dependencies, estimating velocity, and scheduling cutover windows and rollback procedures for each application stack.
 {: shortdesc}
 
 ## Dependency planning
@@ -99,7 +99,7 @@ Application stack grouping for multitier applications:
 
 - Migrate the entire stack in one wave, if possible.
 - If your migration is too large, migrate from the database first, then apps, and so on.
-- Maintain connectivity between migrated and nonmigrated tiers through IBM Cloud Transit Gateway.
+- Maintain connectivity between migrated and nonmigrated tiers through {{site.data.keyword.cloud_notm}} Transit Gateway.
 
 Application stack grouping for dependency-aware sequencing:
 
@@ -176,6 +176,8 @@ The following information describes the cutover phases.
 #### Phase 1: Suspend and migrate (Hours 0-4)
 {: #virt-sol-vpc-migration-design-wave-cutover1}
 
+Perform the following tasks to suspend source workloads and transfer disk data:
+
 1. Drain connections - remove from load balancers and wait for sessions to close.
 1. Gracefully stop applications
 1. Shut down virtual servers or start from live ISO for Method 3
@@ -184,6 +186,8 @@ The following information describes the cutover phases.
 
 #### Phase 2: Transform and provision (Hours 4-6)
 {: #virt-sol-vpc-migration-design-wave-cutover2}
+
+Perform the following tasks to prepare disk volumes and provision VPC instances:
 
 1. Run virt-v2v, if needed, to inject drivers
 1. Verify disk transfers (fdisk, checksums)
@@ -194,6 +198,8 @@ The following information describes the cutover phases.
 #### Phase 3: Validate and cutover (Hours 6-8)
 {: #virt-sol-vpc-migration-design-wave-cutover3}
 
+Perform the following validation and routing tasks during the cutover window:
+
 1. Start virtual server instances and access through the VNC console if needed
 1. Verify network configuration and adjust if necessary
 1. Start applications
@@ -203,6 +209,8 @@ The following information describes the cutover phases.
 
 #### Phase 4: Stabilize (Hours 8-12)
 {: #virt-sol-vpc-migration-design-wave-cutover4}
+
+Perform the following stabilization tasks after completing the cutover:
 
 1. Monitor for issues
 1. Verify external connectivity
@@ -215,11 +223,11 @@ Migration rollback decision points:
 - After Phase 2: Medium difficulty (discard virtual server instances, restart VMware virtual servers, restore DNS)
 - After Phase 3: Difficult (might have new data in VPC, requires data sync back to VMware)
 
-Design recommendation: Define explicit go, no-go checkpoints. Examples:
+Design recommendation: Define explicit go, no-go checkpoints. The following examples reflect {{site.data.keyword.cloud_notm}} migration practice; adjust thresholds to match your organization's SLAs and risk tolerance.
 
 - After Phase 2, if more than 20% of virtual server instances fail to start, implement a rollback.
 - After Phase 3, if application functional tests fail, implement a rollback.
-- After Phase 4, if performance is more than 30% less than the baseline, investigate but don't implement a rollback.
+- After Phase 4, if performance is more than 30% less than the pre-migration baseline, investigate but don't implement a rollback.
 
 ## Migration velocity estimation
 {: #virt-sol-vpc-migration-design-wave-velocity}

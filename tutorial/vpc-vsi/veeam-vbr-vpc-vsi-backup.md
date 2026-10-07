@@ -3,9 +3,9 @@
 copyright:
   years: 2026
 
-lastupdated: "2026-07-28"
+lastupdated: "2026-10-06"
 
-keywords: Veeam Backup Replication VPC, VBR agent deployment tutorial, scale-out backup repository SOBR, Cloud Object Storage backup tier, ReFS backup repository VPC, Veeam protection groups VSI, HMAC credentials COS integration, Windows Linux backup agents, VPC backup configuration guide
+keywords: Veeam IBM Cloud VPC backup, Veeam VBR agent deployment IBM Cloud, scale-out backup repository IBM Cloud VPC, SOBR Cloud Object Storage IBM Cloud, Veeam protection groups VSI IBM Cloud, HMAC credentials COS Veeam IBM Cloud, Windows Linux backup agents IBM Cloud VPC, ReFS backup repository IBM Cloud, Veeam IBM Cloud VPC backup tutorial, Veeam Backup Replication IBM Cloud VSI
 
 subcollection: virtualization-solutions
 
@@ -18,13 +18,13 @@ completion-time: 90m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Backing up IBM Cloud VPC virtual servers with Veeam Backup & Replication
+# Backing up {{site.data.keyword.cloud_notm}} VPC VSIs with Veeam Backup & Replication
 {: #veeam-vbr-vpc-vsi-backup}
 {: toc-content-type="tutorial"}
 {: toc-services="vpc, cloud object storage"}
 {: toc-completion-time="90m"}
 
-Install Veeam backup agents on {{site.data.keyword.vpc_short}} virtual servers and create protection groups and backup jobs.
+Back up {{site.data.keyword.cloud_notm}} VPC virtual servers by installing Veeam agents, creating protection groups, and configuring backup jobs to {{site.data.keyword.cloud_notm}} Object Storage.
 {: shortdesc}
 
 ## Objectives
@@ -45,7 +45,7 @@ Review and meet the following prerequisites:
 - Basic understanding of backup and recovery concepts
 - Familiarity with Linux&reg; and Windows&reg; Server administration
 - An {{site.data.keyword.cloud_notm}} account with {{site.data.keyword.vpc_short}} access
-- Appropriate IBM Cloud Identity and Access Management ([IAM](/docs/iam?topic=iam-iamoverview)) permissions to create and manage VPC resources
+- Appropriate {{site.data.keyword.cloud_notm}} Identity and Access Management ([IAM](/docs/iam?topic=iam-iamoverview)) permissions to create and manage VPC resources
 - Familiarity with the [Veeam Backup & Replication configuration tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-veeam-vbr-vpc-vsi-configuration)
 - A working VBR 13 installation with configured repositories (Scale-Out Backup Repository (SOBR) that uses a local disk and {{site.data.keyword.cos_full_notm}})
 
@@ -101,6 +101,8 @@ Confirm that `lvm2` is installed on the RHEL or Linux virtual server.
 
 Open the required ports on the Windows virtual server. For more information, see [Ports that are used by Veeam Backup & Replication](https://helpcenter.veeam.com/docs/vbr/userguide/used_ports.html){: external} to determine which ports to open. The Windows Firewall is disabled for testing purposes only. Do not disable the firewall in a production environment.
 {: note}
+
+Before you deploy backup agents, provision your workload instances by using the following steps:
 
 1. Log in to the [{{site.data.keyword.cloud_notm}} console](https://cloud.ibm.com/infrastructure/compute/vs){: external} to create Windows and RHEL virtual servers for backup.
 2. Record the private IP address of each virtual server.

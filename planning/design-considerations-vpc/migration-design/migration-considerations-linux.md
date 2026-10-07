@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: Linux migration VPC, VirtIO drivers Linux, migrate Linux to VPC, cloud-init migration, Linux network configuration, RHEL migration VPC, Ubuntu migration VPC, Linux partition migration, Linux file system migration
+keywords: Linux migration IBM Cloud VPC, VirtIO drivers Linux VPC, migrate Linux to VPC, cloud-init Linux migration, RHEL migration IBM Cloud VPC, Ubuntu migration IBM Cloud VPC, Linux network configuration VPC, Linux partition migration VPC, Linux VirtIO driver verification, migrate Linux VM to IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,18 +13,17 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Linux migration considerations for moving to IBM Cloud VPC
+# {{site.data.keyword.cloud_notm}} VPC Linux migration considerations
 {: #virt-sol-vpc-migration-design-linux}
 
 
 
-Review Linux migration considerations for IBM Cloud VPC, including VirtIO driver verification, cloud-init configuration, and network settings.
+Review Linux migration considerations for {{site.data.keyword.cloud_notm}} VPC, including VirtIO driver verification, cloud-init configuration, and network settings.
 {: shortdesc}
 
 Before you start a migration, consider the following information.
 
 ## Verify VirtIO drivers
-{: shortdesc}
 {: #virt-sol-vpc-migration-design-linux-virtio}
 
 Linux migrations are generally simpler than Windows, but the guide describes a few important considerations to keep in mind.
@@ -165,7 +164,7 @@ sudo touch /etc/cloud/cloud-init.disabled
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions2}
 
 - Useful if you want VPC to auto-configure networking through DHCP
-- might require manual adjustments post-boot (hostname, users)
+- Requires manual adjustments post-boot (hostname, users)
 
 ### Option 3: Configure cloud-init
 {: #virt-sol-vpc-migration-design-linux-cloudinit-decisions3}
@@ -193,11 +192,9 @@ gdisk -l /dev/vdb
 {: codeblock}
 
 Boot volume resize:
-If you resized the boot volume upward (example: from 80 GB in VMware to 100 GB in VPC),
+If you resized the boot volume upward (example: from 80 GB in VMware to 100 GB in VPC), perform the following steps to extend the partition and file system:
 
-1. You might need to update the partition table:
-
-If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
+1. Update the partition table:
 
    ```bash
    # For MBR
@@ -209,7 +206,7 @@ If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
    ```
    {: codeblock}
 
-1. Resize file system:
+1. Resize the file system:
 
    ```bash
    # For ext4
@@ -228,6 +225,17 @@ If you resized the boot volume upward (from 80 GB in VMware to 100 GB in VPC):
 ## fstrim and Thin Provisioning
 {: #virt-sol-vpc-migration-design-linux-fstrim}
 
-In VMware, you can use `fstrim` to reclaim unused space in thin-provisioned VMDKs. In VPC, all volumes are thin-provisioned at the storage layer, but fstrim has no effect on space reclamation in VPC. Keep in mind that fstrim doesn't free up storage.
+Storage space reclamation mechanisms operate differently in VPC block storage compared to on-premises VMware datastores. In VMware, you can use `fstrim` to reclaim unused space in thin-provisioned VMDKs. In VPC, all volumes are thin-provisioned at the storage layer, but fstrim has no effect on space reclamation in VPC. Keep in mind that fstrim doesn't free up storage.
 
 Existing fstrim cron jobs can stay in place or remove them to avoid unnecessary I/O.
+
+## Related topics
+{: #virt-sol-vpc-migration-design-linux-related}
+
+To explore migration execution steps and other operating system considerations, review the following resources:
+
+- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods)
+- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
+- [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
+- [RackWare RMM migration guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)

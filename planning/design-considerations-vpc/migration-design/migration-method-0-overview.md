@@ -2,9 +2,9 @@
 
 copyright:
   years: 2025
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: migration governance framework, change management migration, migration runbook templates, stakeholder communication plan, migration documentation requirements, lessons learned retrospective, migration tracking spreadsheet, troubleshooting guide migration, wave approval process, post-migration retrospective
+keywords: IBM Cloud VPC migration methods, VMware VM migration comparison, image import migration VPC, direct volume copy migration, live network transfer VPC, VDDK direct extraction, virt-v2v migration methods, VMware to VPC migration technique, migration method selection IBM Cloud, compare VMware migration approaches
 
 subcollection: virtualization-solutions
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migration methods for moving VMware VMs to IBM Cloud VPC virtual servers
+# {{site.data.keyword.cloud_notm}} VPC migration methods for VMware VMs
 {: #virt-sol-vpc-migration-design-methods}
 
-Compare four VMware-to-VPC migration methods: Image Import, Direct Volume Copy, Live Network Transfer, and VDDK Extraction.
+Compare {{site.data.keyword.cloud_notm}} VPC migration methods for VMware VMs: Image Import, Direct Volume Copy, Live Network Transfer, and VDDK direct extraction from vCenter.
 {: shortdesc}
 
 * Method 1: [Image Import (Template-Based Migration)](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method1)
@@ -25,6 +25,8 @@ Compare four VMware-to-VPC migration methods: Image Import, Direct Volume Copy, 
 
 ## Migration method selection matrix
 {: #virt-sol-vpc-migration-design-methods-matrix}
+
+Use the following comparison matrix to evaluate migration methods against your workload criteria, tooling preferences, and architectural constraints:
 
 | Criterion | Method 1 (Image) | Method 2 (Volume) | Method 3 (Network) | Method 4 (VDDK) |
 | ----------- | ------------------ | ------------------- | -------------------- | -------------------- |

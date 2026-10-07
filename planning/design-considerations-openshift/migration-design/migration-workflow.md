@@ -2,10 +2,10 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
 
-keywords: OpenShift migration workflow, Migration Toolkit for Virtualization workflow, MTV custom resources, OpenShift Operator migration, NetworkMapping MTV, StorageMapping MTV, migration plan OpenShift, vCenter migration workflow, network attachment definitions OpenShift
+keywords: OpenShift migration workflow IBM Cloud, MTV custom resources migration, MTV NetworkMapping StorageMapping, OpenShift Operator migration workflow, migration plan MTV IBM Cloud, vCenter migration workflow OpenShift, network attachment definitions MTV, MTV Provider custom resource, IBM Cloud VMware to OpenShift workflow, MTV migration plan creation IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -15,13 +15,13 @@ subcollection: virtualization-solutions
 
 
 
-# Migrating VMware workloads to Red Hat OpenShift Virtualization: Step-by-step workflow
+# {{site.data.keyword.redhat_openshift_notm}} Virtualization: VMware migration workflow
 {: #virt-sol-openshift-migration-design-migration-workflow}
 
-Understand how the Migration Toolkit for Virtualization (MTV) Operator manages custom resources — Provider, Plan, Migration — to execute VMware virtual machine (VM) migrations in Red Hat OpenShift.
+Understand how the MTV Operator manages Provider, Plan, and Migration custom resources to execute VMware VM migrations to {{site.data.keyword.redhat_openshift_notm}} Virtualization on {{site.data.keyword.cloud_notm}}.
 {: shortdesc}
 
-The Migration Toolkit for Virtualization (MTV) is provided as a Red Hat OpenShift Operator.
+The Migration Toolkit for Virtualization (MTV) is provided as a {{site.data.keyword.redhat_openshift_notm}} Operator.
 
 ![Red Hat OpenShift Virtualization Migration Workflow](../../../images/openshift/openshift-virtualization-migration-flow.svg "Red Hat OpenShift Virtualization Migration Workflow"){: caption="Red Hat OpenShift Virtualization Migration Workflow" caption-side="bottom"}
 

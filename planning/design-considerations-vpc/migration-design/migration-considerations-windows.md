@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-09-17"
+lastupdated: "2026-10-06"
 
-keywords: Windows migration VPC, VirtIO drivers Windows, sysprep Windows migration, virt-v2v Windows, migrate Windows to VPC, Windows Server migration, Windows driver injection, virtio-win drivers, Windows domain migration
+keywords: Windows migration IBM Cloud VPC, VirtIO drivers Windows VPC, sysprep Windows migration VPC, virt-v2v Windows conversion, migrate Windows Server to VPC, virtio-win driver injection IBM Cloud, Windows domain migration VPC, Windows BYOL IBM Cloud VPC, Windows licensing migration IBM Cloud, Windows VM migration IBM Cloud
 
 subcollection: virtualization-solutions
 
@@ -12,10 +12,10 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Windows migration considerations for IBM Cloud VPC: Drivers, licensing, and preparation
+# {{site.data.keyword.cloud_notm}} VPC Windows migration: Drivers, licensing, and preparation
 {: #virt-sol-vpc-migration-design-windows}
 
-Review Windows migration considerations for IBM Cloud VPC, including VirtIO driver injection, sysprep preparation, and licensing requirements.
+Review Windows migration considerations for {{site.data.keyword.cloud_notm}} VPC, including VirtIO driver injection, sysprep preparation, and licensing requirements.
 {: shortdesc}
 
 ## The driver challenge
@@ -276,3 +276,15 @@ The following table is the design decision matrix for Windows
 | Servers with licensing that is tied to hardware ID | virt-v2v + careful license review |
 | Old Windows (2003, 2008 non-R2) | Not supported for migration |
 {: caption="Design Decision Matrix for Windows" caption-side="bottom"}
+
+## Related topics
+{: #virt-sol-vpc-migration-design-windows-related}
+
+To explore migration execution steps and alternative operating system workflows, review the following resources:
+
+- [VPC migration methods overview](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-methods)
+- [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
+- [Method 4: VDDK direct extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
+- [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
+- [RackWare RMM migration guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)

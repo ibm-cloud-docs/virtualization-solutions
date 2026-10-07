@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-21"
+lastupdated: "2026-10-06"
 
-keywords: ODF troubleshooting OpenShift, NVMe disk recovery bare metal, PVC stuck pending Ceph, OSD down recovery procedures, Ceph nearfull alert resolution, VM storage performance issues, live migration RWX requirements, CSI provisioner troubleshooting, Ceph cluster capacity management, OpenShift Data Foundation problems
+keywords: ODF troubleshooting IBM Cloud, NVMe disk recovery IBM Cloud bare metal, PVC stuck pending Ceph IBM Cloud, OSD down recovery IBM Cloud, Ceph nearfull alert IBM Cloud, VM storage performance OpenShift IBM Cloud, live migration RWX requirements IBM Cloud, CSI provisioner troubleshooting IBM Cloud, Ceph capacity management IBM Cloud, OpenShift Data Foundation problems IBM Cloud
 
 
 subcollection: virtualization-solutions
@@ -13,21 +13,23 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Troubleshooting Red Hat OpenShift Data Foundation workloads on bare metal servers
+# Troubleshooting ODF workloads on {{site.data.keyword.redhat_openshift_notm}} bare metal servers
 {: #troubleshooting-odf-workloads}
 
-Troubleshoot ODF storage issues on IBM Cloud bare metal servers, including NVMe recovery, PVC failures, OSD outages, and slow VM performance.
+Troubleshoot ODF storage issues on {{site.data.keyword.cloud_notm}} bare metal servers, including NVMe recovery, PVC failures, OSD outages, and slow VM performance.
 {: shortdesc}
 
-When working with Red Hat OpenShift Data Foundation (ODF) storage from local Non-Volatile Memory Express (NVMe) drives that are in the bare metal servers, you can encounter issues. Issues, symptoms, likely causes, and resolutions are described in the following sections.
+When working with {{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF) storage from local Non-Volatile Memory Express (NVMe) drives that are in the bare metal servers, you can encounter issues. Issues, symptoms, likely causes, and resolutions are described in the following sections.
 
 ## Verification and recovery of missing NVMe disks
 {: #verification-and-recovery-of-missing-nvme-disks}
 
-Due to a known issue on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service bare metal nodes, some NVMe drives might not mount correctly after cluster provisioning. This procedure verifies disk visibility and recovers missing drives.
+Due to a known issue on {{site.data.keyword.redhat_openshift_full}} Kubernetes Service bare metal nodes, NVMe drives can fail to mount correctly after cluster provisioning. This procedure verifies disk visibility and recovers missing drives.
 
 This procedure removes and rescans PCI devices to temporarily take devices offline. Do not perform these steps on devices that are actively serving I/O to ODF or other workloads. Perform this procedure only during initial cluster setup or a planned maintenance window.
 {: warning}
+
+Before you begin disk verification and recovery, open a node terminal session by using the following steps:
 
 1. Log in to the OpenShift web console. Go to **Compute** > **Nodes**, select a **Node**, and open the **Terminal** tab.
 2. Run the following command:
@@ -146,9 +148,11 @@ Symptom: ODF fires the `CephOSDNearFull` alert, or `ceph status` shows `HEALTH_W
 
 Cause: One or more OSDs have exceeded 75% usage (ODF `CephOSDNearFull` alert threshold). If usage continues to rise:
 
-- At 85%, Ceph sets the native nearfull OSD flag (mon_osd_nearfull_ratio) and ODF fires the CephOSDCriticallyFull alert.
-- At 90%, Ceph stops backfill and recovery to the affected OSD (mon_osd_backfillfull_ratio).
-- At 95%, Ceph marks the OSD full (mon_osd_full_ratio), blocks all writes, and issues HEALTH_ERR.
+- At 85%, Ceph sets the native nearfull OSD flag (`mon_osd_nearfull_ratio`) and ODF fires the `CephOSDCriticallyFull` alert.
+- At 90%, Ceph stops backfill and recovery to the affected OSD (`mon_osd_backfillfull_ratio`).
+- At 95%, Ceph marks the OSD full (`mon_osd_full_ratio`), blocks all writes, and issues `HEALTH_ERR`.
+
+These thresholds are the default values defined by the Ceph storage system and are surfaced in ODF as OSD alert conditions. For the authoritative values and how to adjust them, see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}.
 
 Fix:
 
@@ -187,7 +191,7 @@ Possible causes and diagnostics:
 
    Should include `exclusive-lock`.
 
-4. Cluster usage above 70%: Ceph performance degrades as disks fill. Check `ceph df`.
+4. Cluster usage above 70%: Ceph performance degrades as disks fill (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}). Check `ceph df`.
 
 5. Rebalancing or recovery in progress: After an OSD failure or node addition, Ceph rebalances data across OSDs, consuming I/O bandwidth. Check:
 
@@ -214,8 +218,8 @@ Common causes:
 
 - PVC stuck in Pending: For more information, see [PVC stuck in pending](#pvc-stuck-in-pending).
 - DataVolume clone failing silently: If you are using an encrypted StorageClass for the root disk, the clone from the unencrypted golden image fails without visible events. Check the CSI controller pod logs in `openshift-storage`.
-- Golden image not available: The DataSource in `openshift-virtualization-os-images` might not be ready. Check `oc get datasource -n openshift-virtualization-os-images`.
-- Insufficient node resources: The destination node might not have enough CPU or memory for the VM. Check `oc describe node` for resource pressure.
+- Golden image not available: If the DataSource in `openshift-virtualization-os-images` is not ready, the golden image is unavailable. Check `oc get datasource -n openshift-virtualization-os-images`.
+- Insufficient node resources: VM creation fails when the destination node has insufficient CPU or memory. Check `oc describe node` for resource pressure.
 
 ## Live migration fails
 {: #live-migration-fails}

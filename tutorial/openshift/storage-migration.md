@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-09-17"
+lastupdated: "2026-10-06"
 
 keywords: storage migration OpenShift, storage class conversion, OpenShift Virtualization storage, live migration VMs, PVC migration OpenShift, persistent volume migration, VirtualMachineStorageMigrationPlan, cross-namespace VM migration, storage class migration, retentionPolicy deleteSource
 
@@ -17,11 +17,14 @@ completion-time: 45m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Migrating virtual machine storage in Red Hat OpenShift Virtualization on IBM Cloud
+# Migrating {{site.data.keyword.redhat_openshift_notm}} Virtualization VM storage on {{site.data.keyword.cloud_notm}}
 {: #storage-migration-vms}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization"}
 {: toc-completion-time="45m"}
+
+## Overview of the guide
+{: #overview-of-the-guide}
 
 Migrate virtual machine (VM) disk storage between storage classes in {{site.data.keyword.redhat_openshift_full}} Virtualization on {{site.data.keyword.cloud}} without you having to stop your virtual machines.
 {: shortdesc}
@@ -51,6 +54,8 @@ In {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 and later, st
 
 ### Key capabilities for VM storage migration
 {: #key-capabilities}
+
+When you use MTC for {{site.data.keyword.redhat_openshift_notm}} Virtualization VM storage migrations, you can perform the following tasks:
 
 - Live storage migration supports running VMs with minimal downtime (approximately one-second connection loss at cutover) in {{site.data.keyword.redhat_openshift_notm}} Virtualization 4.21 or later.
 - Storage migration is native to the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator where no additional operator is needed.
@@ -101,6 +106,30 @@ Before you migrate, confirm the following details for each VM:
 
 - The cluster has at least two worker nodes. Live storage migration moves the VM to a different node during the process.
 
+To install the Migration Toolkit for Containers operator from the software catalog, perform the following steps:
+
+1. In the {{site.data.keyword.openshiftshort}} web console, click **Ecosystem** > **Software catalog**.
+2. In the **Filter by keyword** field, search for **Migration Toolkit for Containers operator**.
+3. Select the **Migration Toolkit for Containers operator** and click **Install**.
+4. Click **Install** to confirm.
+5. Verify the installation by completing the following steps:
+   1. Click **Operators** > **Installed operators**.
+   2. Confirm that the **Migration Toolkit for Containers operator** appears in the `openshift-migration` project with the **Succeeded** status.
+
+### Verify the target StorageClass StorageProfile
+{: #verify-storageprofile}
+
+The migration controller uses the StorageProfile of the target storage class to determine which access modes and volume modes to use for the destination PVC. If the StorageProfile has empty `claimPropertySets`, migration will stall silently. Ensure the StorageProfile of your target storage class is configured before starting migration. For more information, see [Configuring a StorageProfile](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/virtualization/storage#virt-configuring-storage-profile){: external}.
+To create a Migration controller instance from the installed operator, perform the following steps:
+
+1. Click **Migration Toolkit for Containers operator**.
+2. Under **Provided APIs**, locate the **Migration controller** tile.
+3. Click **Create Instance**.
+4. Click **Create**.
+5. Verify that the MTC pods are running by completing the following steps:
+   1. Click **Workloads** > **Pods**.
+   2. Confirm that all MTC pods are in the **Running** state.
+
 ### Verify the target storage class StorageProfile
 {: #verify-storageprofile}
 
@@ -110,6 +139,13 @@ The migration controller uses the `StorageProfile` of the target storage class t
 {: #verify-cluster-health}
 
 Confirm that all worker nodes are in `Ready` state and, if ODF is involved, that the ODF cluster reports `HEALTH_OK` before you initiate migration:
+
+To create the MigCluster custom resource, perform the following steps:
+
+1. Click **Migration Toolkit for Containers operator**.
+2. Under **Provided APIs**, locate the **MigCluster** tile.
+3. Click **Create MigCluster** (if the system does not create it automatically).
+4. Click **Create**.
 
 ```sh
 oc get nodes --no-headers | awk '{print $1, $2}'
@@ -145,8 +181,16 @@ Selected VMs in a project
 
 2. To retain the source PVC after migration (required for rollback), select **Keep original volumes at source after successful migration**. By default, this option is not selected and the system deletes the source PVC after a successful migration.
 
-   If you plan to roll back the migration, select this option before you click **Next**. After migration completes with the default setting, the system deletes the source PVC and rollback is not possible.
-{: important}
+
+To open the Migration Toolkit for Containers web interface from the OpenShift console, perform the following steps:
+
+1. In the {{site.data.keyword.openshiftshort}} web console, click **Networking** > **Routes**.
+2. Filter by the `openshift-migration` project.
+3. Locate the **migration** route.
+4. Click the URL in the **Location** column.
+
+   If you plan to roll back the migration, select this option before clicking **Next**. Once migration completes with the default setting, the source PVC is deleted and rollback is not possible.
+   {: important}
 
 3. Click **Next**.
 
@@ -172,6 +216,18 @@ oc get virtualmachinestoragemigrationplans -n <namespace> \
 # Monitor individual live migration objects
 oc get virtualmachineinstancemigration -n <namespace> \
   -o custom-columns="NAME:.metadata.name,PHASE:.status.phase,VM:.spec.vmiName" -w
+
+To define a storage class conversion plan in the MTC console, perform the following steps:
+
+1. Click **Migration Plans** > **Add migration plan**.
+2. Configure the general settings by completing the following steps:
+   1. Enter a plan name.
+   2. Select the **Storage class conversion** as the migration type.
+   3. Select your cluster in the source cluster selection.
+   4. Click **Next**.
+3. Select the namespace by completing the following steps:
+   1. Choose your namespace.
+   2. Click **Next**.
 
 # Watch all VM statuses
 oc get vm -n <namespace> -w
