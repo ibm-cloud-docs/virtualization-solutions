@@ -141,11 +141,11 @@ toc:
           - topic: tutorial/vpc-vsi/migration-tutorial-vcs.md
             navtitle: Migrating VMware VCF Classic workloads to IBM Cloud VPC
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-configuration.md
-            navtitle: Configuring Veeam Backup & Replication for IBM Cloud VPC VSIs
+            navtitle: "Configuring Veeam Backup & Replication for IBM Cloud VPC VSIs"
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-backup.md
-            navtitle: Backing up IBM Cloud VPC VSIs with Veeam Backup & Replication
+            navtitle: "Backing up IBM Cloud VPC VSIs with Veeam Backup & Replication"
           - topic: tutorial/vpc-vsi/veeam-vbr-vpc-vsi-restore.md
-            navtitle: Restoring IBM Cloud VPC VSIs with Veeam Backup & Replication
+            navtitle: "Restoring IBM Cloud VPC VSIs with Veeam Backup & Replication"
       - topicgroup:
           label: Red Hat OpenShift High Availability
           topics:
@@ -201,9 +201,9 @@ toc:
           - topic: help/troubleshooting/troubleshooting-odf-workloads.md
             navtitle: Troubleshooting ODF workloads on Red Hat OpenShift bare metal servers
           - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-configuration.md
-            navtitle: Troubleshooting Veeam Backup & Replication on IBM Cloud VPC
+            navtitle: "Troubleshooting Veeam Backup & Replication on IBM Cloud VPC"
           - topic: help/troubleshooting/troubleshooting-vbr-vpc-vsi-integration-restore.md
-            navtitle: Troubleshooting Veeam Backup & Replication restores on IBM Cloud VPC
+            navtitle: "Troubleshooting Veeam Backup & Replication restores on IBM Cloud VPC"
           - topic: help/troubleshooting/troubleshooting-storage-migration.md
             navtitle: Troubleshooting storage migration in IBM Cloud VPC
           - topic: help/troubleshooting/troubleshooting-mtv-migration.md
