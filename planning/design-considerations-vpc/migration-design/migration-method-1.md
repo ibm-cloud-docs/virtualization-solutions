@@ -90,4 +90,3 @@ To explore alternative migration methods and operational troubleshooting, review
 - [Method 3: Live network transfer](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3)
 - [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 - [VMware migration planning guide](/docs/virtualization-solutions?topic=virtualization-solutions-vmware-migration-guide)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

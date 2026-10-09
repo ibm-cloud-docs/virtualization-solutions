@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: storage migration OpenShift, storage class conversion, OpenShift Virtualization storage, live migration VMs, PVC migration OpenShift, persistent volume migration, VirtualMachineStorageMigrationPlan, cross-namespace VM migration, storage class migration, retentionPolicy deleteSource
 
@@ -83,7 +83,7 @@ Before you perform storage migrations, verify that the following requirements ar
 {: #required-components}
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization operator
-:   The operator must be installed and running. Storage migration is built into the operator where no additional installation is needed. For installation guidance, see [Installing the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/#installing-virt-operator_installing-virt){: external}.
+:   The operator must be installed and running. Storage migration is built into the operator where no additional installation is needed. For installation guidance, see [Installing the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator](https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html-single/virtualization/index#installing-virt-operator_installing-virt){: external}.
 
 {{site.data.keyword.redhat_openshift_notm}} Virtualization version
 :   Version 4.21 or later is required. The procedures in the topic are validated on version 4.21. Earlier versions such as 4.18 used the Migration Toolkit for Containers (MTC) operator for storage migrations, which is now end of life.

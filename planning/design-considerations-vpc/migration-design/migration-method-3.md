@@ -173,4 +173,3 @@ To explore alternative migration methods and operational troubleshooting, review
 - [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 - [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
 - [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

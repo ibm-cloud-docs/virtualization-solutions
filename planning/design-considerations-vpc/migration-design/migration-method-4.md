@@ -157,4 +157,3 @@ To explore alternative migration methods and operational troubleshooting, review
 - [Method 3: Live network transfer](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3)
 - [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
 - [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

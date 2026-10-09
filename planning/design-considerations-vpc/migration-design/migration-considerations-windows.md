@@ -287,4 +287,3 @@ To explore migration execution steps and alternative operating system workflows,
 - [Method 4: VDDK direct extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 - [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
 - [RackWare RMM migration guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)
