@@ -238,4 +238,3 @@ To explore migration execution steps and other operating system considerations, 
 - [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
 - [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
 - [RackWare RMM migration guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

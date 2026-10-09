@@ -103,4 +103,4 @@ Try the following solutions to improve restore performance:
    - Ensure that the Veeam server, {{site.data.keyword.cos_short}} bucket, and target virtual server instances are in the same {{site.data.keyword.cloud_notm}} region to minimize latency.
    - If cross-region restores are necessary, expect longer restore times and plan accordingly.
 
-If the issue persists after trying these solutions, contact [{{site.data.keyword.cloud_notm}} Support](/docs/account?topic=account-contact-support) for further assistance. Provide details about your configuration, restore job logs, and the troubleshooting steps you have already attempted.
+If the issue persists after trying these solutions, contact [{{site.data.keyword.cloud_notm}} Support](/docs/get-support?topic=get-support-getting-customer-support) for further assistance. Provide details about your configuration, restore job logs, and the troubleshooting steps you have already attempted.
