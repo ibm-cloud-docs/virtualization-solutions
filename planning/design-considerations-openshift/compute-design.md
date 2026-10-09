@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: OpenShift virtualization compute IBM Cloud, bare metal servers OpenShift IBM Cloud, IBM Cloud bare metal VPC OpenShift, OpenShift worker node profiles, NVMe storage OpenShift IBM Cloud, virtual servers OpenShift Virtualization, multizone cluster OpenShift IBM Cloud, dedicated infrastructure nodes ROKS, compute design OpenShift Virtualization IBM Cloud, bare metal compute design ROKS
 
@@ -97,7 +97,7 @@ For more information about bare metal servers, see [About Bare Metal Servers for
 
 Now that you understand the compute design for {{site.data.keyword.redhat_openshift_notm}} Virtualization, explore these related topics and practical tutorials:
 
-- **Networking**: Review [networking design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) and follow the [Deploying OVN secondary networks tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-ovn)
+- **Networking**: Review [networking design considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-network-design) and follow the [Deploying OVN secondary networks tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-ovn-deployment-guide)
 - **Storage**: Explore [storage design options](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-storage-design-overview) and follow the [Deploying ODF storage tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-odf-for-vm-workloads)
 - **Observability**: Review [observability design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-openshift-observability-design-overview) and follow the [Configuring observability tutorial](/docs/virtualization-solutions?topic=virtualization-solutions-observability-design)
 - **Resiliency & HA**: Review [resiliency design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design) and explore [Workload high availability](/docs/virtualization-solutions?topic=virtualization-solutions-virt-workload-ha) and [Backup configuration](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-backup)

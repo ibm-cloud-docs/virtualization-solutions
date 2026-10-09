@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: Windows migration IBM Cloud VPC, VirtIO drivers Windows VPC, sysprep Windows migration VPC, virt-v2v Windows conversion, migrate Windows Server to VPC, virtio-win driver injection IBM Cloud, Windows domain migration VPC, Windows BYOL IBM Cloud VPC, Windows licensing migration IBM Cloud, Windows VM migration IBM Cloud
 
@@ -287,4 +287,4 @@ To explore migration execution steps and alternative operating system workflows,
 - [Method 4: VDDK direct extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 - [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
 - [RackWare RMM migration guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

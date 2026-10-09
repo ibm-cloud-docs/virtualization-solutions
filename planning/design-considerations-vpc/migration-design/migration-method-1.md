@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: image import migration VPC, IBM Cloud custom image migration, VMDK to QCOW2 conversion, OVF export VMware VPC, VPC custom image creation, Cloud Object Storage migration, qemu-img convert VPC, single-disk VMware migration IBM Cloud, template-based VM migration, VMDK import IBM Cloud VPC
 
@@ -90,4 +90,4 @@ To explore alternative migration methods and operational troubleshooting, review
 - [Method 3: Live network transfer](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3)
 - [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 - [VMware migration planning guide](/docs/virtualization-solutions?topic=virtualization-solutions-vmware-migration-guide)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

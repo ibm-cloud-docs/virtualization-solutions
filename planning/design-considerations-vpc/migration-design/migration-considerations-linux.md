@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: Linux migration IBM Cloud VPC, VirtIO drivers Linux VPC, migrate Linux to VPC, cloud-init Linux migration, RHEL migration IBM Cloud VPC, Ubuntu migration IBM Cloud VPC, Linux network configuration VPC, Linux partition migration VPC, Linux VirtIO driver verification, migrate Linux VM to IBM Cloud
 
@@ -238,4 +238,4 @@ To explore migration execution steps and other operating system considerations, 
 - [Method 2: Direct volume copy](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method2)
 - [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
 - [RackWare RMM migration guide](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-rmm-guide)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

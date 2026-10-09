@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: VDDK migration VPC, VMware VDDK extraction IBM Cloud, vCenter API migration VPC, nbdkit VDDK plugin, virt-v2v VDDK migration, automated vCenter VM migration IBM Cloud, vSphere API migration VPC, libguestfs VDDK VPC, programmatic VMware migration IBM Cloud, VDDK direct extraction VPC
 
@@ -157,4 +157,4 @@ To explore alternative migration methods and operational troubleshooting, review
 - [Method 3: Live network transfer](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method3)
 - [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
 - [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

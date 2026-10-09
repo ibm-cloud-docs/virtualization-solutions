@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: live network transfer VPC migration, IBM Cloud Transit Gateway migration, netcat disk streaming VPC, virt-v2v live migration, large-scale VMware migration IBM Cloud, no export VM migration, compressed disk transfer VPC, parallel migration IBM Cloud VPC, VMware live network transfer, virt-p2v IBM Cloud
 
@@ -173,4 +173,4 @@ To explore alternative migration methods and operational troubleshooting, review
 - [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 - [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
 - [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)
