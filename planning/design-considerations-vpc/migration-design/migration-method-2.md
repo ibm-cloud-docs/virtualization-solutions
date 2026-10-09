@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: direct volume copy migration VPC, multi-disk VMware migration IBM Cloud, virt-v2v driver injection VPC, worker VM migration IBM Cloud, ephemeral instance VPC, qemu-img raw conversion VPC, libguestfs tools migration, VPC volume attachment migration, IBM Cloud VPC volume copy, multi-disk VM migration method
 
@@ -147,4 +147,4 @@ To explore alternative migration methods and operational troubleshooting, review
 - [Method 4: VDDK extraction](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-method4)
 - [Linux migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-linux)
 - [Windows migration considerations](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-windows)
-- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-virtualization-solutions-faqs)
+- [Frequently asked questions](/docs/virtualization-solutions?topic=virtualization-solutions-faqs)

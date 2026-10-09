@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-09"
 
 keywords: OpenShift Virtualization observability IBM Cloud, RHACM monitoring IBM Cloud, LokiStack logging OpenShift IBM Cloud, Prometheus metrics OpenShift Virtualization, Grafana dashboards OpenShift IBM Cloud, IBM Cloud Logs OpenShift integration, multi-cluster observability IBM Cloud, Thanos Querier OpenShift IBM Cloud, OpenShift observability design IBM Cloud, alerting configuration OpenShift Virtualization IBM Cloud
 
@@ -539,7 +539,7 @@ To remove the {{site.data.keyword.cloud_notm}} Logs integration and delete assoc
 1. Delete the Cloud Logs instance
     1. ref: [Delete ICL instance](/docs/cloud-logs?topic=cloud-logs-instance-remove&interface=ui)
 2. Delete the Storage Data Bucket
-    1. ref: [Delete Bucket](/docs/cloud-object-storage?topic=cloud-object-storage-deleting)
+    1. ref: [Delete Bucket](/docs/cloud-object-storage?topic=cloud-object-storage-delete-bucket)
 
 #### Logging UI - {{site.data.keyword.cloud_notm}} Logs
 {: #observability-design-logging-ui}
