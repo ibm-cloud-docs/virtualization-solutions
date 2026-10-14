@@ -113,3 +113,38 @@ Try the following solutions to improve restore performance:
    - If cross-region restores are necessary, expect longer restore times and plan accordingly.
 
 If the issue persists after trying these solutions, contact [{{site.data.keyword.cloud_notm}} Support](/docs/get-support) for further assistance. Provide details about your configuration, restore job logs, and the troubleshooting steps you have already attempted.
+
+## File-level recovery fails
+{: #troubleshooting-vbr-vpc-vsi-integration-flr}
+
+When you perform file-level recovery (FLR) by using VBR, the restore operation times out or fails immediately.
+
+### What is happening?
+{: #tsSymptoms-flr}
+
+You might experience one or more of the following symptoms:
+
+- The VBR server cannot connect to the target machine.
+- The VBR server cannot log in to the target machine.
+- The VBR server cannot install the Veeam Transport Service on the target machine.
+
+### Why is it happening?
+{: #tsCauses-flr}
+
+FLR can fail for one or more of the following reasons:
+
+- {{site.data.keyword.vpc_short}} networking restrictions
+- Target machine networking restrictions
+- Incorrect time and date settings on the target machine
+- Invalid target machine credentials that you provide during the FLR operation
+
+### How do you fix it?
+{: #tsResolve-flr}
+
+Try the following solutions:
+
+1. If Internet Control Message Protocol (ICMP) traffic is allowed on the target machine, verify that the VBR server can reach it by using `ping`.
+2. If the Secure Shell (SSH) port is open on the target machine, verify that the VBR server can log in to it by using `ssh`.
+3. Verify that there is no time drift between the VBR server and the target machine.
+   - If the target machine has internet access, verify that the Network Time Protocol (NTP) server settings are correct and that time sync is successful.
+   - If the target machine has no internet access, manually adjust the time and date settings.
