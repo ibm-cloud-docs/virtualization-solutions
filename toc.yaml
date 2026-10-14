@@ -47,6 +47,8 @@ toc:
             navtitle: Securing Red Hat OpenShift Virtualization on IBM Cloud
           - topic: planning/design-considerations-openshift/resiliency-design.md
             navtitle: Red Hat OpenShift Virtualization resilience design on IBM Cloud
+          - topic: planning/design-considerations-openshift/acm-hub-backup-and-restore.md
+            navtitle: Backing up and restoring the RHACM Hub with IBM Cloud Object Storage
           - topic: planning/design-considerations-openshift/observability-design.md
             navtitle: Red Hat OpenShift Virtualization observability design on IBM Cloud
           - topic: planning/design-considerations-openshift/storage-design.md
