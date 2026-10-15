@@ -106,6 +106,8 @@ toc:
             navtitle: Migration Toolkit Tutorial
           - topic: tutorial/openshift/backup_solution.md
             navtitle: Backing up Red Hat OpenShift Virtualization VMs by using Veeam Kasten
+          - topic: tutorial/openshift/backup_solution_vbr_plugin.md
+            navtitle: "Backing up Red Hat OpenShift Virtualization VMs by using Veeam Backup & Replication plug-in"
           - topic: tutorial/openshift/ibm-logging.md
             navtitle: Configuring IBM Cloud Logs for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/rhacm-tutorial.md
