@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-14"
+lastupdated: "2026-10-16"
 
 keywords: Veeam restore troubleshooting IBM Cloud, slow restore Veeam VBR IBM Cloud VPC, worker instance restore bottlenecks IBM Cloud, COS archive tier retrieval IBM Cloud, SOBR restore performance IBM Cloud, Veeam restore RTO IBM Cloud VPC, temporary worker VSI restore IBM Cloud, Veeam restore connectivity failures IBM Cloud, Veeam VBR restore IBM Cloud troubleshooting, network throughput restore IBM Cloud VPC
 
@@ -112,7 +112,7 @@ Try the following solutions to improve restore performance:
    - Help ensure that the VBR server and the {{site.data.keyword.cos_short}} bucket are in the same {{site.data.keyword.cloud_notm}} region as your target machines to minimize latency.
    - If cross-region restores are necessary, expect longer restore times and plan accordingly.
 
-If the issue persists after trying these solutions, contact [{{site.data.keyword.cloud_notm}} Support](/docs/get-support) for further assistance. Provide details about your configuration, restore job logs, and the troubleshooting steps you have already attempted.
+If the issue persists after trying these solutions, contact [{{site.data.keyword.cloud_notm}} Support](/docs/account?topic=account-gettinghelp) for further assistance. Provide details about your configuration, restore job logs, and the troubleshooting steps you have already attempted.
 
 ## File-level recovery fails
 {: #troubleshooting-vbr-vpc-vsi-integration-flr}
