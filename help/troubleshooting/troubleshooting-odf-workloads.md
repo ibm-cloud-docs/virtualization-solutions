@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-16"
 
 keywords: ODF troubleshooting IBM Cloud, NVMe disk recovery IBM Cloud bare metal, PVC stuck pending Ceph IBM Cloud, OSD down recovery IBM Cloud, Ceph nearfull alert IBM Cloud, VM storage performance OpenShift IBM Cloud, live migration RWX requirements IBM Cloud, CSI provisioner troubleshooting IBM Cloud, Ceph capacity management IBM Cloud, OpenShift Data Foundation problems IBM Cloud
 
@@ -152,7 +152,7 @@ Cause: One or more OSDs have exceeded 75% usage (ODF `CephOSDNearFull` alert thr
 - At 90%, Ceph stops backfill and recovery to the affected OSD (`mon_osd_backfillfull_ratio`).
 - At 95%, Ceph marks the OSD full (`mon_osd_full_ratio`), blocks all writes, and issues `HEALTH_ERR`.
 
-These thresholds are the default values defined by the Ceph storage system and are surfaced in ODF as OSD alert conditions. For the authoritative values and how to adjust them, see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}.
+These thresholds are the default values defined by the Ceph storage system and are surfaced in ODF as OSD alert conditions. For the authoritative values and how to adjust them, see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}.
 
 Fix:
 
@@ -191,7 +191,7 @@ Possible causes and diagnostics:
 
    Should include `exclusive-lock`.
 
-4. Cluster usage above 70%: Ceph performance degrades as disks fill (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}). Check `ceph df`.
+4. Cluster usage above 70%: Ceph performance degrades as disks fill (see [Managing capacity in {{site.data.keyword.redhat_openshift_notm}} Data Foundation](https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/latest/html/managing_and_allocating_storage_resources/index){: external}). Check `ceph df`.
 
 5. Rebalancing or recovery in progress: After an OSD failure or node addition, Ceph rebalances data across OSDs, consuming I/O bandwidth. Check:
 

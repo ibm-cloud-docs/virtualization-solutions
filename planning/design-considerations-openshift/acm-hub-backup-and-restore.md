@@ -2,7 +2,7 @@
 
 copyright:
    years: 2026
-lastupdated: "2026-10-14"
+lastupdated: "2026-10-16"
 
 keywords: Red Hat Advanced Cluster Management Hub, IBM Cloud, IBM Cloud Object Storage, Red Hat OpenShift Virtualization
 
@@ -1184,6 +1184,6 @@ Before you consider RHACM Hub backup and restore ready for use, confirm all appl
 {: #acm-hub-backup-related-info}
 
 - [{{site.data.keyword.cloud_notm}} Virtualization Solutions overview](/docs/virtualization-solutions?topic=virtualization-solutions-overview)
-- [{{site.data.keyword.cos_full_notm}} high availability and disaster recovery](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-cos-ha-dr){: external}
-- [{{site.data.keyword.cos_full_notm}} endpoints and storage locations](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints){: external}
+- [{{site.data.keyword.cos_full_notm}} high availability and disaster recovery](/docs/cloud-object-storage?topic=cloud-object-storage-cos-ha-dr)
+- [{{site.data.keyword.cos_full_notm}} endpoints and storage locations](/docs/cloud-object-storage?topic=cloud-object-storage-endpoints)
 - [Red Hat Advanced Cluster Management 2.16 business continuity](https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.16/html-single/business_continuity/index){: external}
