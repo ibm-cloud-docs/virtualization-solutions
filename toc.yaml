@@ -130,7 +130,7 @@ toc:
           - topic: tutorial/openshift/network-option-localnet.md
             navtitle: Configuring Localnet UDN for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/network-prerequisites.md
-            navtitle: Configuring OVN user-defined networks on Red Hat OpenShift
+            navtitle: Red Hat OpenShift Network Prerequisites
       - topicgroup:
           label: Virtual Servers for VPC
           topics:

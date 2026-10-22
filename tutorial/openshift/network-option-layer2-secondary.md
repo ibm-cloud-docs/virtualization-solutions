@@ -2,14 +2,14 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-15"
 
-keywords: Layer 2 secondary network OpenShift IBM Cloud, CUDN Layer 2 secondary IBM Cloud, OVN Layer 2 secondary UDN, isolated network segments OpenShift Virtualization, user-defined network secondary IBM Cloud, three-tier application isolated networking ROKS, ClusterUserDefinedNetwork secondary IBM Cloud, OpenShift Virtualization isolated networks IBM Cloud, OVN secondary network tutorial, ROKS namespace network isolation
+keywords: layer 2 secondary, user defined network, OVN-Kubernetes, KubeVirt, rsync, isolated network, ROKS, ROVS, Red Hat OpenShift Virtualization, ibmcloud cli
 
 subcollection: virtualization-solutions
 
 content-type: tutorial
-services: OpenShift Virtualization
+services: openshift
 account-plan: paid
 completion-time: 45m
 
@@ -20,7 +20,7 @@ completion-time: 45m
 # {{site.data.keyword.redhat_openshift_notm}} Virtualization: Layer 2 secondary UDN
 {: #layer-2-secondary-udn-examples-for-red-hat-openshift-virtualization}
 {: toc-content-type="tutorial"}
-{: toc-services="OpenShift Virtualization"}
+{: toc-services="openshift"}
 {: toc-completion-time="45m"}
 
 

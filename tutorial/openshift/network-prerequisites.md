@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-22"
 
 keywords: OVN user-defined network prerequisites IBM Cloud, CUDN prerequisites OpenShift IBM Cloud, Localnet prerequisites ROKS, configure CUDN IBM Cloud VPC, UDN setup OpenShift Virtualization, VLAN configuration OpenShift IBM Cloud, VNI networking prerequisites IBM Cloud, OVN cluster prerequisites IBM Cloud, one-time CUDN setup ROKS, OpenShift Virtualization network setup IBM Cloud
 
@@ -17,8 +17,7 @@ completion-time: 60m
 
 {{site.data.keyword.attribute-definition-list}}
 
-
-# Configuring OVN user-defined networks on {{site.data.keyword.redhat_openshift_notm}}
+# Red Hat OpenShift Network Prerequisites
 {: #udn-prerequisites}
 {: toc-content-type="tutorial"}
 {: toc-services="OpenShift Virtualization"}
