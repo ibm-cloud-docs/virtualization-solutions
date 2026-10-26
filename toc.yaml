@@ -126,7 +126,7 @@ toc:
           - topic: tutorial/openshift/network-option-layer2-primary.md
             navtitle: Configuring Layer 2 primary UDN for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/network-option-layer2-secondary.md
-            navtitle: Layer 2 secondary UDN examples for Red Hat OpenShift Virtualization
+            navtitle: Configuring Layer 2 secondary UDN for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/network-option-localnet.md
             navtitle: Configuring Localnet UDN for Red Hat OpenShift Virtualization
           - topic: tutorial/openshift/network-prerequisites.md
