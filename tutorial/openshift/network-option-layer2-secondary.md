@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-26"
+lastupdated: "2026-10-27"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: layer 2 secondary, user defined network, OVN-Kubernetes, KubeVirt, rsync, isolated network, ROKS, ROVS, Red Hat OpenShift Virtualization, ibmcloud cli
@@ -132,7 +132,7 @@ echo "Cluster ID: ${CLUSTER_ID}"
 ```
 {: codeblock}
 
-## Step 1: Create the VPC networking prerequisites
+## Create the VPC networking prerequisites
 {: #layer2-secondary-step-vpc}
 {: step}
 
@@ -288,7 +288,7 @@ echo "silver-app02 MAC: ${MAC02}"
 ```
 {: codeblock}
 
-## Step 2: Create the Red Hat OpenShift namespace and Localnet cluster user-defined network (CUDN)
+## Create the Red Hat OpenShift namespace and Localnet cluster user-defined network (CUDN)
 {: #layer2-secondary-step-ns}
 {: step}
 
@@ -329,7 +329,7 @@ EOF
 ```
 {: codeblock}
 
-## Step 3: Create the Layer 2 secondary network
+## Create the Layer 2 secondary network
 {: #layer2-secondary-step-l2}
 {: step}
 
@@ -372,7 +372,7 @@ oc wait clusteruserdefinednetwork/vlan123-silver clusteruserdefinednetwork/l2-rs
 ```
 {: codeblock}
 
-## Step 4: Deploy the virtual machines
+## Deploy the virtual machines
 {: #layer2-secondary-step-vms}
 {: step}
 
@@ -632,7 +632,7 @@ oc get vmi -n silver -o wide
 ```
 {: codeblock}
 
-## Step 5: Verify networking
+## Verify networking
 {: #layer2-secondary-step-verify}
 {: step}
 
@@ -682,7 +682,7 @@ curl -s http://10.123.4.11/
 ```
 {: codeblock}
 
-## Step 6: Run rsync over the Layer 2 secondary
+## Run rsync over the Layer 2 secondary
 {: #layer2-secondary-step-rsync}
 {: step}
 
@@ -732,7 +732,7 @@ ssh admin@10.45.67.12 cat /var/www/html/synced/index.html
 ```
 {: codeblock}
 
-## Step 7: Test the network setup
+## Test the network setup
 {: #layer2-secondary-step-test}
 {: step}
 
@@ -834,7 +834,7 @@ Run all of the following tests. Each test returns the result that is described.
 
    Rsync over the Localnet succeeds, and `ssh` adds the new address to the known hosts. Nothing forces rsync onto the overlay. You choose the path by the address that you type. Use the `10.45.67.x` address to keep the traffic off the VPC network.
 
-## Step 8: Apply a MultiNetworkPolicy and retest
+## Apply a MultiNetworkPolicy and retest
 {: #layer2-secondary-step-policy}
 {: step}
 
@@ -952,7 +952,7 @@ oc delete multi-networkpolicies allow-ssh-only-l2-secondary -n silver
 
 Rerun Test A and Test C. Without the policy, both requests succeed.
 
-## Step 9: Clean up
+## Clean up
 {: #layer2-secondary-step-cleanup}
 {: step}
 
