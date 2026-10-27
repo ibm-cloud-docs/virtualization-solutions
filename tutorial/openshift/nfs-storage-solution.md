@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-23"
 
 keywords: NFS storage OpenShift Virtualization IBM Cloud, IBM Cloud File Storage VPC OpenShift, configure NFS persistent volumes OpenShift IBM Cloud, File Storage for VPC virtualization, OpenShift Virtualization NFS storage class, live migration NFS IBM Cloud, ReadWriteMany storage OpenShift IBM Cloud, NFS StorageClass ROKS, File Storage VPC OpenShift Virtualization IBM Cloud, persistent volumes NFS OpenShift IBM Cloud
 
@@ -33,6 +33,7 @@ Explore the sections to access the guide:
 
 - [Product overview and planning information](#product-overview-and-planning-information) - Understand IBM VPC File Storage capabilities, profiles, IOPS relationships, and storage concepts
 - [Installation and configuration](#installation-and-configuration) - Installation of the add-on, configure StorageProfiles, and create virtual machines
+
 - [Additional configuration scenarios](#additional-configuration-scenarios) - Configure cluster defaults, virtual machine (VM) persistent state, and advanced settings
 - [Monitoring and troubleshooting](#monitoring-troubleshooting) - Monitor file storage and resolve common issues
 - [Best practices and recommendations](#best-practices) - Follow recommended practices for StorageClass selection, capacity planning, and security
@@ -85,8 +86,8 @@ IBM VPC File Storage has specific IOPS ranges based on share size for zonal file
 
 **Important:** If you provision a PVC with an invalid capacity or IOPS combination, the PVC fails with an error like:
 
-```log
 
+```log
 failed to provision volume with StorageClass "ibmc-vpc-file-3000-iops":
 rpc error: code = InvalidArgument desc = {RequestID: xxx,
 BackendError: {Code:shares_profile_capacity_iops_invalid,
@@ -186,6 +187,7 @@ Scope
 Created by
 :   Automatically generated for each StorageClass, but requires manual configuration for File Storage.
 
+
 Used for
 :   Determining clone strategies, access modes, and volume modes for VM disks.
 
@@ -199,6 +201,7 @@ A `StorageClass` defines how to provision storage, while a `StorageProfile` defi
 The {{site.data.keyword.redhat_openshift_notm}} Virtualization `Containerized Data Importer` (`CDI`) automatically creates `StorageProfiles` after you install the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator. Whenever you create a new `StorageClass` in the cluster, `CDI` automatically generates a corresponding `StorageProfile`. However, for IBM VPC File Storage, you must manually configure these auto-generated `StorageProfiles` to add the necessary specifications for proper VM operation. For more information, see [Configuring StorageProfiles for File Storage](#configure-storageprofiles).
 {: note}
 
+
 ### Understanding default storage class annotations
 {: #default-storage-annotations}
 
@@ -210,12 +213,16 @@ The {{site.data.keyword.redhat_openshift_notm}} Virtualization `Containerized Da
 The cluster default `StorageClass` is identified by the `storageclass.kubernetes.io/is-default-class: "true"` annotation.
 
 Purpose and usage:
+{: #cluster-default-purpose}
+
 - Kubernetes uses this `StorageClass` when you create a PVC without specifying a `StorageClass`.
 - Applies to all workloads in the cluster (deployments, `StatefulSets`, stand-alone PVCs).
 - Only one `StorageClass` in the cluster can have this annotation set to `true`.
 - Automatically selected for general-purpose storage requests.
 
 When it is used:
+
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -237,15 +244,20 @@ spec:
 The {{site.data.keyword.redhat_openshift_notm}} Virtualization default `StorageClass` is identified by the `storageclass.kubevirt.io/is-default-virt-class: "true"` annotation.
 
 Purpose and usage:
+
 - Used by the `Containerized Data Importer` (`CDI`) when you create boot volume golden images.
 - Specifically, used by {{site.data.keyword.redhat_openshift_notm}} Virtualization for VM-related storage operations.
+
 - Used when you create `DataVolumes` or `DataSources` without specifying a `StorageClass`.
 - It can coexist with the cluster default (different StorageClass can have this annotation).
 
+
 When it is used:
+
 - Creating VM boot disk golden images in the `openshift-virtualization-os-images` namespace.
 - Importing VM disk images through CDI.
 - Creating DataVolumes without an explicit StorageClass specification.
+
 - Cloning VM disks when no `StorageClass` is specified.
 
 #### Verifying default storage classes
@@ -300,6 +312,7 @@ This behavior is expected with the current `CDI` logic for snapshot restore PVCs
 As mentioned in the [IOPS and capacity relationship](#iops-capacity) section, you can use the minimum size IOPS table from the [Zonal availability profile](/docs/vpc?topic=vpc-file-storage-profiles&interface=ui#dp2-profile) to get the correct annotation value for your specific `StorageClass`. For example, if you want to annotate the `ibmc-vpc-file-3000-iops` `StorageClass`, as of now the current minimum size that is required for 3000 IOPS is 80 GiB. You need to use this approach whenever you create an IBM VPC File Storage `StorageClass` with a different IOPS tier.
 {: tip}
 
+
 ### Advanced storage configuration concepts
 {: #advanced-storage-configuration-concepts}
 
@@ -322,9 +335,11 @@ When {{site.data.keyword.redhat_openshift_notm}} Virtualization needs to create 
 
 For IBM VPC File Storage, both `snapshot` and `host cloning` strategies are supported, with `snapshot` as the recommended approach. Note that the `csi-clone` strategy is not supported for this provider.
 
+
 How the snapshot clone strategy works:
 
 1. CDI creates a snapshot of the source PersistentVolume by using the VPC File CSI driver.
+
 2. The system creates a new PersistentVolume from the snapshot.
 3. The system binds the new PV to the target PersistentVolumeClaim.
 
@@ -350,6 +365,7 @@ Important considerations:
 
 The clone strategy is defined in `StorageProfiles`. To modify `StorageProfiles` to update the clone strategy, see [Configuring StorageProfiles for File Storage](#configure-storageprofiles).
 
+
 #### Understanding `dataImportCronSourceFormat`
 {: #dataimportcronsourceformat}
 
@@ -364,6 +380,7 @@ With IBM VPC File Storage, this behavior is important because the provider curre
 When `dataImportCronSourceFormat` is set to `snapshot`, `CDI` stores the boot volume source in snapshot form instead of relying on a PVC as the reusable source artifact. `CDI` expects the storage backend snapshot to remain usable even after the source PVC is deleted, so it creates the snapshot artifact and then removes the source PVC. With IBM VPC File Storage, this behavior is important because snapshots remain connected to the underlying file share rather than being fully disconnected snapshot artifacts.
 
 With IBM VPC File Storage, this approach still helps avoid repeated snapshot creation from the same source file share during concurrent virtual machine provisioning. However, you must also understand that `CDI` snapshot-based boot volume handling assumes backend snapshot behavior that differs from the current IBM VPC File Storage provider implementation.
+
 
 #### Clone strategy considerations for {{site.data.keyword.cloud_notm}} File Storage
 {: #clone-strategy-considerations-for-ibm-cloud-storage}
@@ -383,6 +400,7 @@ Requirements:
 Trade-offs:
 
 - Storage classes with `Retain` reclaim policy require manual cleanup of PersistentVolumes after virtual machines are deleted
+
 - Best suited for environments where all virtual machines use the same IOPS tier
 
 For detailed information, see [Understanding dataImportCronSourceFormat](#dataimportcronsourceformat) and [Set the {{site.data.keyword.redhat_openshift_notm}} Virtualization default StorageClass](#set-virt-default).
@@ -414,6 +432,7 @@ When to use:
 
 - Provisioning time is not a primary concern.
 - You need to clone virtual machines across different `StorageClasses`.
+
 - You want to avoid managing multiple boot volume templates.
 
 Trade-offs:
@@ -427,6 +446,7 @@ For configuration instructions, see [Configuring the host-assisted clone strateg
 {: #installation-and-configuration}
 
 Install the File Storage for VPC add-on, configure storage profiles, and prepare virtual machines by following the end-to-end setup procedure.
+
 
 ### Prerequisites
 {: #prerequisites}
@@ -459,6 +479,7 @@ Bare-metal node has a "d" suffix (such as bx2d or cx2d) include an extra NVMe&tr
 - Access to the {{site.data.keyword.cloud_notm}} console.
 - Sufficient permissions to update StorageClasses, StorageProfiles, VolumeSnapshotClasses, and the HyperConverged custom resource.
 
+
 ### Installing the File Storage for VPC add-on
 {: #install-addon}
 
@@ -477,6 +498,7 @@ oc get pods -n kube-system | grep vpc-file-csi
 {: codeblock}
 
 You should see pods similar to:
+
 
 ```bash
 ibm-vpc-file-csi-controller-xxxx (two for HA)
@@ -515,6 +537,7 @@ Until these enhancements are available, you must complete the following manual c
 - VM state StorageClass. Custom `StorageClass` for virtual Trusted Platform Module (vTPM) and Unified Extensible Firmware Interface (UEFI) support that is required by Windows&reg; 11 and Windows Server 2022 virtual machines.
 - Default VolumeSnapshotClass. Default VolumeSnapshotClass configuration for virtual machine snapshots and data protection.
 
+
 If you need to install {{site.data.keyword.redhat_openshift_notm}} Virtualization, prepare a cluster from scratch, or change the default StorageClass in the cluster, see [Additional configuration scenarios](#additional-configuration-scenarios).
 
 #### Recommended configuration flow
@@ -528,12 +551,13 @@ Use the following sequence to configure IBM VPC File Storage for {{site.data.key
 This sequence will help ensure that cloning and snapshots work as expected for IBM VPC File Storage virtual machine workloads.
 
 
+
 If your {{site.data.keyword.redhat_openshift_notm}} Virtualization environment already uses another storage provider, such as [{{site.data.keyword.redhat_openshift_notm}} Data Foundation (ODF)](https://www.redhat.com/en/technologies/cloud-computing/openshift-data-foundation){: external}, you do not need to change the cluster default `StorageClasses` to complete the IBM VPC File Storage-specific configuration in the section.
 However, if the environment is intended to use IBM VPC File Storage as the primary storage provider for {{site.data.keyword.redhat_openshift_notm}} Virtualization, it is recommended that you complete the optional steps in [Optional default `StorageClass` reconfiguration](#default-storageclass-reconfiguration).
 
 If your virtual machines require persistent state storage in IBM VPC File Storage for features such as vTPM or UEFI, complete the optional steps in [Optional virtual machine persistent state configuration](#optional-vm-persistent-state-configuration).
 
-##### Step 1: Configure default VolumeSnapshotClass
+#### Configure default VolumeSnapshotClass
 {: #configure-volumesnapshotclass}
 
 When you install the IBM VPC File Storage add-on, the system automatically creates two `VolumeSnapshotClasses`, but neither is set as the default. You must configure one as the default so that {{site.data.keyword.redhat_openshift_notm}} Virtualization can use snapshots effectively.
@@ -678,10 +702,12 @@ spec:
 ```
 {: codeblock}
 
+
 ### Working with virtual machines
 {: #working-with-vms}
 
 After you configure IBM VPC File Storage as the default `StorageClass` and set up `StorageProfiles` properly, you can create and manage virtual machines.
+
 
 ### Creating a virtual machine
 {: #create-vm}
@@ -844,14 +870,14 @@ To adjust IOPS or bandwidth through the {{site.data.keyword.cloud_notm}} console
    ```bash
    oc get pvc <pvc-name> -n <namespace> -o jsonpath='{.spec.volumeName}'
    ```
-   {: screen}
+   {: codeblock}
 
 2. Get the file share ID from the PersistentVolume:
 
    ```bash
    oc get pv <pv-name> -o jsonpath='{.spec.csi.volumeHandle}' | cut -d: -f1
    ```
-   {: screen}
+   {: codeblock}
 
 3. Use this file share ID to locate your file share in the {{site.data.keyword.cloud_notm}} VPC console under **Storage** > **File Shares**.
 
@@ -955,6 +981,7 @@ The following disk will not be included in the snapshot
 cloudinitdisk - Snapshot is not supported for this volumeSource type [cloudinitdisk]
 Edit the disk or contact your cluster admin for further details.
 ```
+{: screen}
 
 #### By using the CLI
 {: #snapshot-cli}
@@ -1256,6 +1283,7 @@ To disable the ODF StorageCluster default StorageClass behavior:
 3. Save and exit the editor.
 4. Wait a few seconds for the changes to take effect.
 
+
 #### Step 2: Set the cluster default storage class
 {: #set-cluster-default}
 
@@ -1361,7 +1389,7 @@ The system uses virtual machine persistent state storage for the following compo
 vTPM (virtual Trusted Platform Module)
 :   Provides a virtual security chip that stores cryptographic keys and measurements. It is required for Windows 11 and Windows Server 2022 virtual machines. For more information, see [Running Windows 11 and 2022 Server virtual machines with {{site.data.keyword.redhat_openshift_notm}} persistent vTPM](https://www.redhat.com/en/blog/running-windows-11-and-2022-server-virtual-machines-red-hat-openshift-persistent-vtpm){: external}.
 
-UEFI firmware variables:
+UEFI firmware variables
 :   Stores UEFI firmware configuration and boot settings for virtual machines that use UEFI firmware instead of legacy BIOS.
 
 When you create a virtual machine with persistent state enabled, {{site.data.keyword.redhat_openshift_notm}} Virtualization creates two PVCs for that virtual machine:
@@ -1393,7 +1421,7 @@ Although virtual machine persistent state storage requires `ReadWriteOnce` acces
    - The target virtual machine resumes execution with the transferred memory state.
 4. Cleanup - After successful migration, the source pod is terminated.
 
-This orchestration helps help ensure that the RWO PVC is attached to only one pod at a time, while still enabling live migration. The brief pause during the handoff is typically measured in milliseconds.
+This orchestration helps ensure that the RWO PVC is attached to only one pod at a time, while still enabling live migration. The brief pause during the handoff is typically measured in milliseconds.
 
 For more information about live migration in {{site.data.keyword.redhat_openshift_notm}} Virtualization, see [Virtual machine live migration](https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/virtualization/live-migration#virt-about-live-migration){: external}.
 
@@ -1537,6 +1565,7 @@ spec:
 ```
 {: codeblock}
 
+
 #### Configuring {{site.data.keyword.redhat_openshift_notm}} Virtualization to use VM state storage
 {: #configure-hyperconverged-vm-state}
 
@@ -1594,6 +1623,7 @@ Use this decision tree to identify the right troubleshooting section:
 
 - PVC is not binding? → See [PVC stuck in pending](#pvc-pending).
 - VM is not starting? → See [VM creation fails with clone error](#vm-clone-error).
+
 - Can't access file share? → See [File share mount failures](#mount-failures).
 - Slow VM performance? → See [Performance issues](#performance-issues).
 
@@ -1670,6 +1700,8 @@ oc delete pod <csi-pod-name> -n kube-system
 
 Solution: If your cluster and VPC are in different resource groups, create a custom StorageClass with the VPC resource group ID.
 
+
+
 #### VM creation fails with clone error
 {: #vm-clone-error}
 
@@ -1682,6 +1714,7 @@ Symptoms:
 Cause: `StorageProfile` `cloneStrategy` is set to `snapshot` instead of `copy`.
 
 Solution: Fix the StorageProfile as described in [Configuring storage profiles](#configure-storageprofiles).
+
 
 #### File share mount failures
 {: #mount-failures}
