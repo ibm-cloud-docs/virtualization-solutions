@@ -89,26 +89,26 @@ The following table lists the network, namespace, and virtual machine values tha
 - A {{site.data.keyword.redhat_openshift_notm}} cluster on {{site.data.keyword.cloud_notm}} with bare-metal worker nodes and Red Hat OpenShift Virtualization installed. This cluster can be a {{site.data.keyword.redhat_openshift_full}} Kubernetes Service (ROKS) cluster with the add-on, or a ROVS cluster.
 - The Open vSwitch (OVS) bridge `br-eth1` and the Open Virtual Network (OVN) bridge-mapping `vpc-vlans` that are configured on all worker nodes. Check that both `NodeNetworkConfigurationPolicy` objects are `Available`. Read the names from your own cluster; they can differ:
 
-  ```sh
-  oc get nncp
-  ```
-  {: codeblock}
+   ```sh
+   oc get nncp
+   ```
+   {: codeblock}
 
 - The `virtctl` command that is installed. You use it to open each VM's serial console.
 - The `ibmcloud` CLI that is installed and logged in:
 
-  ```sh
-  ibmcloud login --sso
-  ibmcloud target -r ${REGION} -g ${RESOURCE_GROUP}
-  ```
-  {: codeblock}
+   ```sh
+   ibmcloud login --sso
+   ibmcloud target -r ${REGION} -g ${RESOURCE_GROUP}
+   ```
+   {: codeblock}
 
 - The `ks` plug-in for VNI attachment:
 
-  ```sh
-  ibmcloud plugin install kubernetes-service
-  ```
-  {: codeblock}
+   ```sh
+   ibmcloud plugin install kubernetes-service
+   ```
+   {: codeblock}
 
 - `kubectl` / `oc` that is logged in to the target ROKS cluster.
 
