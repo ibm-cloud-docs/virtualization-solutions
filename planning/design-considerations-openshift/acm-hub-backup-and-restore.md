@@ -2,9 +2,9 @@
 
 copyright:
    years: 2026
-lastupdated: "2026-10-16"
+lastupdated: "2026-10-29"
 
-keywords: Red Hat Advanced Cluster Management Hub, IBM Cloud, IBM Cloud Object Storage, Red Hat OpenShift Virtualization
+keywords: Red Hat Advanced Cluster Management Hub, IBM Cloud, IBM Cloud Object Storage, Red Hat OpenShift Virtualization, RHACM, OADP, Velero, MultiClusterHub recovery
 
 subcollection: virtualization-solutions
 
@@ -140,7 +140,7 @@ Create or select the {{site.data.keyword.cos_short}} bucket that stores RHACM ba
 3. Create or select a bucket whose resiliency matches the recovery objective.
 4. Record the bucket name, location, and the S3-compatible endpoint you plan to use.
 5. Create a Service ID credential with **Include HMAC Credential** enabled.
-6. Grant the Service ID the required {{site.data.keyword.cloud_notm}} IAM access to list, read, and write objects in the bucket.
+6. Grant the Service ID the required {{site.data.keyword.cloud_notm}} IAM access to list, read, write, and delete objects in the bucket. Use bucket-scoped Writer access or an equivalent policy that provides the required permissions.
 
 Example configuration values:
 
@@ -416,7 +416,7 @@ Confirm the following items before you take a recovery backup:
 - The referenced `Secret` exists.
 - The token is valid for the intended recovery window and has not expired.
 - The managed cluster was reachable when the token was created or refreshed.
-- The token `Secret` carries the RHACM backup label and is included in backup scope.
+- The token `Secret` carries the RHACM backup label. Verify that it is included in a completed backup after the backup is generated.
 - `ManagedCluster.spec.managedClusterClientConfigs` contains the managed-cluster API server information that automatic import requires.
 
 The default Managed Service Account token lifetime is tied to the backup time to live (TTL). Do not override `managedServiceAccountTTL` unless you have a specific requirement and understand the effect on token expiration across the backup retention period.
@@ -476,7 +476,7 @@ When you validate backup content, confirm completed backup outputs for these cor
 - `acm-resources-generic-schedule-<timestamp>`
 - `acm-resources-schedule-<timestamp>`
 
-Additional helper or validation schedules can appear depending on the installed RHACM version and configuration.Treat the RHACM `BackupSchedule` status and the applicable RHACM documentation as authoritative for the installed version.
+Additional helper or validation schedules can appear depending on the installed RHACM version and configuration. Treat the RHACM BackupSchedule status and the applicable RHACM documentation as authoritative for the installed version.
 
 ### Validation-policy backup
 {: #acm-hub-backup-step7-validation-policy}
@@ -558,13 +558,60 @@ Before you treat a backup as disaster-recovery ready, also verify:
 
 - `BackupStorageLocation/default` is `Available`.
 - The core RHACM backup outputs are `Completed`.
-- The Managed Service Account token `Secret` is present, valid, and included in the backup for imported clusters that must reconnect automatically.
+- The Managed Service Account token Secret exists and is valid.
+- The token Secret is included in the completed backup for each imported managed cluster that must reconnect automatically.
 - The backup repository is reachable from the intended recovery environment.
+
+To inspect the Managed Service Account and its token Secret reference, run:
+
+```bash
+oc get managedserviceaccount auto-import-account \
+  -n <MANAGED_CLUSTER_NAME> -o yaml
+```
+
+Retrieve the referenced token Secret name:
+
+```bash
+oc get managedserviceaccount auto-import-account \
+  -n <MANAGED_CLUSTER_NAME> \
+  -o jsonpath='{.status.tokenSecretRef.name}{"\n"}'
+```
+
+Verify the Secret exists and carries the expected backup label:
+
+```bash
+oc get secret <TOKEN_SECRET_NAME> \
+  -n <MANAGED_CLUSTER_NAME> \
+  -o jsonpath='{.metadata.name}{"\t"}{.metadata.labels.cluster\.open-cluster-management\.io/backup}{"\n"}'
+```
+
+Use the completed RHACM backup outputs and the applicable backup-scope configuration to confirm that the token Secret was actually captured. The label alone does not prove that the Secret is present in the backup.
 
 ## Step 9: Recover RHACM resources on the same Hub
 {: #acm-hub-backup-step9-same-hub-recovery}
 
 RHACM supports restoring data from an earlier backup on the same Hub. Use the RHACM-native `Restore.cluster.open-cluster-management.io` resource so that RHACM orchestrates the underlying Velero restore operations.
+
+Before starting the restore, pause the BackupSchedule and verify that it is paused. An enabled schedule prevents the restore from proceeding.
+
+Pause the schedule:
+
+```bash
+oc patch backupschedule acm-backup \
+  -n open-cluster-management-backup \
+  --type merge \
+  -p '{"spec":{"paused":true}}'
+```
+{: pre}
+Verify that the schedule is paused:
+
+```bash
+oc get backupschedule acm-backup \
+  -n open-cluster-management-backup \
+  -o jsonpath='{.spec.paused}{"\n"}'
+```
+{: pre}
+Expected result: true.
 
 For a controlled object-recovery test, use a noncritical resource in a dedicated test namespace so the restore can be narrowly scoped.
 
@@ -581,7 +628,6 @@ oc get policy <POLICY_NAME> \
 {: pre}
 
 Ensure that the resource is included in a completed backup before you delete it.
-
 Delete the test resource:
 
 ```bash
@@ -667,6 +713,30 @@ Also, verify that normal Hub operations continue to function correctly:
 
 Use scoped restore filters for same-Hub object recovery when possible. Restoring a historical resources backup without filters can change more Hub resources than the single object that you intended to recover.
 {: important}
+After validating recovery, resume the backup schedule only if this Hub is intended to remain active.
+
+If the `BackupSchedule` is affected by `BackupCollision`, do not simply unpause it. Follow the BackupCollision troubleshooting procedure, resolve the collision, and delete and recreate the affected schedule on the active Hub before resuming backups.
+{: important}
+
+Resume the schedule:
+```bash
+oc patch backupschedule acm-backup \
+  -n open-cluster-management-backup \
+  --type merge \
+  -p '{"spec":{"paused":false}}'
+```
+{: pre}
+
+Verify that the schedule is no longer paused:
+
+```bash
+oc get backupschedule acm-backup \
+  -n open-cluster-management-backup \
+  -o jsonpath='{.spec.paused}{"\n"}'
+```
+{: pre}
+
+The expected output is false. If the schedule is affected by a BackupCollision, follow the collision troubleshooting procedure before resuming backups.
 
 ## Step 10: Restore to a replacement RHACM Hub
 {: #acm-hub-backup-step10-replacement-hub}
@@ -881,9 +951,9 @@ oc get managedcluster <MANAGED_CLUSTER_NAME> \
 The wanted recovered state includes:
 
 ```text
-ImportSucceeded=True
-Joined=True
-Available=True
+ManagedClusterImportSucceeded=True
+ManagedClusterJoined=True
+ManagedClusterConditionAvailable=True
 ```
 {: screen}
 
@@ -949,6 +1019,9 @@ oc apply -f backup-schedule.yaml
 {: pre}
 
 If a valid `BackupSchedule` exists and is intentionally paused, enable it:
+
+If the `BackupSchedule` is affected by `BackupCollision`, do not simply unpause it. Follow the BackupCollision troubleshooting procedure, resolve the collision, and delete and recreate the affected schedule on the active Hub before resuming backups.
+{: important}
 
 ```bash
 oc patch backupschedule acm-backup \
@@ -1057,7 +1130,7 @@ oc get backupschedule -A
 ```
 {: pre}
 
-Before you resume backups, identify the valid active Hub. Stop, pause, or remove backup scheduling on the inactive Hub, then create or enable the `BackupSchedule` only on the active Hub.
+Before resuming backups, identify the valid active Hub and stop backup scheduling on the inactive Hub. Resolve the collision, then delete and recreate the affected `BackupSchedule` on the active Hub. Verify that the recreated schedule is healthy before resuming backups. Simply unpausing the existing collided schedule is not sufficient to resolve the condition.
 
 ### Managed cluster remains in `Pending Import`
 {: #acm-hub-backup-ts-pending-import}
@@ -1174,7 +1247,7 @@ Before you consider RHACM Hub backup and restore ready for use, confirm all appl
 {: #acm-hub-backup-ops-after-recovery}
 
 - Designate exactly one Hub as active.
-- Verify managed-cluster conditions, including `ImportSucceeded`, `Joined`, and `Available` where applicable.
+- Verify managed-cluster conditions: `ManagedClusterImportSucceeded`, `ManagedClusterJoined`, and `ManagedClusterConditionAvailable`.
 - Create or enable the `BackupSchedule` on the active replacement Hub.
 - Verify that a new backup set from the active Hub completes successfully.
 - Keep inactive Hubs from writing scheduled backups to the same repository.
