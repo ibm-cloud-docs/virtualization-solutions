@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-14"
+lastupdated: "2026-10-30"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: Red Hat OpenShift Virtualization, ROVS, ROKS, VPC, VSI, Veeam Backup & Replication, VBR, Cloud Object Storage, COS, Scale-out Backup Repository, SOBR, Disaster Recovery, VM recovery, File Level Recovery
@@ -45,7 +45,7 @@ Before you begin, help ensure that the following prerequisites are in place:
 
 - A {{site.data.keyword.redhat_openshift_notm}} cluster that is deployed with VM workloads to back up. The cluster must have the {{site.data.keyword.redhat_openshift_notm}} Virtualization operator installed and at least one running VM to use as a backup target during testing.
 - A Veeam Backup & Replication (VBR) server, version 13.1 or later, that is installed and configured with a Scale-out Backup Repository (SOBR) as the backup destination. The SOBR must include at least one performance tier (local block storage that is formatted as Resilient File System (`ReFS`) or object storage) and optionally a capacity tier that is backed by {{site.data.keyword.cos_full_notm}} for long-term retention.
-  - To deploy and set up your VBR server on {{site.data.keyword.vpc_short}}, see [Configuring Veeam Backup & Replication for IBM Cloud VPC virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-veeam-vbr-vpc-vsi-configuration).
+- To deploy and set up your VBR server on {{site.data.keyword.vpc_short}}, see [Configuring Veeam Backup & Replication for IBM Cloud VPC virtual servers](/docs/virtualization-solutions?topic=virtualization-solutions-veeam-vbr-vpc-vsi-configuration).
 - Open network ports for Veeam backup and restore operations, as described in the [Veeam Ports documentation](https://helpcenter.veeam.com/docs/vbr/userguide/plan_and_manage_used_ports.html){: external}. Firewall rules must permit the required traffic between VBR, the Veeam KubeVirt Proxy (VKP), and the {{site.data.keyword.redhat_openshift_notm}} worker nodes, as described in Veeam's [Ports used by Veeam KubeVirt Proxy](https://helpcenter.veeam.com/docs/vbr/userguide/vkp_ports.html){: external}. VBR connects to VKP over port `443`.
 - The Veeam KubeVirt plug-in installer that is downloaded from [Veeam's download page](https://www.veeam.com/products/data-platform-trial-download.html?tab=virtualization-plugins){: external}.
 
