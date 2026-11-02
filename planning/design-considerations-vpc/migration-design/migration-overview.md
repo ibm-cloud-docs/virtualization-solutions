@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-06"
+lastupdated: "2026-10-30"
 
 keywords: VMware VPC migration, migrate VMware to VPC, IBM Cloud VPC migration, VMware Cloud Foundation migration, VCF to VPC, VMware workload migration, RackWare RMM migration, VCFaaS to VPC migration, managed migration service IBM Cloud, IBM Cloud VMware migration strategy
 
@@ -36,7 +36,7 @@ To learn more about the general migration principles, see the following links.
 * [Pre-migration design decisions](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-premigration)
 * [Wave planning and execution design](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-wave)
 * [Post-migration validation and optimization](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-post)
-* [Risk mitigation and rollback strategies](/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-vpc-migration-design-risk)
+
 
 ## DIY migration
 {: #virt-sol-vpc-migration-design-migration-diy}

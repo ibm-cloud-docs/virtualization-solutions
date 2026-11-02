@@ -2,7 +2,7 @@
 
 copyright:
    years: 2026
-lastupdated: "2026-10-29"
+lastupdated: "2026-10-30"
 
 keywords: Red Hat Advanced Cluster Management Hub, IBM Cloud, IBM Cloud Object Storage, Red Hat OpenShift Virtualization, RHACM, OADP, Velero, MultiClusterHub recovery
 
@@ -603,6 +603,7 @@ oc patch backupschedule acm-backup \
   -p '{"spec":{"paused":true}}'
 ```
 {: pre}
+
 Verify that the schedule is paused:
 
 ```bash
@@ -611,6 +612,7 @@ oc get backupschedule acm-backup \
   -o jsonpath='{.spec.paused}{"\n"}'
 ```
 {: pre}
+
 Expected result: true.
 
 For a controlled object-recovery test, use a noncritical resource in a dedicated test namespace so the restore can be narrowly scoped.
@@ -713,6 +715,7 @@ Also, verify that normal Hub operations continue to function correctly:
 
 Use scoped restore filters for same-Hub object recovery when possible. Restoring a historical resources backup without filters can change more Hub resources than the single object that you intended to recover.
 {: important}
+
 After validating recovery, resume the backup schedule only if this Hub is intended to remain active.
 
 If the `BackupSchedule` is affected by `BackupCollision`, do not simply unpause it. Follow the BackupCollision troubleshooting procedure, resolve the collision, and delete and recreate the affected schedule on the active Hub before resuming backups.
