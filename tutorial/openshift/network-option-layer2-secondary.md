@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-27"
+lastupdated: "2026-11-03"
 lasttested: "[{LAST_TESTED_DATE}]"
 
 keywords: layer 2 secondary, user defined network, OVN-Kubernetes, KubeVirt, rsync, isolated network, ROKS, ROVS, Red Hat OpenShift Virtualization, ibmcloud cli
@@ -50,7 +50,7 @@ Two Fedora VMs (`silver-app01` as the source and `silver-app02` as the destinati
 
 | Interface | Network | Type | Subnet | Purpose |
 |---|---|---|---|---|
-| `enp1s0` | `vlan123-silver` | Localnet (virtual LAN (VLAN) 123) | `10.123.4.0/24` | VPC-routable: management, web |
+| `enp1s0` | `vlan123-silver` | Localnet (VLAN 123) | `10.123.4.0/24` | VPC-routable: management, web |
 | `enp2s0` | `l2-rsync-silver` | Layer 2 Secondary | `10.45.67.0/24` | Isolated overlay: only rsync |
 {: caption="Interface and network layout for silver virtual machines" caption-side="bottom"}
 
@@ -866,7 +866,7 @@ The resource is `multi-networkpolicies`, with a hyphen, in the API group `k8s.cn
 ### 8.2: Apply the policy
 {: #layer2-secondary-apply-policy}
 
-A policy can allow traffic but cannot explicitly deny it. After a policy selects a VM, all traffic that the policy does not allow is dropped. The following policy allows only SSH (Transmission Control Protocol (TCP) port 22) into the VMs over the Layer 2 Secondary. This policy keeps rsync working and blocks Hypertext Transfer Protocol (HTTP) and pings on that network:
+A policy can allow traffic but cannot explicitly deny it. After a policy selects a VM, all traffic that the policy does not allow is dropped. The following policy allows only SSH (TCP port 22) into the VMs over the Layer 2 Secondary. This policy keeps rsync working and blocks HTTP and ping requests on that network:
 
 ```sh
 cat <<'EOF' | oc apply -f -
@@ -928,7 +928,7 @@ ping -c 3 -W 2 10.45.67.12
 ```
 {: codeblock}
 
-Expected result: 100% packet loss. The policy allows only `TCP 22`, so Internet Control Message Protocol (ICMP) is dropped.
+Expected result: 100% packet loss. The policy allows only `TCP 22`, so ICMP is dropped.
 
 #### Test D: HTTP over the Localnet is unaffected
 {: #layer2-secondary-test-d}
