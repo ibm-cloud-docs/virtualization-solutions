@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-09"
+lastupdated: "2026-11-05"
 
 keywords: VMware to VPC migration design, IBM Cloud VPC migration planning, hypervisor differences VMware VPC, VPC networking Layer 3, VPC storage migration design, migration methods comparison IBM Cloud, virt-v2v migration VPC, VDDK migration VPC, VMware workload migration IBM Cloud, VPC migration design overview
 
@@ -12,7 +12,7 @@ subcollection: virtualization-solutions
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Designing your VMware migration to {{site.data.keyword.cloud_notm}} VPC
+# Designing your VMware migration to IBM Cloud VPC
 {: #virt-sol-vpc-migration-design-design-overview}
 
 Understand {{site.data.keyword.cloud_notm}} VPC networking, storage, and hypervisor differences from VMware to plan a successful migration design and workload placement strategy.
