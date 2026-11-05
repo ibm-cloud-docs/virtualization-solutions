@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-11-03"
+lastupdated: "2026-11-05"
 
 keywords: NFS storage OpenShift Virtualization IBM Cloud, IBM Cloud File Storage VPC OpenShift, configure NFS persistent volumes OpenShift IBM Cloud, File Storage for VPC virtualization, OpenShift Virtualization NFS storage class, live migration NFS IBM Cloud, ReadWriteMany storage OpenShift IBM Cloud, NFS StorageClass ROKS, File Storage VPC OpenShift Virtualization IBM Cloud, persistent volumes NFS OpenShift IBM Cloud
 
@@ -1526,6 +1526,7 @@ oc get pods -n kube-system | grep vpc-file-csi
 oc delete pod <csi-pod-name> -n kube-system
 ```
 {: codeblock}
+
 3. Resource group mismatch
 
 Solution: If your cluster and VPC are in different resource groups, create a custom StorageClass with the VPC resource group ID.
@@ -1624,8 +1625,11 @@ Symptoms:
 Common causes:
 
 1. Security group misconfiguration
+
 Solution: Verify that the file share is in the correct security group (`kube-<clusterID>`).
+
 2. Network connectivity issues
+
 Solution: Verify that worker nodes can reach the file share mount target IP address.
 
 #### Storage performance is degraded
