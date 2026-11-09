@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-11-05"
+lastupdated: "2026-11-09"
 
 keywords: VMware to VPC migration design, IBM Cloud VPC migration planning, hypervisor differences VMware VPC, VPC networking Layer 3, VPC storage migration design, migration methods comparison IBM Cloud, virt-v2v migration VPC, VDDK migration VPC, VMware workload migration IBM Cloud, VPC migration design overview
 
@@ -133,4 +133,4 @@ Refer to the following resources:
 - [VPC solution tutorials](/docs?tab=solutions)
 - [Libguestfs and virt-v2v](https://libguestfs.org/){: external}
 - [{{site.data.keyword.redhat_full}} Migration Toolkit for Virtualization](https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.11){: external}
-- [VMware VDDK documentation](https://developer.broadcom.com/sdks/vmware-virtual-disk-development-kit-vddk/7.0){: external}
+- [Unable to download VMware VDDK images for Migration Toolkit for Virtualization (MTV)](https://access.redhat.com/solutions/7146995){: external} There is no public access to the VMware Virtual Disk Development Kit (VDDK) download pages and the software is restricted exclusively to authorized partners and active Technology Alliance Program (TAP) accounts.
